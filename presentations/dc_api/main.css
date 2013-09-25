@@ -243,4 +243,21 @@
 .slide_wrapper {
 	margin-top: 10px !important;
 }
-	
+
+#get_request { 
+	text-align:center;
+	line-height:2em;
+}
+
+#dominos { 
+	margin-top:100px;
+}
+
+#information { 
+	margin-top:100px; 
+	text-align:center;
+}
+
+#slide8 {
+	text-align:center;
+}
