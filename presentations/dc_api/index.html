@@ -2,7 +2,6 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=1024, user-scalable=no">
 
 	<title>Communicating APIs to Non-Techies</title>
@@ -46,15 +45,15 @@
 	<div class="slide_wrapper">
 		<div class="col1"><img src="images/raven.png" alt="Text of Poe's The Raven" /></div>
 		<div class="col2">
-			<code>&ltxml&gt<br />
-			&ltpoem&gt<br />
-			&ltstanza&gt<br />
-			&ltline&gtOnce upon a midnight dreary, while I pondered, weak and weary,&lt/line&gt<br />
-			&ltline&gtOver many a quaint and curious volume of forgotten lore--&lt/line&gt<br />
+			<code>&lt;xml&gt;<br />
+			&lt;poem&gt;<br />
+			&lt;stanza&gt;<br />
+			&lt;line&gt;Once upon a midnight dreary, while I pondered, weak and weary,&lt;/line&gt;<br />
+			&lt;line&gt;Over many a quaint and curious volume of forgotten lore--&lt;/line&gt;<br />
 			...<br />
-			&lt/stanza&gt<br />
-			&lt/poem&gt<br />
-			&lt/xml&gt</code>
+			&lt;/stanza&gt;<br />
+			&lt;/poem&gt;<br />
+			&lt;/xml&gt;</code>
 		</div>
 	</div>
 </section>
@@ -63,18 +62,18 @@
 	<div class="slide_header">Explain Structured Data</div>
 	<div class="slide_wrapper">
 		<div class="col1">
-			<code>OCsNzmwm/Uzxh/6r`LgW!<br />v&;&|2BB)7}vhVq.!Agw^g)@<br ?>2j{xjzey*|lY;.2!F(........</code>		
+			<code>OCsNzmwm/Uzxh/6r`LgW!<br />v&amp;&amp;|2BB)7}vhVq.!Agw^g)@<br />2j{xjzey*|lY;.2!F(........</code>		
 		</div>
 		<div class="col2">
-			<code>&ltxml&gt<br />
-				&ltpoem&gt<br />
-				&ltstanza&gt<br />
-				&ltline&gtOnce upon a midnight dreary, while I pondered, weak and weary,&lt/line&gt<br />
-				&ltline&gtOver many a quaint and curious volume of forgotten lore--&lt/line&gt<br />
+			<code>&lt;xml&gt;<br />
+				&lt;poem&gt;<br />
+				&lt;stanza&gt;<br />
+				&lt;line&gt;Once upon a midnight dreary, while I pondered, weak and weary,&lt;/line&gt;<br />
+				&lt;line&gt;Over many a quaint and curious volume of forgotten lore--&lt;/line&gt;<br />
 				...<br />
-				&lt/stanza&gt<br />
-				&lt/poem&gt<br />
-				&lt/xml&gt</code>
+				&lt;/stanza&gt;<br />
+				&lt;/poem&gt;<br />
+				&lt;/xml&gt;</code>
 		</div>
 	</div>
 </section>
@@ -82,7 +81,7 @@
 <section class="slide" id="slide3">
 	<div class="slide_header">Start With Queries</div>
 	<div class="slide_wrapper">
-		<div id="get_request">GET www.poe.com/api/poems/raven <br />V<br /><code>&ltxml&gt&ltpoem&gt&ltstanza&gt&ltline&gtOnce upon a midnight dreary, while I pondered, weak and weary,&lt/line&gt........</code></div>
+		<div id="get_request">GET www.poe.com/api/poems/raven <br />V<br /><code>&lt;xml&gt;&lt;poem&gt;&lt;stanza&gt;&lt;line&gt;Once upon a midnight dreary, while I pondered, weak and weary,&lt;/line&gt;........</code></div>
 	</div>
 </section>
 
@@ -93,7 +92,7 @@
 
 <section class="slide" id="slide5">
 	<div class="slide_header">Draw It Out</div>
-	<div class="slide_wrapper"><img src="images/dio_2.png" alt="User fails to authenticate against API" /><br /><img src="images/dio_3.png" alt="API call is not appropriate"</div>
+	<div class="slide_wrapper"><img src="images/dio_2.png" alt="User fails to authenticate against API" /><br /><img src="images/dio_3.png" alt="API call is not appropriate"></div>
 </section>
 
 <section class="slide" id="slide6">
