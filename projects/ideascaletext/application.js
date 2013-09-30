@@ -1,0 +1,1 @@
+window.ISText = Ember.Application.create();
