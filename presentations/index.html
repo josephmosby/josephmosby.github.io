@@ -5,11 +5,3 @@ layout: default
 <ul class="presentations">
 	<li><span>DC API Meetup | 09.26.13</span> &raquo; <a href="/presentations/dc_api/index.html">A Structured Approach to an Unstructured Problem: Communicating APIs to Non-Techies</a></li>
 </ul>
-	
-
-<h3>Posts</h3>
-<ul class="posts">
-	{% for post in site.posts %}
-		<li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-	{% endfor %}
-</ul>
