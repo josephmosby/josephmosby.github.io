@@ -1,15 +1,54 @@
 ---
 layout: default
 ---
-<h3>Presentations</h3>
-<ul class="presentations">
-	<li><span>DC API Meetup | 09.26.13</span> &raquo; <a href="/presentations/dc_api/index.html">A Structured Approach to an Unstructured Problem: Communicating APIs to Non-Techies</a></li>
-</ul>
-	
+    <script>
+    	$(document).ready(function(){
+    	
+    		setTimeout(function() {
+    			$("#development_link").fadeIn();}, 1000);
+    		setTimeout(function() {	
+    			$("#security_link").fadeIn();}, 2000);
+    		setTimeout(function() {	
+    			$("#digital_link").fadeIn();}, 3000);
+    		
+    		setTimeout(function() {
+    			$("#about_link").fadeIn();}, 5000);
+    		
+    		$("#development_link").hover(function(){
+    			$('#development_text').fadeIn();
+			},function(){
+    			$('#development_text').hide();
+			});
+			
+    		$("#security_link").hover(function(){
+    			$('#security_text').fadeIn();
+			},function(){
+    			$('#security_text').hide();
+			});
 
-<h3>Posts</h3>
-<ul class="posts">
-	{% for post in site.posts %}
-		<li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-	{% endfor %}
-</ul>
+    		$("#digital_link").hover(function(){
+    			$('#digital_text').fadeIn();
+			},function(){
+    			$('#digital_text').hide();
+			});	
+								
+    		$("#about_link").hover(function(){
+    			$('#about_text').fadeIn();
+			},function(){
+    			$('#about_text').hide();
+			});	
+		});
+	</script>
+			<a id="screen_reader" href="/sitemap">Hello to my friends using screen readers! I apologize for some of the headaches I suspect my homepage may cause. To skip the mess, I've created a sitemap for you if you click this link!</a>
+    		<div id="home_text_wrapper">
+    			<div id="development_text" class="home_text">development</div>
+    			<div id="security_text" class="home_text">security</div>
+    			<div id="digital_text" class="home_text">digital</div>
+    			<div id="about_text" class="home_text">me</div>
+    		</div>
+      		<div id="home_links">
+    			<a id="development_link" href="/development" class="link_dot" alt="development"></a>
+    			<a id="security_link" href="/security" class="link_dot" alt="security"></a>
+    			<a id="digital_link" href="/digital" class="link_dot" alt="security"></a>
+      		</div>
+      		<a id="about_link" href="/about" class="link_dot" alt="about"></a>
