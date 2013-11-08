@@ -1,44 +1,7 @@
 ---
 layout: default
 ---
-    <script>
-    	$(document).ready(function(){
-    	
-    		setTimeout(function() {
-    			$("#development_link").fadeIn();}, 1000);
-    		setTimeout(function() {	
-    			$("#security_link").fadeIn();}, 2000);
-    		setTimeout(function() {	
-    			$("#digital_link").fadeIn();}, 3000);
-    		
-    		setTimeout(function() {
-    			$("#about_link").fadeIn();}, 5000);
-    		
-    		$("#development_link").hover(function(){
-    			$('#development_text').fadeIn();
-			},function(){
-    			$('#development_text').hide();
-			});
-			
-    		$("#security_link").hover(function(){
-    			$('#security_text').fadeIn();
-			},function(){
-    			$('#security_text').hide();
-			});
 
-    		$("#digital_link").hover(function(){
-    			$('#digital_text').fadeIn();
-			},function(){
-    			$('#digital_text').hide();
-			});	
-								
-    		$("#about_link").hover(function(){
-    			$('#about_text').fadeIn();
-			},function(){
-    			$('#about_text').hide();
-			});	
-		});
-	</script>
 			<a id="screen_reader" href="/sitemap">Hello to my friends using screen readers! I apologize for some of the headaches I suspect my homepage may cause. To skip the mess, I've created a sitemap for you if you click this link!</a>
     		<div id="home_text_wrapper">
     			<div id="development_text" class="home_text">development</div>
@@ -52,3 +15,21 @@ layout: default
     			<a id="digital_link" href="/digital" class="link_dot" alt="security"></a>
       		</div>
       		<a id="about_link" href="/about" class="link_dot" alt="about"></a>
+      		
+	<script>
+    	$(document).ready(function() {
+    		var cook = getCookie('seen');
+    		alert(cook);
+    		if (cook == 'true') {
+    			dots = document.getElementsByClassName('link_dot');
+    			for (i=0; i<dots.length; i++) {
+    				dots[i].style.display='block';
+    			}
+    		} else {
+    			animateIntro();
+    		}
+    	
+    		setCookie('seen', 'true', 1);
+    	});
+    	
+	</script>
