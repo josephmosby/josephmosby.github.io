@@ -10,16 +10,15 @@ layout: default
     			<div id="about_text" class="home_text">me</div>
     		</div>
       		<div id="home_links">
-    			<a id="development_link" href="/development" class="link_dot" alt="development"></a>
-    			<a id="security_link" href="/security" class="link_dot" alt="security"></a>
-    			<a id="digital_link" href="/digital" class="link_dot" alt="security"></a>
+    			<a id="development_link" href="/development" class="link_dot home_dot" alt="development"></a>
+    			<a id="security_link" href="/security" class="link_dot home_dot" alt="security"></a>
+    			<a id="digital_link" href="/digital" class="link_dot home_dot" alt="security"></a>
       		</div>
-      		<a id="about_link" href="/about" class="link_dot" alt="about"></a>
+      		<a id="about_link" href="/about" class="link_dot home_dot" alt="about"></a>
       		
 	<script>
     	$(document).ready(function() {
     		var cook = getCookie('seen');
-    		alert(cook);
     		if (cook == 'true') {
     			dots = document.getElementsByClassName('link_dot');
     			for (i=0; i<dots.length; i++) {
