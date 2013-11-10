@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <script src="/javascripts/jquery-1.10.js"></script>
     <script src="/javascripts/mainscript.js"></script>
+    <script>
+    	$(document).ready(function() {
+    		addMenuText("#home_menu_dot");
+    		addMenuText("#dev_menu_dot");
+    		addMenuText("#security_menu_dot");
+    		addMenuText("#digital_menu_dot");
+    		addMenuText("#about_menu_dot");
+    	});
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -18,11 +28,11 @@
     	<div class="wrapper">
     	<div id="navbar">
     		<ul>
-    			<li><a class="link_dot" href="/" alt="home"></a></li>
-    			<li><a class="link_dot" href="/development" alt="development"></a></li>
-    			<li><a class="link_dot" href="/security" alt="security"></a></li>
-    			<li><a class="link_dot" href="/digital" alt="digital"></a></li>
-    			<li><a class="link_dot" href="/about" alt="about"></a></li>
+    			<li><a class="link_dot" href="/" alt="home" id="home_menu_dot" ></a></li>
+    			<li><a class="link_dot" href="/development" alt="development" id="dev_menu_dot"></a></li>
+    			<li><a class="link_dot" href="/security" alt="security" id="security_menu_dot"></a></li>
+    			<li><a class="link_dot" href="/digital" alt="digital" id="digital_menu_dot"></a></li>
+    			<li><a class="link_dot" href="/about" alt="about" id="about_menu_dot"></a></li>
     		</ul>
     	</div>
   		{{ content }}

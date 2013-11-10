@@ -34,6 +34,34 @@ function animateIntro() {
 		});	
 }
 
+function addMenuText(link_id) {
+	$(link_id).hover(function() {
+		$(link_id).addClass("menu_text");
+		$(link_id).removeClass("link_dot");
+		switch(link_id) {
+			case "#home_menu_dot":
+				$(link_id).html("home");
+				break;
+			case "#dev_menu_dot":
+				$(link_id).html("development");
+				break;
+			case "#security_menu_dot":
+				$(link_id).html("security");
+				break;
+			case "#digital_menu_dot":
+				$(link_id).html("digital");
+				break;
+			case "#about_menu_dot":
+				$(link_id).html("about");
+				break;
+		}
+	}, function() {
+		$(link_id).addClass("link_dot");
+		$(link_id).removeClass("menu_text");
+		$(link_id).empty();
+	});
+}
+
 function setCookie(c_name, value, exdays) {
 	var exdate = new Date();
 	exdate.setDate(exdate.getDate() + exdays);
