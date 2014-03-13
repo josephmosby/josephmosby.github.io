@@ -10,7 +10,7 @@ Prior to this, I worked with Routeam to build version 1.0 of their Ruby on Rails
 I've also been active in the federal government's IT world since 2011, first working with agencies as a cybersecurity consultant for Deloitte and now an active participant in the open data and social government communities. I've worked with the largest computing infrastructures in the world with some of the greatest possible security and availability concerns, and did it all while considering those effects on their business as a CPA. 
 
 Want to know more? Let's get in touch:
-*[Github](http://github.com/josephmosby)
-*[Email](mailto:josephmosby@gmail.com)
-*[Twitter](http://twitter.com/josephmosby)
-*[LinkedIn](http://www.linkedin.com/pub/joseph-mosby/50/a85/59a)
+* [Github](http://github.com/josephmosby)
+* [Email](mailto:josephmosby@gmail.com)
+* [Twitter](http://twitter.com/josephmosby)
+* [LinkedIn](http://www.linkedin.com/pub/joseph-mosby/50/a85/59a)
