@@ -48,9 +48,20 @@ body {
 	list-style-type:none;
 }
 
+.sidebar ul li a {
+	color:#000000;
+	text-decoration:none;
+}
+
+.sidebar ul li a:hover {
+	font-style:italic;
+	font-weight:700;
+}
+
 /* Body Content */
 
 .content {
 	width:80%;
+	float:right;
 }
 
