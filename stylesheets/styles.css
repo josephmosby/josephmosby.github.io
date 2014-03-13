@@ -143,6 +143,7 @@ td {
 
 .image_holder {
 	box-shadow: 0px 0px 5px 0px #fdfdfd;
+	text-align:center;
 }
 
 .needs_fill {
