@@ -1,34 +1,59 @@
----
-layout: default
----
-
-			<a id="screen_reader" href="/sitemap">Hello to my friends using screen readers! I apologize for some of the headaches I suspect my homepage may cause. To skip the mess, I've created a sitemap for you if you click this link!</a>
-    		<div id="home_text_wrapper">
-    			<div id="development_text" class="home_text">development</div>
-    			<div id="security_text" class="home_text">security</div>
-    			<div id="digital_text" class="home_text">digital</div>
-    			<div id="about_text" class="home_text">me</div>
-    		</div>
-      		<div id="home_links">
-    			<a id="development_link" href="/development" class="link_dot home_dot" alt="development"></a>
-    			<a id="security_link" href="/security" class="link_dot home_dot" alt="security"></a>
-    			<a id="digital_link" href="/digital" class="link_dot home_dot" alt="security"></a>
-      		</div>
-      		<a id="about_link" href="/about" class="link_dot home_dot" alt="about"></a>
-      		
+<!doctype html>
+<html>
+	<head>
+	
+	<title>josephmosby.com</title>
+	<meta charset="utf-8" />
+	
+	<link rel="stylesheet" href="./stylesheets/style.css">
+	
+	<!--[if lt IE9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	</head>
+	
+	<body>
+		
+		<div class="title">
+			<div id="top_title">Joseph Mosby</div>
+			<div id="bottom_title">has ideas for the Internet</div>
+		</div>
+		
+		<div class="wrapper">
+		<div class="sidebar">
+			<ul>
+				<a href="/"><li>about</li></a>
+				<a href="/portfolio"><li>portfolio</li></a>
+				<a href="/resources/resume.doc"><li>résumé</li></a>
+				<a href="/blog"><li>blog</li></a>
+			</ul>
+		</div>
+		
+		<div class="content">
+			<!-- {{ content }} -->
+			
+			This is some dummy content.
+		</div>
+		
+		</div>
+	
+	</body>
+	
 	<script>
-    	$(document).ready(function() {
-    		var cook = getCookie('seen');
-    		if (cook == 'true') {
-    			dots = document.getElementsByClassName('link_dot');
-    			for (i=0; i<dots.length; i++) {
-    				dots[i].style.display='block';
-    			}
-    		} else {
-    			animateIntro();
-    		}
-    	
-    		setCookie('seen', 'true', 1);
-    	});
-    	
-	</script>
+	
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45638065-1', 'josephmosby.com');
+  ga('send', 'pageview');
+  
+  	</script>
+  	
+  	<script>
+  	
+  	var _spinnakr_site_id='133278057';
+  	(function(d,t,a){var g=d.createElement(t), s=d.getElementsByTagName(t)[0];g[a]=a;g.src='//s5.spn.ee/js/so.js'; s.parentNode.insertBefore(g,s)}(document,'script','async'));
+  	
+  	</script> 
