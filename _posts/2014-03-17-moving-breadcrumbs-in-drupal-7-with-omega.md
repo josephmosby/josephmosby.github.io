@@ -23,7 +23,20 @@ First things first - I'm assuming you're running Drupal 7 with Omega 3.x, and th
 
 Drop that folder into the templates folder of your new theme, but rename it zone--preface.tpl.php (substitute preface for the zone of your choosing, natch). This will alert the preface zone that it should expect breadcrumbs. Don't be distracted by the `<?php print $content; ?>` statement - Drupal uses that `$content` variable for every zone, not just the content zone. 
 
-Then make a second copy of the zone--content.tpl.php file, place it in your theme's template folder, but keep the name the same this time. We're going to now strike the breadcrumb logic out of our new zone--content file so we don't have double breadcrumbs. 
+You're going to need to strike the `$messages` section out of this, as we don't need our Drupal error messages to pop up in two sections. Modify your new zone--preface.tpl.php file so it looks like this: 
+
+```php
+<?php if ($wrapper): ?><div<?php print $attributes; ?>><?php endif; ?>  
+  <div<?php print $content_attributes; ?>>    
+    <?php if ($breadcrumb): ?>
+      <div id="breadcrumb" class="grid-<?php print $columns; ?>"><?php print $breadcrumb; ?></div>
+    <?php endif; ?>    
+    <?php print $content; ?>
+  </div>
+<?php if ($wrapper): ?></div><?php endif; ?>
+```
+
+Next, make a second copy of the zone--content.tpl.php file, place it in your theme's template folder, but keep the name the same this time. We're going to now strike the breadcrumb logic out of our new zone--content file so we don't have double breadcrumbs. 
 
 ```php
 <?php if ($wrapper): ?><div<?php print $attributes; ?>><?php endif; ?>  
