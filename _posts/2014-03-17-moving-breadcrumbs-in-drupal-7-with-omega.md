@@ -3,7 +3,7 @@ layout: default
 title: Moving Breadcrumbs in Drupal 7 with Omega
 ---
 
-I recently had a client site that required me to move my Drupal breadcrumbs from one Omega zone to another, and I was absolutely stumped on how to do it. After much hacking around with template files with no success, I finally stumbled upon [this post]("http://www.webbykat.com/2012/09/moving-breadcrumbs-zone-content-region-content-omega-drupal-7") by Katharine Ruhl (who I learned was a DC resident while writing this post, awesome) where she described moving her breadcrumbs from the content zone to the content region. I adapted her approach to move my breadcrumbs to a new zone entirely. 
+I recently had a client site that required me to move my Drupal breadcrumbs from one Omega zone to another, and I was absolutely stumped on how to do it. After much hacking around with template files with no success, I finally stumbled upon [this post](http://www.webbykat.com/2012/09/moving-breadcrumbs-zone-content-region-content-omega-drupal-7) by Katharine Ruhl (who I learned was a DC resident while writing this post, awesome) where she described moving her breadcrumbs from the content zone to the content region. I adapted her approach to move my breadcrumbs to a new zone entirely. 
 
 First things first - I'm assuming you're running Drupal 7 with Omega 3.x, and this tutorial is from that vantage point. To get things started off, we dive into the default Omega theme folder and pull out the zone--content.tpl.php file. That file will look a lot like this:
 
@@ -41,6 +41,7 @@ And that's all we need to do for the templates! We've now overridden two templat
 Omega appears to have the `$breadcrumb` variable hard-coded into the content zone, so we need to write an extra function to alert our `zone--preface.tpl.php` file to expect a `$breadcrumb`. Create a file in the preprocess folder of your theme and name it `preprocess-zone.inc`. Omega will see this as extra logic that it needs to incorporate before processing the theme. Type this function into that file:
 
 ```php
+<?php
 
 function thisisyourthemename_alpha_preprocess_zone(&$vars) {
 	$theme = alpha_get_theme();
