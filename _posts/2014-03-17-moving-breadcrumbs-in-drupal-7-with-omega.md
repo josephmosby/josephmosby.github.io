@@ -41,7 +41,6 @@ And that's all we need to do for the templates! We've now overridden two templat
 Omega appears to have the `$breadcrumb` variable hard-coded into the content zone, so we need to write an extra function to alert our `zone--preface.tpl.php` file to expect a `$breadcrumb`. Create a file in the preprocess folder of your theme and name it `preprocess-zone.inc`. Omega will see this as extra logic that it needs to incorporate before processing the theme. Type this function into that file:
 
 ```php
-<?php
 
 function thisisyourthemename_alpha_preprocess_zone(&$vars) {
 	$theme = alpha_get_theme();
