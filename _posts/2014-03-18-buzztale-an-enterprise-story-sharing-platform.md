@@ -9,7 +9,7 @@ I've been experimenting with [Buzztale](http://www.buzztale.com) over the past f
 
 Buzztale has thought through their audience well. Each story comes pre-built with an embeddable widget like this one below:
 
-<div id="latte-24d471" style="width:510px;height:600px;margin:0 auto;"></div><script async src="http://buzztale.com/b969e0/24d471/embed.js" type="text/javascript"></script>
+<div id="latte-24d471" style="width:510px;height:600px;margin:0 auto;"></div><script src="http://buzztale.com/b969e0/24d471/embed.js" type="text/javascript"></script>
 
 1. In the first frame, I easily joined Kate Jackson's story to view her content and could have added my own.
 2. In the second, I took a screenshot of their well-designed mobile interface. 
