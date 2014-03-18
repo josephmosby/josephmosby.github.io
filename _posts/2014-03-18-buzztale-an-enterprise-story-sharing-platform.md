@@ -30,7 +30,7 @@ Buzztale looks and feels fantastic, and I'd use it as event coverage without a s
 * I need more Twitter functionality - specifically, I'd like to add tweets from a particular account or @-replies to a user.
 * I'd like to be able to add certain content from the desktop. The mobile version is perfect, but I also want to be able to upload pictures and type notes as well. 
 * Recap and "about this page" text boxes to introduce the story would be excellent. 
-* Customizable URLs. The story from the widget above can be found at http://www.buzztale.com/b969e0/24d471. 
+* Customizable URLs. The story from the widget above can be found at [http://www.buzztale.com/b969e0/24d471](http://www.buzztale.com/b969e0/24d471). 
 
 This team has a lot of potential, though, and I'm sure many of my requests are in their pipeline. They just signed their first big pilot customer in [Tele2](http://www.tele2.com), a European telecommunications provider, and have the backing of Europe's [Seedcamp](http://www.seedcamp.com) and [Startup Sauna](http://www.startupsauna.com). I'm excited to see where they go, and will look forward to my first event to put them to a live test.
 
