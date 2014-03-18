@@ -13,6 +13,10 @@ Buzztale has thought through their audience well. Each story comes pre-built wit
 
 </div>
 
+<script src="http://buzztale.com/b969e0/24d471/embed.js" type="text/javascript">
+
+</script>
+
 1. In the first frame, I easily joined Kate Jackson's story to view her content and could have added my own.
 2. In the second, I took a screenshot of their well-designed mobile interface. 
 3. I've added a nice picture here with a caption from my phone.
@@ -31,4 +35,3 @@ Buzztale looks and feels fantastic, and I'd use it as event coverage without a s
 This team has a lot of potential, though, and I'm sure many of my requests are in their pipeline. They just signed their first big pilot customer in [Tele2](http://www.tele2.com), a European telecommunications provider, and have the backing of Europe's [Seedcamp](http://www.seedcamp.com) and [Startup Sauna](http://www.startupsauna.com). I'm excited to see where they go, and will look forward to my first event to put them to a live test.
 
 [Buzztale.com](http://www.buzztale.com)
-
