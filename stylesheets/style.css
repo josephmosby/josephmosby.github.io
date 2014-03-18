@@ -14,11 +14,11 @@ body {
 a {
 	color:#000000;
 	text-decoration:none;
+	font-style:italic;
 }
 
 a:hover {
-	font-style:italic;
-	font-weight:700;
+	text-decoration:underline;
 }
 
 /* Title */
@@ -56,6 +56,16 @@ a:hover {
 
 .sidebar ul li {
 	list-style-type:none;
+}
+
+.sidebar ul li a {
+	font-style:normal;
+}
+
+.sidebar ul li a:hover {
+	font-style:italic;
+	font-weight:700;
+	text-decoration:none;
 }
 
 /* Body Content */
