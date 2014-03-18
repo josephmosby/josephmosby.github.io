@@ -30,4 +30,3 @@ This team has a lot of potential, though, and I'm sure many of my requests are i
 
 [Buzztale.com](http://www.buzztale.com)
 
-<script src="http://buzztale.com/b969e0/24d471/embed.js" type="text/javascript"></script>
