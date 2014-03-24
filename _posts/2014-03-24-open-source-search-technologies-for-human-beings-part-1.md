@@ -25,11 +25,11 @@ We'll then add these keyword/document pairings into our main index, which contai
 
 ![Table of keyword/document pairings that contains NFL and MLS references](/images/index2.png)
 
-Our user will search for a term - in this case, football - and our search engine will return the documents that correspond to that term in our index.
+When a user searches for a term, the search engine will check the index and return the documents that correspond to that term. In this example, our user has searched for "football."
 
 ![Input box prompting user to search. The user has entered "football" into the input box.](/images/search.png)
 
-Our search engine will return a single result from the index. The search term "football" only corresponds to a single entry in the index, the NFL.doc document.
+Our example index only has a single entry for the word "football" - the NFL.doc document - and so our search engine returns that document to the user.
 
 ![Table showing a single keyword/document pairing that matches the word football with NFL.doc](/images/single_search_result.png)
 
