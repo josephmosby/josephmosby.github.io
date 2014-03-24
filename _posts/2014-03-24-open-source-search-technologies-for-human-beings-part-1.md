@@ -33,4 +33,4 @@ Our search engine will return a single result from the index. The search term "f
 
 ![Table showing a single keyword/document pairing that matches the word football with NFL.doc](/images/single_search_result.png)
 
-And that's the core of a search engine! In Part 2 I'll talk a little bit about Lucene, the nuts and bolts of both Solr and Elasticsearch. In Part 3, I'll compare the two pieces of software to show how they each bring search technology to life for the web. 
+And that's the core of a search engine to get us started! In Part 2 I'll talk a little bit about Lucene, the nuts and bolts of both Solr and Elasticsearch. In Part 3, I'll compare the two pieces of software to show how they each bring search technology to life for the web. 
