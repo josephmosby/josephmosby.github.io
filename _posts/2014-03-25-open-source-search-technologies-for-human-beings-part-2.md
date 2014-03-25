@@ -13,7 +13,7 @@ To quote exactly from the official manual: "Lucene is a high-performance, full-f
 
 Let's take a quick tour of Lucene by playing around with its demo directly. 
 
-`java org.apache.lucene.demo.IndexFiles /{path}/lucene-4.7.0/licenses
+	java org.apache.lucene.demo.IndexFiles /{path}/lucene-4.7.0/licenses
 
 With this command, we first call the Java available on most of our personal computers. Lucene is written entirely in Java, a programming language popular with the federal government and many large commercial enterprises. We then call a Java-specific Lucene command - IndexFiles - and ask Lucene to index all the files in the "licenses" directory. This will produce an index of all of the legal software license documents that apply to the use of Lucene. When we do this, Lucene will happily print out a stack of messages letting us know that it's indexing:
 
