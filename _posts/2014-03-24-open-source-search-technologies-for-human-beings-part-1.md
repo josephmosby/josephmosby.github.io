@@ -33,4 +33,4 @@ Our example index only has a single entry for the word "football" - the NFL.doc 
 
 ![Table showing a single keyword/document pairing that matches the word football with NFL.doc](/images/single_search_result.png)
 
-And that's the core of a search engine to get us started! In Part 2 I'll talk a little bit about Lucene, the nuts and bolts of both Solr and Elasticsearch. In Part 3, I'll compare the two pieces of software to show how they each bring search technology to life for the web. 
+And that's the core of a search engine to get us started! In [Part 2](http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-2.html) I'll talk a little bit about Lucene, the nuts and bolts of both Solr and Elasticsearch. In Part 3, I'll compare the two pieces of software to show how they each bring search technology to life for the web. 
