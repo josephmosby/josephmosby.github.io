@@ -17,7 +17,8 @@ Let's take a quick tour of Lucene by playing around with its demo directly.
 
 With this command, we first call the Java available on most of our personal computers. Lucene is written entirely in Java, a programming language popular with the federal government and many large commercial enterprises. We then call a Java-specific Lucene command - IndexFiles - and ask Lucene to index all the files in the "licenses" directory. This will produce an index of all of the legal software license documents that apply to the use of Lucene. When we do this, Lucene will happily print out a stack of messages letting us know that it's indexing:
 
-```Indexing to directory 'index'...
+```
+Indexing to directory 'index'...
 adding /{path}/lucene-4.7.0/licenses/ant-1.8.2.jar.sha1
 adding /{path}/lucene-4.7.0/licenses/ant-LICENSE-ASL.txt
 adding /{path}/lucene-4.7.0/licenses/ant-NOTICE.txt
@@ -26,7 +27,8 @@ adding /{path}/lucene-4.7.0/licenses/ant-NOTICE.txt
 
 And now we have an index! Let's query it for a search term:
 
-```java org.apache.lucene.demo.SearchFiles
+```
+java org.apache.lucene.demo.SearchFiles
 Enter query: 
 GNU
 Searching for: gnu
@@ -37,7 +39,8 @@ Searching for: gnu
 
 I entered the SearchFiles command, and Lucene immediately prompted me for a search term. Thinking that I might find some reference to the [GNU Public License](https://www.gnu.org/copyleft/gpl.html) in a piece of open source software, I typed in "GNU" as my search term. Lucene found two files that contain the word "GNU" and returned them to me here. But if I try another term, it finds nothing at all:
 
-```java org.apache.lucene.demo.SearchFiles
+```
+java org.apache.lucene.demo.SearchFiles
 Enter query: 
 football
 Searching for: football
