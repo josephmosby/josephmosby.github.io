@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Open Source Search Technologies for Human Beings - Part 2
 ---
 
