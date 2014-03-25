@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Moving Breadcrumbs in Drupal 7 with Omega
 ---
 

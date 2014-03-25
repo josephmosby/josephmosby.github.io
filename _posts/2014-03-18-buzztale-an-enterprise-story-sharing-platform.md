@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Buzztale&#58; An Enterprise Story-Sharing Platform
 ---
 
