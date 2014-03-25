@@ -75,6 +75,10 @@ a:hover {
 	float:right;
 }
 
+.post_title {
+	margin:0;
+}
+
 /* For the Olark */
 #habla_both_div a {
 	font-style:normal;
