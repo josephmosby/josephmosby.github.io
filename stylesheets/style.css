@@ -73,6 +73,7 @@ a:hover {
 .content {
 	width:80%;
 	float:right;
+	margin-bottom:40px;
 }
 
 .post_title {
