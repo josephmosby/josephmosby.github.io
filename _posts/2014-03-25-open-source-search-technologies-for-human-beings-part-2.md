@@ -47,4 +47,4 @@ Searching for: football
 0 total matching documents
 ```
 
-There's a lot going on behind the scenes here with even this tiny demo app, but the basics are quite simple. Lucene has followed the exact same process for indexing and searching that we described in part 1. But what if we need to parse through an HTML or Word document rather than a simple text document? We'll need something a little bit more robust, which is where Solr and Elasticsearch come in... in part 3. 
+There's a lot going on behind the scenes here with even this tiny demo app, but the basics are quite simple. Lucene has followed the exact same process for indexing and searching that we described in part 1. But what if we need to parse through an HTML or Word document rather than a simple text document? We'll need something a little bit more robust, which is where Solr and Elasticsearch come in... in [part 3](http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-3.html). 
