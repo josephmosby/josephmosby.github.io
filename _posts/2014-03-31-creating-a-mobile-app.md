@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Creating a Mobile Content App with (Almost) Real Time Edits
 --- 
 
