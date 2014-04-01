@@ -94,12 +94,12 @@ a:hover {
 
 .mc-field-group label {
 	text-align:left;
-	width:100px;
+	width:200px;
 	float:left;
 }
 
 .mc-field-group input {
-	width:300px;
+	width:200px;
 	float:left;
 }
 
