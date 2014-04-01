@@ -108,7 +108,17 @@ a:hover {
 	float:left;
 }
 
+#mc-embedded-subscribe-form .clear {
+	clear:both;
+}
+
 #mc-embedded-subscribe {
 	padding:5px;
-	clear:both;
+	border:none;
+	background:#000000;
+	border-radius:0px;
+	color:#FFFFFF;
+	height:40px;
+	font-size:1.2em;
+	width:40px;
 }
