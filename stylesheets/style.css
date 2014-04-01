@@ -86,3 +86,19 @@ a:hover {
 	font-style:normal;
 }
 
+/* For the Mailchimps */
+.mc-field-group {
+
+}
+
+.mc-field-group label {
+	text-align:left;
+	width:100px;
+	float:left;
+}
+
+.mc-field-group input {
+	width:300px;
+	float:left;
+}
+
