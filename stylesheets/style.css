@@ -87,6 +87,11 @@ a:hover {
 }
 
 /* For the Mailchimps */
+
+#mc-embedded-subscribe-form {
+	border:1px solid #cccccc;
+}
+
 .mc-field-group {
 	clear:both;
 	padding:5px;
@@ -94,7 +99,7 @@ a:hover {
 
 .mc-field-group label {
 	text-align:left;
-	width:200px;
+	width:150px;
 	float:left;
 }
 
