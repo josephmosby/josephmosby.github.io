@@ -113,6 +113,8 @@ a:hover {
 
 #mc-embedded-subscribe-form .clear {
 	clear:both;
+	width:360px;
+	margin:10px auto;
 }
 
 #mc-embedded-subscribe {
