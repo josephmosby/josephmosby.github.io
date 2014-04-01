@@ -91,6 +91,8 @@ a:hover {
 #mc-embedded-subscribe-form {
 	border:1px solid #cccccc;
 	width:400px;
+	margin:0 auto;
+	padding:5px;
 }
 
 .mc-field-group {
