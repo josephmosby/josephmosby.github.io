@@ -90,11 +90,14 @@ a:hover {
 
 #mc-embedded-subscribe-form {
 	border:1px solid #cccccc;
+	width:400px;
 }
 
 .mc-field-group {
 	clear:both;
 	padding:5px;
+	width:360px;
+	margin:0 auto;
 }
 
 .mc-field-group label {
@@ -120,5 +123,6 @@ a:hover {
 	color:#FFFFFF;
 	height:40px;
 	font-size:1.2em;
-	width:40px;
+	width:360px;
+	margin:0 auto;
 }
