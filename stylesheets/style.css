@@ -108,3 +108,7 @@ a:hover {
 	float:left;
 }
 
+#mc-embedded-subscribe {
+	padding:5px;
+	clear:both;
+}
