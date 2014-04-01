@@ -88,6 +88,10 @@ a:hover {
 
 /* For the Mailchimps */
 
+#mc-embed-signup {
+	border-top:1px solid #CCCCCC;
+}
+
 #mc-embedded-subscribe-form {
 	border:1px solid #cccccc;
 	width:400px;
