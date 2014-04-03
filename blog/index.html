@@ -2,10 +2,12 @@
 layout: default
 ---
 
-<ul>
+<ul class="bloglist">
   {% for post in site.posts %}
     <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
+      <a href="{{ post.url }}">{{ post.title }}</a><br />
+      {{ page.excerpt }}
+      {{ page.date }}
     </li>
   {% endfor %}
 </ul>

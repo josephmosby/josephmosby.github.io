@@ -89,6 +89,10 @@ pre {
 	word-wrap: break-wordl
 }
 
+ul.bloglist li {
+	list-style-type:none;
+}
+
 /* For the Olark */
 #habla_both_div a {
 	font-style:normal;
