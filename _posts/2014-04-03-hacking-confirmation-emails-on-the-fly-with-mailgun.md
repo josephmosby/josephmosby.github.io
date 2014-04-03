@@ -42,20 +42,20 @@ This is all stuff I'm going to extract from Engage without any further processin
 		<meta charset="UTF-8" />
 	</head>
 	<body>
-		<p>Dear \{\{ first_name \}\} \{\{ last_name \}\}:</p>
+		<p>Dear &#123;&#123; first_name &#125;&#125; &#123;&#123; last_name &#125;&#125;:</p>
 		
-		<p>\{\{ confirmation_leadin }}</p>
+		<p>&#123;&#123; confirmation_leadin &#125;&#125;</p>
 		
-		\{% for recipient in recipients  \%}
-			\{\{ recipient.first_name }} \{\{ recipient.last_name }}, \{\{ recipient.title }}
+		&#123;% for recipient in recipients  %&#125;
+			&#123;&#123; recipient.first_name &#125;&#125; &#123;&#123; recipient.last_name &#125;&#125;, &#123;&#123; recipient.title &#125;&#125;
 			<br />
-		{% endfor %}
+		&#123;% endfor %&#125;
 		
 		<br />
 		
-		<p>SUBJECT: \{\{ message_subject }}</p>
+		<p>SUBJECT: &#123;&#123; message_subject &#125;&#125;</p>
 		
-		\{\{ message_text }}
+		&#123;&#123; message_text &#125;&#125;
 	</body>
 </html>
 ```
