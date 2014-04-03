@@ -36,29 +36,31 @@ class ConfirmationEmail:
 
 This is all stuff I'm going to extract from Engage without any further processing. I'm also going to go ahead and construct my confirmation email template using Jinja's syntax, which will accept data from these classes you see above.
 
+{% raw %}
 ```
 <html>
 	<head>
 		<meta charset="UTF-8" />
 	</head>
 	<body>
-		<p>Dear \{{ first_name }} \{{ last_name }}:</p>
+		<p>Dear {{ first_name }} {{ last_name }}:</p>
 		
-		<p>&#123;&#123; confirmation_leadin &#125;&#125;</p>
+		<p>{{ confirmation_leadin }}</p>
 		
-		&#123;% for recipient in recipients  %&#125;
-			&#123;&#123; recipient.first_name &#125;&#125; &#123;&#123; recipient.last_name &#125;&#125;, &#123;&#123; recipient.title &#125;&#125;
+		{% for recipient in recipients  %}
+			{{ recipient.first_name }} {{ recipient.last_name }}, {{ recipient.title }}
 			<br />
-		&#123;% endfor %&#125;
+		{% endfor %}
 		
 		<br />
 		
-		<p>SUBJECT: &#123;&#123; message_subject &#125;&#125;</p>
+		<p>SUBJECT: {{ message_subject }}</p>
 		
-		&#123;&#123; message_text &#125;&#125;
+		{{ message_text }}
 	</body>
 </html>
 ```
+{% endraw %}
 
 So far so good. You can see here that we've got a "confirmation_leadin" variable that doesn't seem to line up with any of our other tags. We added some introductory text into our emails as a "thank you" before including the text of the message and the list of targets it was sent to. Next step is to add on some basic work to begin converting the plain text messages out of Engage into HTML-based messages using [Markdown](https://pythonhosted.org/Markdown/reference.html). Then we'll use that, along with some of the data from our classes, to populate our Jinja template.
 
