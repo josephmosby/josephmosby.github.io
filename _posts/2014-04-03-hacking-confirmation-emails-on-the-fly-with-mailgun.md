@@ -42,7 +42,7 @@ This is all stuff I'm going to extract from Engage without any further processin
 		<meta charset="UTF-8" />
 	</head>
 	<body>
-		<p>Dear &#123;&#123; first_name &#125;&#125; &#123;&#123; last_name &#125;&#125;:</p>
+		<p>Dear \{{ first_name }} \{{ last_name }}:</p>
 		
 		<p>&#123;&#123; confirmation_leadin &#125;&#125;</p>
 		
