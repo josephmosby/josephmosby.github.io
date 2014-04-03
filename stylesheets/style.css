@@ -81,6 +81,14 @@ a:hover {
 	margin:0;
 }
 
+pre {
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-wordl
+}
+
 /* For the Olark */
 #habla_both_div a {
 	font-style:normal;
