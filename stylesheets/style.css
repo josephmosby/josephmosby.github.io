@@ -91,6 +91,9 @@ pre {
 
 ul.bloglist li {
 	list-style-type:none;
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	padding:10px 0;
 }
 
 /* For the Olark */
