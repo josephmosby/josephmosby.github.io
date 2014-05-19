@@ -1,10 +1,9 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=1024, user-scalable=no">
 
-	<title>Using Drupal's Content API to Build Real-Time Mobile Apps</title>
+	<title>{{ page.title }}</title>
 	
 	<!-- Required stylesheet -->
 	<link rel="stylesheet" href="/include/deckjs/core/deck.core.css">
@@ -25,19 +24,17 @@
 	
 	<!-- Required Modernizr file -->
 	<script src="/include/deckjs/modernizr.custom.js"></script>
+
+	<link rel="stylesheet" href="/stylesheets/style.css">
+	
+	<!--[if lt IE9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 </head>
 
 <body class="deck-container">
 
-	<section class="slide" id="intro">
-		<div id="main_header">Using Drupal's Content APIs to<br />Build Real-Time Mobile Apps</div>
-	
-		<div id="bio">
-		<div id="bio_name">Joseph Mosby</div>
-		<div id="bio_twitter_handle">@josephmosby</div>
-		</div>
-	</section>
-
+	{{ content }}
 
 	<!-- Begin extension snippets. Add or remove as needed. -->
 
