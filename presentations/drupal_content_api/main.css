@@ -244,6 +244,7 @@
 @media only screen and (max-width : 720px) {
   #main-header {
     position:relative;
+    max-width:100%;
   }
 }
 @media only screen and (min-width : 320px) and (max-width : 480px) {
@@ -252,7 +253,9 @@
   }
 
   #main_header {
+    position:relative;
     width:auto;
     text-align:center;
+    max-width:100%;
   }
 }
