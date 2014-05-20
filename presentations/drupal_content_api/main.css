@@ -203,9 +203,10 @@
 }
 
 #main_header {
-	text-align:center;
-	font-size:2em;
-	margin-top:20px;
+	position:absolute;
+	font-size:3em;
+	margin-top:10%;
+  max-width:60%;
 }
 
 #main_sub_header {
@@ -238,4 +239,12 @@
 
 .slide_wrapper {
 	margin-top: 10px !important;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  #main_header {
+    position:relative;
+    width:auto;
+    text-align:center;
+  }
 }
