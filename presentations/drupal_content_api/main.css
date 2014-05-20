@@ -214,8 +214,7 @@
 	font-size:1.5em;
 	margin-top:10px;
 }
-
-.bio { 
+#intro .bio, #slide7 .bio { 
 	float:right;
 	margin-top:35%;
   font-size:1.5em;
@@ -242,13 +241,13 @@
   font-size:2.0em;  
 }
 
-.big_text {
+#slide3 .big_text {
   font-size:3.0em;
   margin-top:150px;
   text-align:center;
 }
 
-.subheader_text {
+#slide3 .subheader_text {
   text-align:center;
   font-size:2.0em;
 }
