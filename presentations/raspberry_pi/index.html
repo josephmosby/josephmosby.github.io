@@ -50,14 +50,37 @@ layout: presentation
 	</section>
 
 	<section class="slide" id="slide4">
-
-		<div class="slide_header">The Content API Module</div>
+		<div class="slide_header">Arduino code goals</div>
+		<div class="slide_wrapper">
 		<ul>
-			<li>Publishes all Drupal content as a web API</li>
-			<li>Allows admins to customize what is returned via API calls</li>
-			<li>Allows searching by type, node ID, title, author, relationship, etc.</li>
-			<li>End users can add, remove and modify content in a familiar Drupal interface</li>
+			<li>Initialize a listener on the serial port</li>
+			<li>Read incoming serial data</li>
+			<li>Turn a light on and off depending on the serial byte received</li>
 		</ul>
+		</div>
+	</section>
+	<section class="slide" id="slide5">
+
+		<div class="slide_header">Arduino code</div>
+		<code>
+			void setup() {
+				Serial.begin(9600);
+			}
+
+			void loop() {
+				if (Serial.available() > 0) {
+					char inByte = Serial.read();
+				}
+
+				if (inByte == '1') {
+					digitalWrite(1, HIGH);
+				}
+
+				else if (inByte == '0') {
+					digitalWrite(1, LOW);
+				}
+			}
+		</code>
 		
 	</section>
 
