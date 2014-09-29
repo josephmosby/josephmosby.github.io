@@ -1,0 +1,97 @@
+---
+layout: presentation
+---
+
+	<section class="slide" id="intro">
+		<div id="main_header">Breaking the Glass Wall: Using Python Web Services to Control Arduino Microcontrollers</div>
+	
+		<div class="bio">
+		<div class="bio_name">Joseph Mosby</div>
+		<div class="bio_twitter_handle">@josephmosby</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide1">
+		<div class="slide_header">Poor man's schematics</div>
+	
+		<div class="slide_wrapper">
+		<img src="images/schematic.jpg" />
+		</div>
+	</section>
+
+	<section class="slide" id="slide2">
+		<div class="slide_header">Requirements</div>
+	
+		<div class="slide_wrapper">
+		<ul>
+			<li>Content must be stored natively on the device</li>
+			<li>Content will be refreshed regularly</li>
+			<li>Content type data may change</li>
+			<li>Content must be updated in lockstep with website</li>
+		</ul>
+		</div>
+	</section>
+
+	<section class="slide" id="slide3">
+	
+		<div class="slide_wrapper">
+		<div class="big_text">Drupal's Content API Module!</div>
+		<div class="subheader_text">(sponsored by the FCC and Seabourne)</div>
+		</div>
+
+	</section>
+
+	<section class="slide" id="slide4">
+
+		<div class="slide_header">The Content API Module</div>
+		<ul>
+			<li>Publishes all Drupal content as a web API</li>
+			<li>Allows admins to customize what is returned via API calls</li>
+			<li>Allows searching by type, node ID, title, author, relationship, etc.</li>
+			<li>End users can add, remove and modify content in a familiar Drupal interface</li>
+		</ul>
+		
+	</section>
+
+	<section class="slide" id="slide5">
+
+		<div class="slide_header">MMB's Workflow</div>
+		<ol>
+			<li>When app is opened, query the API for all content</li>
+			<li>Parse manifest XML and check if content is loaded on device already</li>
+			<li>For new or updated content, load detail page XML and download data</li>
+			<li>Store all data and render on device</li>
+		</ol>
+		
+	</section>
+
+	<section class="slide" id="slide6">
+
+		<ul>
+			<li>Google's recommended XML parsing approach on Android took more than 10 seconds to parse</li>
+			<li>Google's recommended HTTP connection approach took 50 seconds to download data</li>
+			<li>Our "Programming Android" book had buggy code examples</li>
+			<li>Content API module only returns 10 records before pagination</li>
+		</ul>
+
+		<div class="what"><img src="images/what.png" /></div>
+		
+	</section>
+
+	<section class="slide" id="slide7">
+
+		<div class="slide_header">Resources</div>
+		<ul>
+			<li><a href="https://drupal.org/project/contentapi">Drupal's Content API Module</a></li>
+			<li><a href="http://steveliles.github.io/comparing_java_xml_parsing_mechanisms_for_android.html">SAX versus XML parsing in Android</a></li>
+			<li><a href="http://stackoverflow.com/questions/2022170/how-to-execute-web-request-in-its-own-thread">Stack Overflow on ASyncTasks for HTTP requests</a></li>
+			<li><a href="http://shop.oreilly.com/product/0636920023005.do">The dubious Programming Android book</a></li>
+			<li><a href="http://imakewebthings.com/deck.js/">deck.js</a></li>
+		</ul>
+
+		<div class="bio">
+		<div class="bio_name">Joseph Mosby</div>
+		<div class="bio_twitter_handle">@josephmosby</div>
+		</div>
+		
+	</section>	
