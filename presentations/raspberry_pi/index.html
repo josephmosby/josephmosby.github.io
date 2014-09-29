@@ -119,7 +119,7 @@ layout: presentation
 		<div class="slide_header">Build out the Flask app</div>
 		<div class="slide_wrapper">
 			<code style="color:black;">
-			# views.py<br>
+			# views.py<br><br>
 			from flask import Response, send_file<br>
 			from app import app<br>
 			import serial<br>
@@ -140,13 +140,13 @@ layout: presentation
 				&nbsp;&nbsp;ser.write(b'0')<br>
 				&nbsp;&nbsp;return ""<br>
 			<br>
-			# __init__.py<br>
+			# __init__.py<br><br>
 			from flask import Flask<br>
 			app = Flask(__name__)<br>
 			<br>
 			from app import views<br>
 			<br>
-			# wsgihandler.py<br>
+			# wsgihandler.py<br><br>
 			import sys<br>
 			sys.path.append('/home/www-data/sardine')<br>
 			sys.path.append('/home/www-data/sardine/app')<br>
@@ -155,18 +155,24 @@ layout: presentation
 		</code>
 		</div>
 	</section>
-	<section class="slide" id="slide87">
-		<ul>
-			<li><a href="https://drupal.org/project/contentapi">Drupal's Content API Module</a></li>
-			<li><a href="http://steveliles.github.io/comparing_java_xml_parsing_mechanisms_for_android.html">SAX versus XML parsing in Android</a></li>
-			<li><a href="http://stackoverflow.com/questions/2022170/how-to-execute-web-request-in-its-own-thread">Stack Overflow on ASyncTasks for HTTP requests</a></li>
-			<li><a href="http://shop.oreilly.com/product/0636920023005.do">The dubious Programming Android book</a></li>
-			<li><a href="http://imakewebthings.com/deck.js/">deck.js</a></li>
-		</ul>
-
-		<div class="bio">
-		<div class="bio_name">Joseph Mosby</div>
-		<div class="bio_twitter_handle">@josephmosby</div>
+	<section class="slide" id="slide9">
+		<div class="slide_header">Apache configuration</div>
+		<div class="slide_wrapper">
+			<code style="color:black;">
+				<VirtualHost *><br>
+					<br>
+					ServerName sardine<br>
+					DocumentRoot /home/www-data/sardine<br>
+					WSGIDaemonProcess sardine user=sardine group=sardine threads=5<br>
+					WSGIScriptAlias / /home/www-data/sardine/wsgihandler.py<br>
+					<br>
+				</VirtualHost>
+			</code>
 		</div>
+	</section>
+
+	<section class="slide" id="slide10">
+
+		<div class="slide_header">questions?</div>
 		
 	</section>	
