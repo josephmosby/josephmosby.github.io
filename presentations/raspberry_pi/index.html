@@ -3,7 +3,7 @@ layout: presentation
 ---
 
 	<section class="slide" id="intro">
-		<div id="main_header">Breaking the Glass Wall: Using Python Web Services to Control Arduino Microcontrollers</div>
+		<div id="main_header">Breaking the Fourth Wall: Using Python Web Services to Control Arduino Microcontrollers</div>
 	
 		<div class="bio">
 		<div class="bio_name">Joseph Mosby</div>
@@ -64,21 +64,21 @@ layout: presentation
 		<div class="slide_header">Arduino code</div>
 		<code style="color:black;">
 			void setup() {<br>
-				Serial.begin(9600);<br>
+				&nbsp;&nbsp;Serial.begin(9600);<br>
 			}<br>
 			<br>
 			void loop() {<br>
-				if (Serial.available() > 0) {<br>
-					char inByte = Serial.read();<br>
-				}<br>
+				&nbsp;&nbsp;if (Serial.available() > 0) {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;	char inByte = Serial.read();<br>
+				&nbsp;&nbsp;}<br>
 				<br>
-				if (inByte == '1') {<br>
-					digitalWrite(1, HIGH);<br>
-				}<br>
+				&nbsp;&nbsp;if (inByte == '1') {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;	digitalWrite(1, HIGH);<br>
+				&nbsp;&nbsp;}<br>
 				<br>
-				else if (inByte == '0') {<br>
-					digitalWrite(1, LOW);<br>
-				}<br>
+				&nbsp;&nbsp;else if (inByte == '0') {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;	digitalWrite(1, LOW);<br>
+				&nbsp;&nbsp;}<br>
 			}
 		</code>
 		
