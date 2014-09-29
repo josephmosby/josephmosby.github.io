@@ -214,10 +214,18 @@
 	font-size:1.5em;
 	margin-top:10px;
 }
+
 #intro .bio, #slide7 .bio { 
 	float:right;
 	margin-top:35%;
   font-size:1.5em;
+}
+
+#slide1 img {
+  -moz-transform:rotate(180deg);
+  -webkit-transform:rotate(180deg);
+  -o-transform:rotate(180deg);
+  -ms-transform:rotate(180deg);
 }
 
 .col1 { 
