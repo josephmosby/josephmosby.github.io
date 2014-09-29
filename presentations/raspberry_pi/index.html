@@ -159,14 +159,14 @@ layout: presentation
 		<div class="slide_header">Apache configuration</div>
 		<div class="slide_wrapper">
 			<code style="color:black;">
-				<VirtualHost *><br>
+				&lt;VirtualHost *&gt;<br>
 					<br>
 					ServerName sardine<br>
 					DocumentRoot /home/www-data/sardine<br>
 					WSGIDaemonProcess sardine user=sardine group=sardine threads=5<br>
 					WSGIScriptAlias / /home/www-data/sardine/wsgihandler.py<br>
 					<br>
-				</VirtualHost>
+				&lt;/VirtualHost&gt;
 			</code>
 		</div>
 	</section>
