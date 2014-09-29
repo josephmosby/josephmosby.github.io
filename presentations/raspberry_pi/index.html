@@ -62,23 +62,23 @@ layout: presentation
 	<section class="slide" id="slide5">
 
 		<div class="slide_header">Arduino code</div>
-		<code>
-			void setup() {
-				Serial.begin(9600);
-			}
-
-			void loop() {
-				if (Serial.available() > 0) {
-					char inByte = Serial.read();
-				}
-
-				if (inByte == '1') {
-					digitalWrite(1, HIGH);
-				}
-
-				else if (inByte == '0') {
-					digitalWrite(1, LOW);
-				}
+		<code style="color:black;">
+			void setup() {<br>
+				Serial.begin(9600);<br>
+			}<br>
+			<br>
+			void loop() {<br>
+				if (Serial.available() > 0) {<br>
+					char inByte = Serial.read();<br>
+				}<br>
+				<br>
+				if (inByte == '1') {<br>
+					digitalWrite(1, HIGH);<br>
+				}<br>
+				<br>
+				else if (inByte == '0') {<br>
+					digitalWrite(1, LOW);<br>
+				}<br>
 			}
 		</code>
 		
