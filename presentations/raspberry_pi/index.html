@@ -117,7 +117,8 @@ layout: presentation
 
 	<section class="slide" id="slide8">
 		<div class="slide_header">Build out the Flask app</div>
-		<code style="color:black;">
+		<div class="slide_wrapper">
+			<code style="color:black;">
 			# views.py<br>
 			from flask import Response, send_file<br>
 			from app import app<br>
@@ -152,7 +153,8 @@ layout: presentation
 			<br>
 			from app import app as application # because WSGI is weird
 		</code>
-
+		</div>
+	</section>
 	<section class="slide" id="slide87">
 		<ul>
 			<li><a href="https://drupal.org/project/contentapi">Drupal's Content API Module</a></li>
