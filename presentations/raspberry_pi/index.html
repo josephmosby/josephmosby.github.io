@@ -99,15 +99,20 @@ layout: presentation
 				&nbsp;&nbsp;return ""<br>
 			<br>
 			def turn_off():<br>
-				&nbsp;&nbsp;ser.write(b'2')<br>
+				&nbsp;&nbsp;ser.write(b'0')<br>
 				&nbsp;&nbsp;return ""<br>
 		</code>
 		
 	</section>
 
 	<section class="slide" id="slide7">
+		<div class="slide_header">find your USB serial device</div>
+		<div class="slide_wrapper">
+			<code style="color:black;">ls /dev</code>
+			<p>Will probably be something like ttyACM0 or ttyACM1.</p>
+		</div>
 
-		<div class="slide_header">Resources</div>
+	</section>	
 		<ul>
 			<li><a href="https://drupal.org/project/contentapi">Drupal's Content API Module</a></li>
 			<li><a href="http://steveliles.github.io/comparing_java_xml_parsing_mechanisms_for_android.html">SAX versus XML parsing in Android</a></li>
