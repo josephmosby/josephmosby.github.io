@@ -109,10 +109,49 @@ layout: presentation
 		<div class="slide_header">find your USB serial device</div>
 		<div class="slide_wrapper">
 			<code style="color:black;">ls /dev</code>
+			<br>
 			<p>Will probably be something like ttyACM0 or ttyACM1.</p>
 		</div>
 
 	</section>	
+
+	<section class="slide" id="slide8">
+		<div class="slide_header">Build out the Flask app</div>
+		<code style="color:black;">
+			# views.py<br>
+			from flask import Response, send_file<br>
+			from app import app<br>
+			import serial<br>
+			<br>
+			ser = serial.Serial('/dev/ttyACM0', 9600)<br>
+			<br>
+			@app.route('/', methods=['GET'])<br>
+			def index():<br>
+			&nbsp;&nbsp;	return send_file('index.html')<br>
+			<br>
+			@app.route('/on', methods=['POST'])<br>
+			def turn_on():<br>
+				&nbsp;&nbsp;ser.write(b'1')<br>
+				&nbsp;&nbsp;return ""<br>
+			<br>
+			@app.route('/off', methods=['POST'])<br>
+			def turn_off():<br>
+				&nbsp;&nbsp;ser.write(b'0')<br>
+				&nbsp;&nbsp;return ""<br>
+			<br>
+			# __init__.py<br>
+			from flask import Flask<br>
+			app = Flask(__name__)<br>
+			<br>
+			from app import views<br>
+			<br>
+			# wsgihandler.py<br>
+			import sys<br>
+			sys.path.append('/home/www-data/sardine')<br>
+			sys.path.append('/home/www-data/sardine/app')<br>
+			<br>
+			from app import app as application # because WSGI is weird
+		</code>
 
 	<section class="slide" id="slide87">
 		<ul>
