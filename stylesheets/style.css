@@ -51,7 +51,7 @@ a:hover {
 }
 
 .sidebar ul {
-
+	-webkit-padding-start:20px;
 }
 
 .sidebar ul li {
