@@ -5,7 +5,7 @@ title: Hacking __builtin__ for fun, no profit
 
 Python's `__builtin__` module contains all of the language's [built-in functions](https://docs.python.org/2.7/library/functions.html), which should be reasonably obvious from the name. Python is really, really insistent that its built-ins are perfectly sufficient and that you shouldn't go around messing with them. This is a large part of the reason that I almost threw up the first time I had to go [monkeypatching](http://stackoverflow.com/questions/394144/what-does-monkey-patching-exactly-mean-in-ruby) in Ruby... it just doesn't _feel_ right. But for the sake of argument, let's do some screwing around with the built-in functions.
 
-```python
+```
 import __builtin__
 
 def hex(x):
@@ -19,7 +19,7 @@ def hex(x):
 
 The [hex function](https://docs.python.org/2.7/library/functions.html#hex) is designed to return the hexadecimal representation of an integer, prefixed with 0x. I felt like this representation could be much improved with a bit of extra YOLO, and patched the function accordingly. *_Now_* I can call `hex(255)` and receive back "yol0xff", a marked improvement over the prior implementation. 
 
-```python
+```
 import __builtin__
 
 def len(s):
