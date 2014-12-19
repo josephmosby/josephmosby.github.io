@@ -16,7 +16,7 @@ Python's `__builtin__` module contains all of the language's [built-in functions
 			return 'yol' + f
 
 
-The [hex function](https://docs.python.org/2.7/library/functions.html#hex) is designed to return the hexadecimal representation of an integer, prefixed with 0x. I felt like this representation could be much improved with a bit of extra YOLO, and patched the function accordingly. *_Now_* I can call `hex(255)` and receive back "yol0xff", a marked improvement over the prior implementation. 
+The [hex function](https://docs.python.org/2.7/library/functions.html#hex) is designed to return the hexadecimal representation of an integer, prefixed with 0x. I felt like this representation could be much improved with a bit of extra YOLO, and patched the function accordingly. *__Now__* I can call `hex(255)` and receive back "yol0xff", a marked improvement over the prior implementation. 
 
 	import __builtin__
 
