@@ -1,0 +1,6 @@
+---
+layout: post
+title: Exploring the __future__ module and learning about division
+---
+
+Python adds new features to the language all the time, but occasionally those features are completely incompatible with existing features of the language. They may rewrite a core [built-in function](/2014/12/19/hacking-builtin-for-fun-no-profit.html)
