@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Storing objects with the best-named module ever, pickle
+tags:
+- pymod
 ---
 
 I love `pickle`. I love that Python has a module named pickle. I have never used pickle before, but I like that it's there. Let's take a look at what pickle does.

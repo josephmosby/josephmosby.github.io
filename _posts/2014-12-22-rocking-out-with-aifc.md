@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Rocking out with aifc
+tags:
+- pymod
 ---
 
 In 1985, Electronic Arts (then publishing such games as [The Bard's Tale](http://en.wikipedia.org/wiki/The_Bard%27s_Tale_(1985_video_game))) convened a group of engineers, software developers, and computer manufacturers to define a data interchange format for graphics, audio, and text. The aim was to create a file format with accompanying objects, data structures and interfaces that would be interchangeable across platforms for the budding gaming audience. This was a bold new time in data storage, when Apple had just invented a wonderful little tool called the "clipboard." 

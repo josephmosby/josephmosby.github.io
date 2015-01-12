@@ -1,6 +1,8 @@
 ---
 layout: post
 title: A brief word on __main__
+tags:
+- pymod
 ---
 
 Okay, `__main__` is technically a Python module. Technically, it's the scope of the program that's currently being executed.

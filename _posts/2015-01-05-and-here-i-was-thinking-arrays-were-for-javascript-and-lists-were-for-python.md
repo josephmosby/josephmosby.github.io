@@ -1,6 +1,8 @@
 ---
 layout: post
 title: And here I was thinking arrays were for JavaScript and lists were for Python
+tags:
+- pymod
 ---
 
 Python has arrays. Python even has an entirely special module that lets you build arrays. Like arrays in Java and C++, arrays from the `arrays` module must all be of a certain type of data. I assume these things must be wicked fast, but I wonder how large the array would have to be before there would be a noticeable difference.

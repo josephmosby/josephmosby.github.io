@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Exploring the __future__ module and learning about division
+tags:
+- pymod
 ---
 
 Python adds new features to the language all the time, but occasionally those features are completely incompatible with existing features of the language. In many cases, they completely rewrite a core [built-in function](/2014/12/19/hacking-builtin-for-fun-no-profit.html) or key operator of the language. The `__future__` [module](https://docs.python.org/2.7/library/__future__.html#module-__future__) contains several of those new features - some of which have already made it into Python 2.7 at the time of this writing. A few of them are designed to prepare Python 2.x users for sea changes coming with Python 3.x.
