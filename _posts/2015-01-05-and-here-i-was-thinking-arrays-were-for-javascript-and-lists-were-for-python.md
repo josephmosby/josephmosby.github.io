@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: pymod
 title: And here I was thinking arrays were for JavaScript and lists were for Python
 tags:
 - pymod

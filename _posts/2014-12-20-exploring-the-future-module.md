@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: pymod
 title: Exploring the __future__ module and learning about division
 tags:
 - pymod

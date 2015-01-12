@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: pymod
 title: Storing objects with the best-named module ever, pickle
 tags:
 - pymod

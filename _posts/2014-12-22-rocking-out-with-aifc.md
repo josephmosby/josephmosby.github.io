@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: pymod
 title: Rocking out with aifc
 tags:
 - pymod

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: pymod
 title: What in heaven's name is an abstract base class?
 tags:
 - pymod

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: pymod
 title: More high-performance iterable work with bisect
 tags:
 - pymod

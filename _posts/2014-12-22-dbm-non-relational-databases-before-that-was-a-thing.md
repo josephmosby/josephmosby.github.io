@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: pymod
 title: DBM - non-relational databases before that was a thing
 tags:
 - pymod

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: pymod
 title: A brief word on __main__
 tags:
 - pymod

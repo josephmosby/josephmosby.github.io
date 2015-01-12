@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: pymod
 title: Saving yourself from command-line parsing hell with argparse
 tags:
 - pymod

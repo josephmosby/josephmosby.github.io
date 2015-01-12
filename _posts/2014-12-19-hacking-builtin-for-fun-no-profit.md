@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: pymod
 title: Hacking __builtin__ for fun, no profit
 tags:
 - pymod
