@@ -13,7 +13,7 @@ These functions deal with a few basic theoretical calculations that didn't quite
 
 ### Power and logarithmic functions
 
-As can be expected, you'll find things with exponents and logarithms here. Need to calculate e**x? Use `exp(x)`. Need to get x**y? Use `pow(x, y)`. Logarithms use `log(x, [base])`. Easy stuff here.
+As can be expected, you'll find things with exponents and logarithms here. Need to calculate e^x? Use `exp(x)`. Need to get x^y? Use `pow(x, y)`. Logarithms use `log(x, [base])`. Easy stuff here.
 
 ### Trigonometric functions
 
