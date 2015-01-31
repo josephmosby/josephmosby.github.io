@@ -1,0 +1,131 @@
+/* MENUS */
+
+ul.menu {
+	list-style-type:none;
+}
+
+ul.inline li {
+	display:inline-block;
+	padding:0px 15px;
+}
+
+ul.menu li a {
+	font-family:'Roboto Condensed', 'Roboto', sans-serif;
+	text-decoration:none;
+	text-transform:uppercase;
+}
+
+/* Header */
+
+#header {
+	background:-webkit-linear-gradient(#112233, #112358);
+	background:-moz-linear-gradient(#112233, #112358);
+	background:linear-gradient(#112233, #112358);
+	height:55px;
+}
+
+#header h3 {
+	color:#FFFFFF;
+	float:left;
+	line-height:55px;
+}
+
+#header ul.menu {
+	float:right;
+	margin:0;
+}
+
+#header ul.inline li {
+	line-height:55px;
+}
+
+#header ul.menu li a {
+	color:#FFFFFF;
+}
+
+#hamburger {
+	display:none;
+	float:right;
+}
+
+/* Main */
+
+#main {
+	margin-top:21px;
+}
+
+/* Dropdown */
+
+#dropdown {
+	display:none;
+	text-align:right;
+}
+
+#dropdown ul {
+	background:-webkit-linear-gradient(#112358, #112233);
+	background:-moz-linear-gradient(#112358, #112233);
+	background:linear-gradient(#112358, #112233);
+	margin-left:50%;
+	margin-top:0;
+	position:absolute;
+}
+
+#dropdown ul li {
+	padding:8px;
+}
+
+#dropdown ul li a {
+	color:#FFFFFF;
+}
+
+/* Main */
+
+.row {
+	margin-bottom:21px;
+}
+
+p {
+	line-height:1.6em;
+}
+
+/* Footer */
+
+#footer {
+	background:#112358;
+}
+
+#footer .row {
+	margin-bottom:0;
+}
+
+#footer p {
+	color:#FFFFFF;
+	font-size:13px;
+	line-height:55px;
+	margin-bottom:0;
+}
+
+.date {
+	font-family:'Roboto Condensed', sans-serif;
+	font-size:21px;
+}
+
+@media (min-width:780px) {
+
+	#dropdown {
+		/* done to make sure mobile menu never displays with main menu */
+		display:none !important;
+	}
+
+}
+
+@media (max-width:780px) {
+
+	#header ul.menu {
+		display:none;
+	}
+
+	#hamburger {
+		display:block;
+	}
+}

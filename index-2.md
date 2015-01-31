@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: new
 ---
 I'm a web developer and digital strategist based in Washington, DC. Though I've been heavily involved with the web since I started in technical support during college, I discovered my love of code as an aspiring Python programmer while an accounting student.
 
