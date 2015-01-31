@@ -1,0 +1,36 @@
+---
+layout: new
+---
+
+{% for post in paginator.posts %}
+<div class="row">
+	<div class="col-3">
+		<h3>{{ post.title }}</h3>
+		<div class="date">{{ post.date | date: "%B %d, %Y" }}</div>
+	</div>
+	<div class="col-8">
+		{{ post.content }}
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com{{ post.url }}" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+{% endfor %}
+
+<div class="row">
+	<div class="col-offset-3 col-8">
+		<div class="pagination">
+			{% if paginator.previous_page %}
+			<a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
+			{% else %}
+			<span class="previous">Previous</span>
+			{% endif %}
+
+			<span class="page_number">Page: {{paginator.page}} of {{paginator.total_pages}}</span>
+
+			{% if paginator.next_page %}
+			<a href="{{ paginator.next_page_path}}" class="next">Next</a>
+			{% else %}
+			<span class="next">Next</span>
+			{% endif %}
+		</div>
+	</div>
+</div>
