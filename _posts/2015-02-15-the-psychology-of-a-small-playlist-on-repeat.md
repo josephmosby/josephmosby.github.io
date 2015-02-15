@@ -15,7 +15,7 @@ It worked! As I ramped up into my work, I immediately found the flow much faster
 
 Why does it work? Surely there's something in the human psyche that makes this work for me just as well as it does for Matt. What is it? I needed to do some research. 
 
-Arkansas psychologist Elizabeth Hellmuth Margulis wrote book called [*_On Repeat: How Music Plays the Mind_*](http://www.amazon.com/Repeat-How-Music-Plays-Mind/dp/0199990824/ref=sr_1_1?s=books&ie=UTF8&qid=1424026191&sr=1-1&keywords=on+repeat+how+music+plays+the+mind) that tangentially delves into this question. 
+Arkansas psychologist Elizabeth Hellmuth Margulis wrote book called [*On Repeat: How Music Plays the Mind*](http://www.amazon.com/Repeat-How-Music-Plays-Mind/dp/0199990824/ref=sr_1_1?s=books&ie=UTF8&qid=1424026191&sr=1-1&keywords=on+repeat+how+music+plays+the+mind) that tangentially delves into this question. 
 
 > Musical repetition gets us mentally imagining or singing through the bit we expect to come next... A sense of shared subjectivity with the music can arise. In descriptions of their most intense experiences of music, people often talk about a sense that the boundary between the music and themselves has dissolved.
 
