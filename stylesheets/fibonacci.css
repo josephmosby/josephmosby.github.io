@@ -307,3 +307,17 @@ ul.menu li a {
 		width:100%;
 	}
 }
+
+@media (max-device-width:480px) {
+
+	.container {
+		margin:0 auto;
+		width:89%;
+	}
+
+	.col-1, .col-2, .col-3, .col-5, .col-8, .col-13 {
+		padding-left:0;
+		padding-right:0;
+		width:100%;
+	}
+}
