@@ -16,4 +16,4 @@ Interested in more? I'm around the internet:
 * [@josephmosby](https://twitter.com/josephmosby)
 * [github:josephmosby](https://github.com/josephmosby)
 
-My [public key](/about/me.key).
+If needed: my [public key](/about/me.key).
