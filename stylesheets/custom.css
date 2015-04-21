@@ -46,6 +46,10 @@ ul.menu li a {
 #hamburger {
 	display:none;
 	float:right;
+	font-size:34px;
+	line-height:55px;
+	border-bottom:none;
+	color:#FFFFFF;
 }
 
 /* Main */
@@ -127,5 +131,9 @@ p {
 
 	#hamburger {
 		display:block;
+	}
+
+	img { 
+		width:100%;
 	}
 }
