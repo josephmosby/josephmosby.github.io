@@ -30,8 +30,8 @@ jQuery.fn.springy = function(params) {
 	var nodeStartFont = 16;
 	var nodeFont = "16px Roboto Condensed, sans-serif";
 	var edgeFont = "12px Roboto, sans-serif";
-	var stiffness = params.stiffness || 400.0;
-	var repulsion = params.repulsion || 400.0;
+	var stiffness = params.stiffness || 300.0;
+	var repulsion = params.repulsion || 100.0;
 	var damping = params.damping || 0.5;
 	var minEnergyThreshold = params.minEnergyThreshold || 0.00001;
 	var nodeSelected = params.nodeSelected || null;
@@ -133,7 +133,7 @@ jQuery.fn.springy = function(params) {
 		ctx.save();
 
 		nodeFontMod = nodeStartFont + node.count; // tweaking for larger fonts
-		useFont = nodeFontMod + 'px Verdana, sans-serif';
+		useFont = nodeFontMod + 'px Roboto Condensed, sans-serif';
 		ctx.font = (node.data.font !== undefined) ? node.data.font : useFont;
 		var width = ctx.measureText(text).width;
 		ctx.restore();
@@ -335,7 +335,7 @@ jQuery.fn.springy = function(params) {
 				// appended by Joe
 
 				nodeFontMod = nodeStartFont + node.count; // tweaking for larger fonts
-				useFont = nodeFontMod + 'px Verdana, sans-serif';
+				useFont = nodeFontMod + 'px Roboto Condensed, sans-serif';
 
 				ctx.font = (node.data.font !== undefined) ? node.data.font : useFont;
 				ctx.fillStyle = "#000000";
