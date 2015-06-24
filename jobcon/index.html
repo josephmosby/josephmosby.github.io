@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+<body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script src="./springy.js"></script>
+<script src="./springyui.js"></script>
+<script>
+var jsonObjs = [
+	{
+		person: 'Joe Mosby',
+		color: '#770000',
+		bio: 'Joe Mosby is lorem ipsum',
+		jobs: [
+			'Routeam',
+			'Deloitte',
+			'APCO Worldwide',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Tim Alberta',
+		color: '#005566',
+		jobs: [
+			'Wall Street Journal',
+			'Politico',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Andrew McGill',
+		color: '#550055',
+		jobs: [
+			'Pittsburgh Post-Gazette',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Lindsey Taylor',
+		color: '#00DD33',
+		jobs: [
+			'APCO Worldwide',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Priscilla Alvarez',
+		color: '#EEDDCC',
+		jobs: [
+			'USA Today College',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Sam Baker',
+		color: '#CCDDEE',
+		jobs: [
+			'Inside Health Policy',
+			'The Hill',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Dan Berman',
+		color: '#AADDCC',
+		jobs: [
+			'Greenwire',
+			'E&E Daily',
+			'Politico',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Matt Berman',
+		color: '#336699',
+		jobs: [
+			'Salon',
+			'Talking Points Memo',
+			'Newsweek',
+			'The Faster Times',
+			'Carnegie Endowment for International Peace',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Janie Boschma',
+		color: '#226688',
+		jobs: [
+			'Washington Post',
+			'Yomiuri Shimbun',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Ronald Brownstein',
+		color: '#994455',
+		jobs: [
+			'National Journal',
+			'Los Angeles Times',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Karyn Bruggeman',
+		color: '#994455',
+		jobs: [
+			'Politico',
+			'Atlas Project',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Nora Caplan-Bricker',
+		color: '#994455',
+		jobs: [
+			'New York Magazine',
+			'The New Republic',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Andie Coller',
+		color: '#445599',
+		jobs: [
+			'New York Post',
+			'Politico',
+			'National Journal'
+		]
+	},
+	{
+		person: 'George Condon',
+		color: '#BB44AA',
+		jobs: [
+			'San Diego Union Tribune',
+			'Copley News Service',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Nancy Cook',
+		color: '#AACCEE',
+		jobs: [
+			'Newsweek',
+			'Fast Company',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Amanda Cormier',
+		color: '#EECCAA',
+		jobs: [
+			'The New Yorker',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Michelle Cottle',
+		color: '#BBCCDD',
+		jobs: [
+			'The New Republic',
+			'The Daily Beast',
+			'Newsweek',
+			'National Journal'
+		]
+	},
+	{
+		person: 'Michelle Cottle',
+		color: '#113355',
+		jobs: [
+			'Newsweek',
+			'New York Daily News',
+			'National Journal'
+		]
+	}
+]
+
+jobs = []
+
+for (var i=0; i < jsonObjs.length; i++) { 
+	for (var j=0; j < jsonObjs[i].jobs.length; j++) { 
+		if (jobs.indexOf(jsonObjs[i].jobs[j]) == -1) {
+			jobs.push(jsonObjs[i].jobs[j]);
+		}
+	}
+}
+
+var graph = new Springy.Graph();
+
+nodes = {}
+
+for (var n=0; n < jobs.length; n++) {
+	nodes[jobs[n]] = graph.newNode({label:jobs[n]});
+}
+
+for (var p=0; p < jsonObjs.length; p++) {
+	for (var j=0; j < jsonObjs[p].jobs.length; j++) {
+		if (j < jsonObjs[p].jobs.length - 1) {
+			graph.newEdge(
+					nodes[jsonObjs[p].jobs[j]], nodes[jsonObjs[p].jobs[j+1]], {label: jsonObjs[p].person, color: jsonObjs[p].color, ondoubleclick: function() {console.log(jsonObjs[p].person)}}
+				);
+		}
+	}
+}
+
+jQuery(function(){
+  var springy = window.springy = jQuery('#springydemo').springy({
+    graph: graph,
+    nodeSelected: function(node){
+      console.log('Node selected: ' + JSON.stringify(node.data));
+    }
+  });
+});
+</script>
+
+<canvas id="springydemo" width="1800" height="1600" />
+</body>
+</html>
