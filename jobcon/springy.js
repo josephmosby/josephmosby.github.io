@@ -58,6 +58,7 @@
 		this.id = id;
 		this.data = (data !== undefined) ? data : {};
 		this.count = 0;
+		this.severalEdges = false;
 
 	// Data fields used by layout algorithm in this file:
 	// this.data.mass
@@ -125,8 +126,12 @@
 
 		this.notify();
 
-		edge.source.count++; // added by joseph
+		edge.source.count = edge.source.count - 1; // added by joseph
 		edge.target.count++; // added by joseph
+
+		if (edge.source.count === 2) {
+			edge.source.severalEdges = true;
+		}
 		return edge;
 	};
 
@@ -685,7 +690,6 @@
 			});
 
 			t.layout.eachNode(function(node, point) {
-				console.log(node);
 				t.drawNode(node, point.p);
 			});
 		}, this.onRenderStop, this.onRenderStart);

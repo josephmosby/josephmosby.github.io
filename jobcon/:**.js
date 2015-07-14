@@ -30,7 +30,7 @@ jQuery.fn.springy = function(params) {
 	var nodeStartFont = 16;
 	var nodeFont = "16px Roboto Condensed, sans-serif";
 	var edgeFont = "12px Roboto, sans-serif";
-	var stiffness = params.stiffness || 100.0;
+	var stiffness = params.stiffness || 300.0;
 	var repulsion = params.repulsion || 100.0;
 	var damping = params.damping || 0.5;
 	var minEnergyThreshold = params.minEnergyThreshold || 0.00001;
@@ -101,7 +101,6 @@ jQuery.fn.springy = function(params) {
 	jQuery(canvas).dblclick(function(e) {
 		var pos = jQuery(this).offset();
 		var p = fromScreen({x: e.pageX - pos.left, y: e.pageY - pos.top});
-		console.log(layout);
 		selected = layout.nearest(p);
 		node = selected.node;
 		if (node && node.data && node.data.ondoubleclick) {

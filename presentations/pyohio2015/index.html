@@ -1,0 +1,231 @@
+---
+layout: presentation
+title: Production Django
+---
+
+	<section class="slide container" id="intro">
+		<h2>Building a Highly Scalable, Secure Django Site</h2>
+	
+		<p>Joseph Mosby<br>@josephmosby</p>
+	</section>
+
+	<section class="slide container" id="slide1">
+		<div class="row">
+			<div class="col-13">
+				<h2>Quien soy?</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Python engineer at National Journal</li>
+					<li>Former government cybersecurity auditor</li>
+					<li>Classic computing aficionado</li>
+					<li>Spanish student</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide2">
+		<div class="row">
+			<div class="col-13">
+				<h2>Our Agenda</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Deploy gracefully</li>
+					<li>Secure servers</li>
+					<li>Segment environments</li>
+					<li>Scale the environment</li>
+					<li>Gotchas</li>
+					<li>Tools</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide3">
+		<div class="row">
+			<div class="col-13">
+				<h2>Deploy: What Most of Us Do</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Just do what Heroku says (good!)</li>
+					<li>git pulls / Fabric</li>
+					<li>FTP</li>
+					<li>Continuous</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide4">
+		<div class="row">
+			<div class="col-13">
+				<h2>Deploy: Recommendations</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Aim for a single, repeatable, easy-to-execute deploy step</li>
+					<li>Example: we `git force checkout` as part of a production push.</li>
+					<li>Scheduled versus continuous is heavily influenced by discipline and politics</li>
+				</ul>
+				<p>note: we use scheduled because it helps us adhere to the social contract we have with our organization.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide5">
+		<div class="row">
+			<div class="col-13">
+				<h2>Secure: What Most of Us Do</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Trust the hosting provider</li>
+					<li>Developers have root access and app superuser access</li>
+					<li>Diligently change our passwords every 90 days</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide6">
+		<div class="row">
+			<div class="col-13">
+				<h2>Secure: Recommendations</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Keep sensitive data off of your public servers as much as possible</li>
+					<li>Restrict everyone's access, *especially* developers
+						<ul>
+							<li>developers know just enough to get themselves and the server into trouble</li>
+							<li>the larger the attack surface, the higher the risk</li>
+						</ul>
+					</li>
+					<li>Contingency plans on contingency plans</li>
+					<li>Bring non-devs into the risk analysis</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide7">
+		<div class="row">
+			<div class="col-13">
+				<h2>Segment: What Most of Us Do</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>"my local machine is dev"</li>
+					<li>"the server I push to is prod"</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide8">
+		<div class="row">
+			<div class="col-13">
+				<h2>Segment: Recommendations</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>dev (copy of prod environment) / stage / production</li>
+					<li>subsegment production based on data classification</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide9">
+		<div class="row">
+			<div class="col-13">
+				<h2>Scale: What Most of Us Do</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Just do what Heroku says (good!)</li>
+					<li>Handle it when it becomes a problem (bad!)</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide10">
+		<div class="row">
+			<div class="col-13">
+				<h2>Scale: Recommendations</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				(graphic of single load balancer with two servers)
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide11">
+		<div class="row">
+			<div class="col-13">
+				<h2>Gotchas</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Storing images locally</li>
+					<li>Out of control queries</li>
+					<li>Django admin</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide12">
+		<div class="row">
+			<div class="col-13">
+				<h2>Tools</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Django Admin Toolbar</li>
+					<li>New Relic</li>
+					<li>Sentry</li>
+				</ul>
+			</div>
+		</div>
+	</section>

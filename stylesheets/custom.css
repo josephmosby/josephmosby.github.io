@@ -114,6 +114,20 @@ p {
 	font-size:21px;
 }
 
+/* Slide Details */
+.slide h2 {
+	font-size:34px;
+	border-bottom:none;
+}
+
+.slide p, li {
+	font-size:21px !important;
+}
+
+.slide ul ul {
+	margin-bottom:0;
+}
+
 @media (min-width:780px) {
 
 	#dropdown {

@@ -25,15 +25,27 @@
 	<!-- Required Modernizr file -->
 	<script src="/include/deckjs/modernizr.custom.js"></script>
 
-	<link rel="stylesheet" href="/stylesheets/style.css">
+	<link rel="stylesheet" href="/stylesheets/fibonacci.css">
+	<link rel="stylesheet" href="/stylesheets/custom.css">
 	
 	<!--[if lt IE9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
 
-<body class="deck-container">
+<body>
 
+	<div class="wrapper" id="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-13">
+					<a href="/"><h3>{{ page.title | upcase }}</h3></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="deck-container">
 	{{ content }}
 
 	<!-- Begin extension snippets. Add or remove as needed. -->
@@ -59,6 +71,9 @@
 
 	<!-- deck.hash snippet -->
 	<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+	</div>
+
+	
 		<!-- Required JS files. -->
 	<script src="/include/deckjs/jquery-1.7.2.min.js"></script>
 	<script src="/include/deckjs/core/deck.core.js"></script>
