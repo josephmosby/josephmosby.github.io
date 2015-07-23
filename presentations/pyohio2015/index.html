@@ -190,7 +190,7 @@ title: Production Django
 	
 		<div class="row">
 			<div class="col-8">
-				(graphic of single load balancer with two servers)
+				<img src="load_balancer.png" alt="graphic of load balancer connecting to two servers" />
 			</div>
 		</div>
 	</section>
@@ -216,6 +216,41 @@ title: Production Django
 	<section class="slide container" id="slide12">
 		<div class="row">
 			<div class="col-13">
+				<h2>Out of control queries</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-13">
+				<pre>
+				<code>
+# Bad
+def lots_of_queries(self):
+	members = Members.objects.filter(committee='Ways and Means')
+	for member in members:
+		# this is a new DB query
+		# each iteration
+		chief_of_staff = member.chief_of_staff
+		print(chief_of_staff.name)
+	return members
+
+# Good
+def few_queries(self):
+	members = Members.objects.filter(committee='Ways and Means')
+	# yay
+	members = members.select_related('chief_of_staff')
+	for member in members:
+		chief_of_staff = member.chief_of_staff
+		print(chief_of_staff.name)
+				</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide13">
+		<div class="row">
+			<div class="col-13">
 				<h2>Tools</h2>
 			</div>
 		</div>
@@ -223,11 +258,39 @@ title: Production Django
 		<div class="row">
 			<div class="col-8">
 				<ul>
-					<li>Django Admin Toolbar</li>
+					<li>Django Debug Toolbar</li>
 					<li>New Relic</li>
 					<li>Sentry</li>
 					<li>Supervisor</li>
 				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide14">
+		<div class="row">
+			<div class="col-13">
+				<h2>Django Debug Toolbar</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-13">
+				<img src="django_debug.png" alt="screenshot of Django Debug Toolbar, showing a breakdown of a SQL transaction" />
+			</div>
+		</div>
+	</section>
+
+	<section class="slide container" id="slide15">
+		<div class="row">
+			<div class="col-13">
+				<h2>New Relic</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-13">
+				<img src="new_relic.png" alt="screenshot of New Relic dashboard, showing a graph of transaction times for webapp, database, and memcache" />
 			</div>
 		</div>
 	</section>
