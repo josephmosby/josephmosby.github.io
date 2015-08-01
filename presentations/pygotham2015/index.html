@@ -1,0 +1,77 @@
+---
+layout: presentation
+title: Building An ALU
+---
+
+	<section class="slide" id="intro">
+		<h2>Modeling an Arithmetic Logic Unit in Python</h2>
+	
+		<p>Joseph Mosby<br>@josephmosby</p>
+	</section>
+
+	<section class="slide" id="slide1">
+		<div class="row">
+			<div class="col-13">
+				<h2>Quien soy?</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Python engineer at National Journal</li>
+					<li>Former government cybersecurity auditor</li>
+					<li>Classic computing aficionado</li>
+					<li>Spanish student</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide2">
+		<div class="row">
+			<div class="col-13">
+				<h2>Our ALU</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<p><strong>Inputs:</strong> x, y - two 16-bit binary numbers<br>
+				<strong>Control Bits:</strong> zx, nx, zy, ny, f, no<br>
+				<strong>Outputs:</strong><br>
+				<table>
+					<tbody>
+						<tr><td>x + y</td><td>x - y</td><td>y - x</td></tr>
+						<tr><td>0</td><td>1</td><td>-1</td></tr>
+						<tr><td>x</td><td>y</td><td>-x</td></tr>
+						<tr><td>-y</td><td>!x</td><td>!y</td></tr>
+						<tr><td>x + 1</td><td>y + 1</td><td>x - 1</td></tr>
+						<tr><td>y - 1</td><td>x & y</td><td>x | y</td></tr>
+					</tbody>
+				</table>
+				<br>
+				<strong>Outputs:</strong> zr if output == 0, ng if output < 0</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide3">
+		<div class="row">
+			<div class="col-13">
+				<h2>Our Parts</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<ul>
+				<li>Single-bit OR</li>
+				<li>Single-bit NOT</li>
+				<li>Single-bit AND</li>
+				<li>16-bit Multiplexer</li>
+				<li>16-bit bitwise NOT</li>
+				<li>16-bit bitwise AND</li>
+				<li>A 16-bit incrementer</li>
+			</ul>
+		</div>
+	</section>
