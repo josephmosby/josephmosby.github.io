@@ -60,7 +60,7 @@ p {
 	margin-bottom:21px;
 }
 
-p, li {
+p, li, td {
 	font-family:'Roboto', sans-serif;
 	font-size:21px;
 }

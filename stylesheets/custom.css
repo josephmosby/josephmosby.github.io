@@ -120,8 +120,12 @@ p {
 	border-bottom:none;
 }
 
-.slide p, li {
+.slide p, li, td {
 	font-size:21px !important;
+}
+
+.slide td {
+	padding:21px;
 }
 
 .slide ul ul {
