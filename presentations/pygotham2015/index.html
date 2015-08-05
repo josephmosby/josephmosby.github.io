@@ -31,6 +31,63 @@ title: Building An ALU
 	<section class="slide" id="slide2">
 		<div class="row">
 			<div class="col-13">
+				<h2>How does a CPU work, anyway?</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-13">
+				<img src="kobe_shrug.JPG" />
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide3">
+		<div class="row">
+			<div class="col-13">
+				<h2>How does a CPU work, anyway?</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li><strong>Clock</strong><br>A regular heartbeat running through the CPU to trigger instructions.</li>
+
+					<li><strong>Program counter</strong><br>A marker for which line of the program should be executed</li>
+
+					<li><strong>Fetch</strong><br>Retrieve the next instruction from the program memory</li>
+
+					<li><strong>Decode</strong><br>Interpret the instruction into signals that control other parts of the CPU</li>
+
+					<li><strong>Execute</strong><br>Do the work. Sometimes, that work is math.</li>
+				</ul>
+			</div>
+			<div class="col-5">
+				<img src="mm1.gif" />
+				<p style="font-style:italic;">credit: buzzfeed, naturally</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide4">
+		<h1>When the instruction involves math...</h1>
+	</section>
+
+	<section class="slide" id="slide5">
+		<div class="row">
+			<div class="col-13">
+				<h2>The Arithmetic Logic Unit!</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8">
+				<img src="ALU_block.gif" />
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide6">
+		<div class="row">
+			<div class="col-13">
 				<h2>Our ALU</h2>
 			</div>
 		</div>
@@ -56,7 +113,7 @@ title: Building An ALU
 		</div>
 	</section>
 
-	<section class="slide" id="slide3">
+	<section class="slide" id="slide7">
 		<div class="row">
 			<div class="col-13">
 				<h2>Our Parts</h2>

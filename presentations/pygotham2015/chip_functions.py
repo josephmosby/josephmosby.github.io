@@ -30,6 +30,27 @@ def single_bit_and(a, b):
 	else:
 		return 0
 
+def 16_bit_not(a16):
+	'''
+	a16: binary number, formatted as list [0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1]
+
+	Flip bits of all inputs
+	'''
+	return [0 if bit == 1 else 1 for bit in a16]
+
+def 16_bit_and(a16, b16):
+	'''
+	a16: binary number, formatted as list [0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1]
+	b16: binary number, formatted as list [1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1]
+
+	Binary AND bits of all inputs
+	'''
+	out = []
+	for i in enumerate(a16):
+		out[i] = single_bit_and(a16[i], b16[i])
+
+	return out
+
 def 16_bit_multiplexer(a16, b16, sel):
 	'''
 	a16: binary number, formatted as list [0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1]
@@ -44,5 +65,5 @@ def 16_bit_multiplexer(a16, b16, sel):
 	else:
 		return b16
 
-
+# adders are weird and should probably handle them a little bit differently with more explanation
 	
