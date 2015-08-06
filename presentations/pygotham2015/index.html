@@ -2,6 +2,9 @@
 layout: presentation
 title: Building An ALU
 ---
+	<style>
+		#slide8 td { padding:34px; font-size:34px !important; }
+	</style>
 
 	<section class="slide" id="intro">
 		<h2>Modeling an Arithmetic Logic Unit in Python</h2>
@@ -80,7 +83,7 @@ title: Building An ALU
 		</div>
 		<div class="row">
 			<div class="col-8">
-				<img src="ALU_block.gif" />
+				<img src="ALU_block.gif" alt="demonstration of a simple ALU that takes in two binary numbers, a status flag, and an opcode, and returns an added sum."/>
 			</div>
 		</div>
 	</section>
@@ -88,23 +91,37 @@ title: Building An ALU
 	<section class="slide" id="slide6">
 		<div class="row">
 			<div class="col-13">
-				<h2>Our ALU</h2>
+				<h2>The Arithmetic Logic Unit!</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8">
+				<img src="ALU_block2.png" lt="demonstration of a simple ALU that takes in two binary numbers, a status flag, and an opcode, and returns an added sum." />
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide7">
+		<h1>Okay, so the ALU takes in two binary numbers, and based on the status of certain flags, it computes a function. Got it. I think.</h1>
+	</section>
+
+	<section class="slide" id="slide8">
+		<div class="row">
+			<div class="col-13">
+				<h2>Let's build one!</h2>
 			</div>
 		</div>
 	
 		<div class="row">
-			<div class="col-8">
+			<div class="col-13">
 				<p><strong>Inputs:</strong> x, y - two 16-bit binary numbers<br>
 				<strong>Control Bits:</strong> zx, nx, zy, ny, f, no<br>
 				<strong>Outputs:</strong><br>
 				<table>
 					<tbody>
-						<tr><td>x + y</td><td>x - y</td><td>y - x</td></tr>
-						<tr><td>0</td><td>1</td><td>-1</td></tr>
-						<tr><td>x</td><td>y</td><td>-x</td></tr>
-						<tr><td>-y</td><td>!x</td><td>!y</td></tr>
-						<tr><td>x + 1</td><td>y + 1</td><td>x - 1</td></tr>
-						<tr><td>y - 1</td><td>x & y</td><td>x | y</td></tr>
+						<tr><td>x + y</td><td>x - y</td><td>y - x</td><td>0</td><td>1</td><td>-1</td></tr>
+						<tr><td>x</td><td>y</td><td>-x</td><td>-y</td><td>!x</td><td>!y</td></tr>
+						<tr><td>x + 1</td><td>y + 1</td><td>x - 1</td><td>y - 1</td><td>x & y</td><td>x | y</td></tr>
 					</tbody>
 				</table>
 				<br>
@@ -113,7 +130,7 @@ title: Building An ALU
 		</div>
 	</section>
 
-	<section class="slide" id="slide7">
+	<section class="slide" id="slide9">
 		<div class="row">
 			<div class="col-13">
 				<h2>Our Parts</h2>
@@ -129,6 +146,96 @@ title: Building An ALU
 				<li>16-bit bitwise NOT</li>
 				<li>16-bit bitwise AND</li>
 				<li>A 16-bit incrementer</li>
+				<li>A 16-bit adder</li>
 			</ul>
+		</div>
+	</section>
+
+	<section class="slide" id="slide10">
+		<img src="vox-v847-schematic-parts.png" />
+		<p style="font-style:italic;" alt="schematic of a guitar's wah pedal">credit: electrosmash.com</p>
+	</section>
+
+	<section class="slide" id="slide11">
+		<div class="row">
+			<div class="col-8">
+				<pre>
+					<code>
+def single_bit_or(a, b):
+	'''
+	a: single bit, 1 or 0
+	b: single bit, 1 or 0
+	'''
+
+	if a == 1 or b == 1:
+		return 1
+	else:
+		return 0
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide12">
+		<div class="row">
+			<div class="col-8">
+				<pre>
+					<code>
+def single_bit_not(a):
+	'''
+	a: single bit, 1 or 0
+	'''
+
+	if a == 1:
+		return 0
+	elif a == 0:
+		return 1
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide12">
+		<div class="row">
+			<div class="col-8">
+				<pre>
+					<code>
+def single_bit_and(a, b):
+	'''
+	a: single bit, 1 or 0
+	b: single bit, 1 or 0
+	'''
+
+	if a == 1 and b == 1:
+		return 1
+	else:
+		return 0
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide13">
+		<div class="row">
+			<div class="col-8">
+				<pre>
+					<code>
+>>> single_bit_and(1, 0)
+>>> 0
+
+>>> single_bit_or(1, 0)
+>>> 1
+
+>>> single_bit_not(1)
+>>> 0
+
+>>> single_bit_and(1, 1)
+>>> 1
+					</code>
+				</pre>
+			</div>
 		</div>
 	</section>
