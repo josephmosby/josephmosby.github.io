@@ -4,6 +4,7 @@ title: Building An ALU
 ---
 	<style>
 		#slide8 td { padding:34px; font-size:34px !important; }
+		#slide22 h1 { padding:1em 0 0 0 !important; position:relative; transform:inherit; top:0;}
 	</style>
 
 	<section class="slide" id="intro">
@@ -15,7 +16,7 @@ title: Building An ALU
 	<section class="slide" id="slide1">
 		<div class="row">
 			<div class="col-13">
-				<h2>Quien soy?</h2>
+				<h2>hey, what's up, hello</h2>
 			</div>
 		</div>
 	
@@ -23,9 +24,8 @@ title: Building An ALU
 			<div class="col-8">
 				<ul>
 					<li>Python engineer at National Journal</li>
-					<li>Former government cybersecurity auditor</li>
 					<li>Classic computing aficionado</li>
-					<li>Spanish student</li>
+					<li>Aspiring operating system writer</li>
 				</ul>
 			</div>
 		</div>
@@ -142,10 +142,10 @@ title: Building An ALU
 				<li>Single-bit OR</li>
 				<li>Single-bit NOT</li>
 				<li>Single-bit AND</li>
+				<li>Single-bit XOR</li>
 				<li>16-bit Multiplexer</li>
 				<li>16-bit bitwise NOT</li>
 				<li>16-bit bitwise AND</li>
-				<li>A 16-bit incrementer</li>
 				<li>A 16-bit adder</li>
 			</ul>
 		</div>
@@ -158,7 +158,7 @@ title: Building An ALU
 
 	<section class="slide" id="slide11">
 		<div class="row">
-			<div class="col-8">
+			<div class="col-13">
 				<pre>
 					<code>
 def single_bit_or(a, b):
@@ -179,7 +179,7 @@ def single_bit_or(a, b):
 
 	<section class="slide" id="slide12">
 		<div class="row">
-			<div class="col-8">
+			<div class="col-13">
 				<pre>
 					<code>
 def single_bit_not(a):
@@ -199,7 +199,7 @@ def single_bit_not(a):
 
 	<section class="slide" id="slide12">
 		<div class="row">
-			<div class="col-8">
+			<div class="col-13">
 				<pre>
 					<code>
 def single_bit_and(a, b):
@@ -220,7 +220,7 @@ def single_bit_and(a, b):
 
 	<section class="slide" id="slide13">
 		<div class="row">
-			<div class="col-8">
+			<div class="col-13">
 				<pre>
 					<code>
 >>> single_bit_and(1, 0)
@@ -237,5 +237,696 @@ def single_bit_and(a, b):
 					</code>
 				</pre>
 			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide14">
+		<div class="row">
+			<div class="col-13">
+				<pre>
+					<code>
+def single_bit_xor(a, b):
+	'''
+	a: single bit, 1 or 0
+	b: single bit, 1 or 0
+	'''
+
+	if a == b:
+		return 0
+	else:
+		return 1
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide15">
+		<div class="row">
+			<div class="col-13">
+				<pre>
+					<code>
+def sixteen_bit_not(a16):
+	'''
+	a16: binary number, formatted as list [0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1]
+
+	Flip bits of all inputs
+	'''
+	return [single_bit_not(bit) for bit in a16]
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide16">
+		<div class="row">
+			<div class="col-13">
+				<pre>
+					<code>
+def sixteen_bit_and(a16, b16):
+	'''
+	a16: binary number, formatted as list [0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1]
+	b16: binary number, formatted as list [1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1]
+
+	Binary AND bits of all inputs
+	'''
+	out = []
+	for i, b in enumerate(a16):
+		out.append(single_bit_and(a16[i], b16[i]))
+
+	return out
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide17">
+		<div class="row">
+			<div class="col-13">
+				<pre>
+					<code>
+def sixteen_bit_mux(a16, b16, sel):
+	'''
+	a16: binary number, formatted as list [0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1]
+	b16: binary number, formatted as list [0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1]
+
+	If selector bit (sel) == 0, return a16
+	Else return b16
+	'''
+
+	if sel == 0:
+		return a16
+	else:
+		return b16
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide18">
+		<div class="row">
+			<h2>Binary addition</h2>
+		</div>
+		<div class="row">
+			<div class="col-8">
+				<table>
+					<tbody>
+						<tr>
+							<td></td>
+							<td>0</td>
+							<td>1</td>
+						</tr>
+						<tr style="border-bottom:2px solid black">
+							<td>+</td>
+							<td>1</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+					</tbody>
+				</table>												
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide19">
+		<div class="row">
+			<div class="col-13">
+				<pre>
+					<code>
+def half_adder(a, b):
+	'''
+	Outputs:
+	sum: right bit of a + b
+	carry: left bit of a + b
+	'''
+	sum = single_bit_xor(a, b)
+	carry = single_bit_and(a, b)
+
+	return sum, carry
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide20">
+		<div class="row">
+			<div class="col-13">
+				<pre>
+					<code>
+def full_adder(a, b, right_carry):
+	'''
+	Outputs:
+	sum: right bit of a + b + right_carry
+	carry: left bit of a + b + right_carry
+	'''
+	sum = single_bit_xor(a, b)
+	carry = single_bit_and(a, b)
+
+	return sum, carry
+
+	right_sum, carry1 = half_adder(a, b)
+	sum, carry2 = half_adder(right_sum, right_carry)
+	carry = single_bit_or(carry1, carry2)
+	
+	return sum, carry
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide21">
+		<div class="row">
+			<div class="col-13">
+				<pre>
+					<code>
+def full_adder(a, b, right_carry):
+	'''
+	Outputs:
+	sum: right bit of a + b + right_carry
+	carry: left bit of a + b + right_carry
+	'''
+	sum = single_bit_xor(a, b)
+	carry = single_bit_and(a, b)
+
+	return sum, carry
+
+	right_sum, carry1 = half_adder(a, b)
+	sum, carry2 = half_adder(right_sum, right_carry)
+	carry = single_bit_or(carry1, carry2)
+	
+	return sum, carry
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide22">
+		<h1>Time for a sixteen-bit adder...</h1>
+		<iframe src="//giphy.com/embed/kRWFIgO75okHm" width="480" height="284" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/kRWFIgO75okHm">via GIPHY</a></p>
+	</section>
+
+	<section class="slide" id="slide23">
+		<div class="row">
+			<div class="col-13">
+				<pre>
+					<code>
+def sixteen_bit_adder(a16, b16):
+	'''
+	Outputs:
+	sum: a sixteen-bit-sum of two numbers
+
+	Discard the most significant carry bit. 
+	'''
+	sum = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+	sum[0], carry0 = half_adder(a[0], b[0])
+	sum[1], carry1 = full_adder(a[1], b[1], carry0)
+	sum[2], carry2 = full_adder(a[2], b[2], carry1)
+	sum[3], carry3 = full_adder(a[3], b[3], carry2)
+	sum[4], carry4 = full_adder(a[4], b[4], carry3)
+	sum[5], carry5 = full_adder(a[5], b[5], carry4)
+	sum[6], carry6 = full_adder(a[6], b[6], carry5)
+	sum[7], carry7 = full_adder(a[7], b[7], carry6)
+	sum[8], carry8 = full_adder(a[8], b[8], carry7)
+	sum[9], carry9 = full_adder(a[9], b[9], carry8)
+	sum[10], carry10 = full_adder(a[10], b[10], carry9)
+	sum[11], carry11 = full_adder(a[11], b[11], carry10)
+	sum[12], carry12 = full_adder(a[12], b[12], carry11)
+	sum[13], carry13 = full_adder(a[13], b[13], carry12)
+	sum[14], carry14 = full_adder(a[14], b[14], carry13)
+	sum[15], carry15 = full_adder(a[15], b[15], carry14)
+
+	return sum
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide24">
+		<div class="row">
+			<div class="col-13">
+				<pre>
+					<code>
+>>> a = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0] # 36
+>>> b = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] # 64
+>>> a.reverse() # binary numbers go from right to left
+>>> b.reverse() # python lists don't
+>>> c = sixteen_bit_adder(a, b)
+>>> c.reverse() 
+>>> print(c) # &#128175;
+					</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide24">
+		<div class="row">
+			<div class="col-13">
+				<h2>Recap!</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Single-bit OR</li>
+					<li>Single-bit NOT</li>
+					<li>Single-bit AND</li>
+					<li>Single-bit XOR</li>
+					<li>16-bit Multiplexer</li>
+					<li>16-bit bitwise NOT</li>
+					<li>16-bit bitwise AND</li>
+					<li>A 16-bit adder</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide25">
+		<div class="row">
+			<div class="col-13">
+				<h2>Recap!</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-13">
+				<p><strong>Inputs:</strong> x, y - two 16-bit binary numbers<br>
+				<strong>Control Bits:</strong> zx, nx, zy, ny, f, no<br>
+				<strong>Outputs:</strong><br>
+				<table>
+					<tbody>
+						<tr><td>x + y</td><td>x - y</td><td>y - x</td><td>0</td><td>1</td><td>-1</td></tr>
+						<tr><td>x</td><td>y</td><td>-x</td><td>-y</td><td>!x</td><td>!y</td></tr>
+						<tr><td>x + 1</td><td>y + 1</td><td>x - 1</td><td>y - 1</td><td>x & y</td><td>x | y</td></tr>
+					</tbody>
+				</table>
+				<br>
+				<strong>Outputs:</strong> zr if output == 0, ng if output < 0</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide26">
+		<div class="row">
+			<div class="col-13">
+				<h2>all right, let's do this.</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-13">
+				<ul>
+					<li>if (zx == 1) set x = 0</li>
+					<li>if (nx == 1) set x = !x</li>
+					<li>if (zy == 1) set y = 0</li>
+					<li>if (ny == 1) set y = !y</li>
+					<li>if (f == 1) set out = x + y</li>
+					<li>if (f == 0) set out = x & y</li>
+					<li>if (no = 1) set out = !out</li>
+					<li>if (out == 0) set zr = 1</li>
+					<li>if (out < 0) set ng = 1</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide27">
+		<div class="row">
+			<pre>
+				<code>
+def alu(x16, y16, zx, nx, zy, ny, f, no):
+	'''
+	Inputs:
+
+	x16, y16,  # 16-bit inputs        
+    zx, # zero the x input?
+    nx, # negate the x input?
+    zy, # zero the y input?
+    ny, # negate the y input?
+    f,  # compute out = x + y (if 1) or x & y (if 0)
+    no; # negate the out output?
+
+    Outputs:
+    out16 # 16-bit output
+    zr # 1 if output is zero
+    ng # 1 if output is negative 
+    '''
+
+    all_zeroes = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    			</code>
+    		</pre>
+    	</div>
+    </section>
+
+    <section class="slide" id="slide28">
+		<div class="row">
+			<pre>
+				<code>
+def alu(x16, y16, zx, nx, zy, ny, f, no):
+	...
+    ### determine the X to use
+
+    # zero the x if zx is set, else output incoming x
+    zerox = sixteen_bit_mux(a16=x16, b16=all_zeroes, sel=zx)
+
+    # not the x
+    notx = sixteen_bit_not(x16)
+
+    usex = sixteen_bit_mux(a16=zerox, b16=notx, sel=nx)
+    			</code>
+    		</pre>
+    	</div>  
+    </section>
+
+    <section class="slide" id="slide28">
+		<div class="row">
+			<pre>
+				<code>
+def alu(x16, y16, zx, nx, zy, ny, f, no):
+	...
+    ### determine the Y to use
+
+    # zero the y if zy is set, else output incoming y
+    zeroy = sixteen_bit_mux(a16=y16, b16=all_zeroes, sel=zy)
+
+    # not the y
+    noty = sixteen_bit_not(y16)
+
+    usey = sixteen_bit_mux(a16=zeroy, b16=noty, sel=ny)
+    			</code>
+    		</pre>
+    	</div>  
+    </section>
+
+    <section class="slide" id="slide29">
+		<div class="row">
+			<pre>
+				<code>
+def alu(x16, y16, zx, nx, zy, ny, f, no):
+	...
+    ### compute the Fs
+
+    addxy = sixteen_bit_adder(a16=usex, b16=usey)
+    andxy = sixteen_bit_and(a16=usex, b16=usey)
+
+    posout = sixteen_bit_mux(a16=addxy, b16=addxy, sel=f, out=posout)
+    negout = sixteen_bit_not(posout)
+
+    out16 = sixteen_bit_mux(a16=posout, b16=negout, sel=no)
+    ng = out16[15]
+    			</code>
+    		</pre>
+    	</div>  
+    </section>
+
+    <section class="slide" id="slide30">
+		<div class="row">
+			<pre>
+				<code>
+def alu(x16, y16, zx, nx, zy, ny, f, no):
+	...
+    ### determine if output is zero
+    ### out16 == all_zeroes
+    c1 = single_bit_or(out16[0], out16[1])
+    c2 = single_bit_or(out16[2], out16[3])
+    c3 = single_bit_or(out16[4], out16[5])
+    c4 = single_bit_or(out16[6], out16[7])
+    c5 = single_bit_or(out16[8], out16[9])
+    c6 = single_bit_or(out16[10], out16[11])
+    c7 = single_bit_or(out16[12], out16[13])
+    c8 = single_bit_or(out16[14], out16[15])
+
+    c9 = single_bit_or(c1, c2)
+    c10 = single_bit_or(c3, c4)
+    c11 = single_bit_or(c5, c6)
+    c12 = single_bit_or(c7, c8)
+    c13 = single_bit_or(c9, c10)
+    c14 = single_bit_or(c11, c12)
+    check = single_bit_or(c13, c14)
+
+    zr = single_bit_not(check)
+
+    return out16, zr, ng
+    			</code>
+    		</pre>
+    	</div>  
+    </section>
+
+    <section class="slide" id="slide31">
+		<div class="row">
+			<pre>
+				<code>
+>>> a = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0] # 36
+>>> b = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] # 64
+>>> a.reverse()
+>>> b.reverse()
+>>> out, zr, ng = alu(a, b, 0, 0, 0, 0, 1, 0)
+>>> print(out) # &#128175;
+>>> print(zr, ng) # 0 0
+    			</code>
+    		</pre>
+    	</div>  
+    </section>
+
+    <section class="slide" id="slide32">
+		<div class="row">
+			<table>
+				<tbody>
+					<tr style="border-bottom:2px solid black">
+						<th>zx</th>
+						<th>nx</th>
+						<th>zy</th>
+						<th>ny</th>
+						<th>f</th>
+						<th>no</th>
+						<th>f(x, y)</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>0</td>
+						<td>1</td>
+						<td>0</td>
+						<td>1</td>
+						<td>0</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>1</td>
+						<td>0</td>
+						<td>-1</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>0</td>
+						<td>x</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>y</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>1</td>
+						<td>!x</td>
+					</tr>
+
+				</tbody>
+			</table>	
+    	</div>  
+    </section>
+
+    <section class="slide" id="slide33">
+		<div class="row">
+			<table>
+				<tbody>
+					<tr style="border-bottom:2px solid black">
+						<th>zx</th>
+						<th>nx</th>
+						<th>zy</th>
+						<th>ny</th>
+						<th>f</th>
+						<th>no</th>
+						<th>f(x, y)</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>!y</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>-x</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>-y</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>x+1</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>y+1</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>x-1</td>
+					</tr>
+				</tbody>
+			</table>	
+    	</div>  
+    </section>
+
+	<section class="slide" id="slide34">
+		<div class="row">
+			<table>
+				<tbody>
+					<tr style="border-bottom:2px solid black">
+						<th>zx</th>
+						<th>nx</th>
+						<th>zy</th>
+						<th>ny</th>
+						<th>f</th>
+						<th>no</th>
+						<th>f(x, y)</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>0</td>
+						<td>y-1</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>0</td>
+						<td>x+y</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>1</td>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>x-y</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>1</td>
+						<td>y-x</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>x&y</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>1</td>
+						<td>0</td>
+						<td>1</td>
+						<td>0</td>
+						<td>1</td>
+						<td>x|y</td>
+					</tr>
+				</tbody>
+			</table>	
+    	</div>  
+    </section>
+
+	<section class="slide" id="slide35">
+		<div class="row">
+			<div class="col-13">
+				<h2>Gracias!</h2>
+			</div>
+		</div>
+		<div class="row">
+			<ul>
+				<li><a href="http://josephmosby.com/presentations/pygotham2015">http://josephmosby.com/presentations/pygotham2015</a></li>
+				<li><a href="http://josephmosby.com/presentations/pygotham2015/chip_functions.py">codes 'n' stuff</a></li>
+				<li><a href="http://github.com/josephmosby">Github: josephmosby</a></li>
+				<li><a href="http://twitter.com/josephmosby">@josephmosby</a></li>
+			</ul>
 		</div>
 	</section>
