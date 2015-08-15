@@ -120,7 +120,7 @@ p {
 	border-bottom:none;
 }
 
-.slide p, li, td {
+.slide p, .slide li, .slide td, .slide th {
 	font-size:21px !important;
 }
 
