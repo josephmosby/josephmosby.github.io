@@ -387,10 +387,6 @@ def full_adder(a, b, right_carry):
 	sum: right bit of a + b + right_carry
 	carry: left bit of a + b + right_carry
 	'''
-	sum = single_bit_xor(a, b)
-	carry = single_bit_and(a, b)
-
-	return sum, carry
 
 	right_sum, carry1 = half_adder(a, b)
 	sum, carry2 = half_adder(right_sum, right_carry)
