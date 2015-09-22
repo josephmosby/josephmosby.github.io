@@ -3,6 +3,7 @@ layout: subpage
 title: TALKS
 ---
 
+* PyGotham 15 - 08.16.15 - [Modeling an Arithmetic Logic Unit in Python](/presentations/pygotham2015/) - [video](http://pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python)
 * PyOhio 15 - 08.02.15 - [Production Django: Building a Highly Scalable, Secure Django Site](/presentations/pyohio2015/) - [video](http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se)
 * General Assembly - Ongoing - [Introduction to Python Programming](/presentations/intro_to_python/deck.pdf)
 * ProductCamp DC - 10.11.14 - [The Gritty Details: All of the Hidden Requirements in a Software Project](http://lanyrd.com/2014/pcampdc2014/sddymb/)
