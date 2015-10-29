@@ -5,7 +5,7 @@ layout: new
 {% for post in paginator.posts %}
 <div class="row">
 	<div class="col-3">
-		<h3>{{ post.title }}</h3>
+		<a href="{{ post.url }}"><h3>{{ post.title }}</h3></a>
 		<div class="date">{{ post.date | date: "%B %d, %Y" }}</div>
 	</div>
 	<div class="col-8">
