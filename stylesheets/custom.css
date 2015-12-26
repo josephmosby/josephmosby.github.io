@@ -139,6 +139,10 @@ p {
 		display:none !important;
 	}
 
+	.desktop_map_embed {
+		display:block;
+	}
+
 }
 
 @media (max-width:780px) {
@@ -153,5 +157,9 @@ p {
 
 	img { 
 		width:100%;
+	}
+
+	.desktop_map_embed {
+		display:none;
 	}
 }
