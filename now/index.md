@@ -5,7 +5,7 @@ title: NOW
 
 **I'm currently working on the following projects:**
 
-* Fixing paywall-related features in a refactored version of our existing NationalJournal.com codebase
+* Fixing syndication and search features on our National Journal refactoring project
 * Reading the following books:
 	- [The Power of Habit](http://amzn.to/1PT9bgY)
 * Building a tool to semantically analyze the text of large Congressional bills for key topics using [OpenCalais](http://www.opencalais.com/)
