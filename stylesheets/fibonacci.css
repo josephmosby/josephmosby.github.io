@@ -78,6 +78,11 @@ img {
 	width:100%;
 }
 
+img.no-fill {
+	width:50%;
+	margin:0 auto;
+}
+
 pre {
 	white-space: pre-wrap;       /* CSS 3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
