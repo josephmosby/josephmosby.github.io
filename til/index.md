@@ -3,6 +3,11 @@ layout: subpage
 title: TIL
 ---
 
+02-18-16: TIL how to query ELK for a specific set of servers for a particular
+error code
+
+	beat.name:*.secdom.tld AND message:*403
+
 02-18-16: TIL how to run a script every five minutes straight from the command
 line
 
