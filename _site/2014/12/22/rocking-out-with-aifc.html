@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/22/rocking-out-with-aifc.html"><h3>Rocking out with aifc</h3></a>
+	</div>
+	<div class="col-8">
+		<p><em>I've been writing a series of blog posts to eventually cover every single module in the Python Standard Library. Check them all out <a href="/blog/pymods">here</a>.</em></p>
+
+<p>In 1985, Electronic Arts (then publishing such games as <a href="http://en.wikipedia.org/wiki/The_Bard%27s_Tale_(1985_video_game)">The Bard’s Tale</a>) convened a group of engineers, software developers, and computer manufacturers to define a data interchange format for graphics, audio, and text. The aim was to create a file format with accompanying objects, data structures and interfaces that would be interchangeable across platforms for the budding gaming audience. This was a bold new time in data storage, when Apple had just invented a wonderful little tool called the “clipboard.” </p>
+
+<p>A few years later, Apple defined a fork of the EA IFF 85 standard with the Audio Interchange File Format, which allowed for multiple channels of audio with customizable sample rates and widths. The data was stored in Motorola 68000 format, which used big-endian order (most significant bytes first). <code>.aiff</code> and its compressed brother <code>.aifc</code> were the audio standard on iTunes for decades.</p>
+
+<p>The <code>aifc</code> <a href="https://docs.python.org/2.7/library/aifc.html#module-aifc">module</a> for Python is used to read and write <code>aiff</code> files on OS X. If you’re looking into using Python in the professional audio world, <code>aifc</code> should be in your toolkit. It’s a fairly simple module to navigate. I downloaded some sample AIFF files from <a href="http://www-mmsp.ece.mcgill.ca/documents/AudioFormats/AIFF/Samples.html">here</a> to play around with.</p>
+
+<pre><code>import aifc
+
+tune = aifc.open('sample1.aif')
+
+print tune.getparams()
+</code></pre>
+
+<p>In the sample file I’m using, this will yield a tuple with values <code>(2, 1, 8000, 23493, 'NONE', 'not compressed')</code>. That tuple indicates that we have two channels (stereo sound), one byte per sample, a framerate of 8000 frames per second, 23493 frames, and no compression.</p>
+
+<p>Now, if I wanted to create an AIFF object with these parameters, I’d do something like the following:</p>
+
+<pre><code>import aifc
+
+tune = aifc.aiff()
+
+tune.setnchannels(2)
+tune.setsampwidth(1)
+tune.setframerate(8000)
+tune.setnframes(23493)
+tune.setcomptype('NONE')
+</code></pre>
+
+<p>And then I could write data to the file as needed with <code>aifc.writeframes(data)</code>. </p>
+
+<p>That’s all there is to it! Obviously we haven’t done much with this particular module - that needs far more libraries to support audio creation and playback. We’ll see those later on.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/22/rocking-out-with-aifc.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/03/01/a-brand-new-code-review-and-integration-workflow.html"><h3>A brand new code review and integration workflow</h3></a>
+	</div>
+	<div class="col-8">
+		<p>I’ve been fortunate to join the <a href="http://www.nationaljournal.com/">National Journal</a> with a stack of brand new product managers and developers. As we form a new product team, we also need to address some of the operational nuances of bringing our team together. Part of that process includes defining and standardizing our workflow for code review, testing, and integration.</p>
+
+<p>Our process starts by branching master off into a specific feature branch, with the intention that we’ll push a set of changes through the review and testing process as a single set of commits that only pertain to that feature. </p>
+
+<p>We keep our feature branches local (though publishing a branch to GitHub isn’t a problem). Once we’re ready for our code to go to peer review, we execute the following commands to bring it into the review branch:</p>
+
+<pre><code>$ git checkout review
+$ git merge feature-branch
+$ git pull origin review
+</code></pre>
+
+<p>We’re approaching the code review process with a simple checklist, inspired by principles from Atul Gawande’s <a href="http://www.amazon.com/Checklist-Manifesto-How-Things-Right/dp/0312430000/ref=sr_1_1/185-7726352-5707960?s=books&amp;ie=UTF8&amp;qid=1424833091&amp;sr=1-1&amp;keywords=the+check+list+manifesto">The Checklist Manifesto</a> and Guido van Rossum’s <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8 guidelines</a> for Python code. </p>
+
+<ol>
+  <li>My code is indented with tabs.</li>
+  <li>Classes follow the CapWords naming convention and functions follow the lowercase_underscore convention.</li>
+  <li>Every public class and function has an associated docstring describing what the item does.</li>
+  <li>Any unusual or complex functions and algorithms have an associated comment describing the rationale for the approach. Any use of Exceptions is documented with comments.</li>
+  <li>The file does not have any code that is commented out, nor does it have any “TODOs”.</li>
+  <li>All print() functions that go to the development console have been removed.</li>
+  <li>The code has associated tests.</li>
+</ol>
+
+<p>Our checklist is only seven items long. We chose to leave off some items from PEP 8 compliance because we believe these items encompass the heart of good, readable Python code that our team can agree on as we’re developing at a rapid pace. Holding up code that deals with a priority ticket because someone’s lines have too many characters is not justifiable, but stopping a bugfix because it’s undocumented most certainly is. </p>
+
+<p>In addition to these checklist items, we talk through our logical approach to solving the problem, the necessity of certain functions or exceptions, and possible scenarios that might cause failures. If the peer reviewer is satisfied with the code, we execute the following commands to merge our changes with testing:</p>
+
+<pre><code>$ git checkout testing
+$ git pull origin review
+$ git pull origin testing
+</code></pre>
+
+<p>The testing branch is used by our functional testers to determine that everything’s working properly. The app should work perfectly at this stage - if it doesn’t, it’s headed back to the review pipeline. No one commits directly to testing, so any conflicts will be resolved during the commit to review. If the testers are satisfied, we prepare for the move to production with the following commands:</p>
+
+<pre><code>$ git checkout staging
+$ git pull origin testing
+$ git pull origin staging
+</code></pre>
+
+<p>To recap: </p>
+
+<p><img src="/images/review_workflow.svg" alt="Git workflow" /></p>
+
+<ol>
+  <li>Create local branch of master for the feature.</li>
+  <li>Complete work in branch and merge to review. </li>
+  <li>Peer review changes and pull review into testing.</li>
+  <li>Test changes and pull into master.</li>
+</ol>
+
+<p>What do we have left to do? </p>
+
+<ol>
+  <li>Proper integration into our production environment. We’re looking at something like <a href="https://travis-ci.com/">TravisCI</a> or <a href="https://circleci.com/">CircleCI</a> to manage our build process. </li>
+  <li>Write tests for all the code that was written before we standardized on a review process. </li>
+  <li>Write a PEP 8 linter to condense the style review. </li>
+  <li>Bonus: it might be nice to have a simple push-button approach to move everything between branches. </li>
+</ol>
+
+<p>This is getting us started. We’re still workshopping it, but it’s standardizing us on an approach and getting our team in line.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/01/a-brand-new-code-review-and-integration-workflow.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

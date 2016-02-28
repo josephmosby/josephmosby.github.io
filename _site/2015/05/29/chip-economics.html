@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/05/29/chip-economics.html"><h3>Chip Economics</h3></a>
+	</div>
+	<div class="col-8">
+		<p>Over the past few weeks, I’ve been working through <a href="http://nand2tetris.org">NAND2Tetris</a> after the recommendation of <a href="http://juliangindi.com/">Julian Gindi</a>. The NAND2Tetris course takes a single NAND electronic gate, which returns 0 if both inputs are 1 and returns 1 otherwise, and uses this as a building block for a whole host of electronic gates. It’s possible to make a NOT gate out of NAND chips. It’s also possible to build a multiplexer (which picks between inputs based on a control input). And most impressively, we can build an arithmetic logic unit - the core part of a CPU responsible for addition and subtraction - solely out of a stack of NAND chips. When all is said and done, I’ll have built a working computer emulator solely out of these single atomic pieces.</p>
+
+<p>Now, at this point in computer development, I’ve never even <em>seen</em> a real NAND hardware chip, and it’s likely impossible I could see one even if you held it up. They’ve now been shrunk down to a few nanometers wide. Engineers at Intel and AMD obsess over ALU design (I expect, maybe even they don’t any more), but it’s so far abstracted away from my day-to-day work that I could get away with never knowing how one worked for my entire career. But once upon a time, that wasn’t the case. Chips were things you could actually touch, and solder onto a breadboard, and make arcade games out of them. </p>
+
+<p>This exercise has made me look at some of the feats of early computer engineers in a totally different light. In the 1970s, Steve Wozniak was building Pong and <a href="http://thedoteaters.com/?bitstory=breakout">Breakout!</a> arcade games out of hardware chips, soldering together [more sophisticated] logic gates to build games. Atari was willing to pay $5000 ($22K in today’s dollars) for a Breakout chip design that only used 44 chips because chips actually cost enough for that to matter. Logic gates weren’t just vague ideas embedded into processor designs - they were things you could touch, and they cost money. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/29/chip-economics.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

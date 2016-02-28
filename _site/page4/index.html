@@ -1,0 +1,515 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/12/type-experiments-with-mypy.html"><h3>Type experiments with mypy</h3></a>
+		<div class="date">April 12, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>At PyCon 2015, much hullabaloo was made over <a href="https://www.python.org/dev/peps/pep-0484/">PEP 484</a> and the notion that “types” would be coming to Python. As I only vaguely understood the meat behind these protests, I decided to take a look at the PEP and the science behind it. </p>
+
+<p>A “type” in computer programming is pretty much exactly what it sounds like: it’s a type of data. One commonly sees integers, strings, floating-point numbers (simplistically, just numbers with decimals), Booleans (true/false), and lists in any language that uses types. Programming languages that use types allow the computer to predict and organize data at the machine level in the optimal way for the type. </p>
+
+<p>I had no trouble understanding types, but I had to think on “static” versus “dynamic” typing for a while. Static typing means that data types are declared when writing the program, and a type checker will protest if data is of the “wrong” type. This can be illustrated with an example from C:</p>
+
+<pre><code>static int numOne, numTwo, sum;
+numOne = 5;
+numTwo = 8;
+sum = numOne + numTwo;
+</code></pre>
+
+<p>In this example, <code>numOne</code> and <code>numTwo</code> are declared as integers, and can only be integers. If later on in the program, you want to do something like this:</p>
+
+<pre><code>numOne = "hello";
+</code></pre>
+
+<p>the compiler will throw a Type Error, and you won’t be able to compile your code. It’s not an execution problem – the program hasn’t even run yet – it’s the compiler checking up on you and letting you know that you said two conflicting things. You tried to say <code>numOne</code> was an integer, then later on tried to say it was a string, and that is <em>NOT OK.</em></p>
+
+<p>Dynamic typing, by contrast, takes a more YOLO approach to typing. Variable types don’t need to be explicitly spelled out in the program, and variables can change types over the life cycle of the program. This is all totally okay in Python’s lack-of-type system:</p>
+
+<pre><code>num_one = 5
+num_two = 8
+sum = num_one + num_two
+
+&lt; moar code &gt;
+
+num_one = "hello"
+</code></pre>
+
+<p>Python’s totally cool with all of this in its dynamically typed world. </p>
+
+<p>In 2012, Jukka Lehtosalo announced he was working on a statically typed Python derivative called <a href="http://mypy-lang.org/index.html">mypy</a>. <code>mypy</code> allows programmers to declare types in their Python programs and realize the performance benefits of static typing while maintaining the dynamic typing that’s part of the Python core. <code>mypy</code> puts this example on their homepage: </p>
+
+<pre><code># regular Python
+
+def fibonacci(n):
+	a, b = 0, 1
+	while a &lt; n:
+		yield a
+		a, b = b, a+b
+
+# mypy
+
+def fibonacci(n: int) -&gt; Iterator[int]:
+	a, b = 0, 1
+	while a &lt; n:
+		yield a
+		a, b = b, a+b
+</code></pre>
+
+<p>I’m skeptical. Let’s do some timing comparisons.</p>
+
+<p>I pulled these scripts off of the <a href="http://mypy-lang.org/examples.html">mypy examples page</a>, just to make sure I wasn’t messing with any data by writing a bad program. We have a test with <a href="https://gist.github.com/josephmosby/deed574acae4012c6f5e">dynamic types</a> and one with <a href="https://gist.github.com/josephmosby/7677272079fd9ccfb761">static types</a>. There are two tweaks in each program to adjust for differences between Python 2 and Python 3 (on line 13, <code>numbers.next()</code> was changed to <code>next(numbers)</code> and on line 18, <code>itertools.ifilter()</code> was changed to <code>filter()</code>). </p>
+
+<pre><code>$ python dyn_test.py
+dyn_test.py
+100003
+Time one
+7.158545970916748
+100003
+Time two
+7.493566989898682
+100003
+Time three
+8.433957815170288
+100003
+Time four
+7.388293027877808
+100003
+Time five
+7.045740127563477
+
+$ python mypy_test.py
+mypy_test.py
+100003
+Time one
+7.473484992980957
+100003
+Time two
+7.3924078941345215
+100003
+Time three
+7.513011932373047
+100003
+Time four
+8.032839059829712
+100003
+Time five
+7.929549932479858
+</code></pre>
+
+<p>Well… I can’t detect any statistically significant differences here. I remain skeptical.</p>
+
+<p>Now, where I <em>can</em> call out some perks: the <code>mypy</code> type checker is super awesome. It does a lot of pre-compile lint work on the code and helped me detect the two errors I noted above. I could also see this being useful in a codebase that’s touched by a lot of enterprise developers. But does it offer significant performance benefits? *shrug* I’m not sure. Perhaps in a more complex world.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/12/type-experiments-with-mypy.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/12/jacob-kaplan-moss-on-the-talent-myth.html"><h3>Jacob Kaplan-Moss PyCon Keynote on the Talent Myth</h3></a>
+		<div class="date">April 12, 2015</div>
+	</div>
+	<div class="col-8">
+		<pre><code>I am a mediocre programmer and I invite you to join me. And together, we can do our jobs perfectly adequately. 
+- Jacob Kaplan-Moss on the myth that you have to be a "rockstar" to be a programmer
+</code></pre>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hIJdFxYlEKE" frameborder="0" allowfullscreen=""></iframe>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/12/jacob-kaplan-moss-on-the-talent-myth.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/11/testing-requests-wheel-packages-and-visual-diffing.html"><h3>Testing requests, wheel packages, and visual diffing</h3></a>
+		<div class="date">April 11, 2015</div>
+	</div>
+	<div class="col-8">
+		<pre><code>No matter how many unit tests you write, you'll never write a test for "is there a pony on the page?"
+- Dan Vanderkam, on an animated pony GIF appearing in Google production
+</code></pre>
+
+<p>I do not consider myself to be a very good tester. I am aware that I should write tests, but I am only vaguely certain of what I am supposed to be testing, and I am even less certain about which packages I’m supposed to use to test. Should I bust out <code>unittest</code>? Do I use Django’s testing harness? And so Saturday became a day of testing for me. </p>
+
+<p><a href="https://github.com/sigmavirus24">Ian Cordasco</a> opened the door with an extremely scary question: how do you test web applications that expect access to the internet? We can’t fake a web service (because then we’d have to test two separate things) and we can’t just feed it expected data (because that’s not a test). How do we isolate the two? </p>
+
+<p>Cordasco mentions a stack of libraries facilitate mock web services:
+- <a href="https://pypi.python.org/pypi/responses/0.3.0">responses</a>
+- <a href="https://pypi.python.org/pypi/httpretty">httpretty</a>
+- <a href="https://pypi.python.org/pypi/requests-mock">requests-mock</a>
+- <a href="https://docs.python.org/3/library/unittest.mock.html">mock</a></p>
+
+<p>These do many of the same functions with varying degrees of complexity, but the core principle is the same: <em>you cannot assume access to the internet in a predictable fashion when doing unit tests.</em> I have some digging to do into these libraries.</p>
+
+<p>On a more niche use case, <a href="https://github.com/ogrisel">Olivier Grisel</a> introduced me to wheel packages this afternoon. A <a href="https://packaging.python.org/en/latest/distributing.html#wheels">wheel package</a> is a special package distribution format for Python packages that allows lightning fast installation and distribution. It’s easy enough to use <a href="https://travis-ci.org/">TravisCI</a> for deployment testing on *nix-based systems, but what about for Windows packages? Grisel and his team use <a href="http://www.appveyor.com/">AppVeyor</a> to package scikit-learn on Windows systems. The tests can be automated, and the speed can’t be beaten.</p>
+
+<p>And finally, the pony.</p>
+
+<p><a href="https://github.com/danvk">Dan Vanderkam</a>’s co-worker once accidentally shipped a pony to production. He didn’t mean to - he was testing perfectly valid code and testing CSS animations at the time. The code passed peer review and all of the unit and integration tests. It just so happened to have a pony on it. And so his colleague was compelled to write <a href="https://github.com/bslatkin/dpxdt">dpxdt</a> (pronounced “depicted”) to do automated visual diff testing of new builds. <code>dpxdt</code> generates and stores screenshots of releases, then compares the two pixel-by-pixel to spot changes. If something breaks, <code>dpxdt</code> ships with a number of ways to showcase the changes.</p>
+
+<p>There’s <em>so much</em> out there for testing. Special thanks to these presenters for bringing their slices of it to PyCon. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/11/testing-requests-wheel-packages-and-visual-diffing.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/11/pycon-2015-day-two-keynote-from-guido-van-rossum.html"><h3>PyCon 2015&#58; Day Two Keynote from Guido van Rossum</h3></a>
+		<div class="date">April 11, 2015</div>
+	</div>
+	<div class="col-8">
+		<pre><code>You have to actually understand your code! And so we've given you five more years. 
+-- Guido van Rossum, on the difficulty of porting Python 2 code to Python 3
+</code></pre>
+
+<p>Python is exceptionally easy to use and easy to learn. If you’re using OS X or any Linux distribution, you can immediately pick Python up with minimal effort. If you’re on Windows, the installer takes one click to get up and running. Few languages offer this flexibility! Java – the old gold standard for education – doesn’t work easily on Macs any more, nor does it offer a comfortable environment to start punching commands in to experiment. Python lets the beginner learn but can handle a wide range of complexity, allowing new users to branch into data science, web applications, or desktop software without needing to immediately learn a new syntax.</p>
+
+<p>But it’s Python’s <em>opinions</em> that make it a perfect language for the beginner. </p>
+
+<p>The Python core team has always insisted that there is a proper way to write Python code. Sure, there may be another syntactically correct way to write code, but it won’t be the <em>right</em> way unless it follows certain guidelines. Those guidelines have been canonized in <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, a document that causes all manner of debate and consternation in Python developers. Still, the spirit of this approach matches with the realities of computer science. There may be a syntactically correct way to do something, but it’s often an approach that will cause an engineer or a team problems down the road. </p>
+
+<p>Guido van Rossum discussed some of these problems with software engineering today while speaking on the move from Python 2 to Python 3. Though Python has had version 3 accessible for years now, many developers have never upgraded - in many cases, because their codebases rely on dependencies that haven’t been upgraded. And that’s a huge problem! Many developers are now hamstrung because their code simply copied and pasted someone else’s code, meaning we’re using and maintaining systems that we don’t understand. That’s bad for the craft of software engineering, and bad for the systems engineers build.</p>
+
+<p>While Python has strong opinions and a hefty unwillingness to budge on the proper way to do things, it also makes efforts to include developers in ways that many communities do not. Guido spoke on the next iteration of Python (as expected), but he also made clear points to encourage diversity in the community. He stood on stage in a <a href="www.pyladies.com">PyLadies</a> shirt and praised the women who joined him at a Python meetup in Iraq. He lamented that women weren’t joining the Python language development process, but then took the next step: offering personal mentorship to women who wanted to become core contributors to the Python language. And finally, noting that women often don’t speak up and ask questions at tech conferences, he insisted that his first questioner be a woman, with women and men alternating on questions for the rest of the Q&amp;A session. </p>
+
+<p>There’s a right way to do computer science. It’s wrong to allow flippancy and bad habits in code, even for beginners, because <a href="http://newsoffice.mit.edu/2005/habit">bad habits are aggressively difficult to break</a> and computers don’t make allowances. But it’s equally wrong to demand a certain system and not be willing to teach newcomers the details of that system. That’s where the Python community has excelled and continues to look to improve.  </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/11/pycon-2015-day-two-keynote-from-guido-van-rossum.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/10/python-at-disney-animation.html"><h3>Python at Disney Animation</h3></a>
+		<div class="date">April 10, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I started off my technology career as a help desk support staffer at Belmont University in 2007 after being sick of working in the food industry. I learned how to code in Visual Basic for Applications by writing custom Excel functions to help me through my finance classes. I <em>finally</em> and painstakingly learned some proper computer science through <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-00-introduction-to-computer-science-and-programming-fall-2008/">MIT’s OpenCourseWare</a>, where I picked up Python as my language of choice. I’ve learned a bit more computer science as a matter of course since then, but code to me has always been more about gluing together solutions and data than anything else.</p>
+
+<p>Turns out, that’s how Disney Animation sees it as well. </p>
+
+<pre><code>No one wants to use another limited DSL. [me: Domain-Specific Language] They just want Python.
+- Paul Hildebrandt, Software Engineer, Disney Animation
+</code></pre>
+
+<p>Disney movies require a lot of software programs used by several different teams. There’s software to move characters’ faces, software that simulates lights, and software that behaves as if it was a real camera. Like many graphics artists, Disney artists script a lot of their workflows to keep themselves from doing the same thing twice – or two thousand times – in repetition. Many of the commercial tools they use shipped with their own domain-specific languages, meaning that an artist could be compelled to learn four completely different scripting languages for four completely different software packages, even if all of the scripts were designed to do roughly the same thing. With Python embedded in their tools, that pain point has gone away. They can learn one language and trust that they’ll be comfortable with its nuances regardless of how the software changes. </p>
+
+<pre><code>We paid $50 for the [San Francisco] county assessor's street and elevation maps. * pause * It's okay, we made a lot of money off Frozen.
+</code></pre>
+
+<p>So much of the work required for attacking details in building worlds is similar to GIS work that thousands of Pythonistas are already doing. <a href="http://movies.disney.com/big-hero-6/">Big Hero 6</a> is set in “San Fransokyo”, a mish-mash of San Francisco with Japanese culture, and the look and feel of San Francisco needed to be preserved. There’s a reason that the movie’s city looks like the Bay Area – it’s because it is! San Fransokyo is based on the actual street map and elevation of the real San Francisco, and much of that data analysis was done with Python.</p>
+
+<pre><code>"Oh, so you guys crowdsourced crowds."
+</code></pre>
+
+<p>There’s an entire team of people strictly dedicated to crowds of things. You have a shot in the middle of a city and there are cars on the streets and people milling around on the sidewalks. That’s all crowd mechanics. Disney’s crowd team released a character creator called “Denizen” (built with Python) and started letting their animators create characters on it. Those dreamed-up characters are now automatically brought into a crowd whenever one is needed. (I hope this means that Elsa is hanging around Big Hero 6 somewhere)</p>
+
+<pre><code>"We don't always work in a correct world. We work in an art-directed world."
+</code></pre>
+
+<p>Scientifically, there’s always a proper way that things are supposed to happen. Lights are supposed to behave in a certain way, as are wind and rain. That’s just fine for the real world or for scientific modeling, but that isn’t necessarily how an art director wants to capture a shot. The real world doesn’t necessarily jibe with the feel of a movie. Python allows Disney technology teams to respond accordingly, with lightning quick software builds and easy customizability. </p>
+
+<p>It’s been enlightening to have Disney Animation here at PyCon to learn about their workflow. Really, really inspiring stuff and great work coming out of it.  </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/10/python-at-disney-animation.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/10/pycon-2015-first-notes.html"><h3>PyCon 2015&#58; First Notes</h3></a>
+		<div class="date">April 10, 2015</div>
+	</div>
+	<div class="col-8">
+		<pre><code>Snakes are deaf. And so are some Pythonistas.
+- Julia Evans introducing live captioning at PyCon 2015
+</code></pre>
+
+<p>I’ve been blown away by the attention to accessibility at PyCon 2015. Every talk has been captioned in real time, with screens beside every presenter streaming their words. PyCon has childcare, gratis, for anyone at the conference. 291 individuals received $200K in financial aid to help them pay for the conference, hotel rooms, flights, etc. </p>
+
+<p>I’ve chatted with a woman who works for the <a href="http://www.detroit.lib.mi.us/specialservice/computer-skills-instruction-classes-0">Detroit Public Library</a> system. She started teaching kids to code using Scratch (something she learned specifically to teach to others), and is now doing the same with Python. Her students thought Scratch was too elementary and quickly outgrew it - now they want more. It’s fantastic to hear about stuff like this popping up throughout the country and the community rallying around it.</p>
+
+<p><a href="http://www.pyladies.com">PyLadies</a> and <a href="http://djangogirls.org">DjangoGirls</a> are also bringing Python to a wider community, teaching women who have never coded before how to build a Python program and/or web application from the ground up. And the Python Software Foundation is right there to support projects like those through their <a href="https://www.python.org/psf/grants/">grant program</a>.</p>
+
+<p>The Foundation and the PyCon organizers have bent over backwards to provide opportunities for developers of all experience levels to jump into open source software. The OSS sprints will be led by <em>several</em> talks about introductory open source contributions, inviting any Python developers to jump in even if they’ve never contributed to open source before. </p>
+
+<p>As a new PyCon attendee, I can’t speak highly enough about all of the ways they’ve made this conference accessible and welcoming. More to come as the talks continue!</p>
+
+<p><em>If you’re reading this and at PyCon, I’d love to see you at the journalism and media open space in room 510D at 2PM today (Friday)!</em></p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/10/pycon-2015-first-notes.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/08/rosas-cosas-building-a-twilio-app-to-match-kingsthings.html"><h3>Rosa&#39;s Cosas&#58; Building a Twilio app to match &#64;kingsthings</h3></a>
+		<div class="date">April 08, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>The Washington Post said it best: <a href="http://www.washingtonpost.com/blogs/style-blog/wp/2015/03/19/larry-king-has-a-special-way-of-tweeting-the-broadcast-legend-who-just-cant-retire-talks-about-his-new-media-way-of-life/">“Larry King has a special way of tweeting.”</a> He calls a special phone line and leaves a tweet on a voicemail, which is then transcribed by an assistant and posted to Twitter. Lacking an assistant, I decided to build something to allow <a href="https://twitter.com/lbrosa">@lbrosa</a> to call in a tweet using Twilio’s transcription functionality. </p>
+
+<p>Our workflow here is simple, but rather confusingly documented by Twilio’s stock documentation. </p>
+
+<ol>
+  <li>Call a Twilio number tied back to one of our app URLs dedicated for transcription.</li>
+  <li>Build a Twilio Response object that includes a Record verb that contains a <code>transcribeCallback</code> redirect parameter, which will be another URL in our app.</li>
+  <li>Twilio will record the call and hit our <code>transcribeCallback</code> URL with the transcription text once it’s finished.</li>
+  <li>We take our transcribed text and post it to Twitter.</li>
+</ol>
+
+<p>What does that look like in Django? What will we need?</p>
+
+<pre><code># requirements.txt
+
+Django==1.7.7
+twilio==3.7.3
+django-twilio==0.8.0
+tweepy==3.3.0
+
+# other dependencies that these libraries will install for you
+</code></pre>
+
+<p>The <code>twilio</code> library is put out by Twilio and contains some helper functions so you don’t have to build raw XML to send back to them. <code>django-twilio</code> is here to help with Django’s freakouts about POSTing data without CSRF tokens. And <code>tweepy</code> talks to Twitter. We’ll see where they all fall into place in <code>views.py</code>.</p>
+
+<pre><code># views.py 
+# part 1
+
+from django_twilio.decorators import twilio_view
+from twilio import twiml
+
+@twilio_view
+def transcribe_incoming(request):
+
+	r = twiml.Response()
+	r.say("What is your tweet?")
+	r.record(maxLength=30, transcribeCallback="/playback/")
+
+	return r
+</code></pre>
+
+<p>This view will answer an incoming call to our app. We build a TwiML Response and attach two Twilio verbs to it: <code>&lt;Say&gt;</code> and <code>&lt;Record&gt;</code>. Our <code>&lt;Say&gt;</code> verb takes in some text that Twilio’s robot voice will read back to the caller. Our <code>&lt;Record&gt;</code> verb takes in a <code>maxLength</code> in seconds for recording. It also contains a <code>transcribeCallback</code> parameter - the URL we’ll POST data to once the transcription is completed. No need to include <code>transcribe="True"</code>, as <code>transcribeCallback</code> will assume that.</p>
+
+<p>Our caller will record a tweet and then hang up, kicking off Twilio’s transcription. Note that our app doesn’t have anything to do here until Twilio finishes our transcription and then POSTs the response to <code>/playback/</code>. </p>
+
+<pre><code># views.py
+# part 2
+
+from django.http import HttpResponse
+from django_twilio.decorators import twilio_view
+from twilio.rest import TwilioRestClient
+from django.conf import settings
+import tweepy
+
+@twilio_view
+def playback(request):
+
+	transcribed = request.POST['TranscriptionText']
+	sent_from = request.POST['From']
+	body = "Tweet Sent: " + transcribed
+
+	auth = tweepy.OAuthHandler(settings.TWITTER_CONS_KEY, settings.TWITTER_CONS_SECRET)
+	auth.set_access_token(settings.TWITTER_APP_KEY, settings.TWITTER_APP_SECRET)
+
+	api = tweepy.API(auth)
+	api.update_status(status=transcribed)
+
+	client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+
+	msg = client.messages.create(to=sent_from, from_=settings.TWILIO_PHONE_NUM, body=body)
+
+	return HttpResponse("A-OK", status=200)
+</code></pre>
+
+<p>Twilio includes the transcription text in the POST data as well as the number the user called from. We’ll need both of those. We’ll also need all of the Twilio and Twitter settings that you should keep secure. This app assumes that you’ve created a corresponding Twitter app that has Read and Write access to your account. No oAuth silliness - just the direct post to your account.</p>
+
+<p>We follow the vanilla instructions for updating a status with <code>tweepy</code> using the <code>TranscriptionText</code> from the POST data. We’re then going to send that text back to the user via SMS to give them a confirmation that everything proceeded as planned. We close the loop with a 200 Response back to Twilio.</p>
+
+<p>URL patterns are up to you, but should probably look something like this: </p>
+
+<pre><code># urls.py
+
+urlpatterns = patterns('',
+    url(r'^transcribe/$', 'callme.views.transcribe_incoming', name='transcribe_incoming'),
+    url(r'^playback/$', 'callme.views.playback', name='playback'),
+)
+</code></pre>
+
+<p>No admin console needed, no database. Just two quick little views. </p>
+
+<p>Have fun with this! I’ve created a <a href="https://github.com/josephmosby/rosascosaspublic/">Github repo</a> for the project with the full Django app in case it’s useful.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/08/rosas-cosas-building-a-twilio-app-to-match-kingsthings.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/03/30/hot-chicken.html"><h3>Hot Chicken</h3></a>
+		<div class="date">March 30, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Nashville is a wonderful weird place. The city has a native dish known only as “hot chicken” and David Ramsey has captured its essence perfectly.</p>
+
+<p><a href="http://www.oxfordamerican.org/magazine/item/190-some-like-it-extra-hot">Some Like It Extra Hot</a></p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/30/hot-chicken.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/03/26/periscope-and-the-panopticon.html"><h3>Periscope and the Panopticon</h3></a>
+		<div class="date">March 26, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Tonight, eleven strangers watched my friend Ouzy eat tater tots over Periscope. I was the cameraman. We didn’t promote a livestream of tater tot eating or even tweet about it when the camera starting rolling. I just opened the app and people started watching a man they’d never met eat tots. </p>
+
+<p>I wonder how many people would watch Kim Kardashian eat tots. </p>
+
+<p>This morning I watched someone commute into work. I then watched a segment of a live interview with Jeb Bush. I streamed someone doing yo-yo tricks in our office.</p>
+
+<p>A building exploded in New York City and the news was broken by someone across the street on Periscope. </p>
+
+<p>I used to be uneasy at the thought of the Panopticon - a world where everything can be seen by everyone, anywhere in the world. Anything you say or do can be seen by millions.</p>
+
+<p>A couple was having a first or second date next to us. We didn’t flip out our phones to broadcast it to the world. We joked about their date, we mused about where it would go, but we didn’t record it.</p>
+
+<p>Every politician is looking for opportunities to get their ideas out there and they are competing for attention with my friends eating tater tots. People sign up for The Bachelor to have their dating lives blasted to viewers worldwide but there’s no cameraman out there who’s even thinking about recording a couple on their first date.</p>
+
+<p>There are different power dynamics at play in the Panopticon. The scary scenario relies on there being people in power holding the cameras and viewing the video. But those cameras can be turned around. And sometimes those cameras are just pointing at people eating tots. Sometimes they’re pointed at emergencies where every additional set of eyes helps. We’re back to the same power dynamics we had before, human beings with our same sets of eyes and narrow attention spans. </p>
+
+<p>The Panopticon is finally here. And it’s full of tots.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/26/periscope-and-the-panopticon.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/03/25/what-consulting-will-not-teach-you.html"><h3>What Consulting Will Not Teach You</h3></a>
+		<div class="date">March 25, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Consulting will teach you <a href="/2015/03/23/what-consulting-will-teach-you.html">quite a bit</a>. It will teach you how to deal with people of all makes and models and will teach you how to truly make things happen with your words. But for all of its positives, the consulting world promises to teach a lot that it did not teach me, and that I know many of my consulting peers still struggle with. </p>
+
+<p>Consulting will not teach you what you really <em>want</em> to do. Many potential consultants - myself included - come into the consulting world uncertain about what they want to do with their lives. Consulting promises exposure to a breadth of experiences that no other industry can possibly match. You’ll serve clients of all shapes and sizes, you’ll work with wonderful people who have so much to teach you, and you’ll certainly have a stack of work experience to show off on your resume. But all of this choice won’t imbue you with passion for any one particular thing. You have to find that on your own, and consulting makes it incredibly difficult to do so for many young people. If you’re struggling to make a decision about your future, consulting will not help you make that choice.</p>
+
+<p>Consulting will not teach you how to build a perfect product for the perfect customers. Consultants are rarely brought on to do detailed user and market research <em>and</em> build the product that will serve those users in that market. It’s more common to see one firm brought in to do the market research, neatly packaged in a branded report, followed by a second firm that will devise an “action plan” based on the parts of the report that the client liked, followed by a third firm that will actually build the thing at the lowest cost possible. In no universe is this the most effective way to build a product that makes customers happy.</p>
+
+<p>Consulting will not teach you how to do things on the cheap. There are two types of contracts major consulting firms go after. The first type is driven by legal, regulatory, or compliance-based requirements that will cause giant businesses massive financial pain if they don’t follow the rules. Consulting contracts of this nature are predicated on the notion that it’s far more valuable to pay them a million dollars than risk a fifty-million dollar fine. If the final bill goes up to two million dollars for consulting services, it’s still worth it. The other type of contract comes up with the million dollars could potentially save fifty million or generate an additional fifty million dollars in sales.. and again, if the final bill creeps up an extra half million or so, no problem. This is not a recipe for learning how to do things in a lean, efficient manner. You are playing with sums of money so large that they’re beyond the ken of most mortals.</p>
+
+<p>Consulting will not teach you how to build a business. Consulting will have you swimming in business, to be sure, but you’ll be swimming in businesses that have already been built. They’ve already sorted through their growing pains and can afford to call you up for consulting services. (Now, I should caveat this point. Consulting <em>will</em> present you with a lot of wrong ways to do things, and this knowledge will serve you well when you confront similar situations in a new enterprise.) There is nothing that will teach you how to build a business like <em>actually building a business</em>, and there is nothing that will teach you about building a team like <em>actually building a team</em>. </p>
+
+<p>Ultimately, a gig in consulting will not teach you how to actually be a software engineer or hospital manager or any of the numerous professionals you will support. You are like a grad student who started helping the basketball team and suddenly wound up as an assistant coach, but you are not on the court yourself and you are not the head coach calling the plays. Consulting is an excellent profession! But if you’re hungry to have the responsibility and the consequences of starting and growing a real business, consulting will not satisfy that itch. If you’re struggling to make your mind up about your life and hoping that consulting will help you sort through it, you are likely to be disappointed. You have to jump straight into the world and take a risk - an experience that consulting cannot give you.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/25/what-consulting-will-not-teach-you.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-offset-3 col-8">
+		<div class="pagination">
+			
+			<a href="/page3" class="previous">Previous</a>
+			
+
+			<span class="page_number">Page: 4 of 8</span>
+
+			
+			<a href="/page5" class="next">Next</a>
+			
+		</div>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,448 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+
+	<title>Production Django</title>
+	
+	<!-- Required stylesheet -->
+	<link rel="stylesheet" href="/include/deckjs/core/deck.core.css">
+	
+	<!-- Extension CSS files go here. Remove or add as needed. -->
+	<link rel="stylesheet" href="/include/deckjs/extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/status/deck.status.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/scale/deck.scale.css">
+
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="main.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="/include/deckjs/themes/transition/horizontal-slide.css">
+	
+	<!-- Required Modernizr file -->
+	<script src="/include/deckjs/modernizr.custom.js"></script>
+
+	<link rel="stylesheet" href="/stylesheets/fibonacci.css">
+	<link rel="stylesheet" href="/stylesheets/custom.css">
+	
+	<!--[if lt IE9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+	<div class="wrapper" id="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-13">
+					<a href="/"><h3>PRODUCTION DJANGO</h3></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wrapper" id="slides">
+	<div class="container deck-container">
+		<section class="slide" id="intro">
+		<h2>Building a Highly Scalable, Secure Django Site</h2>
+	
+		<p>Joseph Mosby<br>@josephmosby</p>
+	</section>
+
+	<section class="slide" id="slide1">
+		<div class="row">
+			<div class="col-13">
+				<h2>Quien soy?</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Python engineer at National Journal</li>
+					<li>Former government cybersecurity auditor</li>
+					<li>Classic computing aficionado</li>
+					<li>Spanish student</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide2">
+		<div class="row">
+			<div class="col-13">
+				<h2>Our Agenda</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Deploy gracefully</li>
+					<li>Secure servers</li>
+					<li>Segment environments</li>
+					<li>Scale the environment</li>
+					<li>Gotchas</li>
+					<li>Tools</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide3">
+		<div class="row">
+			<div class="col-13">
+				<h2>Deploy: What Most of Us Do</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Just do what Heroku says (good!)</li>
+					<li>git pulls / Fabric</li>
+					<li>FTP</li>
+					<li>Continuous</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide4">
+		<div class="row">
+			<div class="col-13">
+				<h2>Deploy: Recommendations</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Aim for a single, repeatable, easy-to-execute deploy step</li>
+					<li>Example: we `git force checkout` as part of a production push.</li>
+					<li>Scheduled versus continuous is heavily influenced by discipline and politics</li>
+				</ul>
+				<p>note: we use scheduled because it helps us adhere to the social contract we have with our organization.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide5">
+		<div class="row">
+			<div class="col-13">
+				<h2>Secure: What Most of Us Do</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Trust the hosting provider</li>
+					<li>Developers have root access and app superuser access</li>
+					<li>Diligently change our passwords every 90 days</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide6">
+		<div class="row">
+			<div class="col-13">
+				<h2>Secure: Recommendations</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Keep sensitive data off of your public servers as much as possible</li>
+					<li>Restrict everyone's access, *especially* developers
+						<ul>
+							<li>developers know just enough to get themselves and the server into trouble</li>
+							<li>the larger the attack surface, the higher the risk</li>
+						</ul>
+					</li>
+					<li>Contingency plans on contingency plans</li>
+					<li>Bring non-devs into the risk analysis</li>
+					<li>If running multiple apps off same server, run them with users that can only see their own directories</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide7">
+		<div class="row">
+			<div class="col-13">
+				<h2>Segment: What Most of Us Do</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>"my local machine is dev"</li>
+					<li>"the server I push to is prod"</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide8">
+		<div class="row">
+			<div class="col-13">
+				<h2>Segment: Recommendations</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>dev (copy of prod environment) / stage / production</li>
+					<li>subsegment production based on data classification</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide9">
+		<div class="row">
+			<div class="col-13">
+				<h2>Scale: What Most of Us Do</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Just do what Heroku says (good!)</li>
+					<li>Handle it when it becomes a problem (bad!)</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide10">
+		<div class="row">
+			<div class="col-13">
+				<h2>Scale: Recommendations</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<img src="load_balancer.png" alt="graphic of load balancer connecting to two servers" />
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide11">
+		<div class="row">
+			<div class="col-13">
+				<h2>Gotchas</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Storing images locally</li>
+					<li>Django admin</li>
+					<li>Out of control queries</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide12">
+		<div class="row">
+			<div class="col-13">
+				<h2>Out of control queries</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-13">
+				<pre>
+				<code>
+# Bad
+def lots_of_queries(self):
+	members = Members.objects.filter(committee='Ways and Means')
+	for member in members:
+		# this is a new DB query
+		# each iteration
+		chief_of_staff = member.chief_of_staff
+		print(chief_of_staff.name)
+	return members
+
+# Good
+def few_queries(self):
+	members = Members.objects.filter(committee='Ways and Means')
+	# yay
+	members = members.select_related('chief_of_staff')
+	for member in members:
+		chief_of_staff = member.chief_of_staff
+		print(chief_of_staff.name)
+				</code>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide13">
+		<div class="row">
+			<div class="col-13">
+				<h2>Tools</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-8">
+				<ul>
+					<li>Django Debug Toolbar</li>
+					<li>New Relic</li>
+					<li>Sentry</li>
+					<li>Supervisor</li>
+					<li>Flower</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide14">
+		<div class="row">
+			<div class="col-13">
+				<h2>Django Debug Toolbar</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-13">
+				<img src="django_debug.png" alt="screenshot of Django Debug Toolbar, showing a breakdown of a SQL transaction" />
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide15">
+		<div class="row">
+			<div class="col-13">
+				<h2>New Relic</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-13">
+				<img src="new_relic.png" alt="screenshot of New Relic dashboard, showing a graph of transaction times for webapp, database, and memcache" />
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide16">
+		<div class="row">
+			<div class="col-13">
+				<h2>Sentry</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-13">
+				<img src="sentry.png" alt="screenshot of Sentry dashboard, showing a listing of error logs" />
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide17">
+		<div class="row">
+			<div class="col-13">
+				<h2>Supervisor</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-13">
+				<img src="supervisor-subprocess.png" alt="graphic of supervisor states and showing how subprocesses change state" />
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide18">
+		<div class="row">
+			<div class="col-13">
+				<h2>Flower</h2>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-13">
+				<img src="celery.png" alt="screenshot of Celery queues in Flower dashboard with completed tasks and numbers of workers" />
+			</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide19">
+		<div class="row">
+			<div class="col-13">
+				<h2>Gracias!</h2>
+			</div>
+		</div>
+		<div class="row">
+			<ul>
+				<li><a href="http://josephmosby.com/presentations/pyohio2015">http://josephmosby.com/presentations/pyohio2015</a></li>
+				<li><a href="http://github.com/josephmosby">Github: josephmosby</a></li>
+				<li><a href="http://twitter.com/josephmosby">@josephmosby</a></li>
+			</ul>
+		</div>
+	</section>
+
+
+	<!-- Begin extension snippets. Add or remove as needed. -->
+
+	<!-- deck.navigation snippet -->
+	<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+	<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+	<!-- deck.status snippet -->
+	<p class="deck-status">
+		<span class="deck-status-current"></span>
+		/
+		<span class="deck-status-total"></span>
+	</p>
+
+	<!-- deck.goto snippet -->
+	<form action="." method="get" class="goto-form">
+		<label for="goto-slide">Go to slide:</label>
+		<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+		<datalist id="goto-datalist"></datalist>
+		<input type="submit" value="Go">
+	</form>
+
+	<!-- deck.hash snippet -->
+	<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+	</div>
+	</div>
+
+	
+		<!-- Required JS files. -->
+	<script src="/include/deckjs/jquery-1.7.2.min.js"></script>
+	<script src="/include/deckjs/core/deck.core.js"></script>
+
+	<!-- Extension JS files. Add or remove as needed. -->
+	<script src="/include/deckjs/core/deck.core.js"></script>
+	<script src="/include/deckjs/extensions/hash/deck.hash.js"></script>
+	<script src="/include/deckjs/extensions/menu/deck.menu.js"></script>
+	<script src="/include/deckjs/extensions/goto/deck.goto.js"></script>
+	<script src="/include/deckjs/extensions/status/deck.status.js"></script>
+	<script src="/include/deckjs/extensions/navigation/deck.navigation.js"></script>
+	<script src="/include/deckjs/extensions/scale/deck.scale.js"></script>
+
+	<!-- Initialize the deck. You can put this in an external file if desired. -->
+	<script>
+		$(function() {
+			$.deck('.slide');
+		});
+	</script>
+</body>
+</html>

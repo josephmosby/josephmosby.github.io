@@ -1,0 +1,1866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title type="text" xml:lang="en">josephmosby.com</title>
+		<link type="application/atom+xml" href="http://josephmosby.com/feed/" rel="self"/>
+	 	<link type="text" href="http://josephmosby.com" rel="alternate"/>
+		<updated>2016-02-28T17:00:54-05:00</updated>
+		<id>http://josephmosby.com</id>
+		<author>
+			<name>Joseph Mosby</name>
+		</author>
+		
+		
+		<entry>
+			<title>A February Recap or What Life is Like Without Coffee</title>
+			<link href="http://josephmosby.com/2016/02/29/a-february-recap-or-what-life-is-like-without-coffee.html"/>
+			<updated>2016-02-29T00:00:00-05:00</updated>
+			<id>http://josephmosby.com/2016/02/29/a-february-recap-or-what-life-is-like-without-coffee</id>
+			<content type="html">&lt;p&gt;In February, I decided to enter life’s “Hard Mode.” I gave up caffeine completely.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;images/coffee-cup-working-happy.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I had no idea how this experiment would work and what it would do for my productivity. Here is what I was able to accomplish in the month of February, in similar &lt;a href=&quot;http://josephmosby.com/2016/01/29/a-january-recap-and-some-personal-experiments.html&quot;&gt;format to my January recap&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Read 9 books
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1KQp7Ad&quot;&gt;Mastery&lt;/a&gt; by Robert Greene&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1KQpj2o&quot;&gt;Radical Acceptance&lt;/a&gt; by Tara Brach&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1LJZDiO&quot;&gt;Foundation&lt;/a&gt; by Isaac Asimov&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1LJZHPr&quot;&gt;A Farewell to Arms&lt;/a&gt; by Ernest Hemingway&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1QKSZA8&quot;&gt;Oryx and Crake&lt;/a&gt; by Margaret Atwood (&lt;a href=&quot;http://josephmosby.com/2016/02/14/oryx-and-crake.html&quot;&gt;semi-recap here&lt;/a&gt;)&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1Q8cnE3&quot;&gt;Influence: The Psychology of Persuasion&lt;/a&gt; by Robert Cialdini&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1Q8cvDp&quot;&gt;A Million Miles in a Thousand Years&lt;/a&gt; by Donald Miller&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1QKTsm0&quot;&gt;Trigger Warning: Short Fictions and Disturbances&lt;/a&gt; by Neil Gaiman&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1LK0f7T&quot;&gt;Vagabonding: An Uncommon Guide to the Art of Long-Term World Travel&lt;/a&gt; by Rolf Potts&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Executed 50 pullups and 100 pushups in the same workout, and executed 30/60 with an additional 25 lb. weight attached to me&lt;/li&gt;
+  &lt;li&gt;Squatted 245 lb. for 5 repetitions&lt;/li&gt;
+  &lt;li&gt;Leg pressed 500 lb. for 5 repetitions&lt;/li&gt;
+  &lt;li&gt;Lost one or two inches off my waistline (this is an estimate, I just know my pants don’t fit)&lt;/li&gt;
+  &lt;li&gt;Attended my first two judo lessons&lt;/li&gt;
+  &lt;li&gt;Completed the first draft of my e-book on uWSGI&lt;/li&gt;
+  &lt;li&gt;Watched 20+ TED talks&lt;/li&gt;
+  &lt;li&gt;Wrote daily journal entries&lt;/li&gt;
+  &lt;li&gt;Got a tan and a sunburn in Rio de Janeiro while riding the waves on Copacabana Beach&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I again followed the practice of &lt;a href=&quot;https://blog.bufferapp.com/why-having-no-goals-in-our-lives-might-make-us-happier-and-more-successful&quot;&gt;not setting goals&lt;/a&gt; in this month and focused on systems instead. I believe that this pushed me through the fog of an uncaffeinated mind, and perhaps ultimately strengthened my willpower.&lt;/p&gt;
+
+&lt;h3 id=&quot;no-coffee&quot;&gt;No Coffee&lt;/h3&gt;
+
+&lt;p&gt;I decided to go cold turkey off of coffee just before January wrapped up. I knew that many highly successful people had gotten off of caffeine over the course of their lives, and I thought it was a worthwhile experiment to try for myself. It turned out to be wildly different than my expectations.&lt;/p&gt;
+
+&lt;p&gt;The last time I tried to give up caffeine cold turkey, I was crippled with raging headaches and nausea that made me think I had the flu. I cracked after two days. This time, I gradually reduced my caffeine intake over the course of several months, ultimately consuming only the equivalent of half of a cup of
+coffee per day. When I went off, I had a headache the first night, then did not have any pain afterward.&lt;/p&gt;
+
+&lt;p&gt;What I did not account for was “the fog.” The fog is a state of mind that exists somewhere between tired and fully awake, and I went through this state in varying degrees over the course of my experiment. My brain didn’t feel like it was moving as quickly while it was in the fog, nor was I nearly as motivated to get things done. After the first few days, I was completely functional at my day job, but at nighttime I would grind to get anything done. Though I read more books, lifted heavier weights, and finished my e-book’s first draft during this time period, I felt I had to mentally fight to do any of that. &lt;/p&gt;
+
+&lt;p&gt;I believe that it was the fight that made this entire experiment worthwhile. It’s one thing to knock out a bunch of tasks when hopped up on caffeine - it’s another thing to need to consciously decide what absolutely must be done when you know your caffeineless willpower can only handle so much. That willpower
+training is invaluable. I look forward to having it when I allow myself caffeine once more.&lt;/p&gt;
+
+&lt;h3 id=&quot;judo&quot;&gt;Judo&lt;/h3&gt;
+
+&lt;p&gt;Judo is the first martial art I’ve practiced since I was a first grader. It is so much fun and I wish I had tried it earlier. It’s an intense workout. The warmups alone will make your core hurt, to say nothing of the part where you start tossing people around. It’s almost like an extremely physical chess match,
+with grip position and balance being the dominant factors that win or lose matches rather than total strength. There’s no rush quite like it. I’m hooked already after only a few classes and will definitely be hungry for more in 2016.&lt;/p&gt;
+
+&lt;h3 id=&quot;recycling&quot;&gt;Recycling&lt;/h3&gt;
+
+&lt;p&gt;I dropped use of the &lt;a href=&quot;https://lifesum.com&quot;&gt;Lifesum&lt;/a&gt; and &lt;a href=&quot;https://www.thinkpacifica.com/&quot;&gt;Pacifica&lt;/a&gt; apps in the month of February. Lifesum was part of an experiment to clean up my eating habits by tracking my daily protein, carbohydrate, and fat intake. I instead focused on cooking more at home and not allowing myself some standard fast food cheats, and it’s far too difficult to track home-cooked meals easily in Lifesum. I scrapped Pacifica for similar reasons. When I dropped caffeine and began sleeping more, I noticed that my stress levels and mental well-being improved as well. I still have a lot that I want to do on the mindfulness front, but I don’t think this particular app will help me toward those goals. In addition, I took two bags of used clothing in for donation, gradually reducing the mental paces I put myself through to pick out what to wear.&lt;/p&gt;
+
+&lt;h3 id=&quot;whats-next&quot;&gt;What’s Next?&lt;/h3&gt;
+
+&lt;p&gt;In the first parts of the year, I focused on physical well-being. I’ve developed systems to help me maintain my health, some of which I may recycle or augment as I move into the next phase of the year: technical skills acquisition. For the next three months, I plan to focus on practicing and mastering some of the skills that make up my world as an engineer. I will allow myself caffeine again, but it still won’t be a daily thing. It will be an intentional dose to achieve specific tasks.&lt;/p&gt;
+
+&lt;p&gt;What are you working on in March? I want to hear about it! Let me know: &lt;a href=&quot;https://twitter.com/josephmosby&quot;&gt;@josephmosby&lt;/a&gt;&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>Oryx and Crake</title>
+			<link href="http://josephmosby.com/2016/02/14/oryx-and-crake.html"/>
+			<updated>2016-02-14T00:00:00-05:00</updated>
+			<id>http://josephmosby.com/2016/02/14/oryx-and-crake</id>
+			<content type="html">&lt;p&gt;&lt;em&gt;Oryx and Crake&lt;/em&gt; has haunted me for a longer period of time than any book I’ve read in years. Naturally, I think everyone should read it.&lt;/p&gt;
+
+&lt;p&gt;It isn’t the story that gets to you. Margaret Atwood does good work with the story-telling and writes a compelling tale with beautiful, complex characters. But it would be a standard enjoyable sciencey-fiction story in the vibe of many of the modern writers in that genre if it weren’t for the &lt;em&gt;implications.&lt;/em&gt; &lt;/p&gt;
+
+&lt;p&gt;You know something horrible is going to happen from the beginning. When the book opens, the horribleness has already happened, and the reader is waiting for it to unfold in the ensuing flashback chapters. But as the crescendo builds to a frightening pitch, you realize that what you expected in chapter one is nowhere near as menacing and uncomfortably plausible as the apocalypse that Atwood has concocted for the reader. Eight months after the first read and I’m still thinking about it.&lt;/p&gt;
+
+&lt;p&gt;Go check it out. You won’t be disappointed.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://amzn.to/1ThRCI6&quot;&gt;Oryx and Crake&lt;/a&gt;&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>A January Recap and Some Personal Experiments</title>
+			<link href="http://josephmosby.com/2016/01/29/a-january-recap-and-some-personal-experiments.html"/>
+			<updated>2016-01-29T00:00:00-05:00</updated>
+			<id>http://josephmosby.com/2016/01/29/a-january-recap-and-some-personal-experiments</id>
+			<content type="html">&lt;p&gt;Over the month of January, I’ve achieved some major goals that I would have been happy with in three months. Instead, I’ve been able to get them done in one. I’m really excited about them, but before I share how I got there, I wanted to share what I knocked off the list:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Read 7 books
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1Qx8NmP&quot;&gt;The Four-Hour Workweek&lt;/a&gt; by Tim Ferriss&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1Pn0VVM&quot;&gt;The Girl With All the Gifts&lt;/a&gt; by M.R. Carey&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1Pn0ZVt&quot;&gt;The Power of Habit&lt;/a&gt; by Charles Duhigg&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1KfazcB&quot;&gt;Do Androids Dream of Electric Sheep?&lt;/a&gt; by Philip K. Dick&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1Qx8WXk&quot;&gt;The Graveyard Book&lt;/a&gt; by Neil Gaiman&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1P1KQkF&quot;&gt;The Demon-Haunted World: Science as a Candle in the Dark&lt;/a&gt; by Carl Sagan&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://amzn.to/1P1KR8k&quot;&gt;Love and Math&lt;/a&gt; by Edward Frenkel&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Executed 50 pullups and 100 pushups in the same workout (starting from 30/50 at the beginning of the month)&lt;/li&gt;
+  &lt;li&gt;Squatted 235 pounds for 5 repetitions&lt;/li&gt;
+  &lt;li&gt;Leg pressed 460 pounds for 5 repetitions&lt;/li&gt;
+  &lt;li&gt;Wrote five chapters of an e-book I plan to release on uWSGI&lt;/li&gt;
+  &lt;li&gt;Knocked out an optometrist and a dentist appointment&lt;/li&gt;
+  &lt;li&gt;Watched 20 TED talks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I did all of this while working a standard workweek in a month where we launched a major project, while keeping my caffeine intake to a daily average of ~50mg (less than half of an average cup of black coffee). &lt;/p&gt;
+
+&lt;p&gt;So, how’d I pull this off? I certainly didn’t run myself into the ground to do it. I also didn’t set goals (with the exception of going to the dentist). Instead, I made small changes to my daily activity and set up systems to keep myself on track. Here’s what that looks like.&lt;/p&gt;
+
+&lt;h3 id=&quot;morning-rituals&quot;&gt;Morning Rituals&lt;/h3&gt;
+
+&lt;p&gt;I followed the exact same pattern almost every morning of the month, including on weekends. I use &lt;a href=&quot;http://www.sleepcycle.com/&quot;&gt;Sleep Cycle&lt;/a&gt; to track my sleep patterns and wake me up at the optimal time. This is a zero-effort tool that I love. All you do is tell it the latest possible time you’re willing to wake up, flip your phone face-down on your bed, and go to sleep. Sleep Cycle takes care of the rest. Here’s a snapshot of the stats it produces: &lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;no-fill&quot; src=&quot;/images/sleepcycle.PNG&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The part of those statistics where I wake up at 5:30 isn’t an accident. I’ve been waking up before 6am almost every day of this month (I bump things back to 7am on weekends). I thought this would be a much rougher proposition than it actually is. I’m generally in bed by 11pm, which clocks me 7 hours of sleep each night (more than the &lt;a href=&quot;http://www.gallup.com/poll/166553/less-recommended-amount-sleep.aspx&quot;&gt;American average&lt;/a&gt;). &lt;/p&gt;
+
+&lt;p&gt;At the beginning of the month, I started off with three days operating on the simplest food I could subsist on. In my case, that was brown rice and the cans of black beans I had accrued in my cupboard but never gotten around to opening. It was an eye-opening experience. It taught me gratitude for the things I have, and it also taught me that there was a lot in my life that was extremely wasteful but I kept around out of habit. After the three days, I started incorporating other foods into my diet, but have not deviated much from those staples. As a result, my breakfast each morning consists of sweet potato, black beans, egg whites, salsa, and tea. &lt;/p&gt;
+
+&lt;p&gt;I track all of this in an app called &lt;a href=&quot;https://lifesum.com/&quot;&gt;Lifesum&lt;/a&gt;, selected because it integrates with Apple’s HealthKit. I focus on tracking my carbohydrate, my protein, my water, and my caffeine intake in HealthKit. Here’s what Lifesum looks like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;no-fill&quot; src=&quot;/images/lifesum.PNG&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;That was an easy day to top off on protein - my cousin’s wedding had an oyster bar as part of the reception, and oysters are perhaps my favorite way of getting protein.&lt;/p&gt;
+
+&lt;p&gt;Once breakfast is wrapped up, I meditate for ten minutes. This is accomplished by setting my phone’s timer and closing my eyes for ten minutes, pondering on the day ahead or nothing at all. In the past, I’ve also leaned on the &lt;a href=&quot;http://www.calm.com/&quot;&gt;Calm&lt;/a&gt; and &lt;a href=&quot;https://www.headspace.com/&quot;&gt;Headspace&lt;/a&gt; apps. I liked both of them, but I previously struggled to stick to their prescribed programs and then felt guilty when I slipped up. I also felt guilty if I got distracted in the middle of a meditation session. Going program-less means I think a lot more while meditating, but I also am far calmer and excited to take part in it each day. &lt;/p&gt;
+
+&lt;p&gt;After meditation, it’s time for the gym. On an average day, I’m walking to the metro by 6:45am, which puts me at the gym around 7:10. I alternate between the following two workouts:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pullups/pushups. Start with a 10 pullup set and a 20 pushup set, and try to maintain that momentum per set until hitting 50/100. In the earlier parts of this month I scaled down my per-set requirements in line with what my maximum pullups and pushups were. By the end of this month I started my pullup sets off with 25lb additional weight attached to my waist. &lt;/li&gt;
+  &lt;li&gt;Squats, 5-rep sets starting from 135lb and incrementing upwards 10lb with each set. On days when the squat racks are full, I do an incline leg press starting from 90lb to warm up and incrementing up 50lb with each set, followed by 3 20-rep sets of 90lb calf raises.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After the gym, it’s on to work. If I’ve got enough time and the temperature isn’t miserable, I’ll walk from Gallery Place to the Watergate. Otherwise it’s back on the subway.&lt;/p&gt;
+
+&lt;h3 id=&quot;work-habits&quot;&gt;Work Habits&lt;/h3&gt;
+
+&lt;p&gt;I feel that the most significant habits have come in my style of working this month. I read Tim Ferriss’ &lt;em&gt;The Four-Hour Workweek&lt;/em&gt; in the first days of the month after listening to several of his podcasts on my vacation drives. There’s a lot of material in there, and I did not try to implement everything all at once. I did, however, heed his admonition about batch processing during the workday. There is a switching cost each time your brain has to change its focus from one task to another and you lose a lot of the momentum your brain picked up while knocking out the past task. In my line of work, my primary distractions are email, social media, and Slack. To that end, I experimented with checking email at certain times of the day and switching off Slack notifications. That turned out to be a bit too aggressive of a shift. I instead dialed it back to checking personal email once a day and flipping off Slack’s notification system unless my name is directly called out in a message. This has really helped my focus and I’ve plowed through a lot more work as a result.&lt;/p&gt;
+
+&lt;p&gt;I also put myself on a media diet, another trick from &lt;em&gt;The Four-Hour Workweek&lt;/em&gt;. That means zero news. I’ve been off Twitter completely over the course of this month, deleting the app from my phone and never signing on the desktop version. I haven’t signed into Hacker News once, my primary source of technology news. I’ve picked up some political coverage given the nature of my job, but I’ve had to ask a lot of questions to reporter friends because I just don’t know what’s going on. I only found out who won the NCAA national championship just yesterday. This has been an extremely significant change for me. My head is a lot clearer, and I’m able to focus on code, books or writing in times when I would have normally flipped through news articles or my Twitter feed. I don’t feel the compulsive need to distract myself. &lt;/p&gt;
+
+&lt;h3 id=&quot;whats-next&quot;&gt;What’s Next?&lt;/h3&gt;
+
+&lt;p&gt;This month, I organized everything around a focus on physical well-being. The waking up early and going to bed early was a huge step in that direction, as was the working out, the meditation, the lack of drinking, and even things as simple as flossing. (seriously, I have to track that or I’ll never remember to do it) I’m tracking all of these daily habits in an app called &lt;a href=&quot;http://wayoflifeapp.com/&quot;&gt;Way of Life&lt;/a&gt; that looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;no-fill&quot; src=&quot;/images/wayoflife.PNG&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I’ll continue that focus on physical well-being in February. I may take on projects here and there, but my focus is on my health. Nothing else before that. I also plan to embark on another series of three days where I eat nothing but rice and beans and spend as little money as possible to focus on what I have in life. I found that experience to be incredibly rewarding (though tough) and definitely something I should do regularly. If you’re reading this, I’d love to hear about how your year started off, and what’s up next for you in February!&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>A year on the road in 2015</title>
+			<link href="http://josephmosby.com/2015/12/26/2015-a-year-on-the-road-in-2015.html"/>
+			<updated>2015-12-26T00:00:00-05:00</updated>
+			<id>http://josephmosby.com/2015/12/26/2015-a-year-on-the-road-in-2015</id>
+			<content type="html">&lt;p&gt;It’s 2015. I wake up on a couch in San Francisco after a ridiculous circus party to close out the year before.&lt;/p&gt;
+
+&lt;p&gt;I enjoy waking up on couches in San Francisco more than the best bed anywhere else. The sun is different in California, it seems brighter somehow. San Francisco is a foggy grey color half of the time, but when the sun comes out, it makes it so easy to forget the fog ever existed. Take a look for yourself:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/sf.png&quot; alt=&quot;Picture of me standing in front of San Francisco Bay&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Cities are the waypoints of 2015 in my mind. I remember my mental state by remembering where I was when going through one situation or another. I’m cooking breakfast at Sean and Alex’s pad on Potrero Hill when I receive an email from a recruiter with a proposition to join a media organization in Foggy Bottom to rebuild their content management system. Linda prompts me to dig deeper into this particular recruitment offer, overriding my typical approach of discarding recruiter emails. It takes only a few calls and one in-person interview before I’m convinced, and I move into the Watergate building a few weeks later.&lt;/p&gt;
+
+&lt;p&gt;Three days later, I’m on a plane to the Middle East.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/dubai.png&quot; alt=&quot;Picture of the Burj Khalifa and Dubai skyline&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I’ve never been to Dubai or Muscat, nor have I ever taken an international trip with a large group of friends. It’s a dream come true to be with a good crew in the Middle East exploring a culture that is entirely foreign to me. Stealing a sip of Linda’s gold-flecked cappuccino in the Burj al Arab (for real, gold flakes in the coffee); swimming to a giant inflatable castle in the Arabian Sea; riding a camel; watching the Dubai Mall fountain show - none of it could be any better. Linda, Crowley, Medved, Sonal, Nikki, Ravi, Adam, Katy, you’re an extraordinary crew to travel with and I’m looking forward to the next run.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/camel.JPG&quot; alt=&quot;Picture of me on a camel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The spring ramps up. I get to work and kick my engineering education into high gear. I had learned how to skin up a Drupal site on the quick at APCO, but that is nothing compared to what building out National Journal has to teach me about the web. I learn proper recursion while building out an ORM-to-MongoDB-document converter. I learn about all of the ins and outs of the Django administrative console. I learn how to build Python code for production. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/pycon.png&quot; alt=&quot;Picture of PyCon 2015 attendees&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I’m at PyCon in April. There is nothing quite like the feeling of recognizing that you’re in the middle of your tribe. In Montreal, I suddenly find myself in the middle of a huge group of engineers who wanted what I wanted - to produce great and technologically interesting things using Python. And they want it for everyone! And I am in Montreal, using my middling French to chat with the locals, exploring a city that is simultaneously European and North American all in one. &lt;/p&gt;
+
+&lt;p&gt;Now I’m back in DC, and the weather is warm. I’m getting to know my journalist co-workers as we play softball together. Every Saturday I haul out to the middle of the Maryland suburbs to wildly miss pitches. Baseball was never my strong suit, but Matt, Alex, Zach, Paloma, Randy, Drew, and the rest of the Atlantic Media crew made it worthwhile every weekend.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/softball.png&quot; alt=&quot;Picture of our softball team&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s June now. The weather’s hot. I’m on the road to New York City for Governor’s Ball, the first festival I’ll do with Linda and our motley crew of friends. Linda and I make a best effort to catch Blake, Ouzy, Jeff, and Kendra in between acts, but eventually Linda and I lose them all to sprint as close as we can for Drake’s set to close the night. We fare better the next day, bringing Blake with us to the front of the stage to watch deadmau5’s stage fail before he hung out on a couch to drink a beer with Left Shark and a giant hot dog. As one does.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/deadmau5.png&quot; alt=&quot;Picture of deadmau5 on a couch with Left Shark&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;July comes and it’s time to hit the road again for an aggressively long roadtrip. DC to Nashville. Nashville to Asheville. Asheville back to DC. Over a thousand miles of open road covered in the Civic. In Nashville, my massive extended family gathers for our almost-triannual family reunion, bringing together some 60-odd Mosbys, Harwoods, and Grimes together for hot chicken contests and beer drinking in cheap honky tonks. I have the good fortune of knowing so many of my family members through a variety of different channels, being the only one to have lived in our three central hubs of Jackson, Nashville, and DC. I consider myself blessed to have had the opportunity to get to know so many of them.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;No man ever steps in the same river twice, for it is not the same river and he is not the same man.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;My visit to Nashville kicks off a series of meditations that I consider while on the road. I visit my old college campus and realize that the entire center of gravity of the school has shifted, and there are at least five new buildings I don’t recognize. The run down area where I used to buy beer out of a warehouse has sprouted condo buildings. I am no longer an active musician. At some point Nashville moved on after I left, and I moved on too. We are not the same. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/boltons.png&quot; alt=&quot;Picture of Bolton&#39;s spicy chicken and fish&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I return to Washington to learn that our owner has decided that National Journal will no longer print our flagship magazine. Policy and politics coverage is tough to do in a weekly publication, and our targeted readership is reading their news online like the rest of the country. The tenor of the newsroom shifts. It’s tough to see some of the good people I played softball with so distraught. Our digital team reassesses certain portions of our web product and we prepare for a September 1 relaunch. I go to Chicago that weekend.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/chicago.png&quot; alt=&quot;Picture of Chicago skyline&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Chicago holds a special place in my heart that is perhaps rivaled only by San Francisco. I have never lived in either place. I know Chicago’s winters are dreadful and that I am supposed to feel differently if I had to spend January there with the wind whipping off the lake. But there is something special about the city. There is a union there between the parts of my heart that will always be from a small town and the parts that crave the excitement of the city. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/oh_200ok.png&quot; alt=&quot;Picture of the Ohio 200 OK license plate&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A few weeks later I take off again for the open road. Columbus, Ohio beckons, where I will give my &lt;a href=&quot;http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se&quot;&gt;first talk&lt;/a&gt; at a programming conference. I expect to give a retrospective on some of the things we learned while building NationalJournal.com, but we’re still in the middle of building it. A few of the questions stump me, but it is overall a good first talk. I am proud.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/folly.png&quot; alt=&quot;Picture of the Folly Beach crew&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I lived with the same group of guys for most of my college and grad school experience. We shared dorm suites together, then an apartment, then a house on Belmont Boulevard, then a two bedroom apartment in Brentwood, Tennessee. Two of these guys are now married, with children either in house or on the way. One of them is a Ph.D. We get together and it’s just like we’re undergraduates again, with the same conversations and nerd humor that propelled us through our time at Belmont. We spend a long weekend in Charleston, South Carolina, hanging on the beach, eating tacos, drinking good wine (thanks, Adam!).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;I&#39;ve been in the crib with the phones off, I&#39;ve been in the house taking no calls...
+Drapes closed, I don&#39;t know what time it is, I&#39;m still awake, I gotta shine this year
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;August continues to roll on. When I’m not on the road speaking at conferences or at the beach, I’m in the office pulling 12-15 hour days to ship NationalJournal.com on time. I gain weight after eating nothing but trash for a month and rarely working out. I’m fueled by caffeine only, because I can’t sleep once I get home. We’re doing nightly builds, shipping emergency bug fixes day in and day out, none of the team leaving until the day’s tickets are done. Finally, on August 31, we turn the switch on. NationalJournal.com goes live. Brian, Robert, Paivi, Julia, Ivy, Kim, Lindsey, Jeremy and I finally get a good night’s sleep.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/nj.png&quot; alt=&quot;Picture of NationalJournal.com&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After shoring up the codebase from the many shortcuts we took to launch on time, I head to Colorado for Jeff and Kendra’s wedding. It’s my first-ever visit to Colorado. I arrive in Denver late Thursday night and pick up a giant 15-passenger van dubbed “The Mystery Machine.” In the morning I pick up the Scooby Squad: MariaElena, Prather, Kyra, Hannah, Clarissa, Levi, Ryan, Juliana and Dalesio. We meet Jeff, Kendra, Sam, Pam, Ethan, and Ellen in what must be God’s country - Cuchara, Colorado. They serve Pueblo green chili with every meal and the entire landscape is flashes of bright yellow, desert green, and a piercing blue hanging in the sky. We hike to the top of the nearest mountain before descending to celebrate the happy couple. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/cuchara.png&quot; alt=&quot;Picture of Dalesio, me, MariaElena and Sam on our hike&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;October turns the tables at the office again. Only a few short weeks after we relaunched NationalJournal.com, our owner has decided that the news business at a whole needed a shakeup. No more public-facing news and no more ads. Everything will be for the service of our paid members. Many of my friends in the office leave to take jobs at competing news organizations, landing at &lt;em&gt;The New York Times&lt;/em&gt;, &lt;em&gt;Vox&lt;/em&gt;, &lt;em&gt;The Washington Post&lt;/em&gt;, and others. We prepare for the shift to an ad-free world, and I begin to reimagine parts of our code. &lt;/p&gt;
+
+&lt;p&gt;For the first time I get to have my entire family with me in Washington. Dad is coming up to run the Marine Corps Marathon and we’re all ready to cheer him on. He’s been working on this for months and has lost a ton of weight. I get to spend the days preceding the marathon showing the city (and its excellent restaurants) off to my family. On Sunday, it’s race day, and Dad knocks out the 26.2 miles like a champion!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/mcm.png&quot; alt=&quot;Picture of Dad&#39;s marathon stats&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The downward mental slide that started in September continues in November. The site has a resiliency problem that resists debugging, and I struggle to fight off anger against the thing I’ve made. I turn into a packaged ball of stress, worrying at any moment that the site is going to crash and I’ll need to manually bring it back up. The constantly changing weather brings with it a sickness I can’t shake. The combination of the above brings on a spat of panic attacks that convince me I’m about to stop breathing. I hit a low, hard. I drag myself to work every day feeling like my creativity and my ambition have both fallen through the floor. All I want is out. &lt;/p&gt;
+
+&lt;p&gt;And then something happens.&lt;/p&gt;
+
+&lt;p&gt;I grow up. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/magic.png&quot; alt=&quot;Picture of the magic cup of awesome&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On Thanksgiving Day, I drive out to Chestertown, Maryland to spend the day with my extended family. We’re frying turkeys this year - or rather, Uncle David is frying a turkey and I’m drinking Heineken while taking video. I’ve downloaded a few podcasts for the drive to Chestertown, deciding I’ll give this surge in podcasts a shot. I burn through a few really enjoyable tracks, but it’s &lt;a href=&quot;https://twitter.com/tferriss&quot;&gt;Tim Ferriss&lt;/a&gt; who grabs me. He’s recorded an in-between podcast for the Thanksgiving holiday about &lt;a href=&quot;http://fourhourworkweek.com/2015/11/29/magic-of-mindfulness/&quot;&gt;mindfulness and gratitude&lt;/a&gt;. I listen through it twice. In it, Tim details a few daily things he’s done to change the way he interacts with the world, and I start on them as soon as I get home. I set up a Magic Cup of Awesome and start ripping up scraps of paper to write down the things I’m grateful for in a given day. I strap on a bracelet (read: I steal one of Linda’s hair ties) as a reminder to stop complaining. These positive habits kick off a series of changes in my life. I grow up.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/monument.png&quot; alt=&quot;Picture of the Washington monument in December&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The weather in DC still can’t make its mind up, even in December. We enjoy 70 degree days. We endure 30 degree days. These happen within the same week. The work continues. I pack the bags up to hit the road again, homeward bound. I stop over in Nashville for the night, spending the evening with Daniel, Helen, Monroe, Adam, Ian, Mary, and Roger. &lt;/p&gt;
+
+&lt;p&gt;Monroe is Daniel and Helen’s first son. Roger will be Ian and Mary’s. Adam has a little daughter, but she wasn’t around for our hot chicken fiesta that night. When I left Nashville to move to DC, those couples were starting on a journey of married life. Now they are exploring life with children. They have wonderful lives together and homes in one of America’s great cities, a city which is itself growing by leaps and bounds. I imagine Nashville in 2015 is an exciting place to start a family.&lt;/p&gt;
+
+&lt;p&gt;It’s morning. I must hit the road again.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2015_retro/puzzle.png&quot; alt=&quot;Picture of a puzzle&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s December 23rd. My brother arrives in Jackson, MS tonight, and we’ll have the entire family together again. For Christmas Eve, we’ll continue a tradition started last year: Lou Malnati’s pizza for dinner, shipped frozen from Chicago and baked here at home. Linda arrives on the 26th for her first visit to the Magnolia State. While planning for her few days here in town, I reimagined the city as a first-time traveler would. What does downtown Jackson look like? What is Fondren? What do the Christmas lights look like in Canton? &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Nothing behind me, everything ahead of me, as is ever so on the road. 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I woke up in 2015 running from something. I thought there must be this entire world out there that I was missing out on, and I needed to run to Nashville or San Francisco or DC or New York or London or Paris or Amsterdam or Istanbul to find it. Whatever it was, it was always just beyond my reach. In 2015, somewhere out there on the road, I found it. An optimism, perhaps, or just a calm belief that I’ll find and achieve whatever it is that I’m meant to. &lt;/p&gt;
+
+&lt;p&gt;I will wake up in 2016 on a couch in the Florida Keys, closer to Havana or Cancun than my apartment in Washington. Then I’ll start a 1,200 mile dash back to Washington, retracing the same steps I took to return from Charleston. I’ll wave at Jacksonville and Savannah as I go straight up I-95, which stretches on up to Philadelphia, New York, Boston, up, up, up until it crosses into Canada near Houlton, Maine. You split into Canada Highway 2 at that point, which will take you north before changing into Autoroute 20 O, whipping past Quebec City (where there are ice hotels) and into Montreal. From there you can catch a flight to Dublin for $500 or south to Punta Cana if there’s a deal going on. Or just keep driving, on into the west, crossing back over into the United States at Detroit, catching the California Zephyr in Chicago and on to San Francisco. And then a quick flight back to DC to do it all over again.&lt;/p&gt;
+
+&lt;iframe class=&quot;desktop_map_embed&quot; src=&quot;https://mapsengine.google.com/map/u/0/embed?mid=zwj5ygdqFNoo.k0PeQHjzWkU0&quot; width=&quot;780&quot; height=&quot;480&quot;&gt;&lt;/iframe&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>An introductory look at Erlang</title>
+			<link href="http://josephmosby.com/2015/10/31/an-introductory-look-at-erlang.html"/>
+			<updated>2015-10-31T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/31/an-introductory-look-at-erlang</id>
+			<content type="html">&lt;p&gt;I wanted to take a step back from operating systems to consider how another programming language views the world. Operating systems in the Unix world require knowledge of C: something that expands my programming mind but often feels like the Python knowledge I already know, just at a lower level. I wanted to pick something totally new, and so I’m going with &lt;a href=&quot;http://learnyousomeerlang.com/&quot;&gt;Erlang&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Erlang is an &lt;em&gt;imperative&lt;/em&gt; language: which means once you set a variable, it doesn’t change. That means a statement like &lt;code&gt;i++&lt;/code&gt; or &lt;code&gt;i += 1&lt;/code&gt; won’t work. I assume that Erlang has an elegant way of dealing with this, but I’m very early on in this book. Erlang does this to ensure that functions with the same parameters will always return the same results, regardless of the state elsewhere in the application. &lt;/p&gt;
+
+&lt;p&gt;The language makes use of something called an “actor model.” Each “actor” is a separate process in the Erlang virtual machine, calmly waiting for tasks but mostly sitting around doing nothing. Each process can do a very limited set of tasks. Each process is also totally segregated from other processes - without passing very transparent messages back and forth, processes don’t have the ability to communicate. Erlang also appears to come with a standard library that’s almost as fully featured as Python’s: debugging tools, a web server, a database, all the tools I generally rely on to get programming work done. &lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;Learn You Some Erlang&lt;/em&gt; book also makes a point to call out overzealousness in the Erlang community. Erlang caught my eye because of its concurrency and scalability (or rather, people talking about Erlang’s concurrency and scalability), but this book makes a point to calm those expectations a little bit. Just because you can divide everything up into actors doesn’t mean you should. The authors point out that Erlang is fantastic for things like server-level software and is mostly terrible at things like image processing. Exceptions can be made, of course. As I’m interested in things like server-level software and not so interested in image processing, I’m excited to get under the hood. &lt;/p&gt;
+
+&lt;p&gt;And with that, let’s get started.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install erlang
+$ erl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I continue on to the next chapter and discover this line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;The Erlang shell has a built-in line editor based on a subset of Emacs, a popular text editor that&#39;s been in use since the 70s. If you know Emacs, you should be fine. For the others, you&#39;ll do fine anyway.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I am skeptical. I strongly dislike Emacs because every time I try to grok it, I trip over my feet and mostly destroy my entire program. Whatever, onward. Ctrl+A moves me to the beginning of a line, Ctrl+E to the end in Erlang-world. In the current version of Erlang compiled for OSX, it appears that Erlang opens you right into a shell. If I want to get out of it to enter some commands, I hit Ctrl+G. If I can’t remember what I’m supposed to do once I get out of the shell, I hit &lt;code&gt;h&lt;/code&gt;. If I want to see a listing of all my current jobs, I hit &lt;code&gt;j&lt;/code&gt;… oh, and I bet this is like doing &lt;code&gt;ps -ef&lt;/code&gt;, but for the virtual machine. Okay, now I want to get back into my shell… hmm. Struggling to that with the instructions given. I’m going to have to trust that I’ll figure it out as time goes on. &lt;/p&gt;
+
+&lt;p&gt;Calling it a day for there. I’ll come back to it in earnest after I’ve digested a few things about the language.&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>Setting up a simple testing tool with Selenium and PhantomJS</title>
+			<link href="http://josephmosby.com/2015/10/29/setting-up-a-simple-testing-tool-with-selenium-and-phantomjs.html"/>
+			<updated>2015-10-29T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/29/setting-up-a-simple-testing-tool-with-selenium-and-phantomjs</id>
+			<content type="html">&lt;p&gt;Okay, this will be a short one, but I’ve just set up a minimalistic testing tool using Python, Selenium and PhantomJS and wanted to put it out there. Let’s get cracking.&lt;/p&gt;
+
+&lt;p&gt;Start off by installing PhantomJS using Homebrew:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install phantomjs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And then move on to add Selenium into the mix (assuming still that you’re using Python):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install selenium
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now let’s build our first test case. I’m working as part of a Django app so I’ll be using the Django &lt;code&gt;TestCase&lt;/code&gt; object, but this will work very similarly with Python’s core &lt;code&gt;unittest.TestCase&lt;/code&gt;. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import os
+os.environ[&#39;DJANGO_LIVE_TEST_SERVER_ADDRESS&#39;] = &#39;127.0.0.1:9001&#39;
+
+from django.test import LiveServerTestCase
+from selenium import webdriver
+
+@classmethod
+def setUpClass(cls):
+	cls.driver = webdriver.PhantomJS()
+
+@classmethod
+def tearDownClass(cls):
+	cls.driver.quit()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That’s all it takes to get started. Honestly. Just install PhantomJS through Homebrew and Selenium through pip, and you’re ready to get testing. Django’s &lt;code&gt;LiveServerTestCase&lt;/code&gt; needs a &lt;code&gt;DJANGO_LIVE_TEST_SERVER_ADDRESS&lt;/code&gt;, so I’ve set one of those up as an environment variable. The &lt;code&gt;setUpClass()&lt;/code&gt; and &lt;code&gt;tearDownClass()&lt;/code&gt; methods are part of the &lt;code&gt;LiveServerTestCase&lt;/code&gt; class, and are used to initialize behavior when the tests begin to run or to close things no longer needed after the test is completed. In this situation, we’re using &lt;code&gt;setUpClass()&lt;/code&gt; to set up our PhantomJS instance that we’ll subsequently close in &lt;code&gt;tearDownClass()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;With my particular test situation, I needed to execute some JavaScript on each page I planned to test. That JavaScript would return a variable, set to either 1 or 0 based on the state of an object on the page. Here’s how we’ll extend our code to do that:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import os
+os.environ[&#39;DJANGO_LIVE_TEST_SERVER_ADDRESS&#39;] = &#39;127.0.0.1:9001&#39;
+
+from django.test import LiveServerTestCase
+from selenium import webdriver
+
+@classmethod
+def setUpClass(cls):
+	cls.driver = webdriver.PhantomJS()
+
+@classmethod
+def tearDownClass(cls):
+	cls.driver.quit()
+
+def test_one_or_zero_on_link_one(self):
+	self.driver.get(&#39;http://127.0.0.1:9001/linkone&#39;)
+	should_be_zero = self.driver.execute_script(&#39;return case.a&#39;)
+	self.assertEqual(should_be_zero, 0)
+
+def test_one_or_zero_on_link_two(self):
+	self.driver.get(&#39;http://127.0.0.1:9001/linktwo&#39;)
+	should_be_one = self.driver.execute_script(&#39;return case.a&#39;)
+	self.assertEqual(should_be_one, 1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I’ve now added two official tests to the mix. I’m asserting that on {DOMAIN}/linkone, there should be a JavaScript object called &lt;code&gt;case&lt;/code&gt; with a property &lt;code&gt;a&lt;/code&gt; that’s set to zero. On {DOMAIN}/linktwo, that property should be set to one. In these two tests, I open the links up in PhantomJS (something you’ll never see, by design). I then execute JavaScript on the pages and pick up the return values with &lt;code&gt;self.driver.execute_script()&lt;/code&gt;. This allows me to tap some of the context of the page state through JavaScript.&lt;/p&gt;
+
+&lt;p&gt;My tests did not need anything much more complex than that, but I’m looking forward to using this in several other contexts in future tests. PhantomJS is wicked fast compared to running the same code using Selenium’s Firefox or Chrome drivers. And being able to plug it into on-page JavaScript (maybe even tag-teaming with QUnit) makes it that much more appealing.&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>The xv6 filesystem</title>
+			<link href="http://josephmosby.com/2015/10/27/the-xv6-filesystem.html"/>
+			<updated>2015-10-27T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/27/the-xv6-filesystem</id>
+			<content type="html">&lt;p&gt;The file system of an operating system is one of those things I haven’t thought about in years, ever since I went through the painful process of reformatting USB sticks when different versions of Windows used different file systems. But I’ve never really thought about how those things have to be implemented. &lt;/p&gt;
+
+&lt;p&gt;On xv6, files are either data files, which are “uninterpreted byte arrays,” and directories, which are references to data files or other directories. So a directory is nothing more than a special file that points to other files. Cool. Directories form a tree starting at the root, and a path is a set of directories going out from the root. If a path doesn’t start with a root, paths start from the current working directory of a given process. &lt;/p&gt;
+
+&lt;p&gt;That means &lt;code&gt;chdir()&lt;/code&gt; is a system call that changes the current working directory of a process, and &lt;code&gt;mkdir()&lt;/code&gt; is the system call that creates a new directory. &lt;code&gt;mknod()&lt;/code&gt; is a similar call that creates a kernel device (such as a keyboard). When a process opens the kernel device file, the kernel will redirect the &lt;code&gt;read()&lt;/code&gt; and &lt;code&gt;write()&lt;/code&gt; to the kernel device instead of to a specific data file.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;fstat()&lt;/code&gt; call gives information about a specific object that a file descriptor points to. &lt;code&gt;fstat(fd)&lt;/code&gt; takes in a file descriptor and returns a C &lt;code&gt;struct&lt;/code&gt; called &lt;code&gt;stat&lt;/code&gt;, which has an implementation that looks something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#define T_DIR 1 // directory
+#define T_FILE 2 // file
+#define T_DEV 3 // device
+
+struct stat {
+	short type; // type of file
+	int dev; // file system&#39;s disk device
+	uint ino; // inode number
+	short nlink; // number of links to file
+	uint size; // size of file in bytes
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The name of the file is not included in this information table, because names are distinct from the actual file. An “inode” is the only unique identifier of a file that the kernel sees: names are just “links” back to an individual inode. Thus the following system calls will create two names for a file with the same inode:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;open(&quot;a&quot;, O_CREATE|O_WRONLY);
+link(&quot;a&quot;, &quot;b&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Calling &lt;code&gt;fstat()&lt;/code&gt; on either of the file descriptors attached to “a” or “b” will demonstrate that they’re tied back to the same file with the same inode number. &lt;code&gt;unlink()&lt;/code&gt; will do the opposite of &lt;code&gt;link()&lt;/code&gt;. It deletes the name, but will not delete the file itself.&lt;/p&gt;
+
+&lt;p&gt;In xv6, these types of operations are implemented as user-level programs, rather than baking the system calls into the shell itself. &lt;code&gt;mkdir&lt;/code&gt; is not a direct call to the system, but a user program that calls the &lt;code&gt;mkdir()&lt;/code&gt; system call. Same with &lt;code&gt;rm&lt;/code&gt;. &lt;code&gt;cd&lt;/code&gt; is a notable exception, because it changes the working directory of the shell itself rather than a child process of the shell.&lt;/p&gt;
+
+&lt;p&gt;And that’s it for the xv6 system calls! I can treat the xv6 kernel as something abstracted away now that I have all of the system calls for interacting with it. &lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>Pipes and such</title>
+			<link href="http://josephmosby.com/2015/10/26/pipes-and-such.html"/>
+			<updated>2015-10-26T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/26/pipes-and-such</id>
+			<content type="html">&lt;p&gt;In MIT’s &lt;a href=&quot;http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-828-operating-system-engineering-fall-2012/lecture-notes-and-readings/MIT6_828F12_xv6-book-rev7.pdf&quot;&gt;text on the xv6&lt;/a&gt;, pipes are described as “a small kernel buffer exposed to process as a pair of file descriptors, one for reading and one for writing.” I think I understand file descriptors by now, but I don’t quite know what a buffer is. Let me dig into that first with some Googling.&lt;/p&gt;
+
+&lt;p&gt;Wikipedia describes a buffer as “a region of a physical memory storage used to temporarily store data while it is being moved from one place to another.” Cross-referencing this with other things I’ve previously learned about operating systems makes me think that buffers are probably also used for things like keyboard input - where we don’t want to necessarily take the time for expensive writes to disk, so we just store in memory and wait until another program clears things out. Okay. Moving on.&lt;/p&gt;
+
+&lt;p&gt;This example code was provided by the text: &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;int p[2];
+char *argv[2];
+
+argv[0] = &quot;wc&quot;;
+argv[1] = 0;
+
+pipe(p);
+
+if(fork() == 0) {
+	close(0);
+	dup(p[0]);
+	close(p[0]);
+	close(p[1]);
+	exec(&quot;/bin/wc&quot;, argv);
+} else {
+	write(p[1], &quot;hello world\n&quot;, 12);
+	close(p[0]);
+	close(p[1]);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And this compiles nicely with some tweaks for the OSX environment - but, as it never prints, we don’t have a visual confirmation. &lt;/p&gt;
+
+&lt;p&gt;Pipes and temporary files share some similarities in execution. This code would look the same way to the end user:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ echo hello world | wc
+$ echo hello world &amp;gt; /tmp/xyz; wc &amp;lt;/tmp/xyz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But there are three key differences here. This would leave the &lt;code&gt;/tmp/xyz&lt;/code&gt; file lying around, which we’d have to come back through and clean up later. It also expects there to be enough free disk space for the &lt;code&gt;/tmp/xyz&lt;/code&gt; file, which could be extremely long. And finally, these processes could not easily send data back and forth with this approach, if &lt;code&gt;wc&lt;/code&gt; needed to send data back to &lt;code&gt;echo&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;And that’s it for pipes. Next, on to the filesystem!&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>The fast inverse square root algorithm</title>
+			<link href="http://josephmosby.com/2015/10/22/the-fast-inverse-square-root-algorithm.html"/>
+			<updated>2015-10-22T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/22/the-fast-inverse-square-root-algorithm</id>
+			<content type="html">&lt;p&gt;Taking a break from operating systems to do some algorithm training: something I revisit about once a year. I have the Khan Academy bit on the &lt;a href=&quot;https://www.khanacademy.org/computing/computer-science/algorithms/towers-of-hanoi/a/towers-of-hanoi&quot;&gt;Towers of Hanoi&lt;/a&gt; up, but I want to first pause to go look at Quake’s “fast inverse square root” algorithm.&lt;/p&gt;
+
+&lt;p&gt;An inverse square root is used to calculate vectors for lighting and reflecting, so it’s incredibly useful for video games and rendering. Rendering uses millions upon billions of these tiny calculations, so a speedup over floating-point division can make a game much, much faster. Quake sped it up with the following steps:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1. Take a floating point number n.
+2. Shift the bits of n to treat n like an integer.
+3. Shift n right one bit to make longword w.
+4. Subtract w from the magic number 0x5f3759df (this step made a Quake developer comment &quot;what the f***&quot; in the code)
+5. This number is within a few percentage points of the final answer. 
+6. One iteration with the Newton-Raphson method to come to the final answer.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I was amused by this approach and can only imagine the total confusion on the part of the developer when the algorithm worked. &lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>nginx won't timeout, and other tails from the log files</title>
+			<link href="http://josephmosby.com/2015/10/21/nginx-wont-timeout-and-other-tails-from-the-logfiles.html"/>
+			<updated>2015-10-21T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/21/nginx-wont-timeout-and-other-tails-from-the-logfiles</id>
+			<content type="html">&lt;p&gt;We had yet another instance of nginx allowing requests to spin into infinity, and now I’m starting to get a little frustrated with it. I’m going to take a different tack and see if I can sniff out the point when these requests start to blow up. To do this, I’m going to use the &lt;code&gt;awk&lt;/code&gt; tool to find any and all requests that take longer than 3000 milliseconds, which is well beyond the tolerance point for my application. Most of our requests average out in the 100-150ms range, with long running requests taking 500ms. Let’s dump some things out from the log files.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cat django-www.log | awk &#39;$33 &amp;gt; 3000 {print NR-1 &quot;: &quot; $0;}&#39; &amp;gt; high.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So what this little snippet will do is &lt;code&gt;cat&lt;/code&gt; the entire log file out, then pipe the output through an &lt;code&gt;awk&lt;/code&gt; command. The syntax of &lt;code&gt;awk&lt;/code&gt; breaks the file up based on delimiters (I think space is the default), which you can then access by number. &lt;code&gt;$33&lt;/code&gt;, in this case, is the 33rd character, which is our millisecond mark. If it’s greater than 3000, I print the line number, the line itself, then dump all that out to a file called &lt;code&gt;high.log&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Onward.&lt;/p&gt;
+
+&lt;p&gt;I don’t know why this stuck out to me, but I gave the address space usage and the rss usage of my uwsgi threads a second look this time. Here’s what they look like under normal traffic for a small sample.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{address space usage: 3510480896 bytes/3347MB} {rss usage: 84557824 bytes/80MB} [pid: 5542|app: 0|req: 394/98579] 
+{address space usage: 3510046720 bytes/3347MB} {rss usage: 101765120 bytes/97MB} [pid: 5875|app: 0|req: 387/98580] 
+{address space usage: 3510497280 bytes/3347MB} {rss usage: 106389504 bytes/101MB} [pid: 6922|app: 0|req: 70/98581] 
+{address space usage: 3510497280 bytes/3347MB} {rss usage: 106500096 bytes/101MB} [pid: 6922|app: 0|req: 71/98582] 
+{address space usage: 3521171456 bytes/3358MB} {rss usage: 135237632 bytes/128MB} [pid: 4706|app: 0|req: 660/98583] 
+{address space usage: 3510046720 bytes/3347MB} {rss usage: 101765120 bytes/97MB} [pid: 5875|app: 0|req: 388/98584] 
+{address space usage: 3510480896 bytes/3347MB} {rss usage: 84557824 bytes/80MB} [pid: 5542|app: 0|req: 395/98585] 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The address space usage hovers at about 3.3GB, but the rss usage averages out around 100MB under normal traffic. Here’s what it looks like when we spike:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{address space usage: 3518722048 bytes/3355MB} {rss usage: 148234240 bytes/141MB} [pid: 28562|app: 0|req: 4128/36509]
+{address space usage: 3537321984 bytes/3373MB} {rss usage: 153063424 bytes/145MB} [pid: 28827|app: 0|req: 4137/36512]
+{address space usage: 3518103552 bytes/3355MB} {rss usage: 125833216 bytes/120MB}
+{address space usage: 3537321984 bytes/3373MB} {rss usage: 153255936 bytes/146MB} [pid: 28827|app: 0|req: 4138/36517]
+{address space usage: 3518722048 bytes/3355MB} {rss usage: 148992000 bytes/142MB} [pid: 28562|app: 0|req: 4137/36523]
+{address space usage: 3518722048 bytes/3355MB} {rss usage: 148992000 bytes/142MB} [pid: 28562|app: 0|req: 4137/36525]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Our address space usage is the same, but our rss usage is pushing over 142MB for almost every request. I want to dig more into this.&lt;/p&gt;
+
+&lt;p&gt;I stumbled upon this discussion thread on the &lt;code&gt;uwsgi&lt;/code&gt; issues page from someone experiencing the same sort of performance degradation with almost the same sort of configuration that we have: &lt;code&gt;uwsgi&lt;/code&gt;, &lt;code&gt;supervisord&lt;/code&gt;, Django. The solution suggested here is to add &lt;code&gt;die-on-term=True&lt;/code&gt; to our &lt;code&gt;uwsgi&lt;/code&gt; config, but I want to look into that a little more before I just start adding things to our &lt;code&gt;uwsgi&lt;/code&gt; config. (the issue thread is &lt;a href=&quot;https://github.com/unbit/uwsgi/issues/296&quot;&gt;here&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;The issue is distilled &lt;a href=&quot;http://uwsgi-docs.readthedocs.org/en/latest/ThingsToKnow.html&quot;&gt;here&lt;/a&gt; (second bullet). Before uWSGI 2.1, sending the &lt;code&gt;SIGTERM&lt;/code&gt; signal to &lt;code&gt;uwsgi&lt;/code&gt; means “brutally reload the stack”, which is not convention. &lt;code&gt;SIGINT&lt;/code&gt; or &lt;code&gt;SIGQUIT&lt;/code&gt; has the same behavior in uWSGI that &lt;code&gt;SIGTERM&lt;/code&gt; has in other applications. Searching for &lt;code&gt;supervisord SIGTERM&lt;/code&gt; yielded this StackOverflow answer:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;supervisord will emit a SIGTERM signal when a stop is requested. Your child can very probably catch and process this signal (the stopsignal configuration can change the signal sent).
+
+http://stackoverflow.com/a/20299217/1020642
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But my child CAN’T catch and process that signal. In fact, it &lt;a href=&quot;https://github.com/unbit/uwsgi/issues/296#issuecomment-36086359&quot;&gt;actually totally ignores it&lt;/a&gt;. It trips over it and brutally reloads the stack if I’m running &lt;code&gt;uwsgi&lt;/code&gt; prior to 2.1.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ uwsgi --version
+2.0.9
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So to fix this bug, we either need to upgrade &lt;code&gt;uwsgi&lt;/code&gt;, or send the &lt;code&gt;die-on-term&lt;/code&gt; option, which will correct this behavior. Adding the &lt;code&gt;die-on-term&lt;/code&gt; directive is the quicker and less potentially problematic version. This will go in our &lt;code&gt;uwsgi.ini&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[uwsgi]
+... stuff ...
+processes=4
+threads=256
+harakiri=20
+max-requests=5000
+die-on-term=True # yay
+... stuff ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now we’ll reload and give it a shot. &lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>Forks and file descriptors - an intro to Unix concepts</title>
+			<link href="http://josephmosby.com/2015/10/21/forks-and-file-descriptors-an-intro-to-unix-concepts.html"/>
+			<updated>2015-10-21T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/21/forks-and-file-descriptors-an-intro-to-unix-concepts</id>
+			<content type="html">&lt;p&gt;I’m exploring MIT’s course on Operating System Engineering in the hopes to get a better feel for how Linux works under the hood, and it’s already answered a few questions about the things I was seeing in &lt;code&gt;ps&lt;/code&gt; earlier. Though the OS course deals with a Unix variant (not Linux), the low-level architecture is similar enough that I think I can assume Linux operates the same way.&lt;/p&gt;
+
+&lt;p&gt;xv6, the Unix variant used in this course, has a kernel that interfaces with hardware and user-level programs. This creates the notion of “user space” and “kernel space,” with a single process jumping back and forth between the two to complete its work. When the process needs to use one of the services from the kernel, it invokes a system call - a specific function in the kernel.&lt;/p&gt;
+
+&lt;p&gt;Unix provides these services (and many more, but this appears to be all xv6 offers):&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code&gt;fork()&lt;/code&gt;, which creates a process&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;exit()&lt;/code&gt;, which terminates the current process&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;wait()&lt;/code&gt;, which waits until a child process exits&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;kill(pid)&lt;/code&gt;, which kills a process with the given PID&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;getpid()&lt;/code&gt;, return current process’s PID&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;sleep(n)&lt;/code&gt;, sleep for n seconds&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;exec(filename, *argv)&lt;/code&gt;, load a file and execute it with the given arguments&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;sbrk(n)&lt;/code&gt;, increase process memory by n bytes&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;open(filename, flags)&lt;/code&gt;, open a file with read or write flags&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;read(fd, buf, n)&lt;/code&gt;, read n bytes from an open file into a buffer &lt;code&gt;buf&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;write(fd, buf, n)&lt;/code&gt;, write n bytes from a buffer &lt;code&gt;buf&lt;/code&gt; into an open file&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;close(fd)&lt;/code&gt;, release open file fd&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;dup(fd)&lt;/code&gt;, duplicate fd&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;pipe(p)&lt;/code&gt;, create a pipe and return fd’s in p&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;chdir(dirname)&lt;/code&gt;, change the current directory&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mkdir(dirname)&lt;/code&gt;, create a new directory&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mknod(name, major, minor)&lt;/code&gt;, create a device file&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;fstat(fd)&lt;/code&gt;, return info about an open file&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;link(f1, f2)&lt;/code&gt;, create another name (f2) for the file f1&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;unlink(filename)&lt;/code&gt;, remove a file&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The shell uses each of the system calls to do its work. It’s just a run-of-the-mill program like anything else. &lt;/p&gt;
+
+&lt;p&gt;The xv6 textbook provides the following mini-example of a program using fork to do its work. I want to give it a shot running on my own machine. Here’s how the proram is written in the textbook:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;int pid;
+
+pid = fork();
+
+if(pid &amp;gt; 0){
+
+printf(&quot;parent: child=%d\n&quot;, pid);
+
+pid = wait();
+
+printf(&quot;child %d is done\n&quot;, pid);
+
+} else if(pid == 0){
+
+printf(&quot;child: exiting\n&quot;);
+
+exit();
+
+} else {
+
+printf(&quot;fork error\n&quot;);
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And here’s how I had to tweak it to get it running on my Mac:&lt;/p&gt;
+
+ 	#include &lt;stdio.h&gt;
+&lt;/stdio.h&gt;&lt;pre&gt;&lt;code&gt;#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+
+int main(int argc, char **argv) {
+	int pid;
+
+	pid = fork();
+	if(pid &amp;gt; 0) {
+        printf(&quot;parent: child=%d\n&quot;, pid);
+        pid = wait(0);
+        printf(&quot;child %d is done\n&quot;, pid);
+	} else if(pid == 0) {
+        printf(&quot;child: exiting\n&quot;);
+        exit(0);
+	} else {
+	    printf(&quot;fork error\n&quot;);
+	}
+
+	return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;stdio.h&lt;/code&gt; library makes sense, because that’s what contains the &lt;code&gt;printf()&lt;/code&gt; functions to dump things out to the console. I received an error when I tried to use &lt;code&gt;fork()&lt;/code&gt; without &lt;code&gt;unistd.h&lt;/code&gt;, so I’m assuming &lt;code&gt;fork()&lt;/code&gt; sits there, and I received more errors when I tried to use &lt;code&gt;wait()&lt;/code&gt; and &lt;code&gt;exit()&lt;/code&gt; without &lt;code&gt;stdlib.h&lt;/code&gt;. &lt;code&gt;fork()&lt;/code&gt; contains the same memory contents of the parent process - in the parent process, &lt;code&gt;fork()&lt;/code&gt; will return the child’s PID, but in the child, it will return 0 - so we see the &lt;code&gt;if&lt;/code&gt; statements trigger for the child and for the parent.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;exec()&lt;/code&gt;, by contrast, doesn’t return to the parent process. It replaces the calling process with a new process stored somewhere in the file system. Let’s take a look at the textbook’s pseudocode:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;char *argv[3];
+
+argv[0] = &quot;echo&quot;;
+argv[1] = &quot;hello&quot;;
+argv[2] = 0;
+exec(&quot;/bin/echo&quot;, argv);
+printf(&quot;exec error\n&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Try as I might, I couldn’t get this program into a usable shape where it would run. After two nights banging my head against it, I decided to scrap it - mostly because I get the gist of what it’s going for. Here was where I finished up:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+
+int main() {
+    char args[3];
+    args[0] = &quot;echo&quot;;
+    args[1] = &quot;hello&quot;;
+    args[2] = &quot;0&quot;;
+    exec(&quot;/bin/echo&quot;, args);
+    printf(&quot;exec error\n&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I think that the probably may ultimately have something to do with the differing implementations of a Mac OS (where I’m testing this) versus a true Linux platform. At any rate, this helps me understand what my shell is doing! It’s doing a combo of these two programs to execute any program I type into the shell. It first takes my command from the command line, then &lt;code&gt;fork&lt;/code&gt;s the command line process, calls my command using &lt;code&gt;exec&lt;/code&gt;, waits for the command to finish, then returns control using &lt;code&gt;wait()&lt;/code&gt;. And that’s why certain processes don’t immediately jump back over to shell control (things like &lt;code&gt;vi&lt;/code&gt; for example), because the &lt;code&gt;fork&lt;/code&gt;ed process hasn’t given control back until I close &lt;code&gt;vi&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;Ooh, and this also helps &lt;code&gt;systemd&lt;/code&gt; make more sense. I suspect that &lt;code&gt;systemd&lt;/code&gt; takes control of PID 1 and then immediately loops through anything in the &lt;code&gt;/etc/systemd/system/&lt;/code&gt; folder to start launching services based on the configuration files there, &lt;code&gt;fork&lt;/code&gt;ing processes as it goes.&lt;/p&gt;
+
+&lt;p&gt;Next up on our list of functionality is I/O, where we start with file descriptors. According to the text, a file descriptor is an integer tied to some kernel-managed file object. User-level programs deal with the file object through the &lt;code&gt;read()&lt;/code&gt; and &lt;code&gt;write()&lt;/code&gt; system calls. The &lt;code&gt;read(fd, buf, n)&lt;/code&gt; call takes in a file descriptor integer and reads &lt;code&gt;n&lt;/code&gt; bytes into buffer &lt;code&gt;buf&lt;/code&gt;. Subsequent calls to &lt;code&gt;read()&lt;/code&gt; will start where &lt;code&gt;n&lt;/code&gt; stopped. If we called &lt;code&gt;read(12, buf, 512)&lt;/code&gt;, we would read 512 bytes from &lt;code&gt;fd&lt;/code&gt; 12 into buffer &lt;code&gt;buf&lt;/code&gt; on the first read. If we called it again, we would start at byte #512 then read another 512 bytes (ending at 1024). &lt;code&gt;write(fd, buf, n)&lt;/code&gt; follows a similar pattern, writing &lt;code&gt;n&lt;/code&gt; bytes from buffer &lt;code&gt;buf&lt;/code&gt; to file descriptor &lt;code&gt;fd&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here is the pseudocode given for a simple &lt;code&gt;cat&lt;/code&gt;-like program:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;char buf[512];
+int n;
+
+for(;;) {
+	// with file descriptor 0, read 512 bytes from file
+	n = read(0, buf, sizeof buf);
+
+	if(n == 0) {
+		// if we&#39;ve reached the end
+		break;
+	}
+
+	if(n &amp;lt; 0) {
+		// if n less than 0, error
+		fprintf(2, &quot;read error&quot;);
+		exit();
+	}
+
+	if(write(1, buf, n) != n) {
+		// write to output object 1, log if error
+		fprintf(2, &quot;write error&quot;);
+		exit();
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So I read from &lt;code&gt;fd&lt;/code&gt; 0 to a buffer, then write from that buffer to an output object. That could be a terminal output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cat myfile.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or piped to a command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cat myfile.txt | awk --something something--
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or written to another file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cat myfile.txt &amp;gt; myfile2.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;cat&lt;/code&gt; doesn’t have to care, it’s reading and writing to any descriptor that’s given to it. &lt;/p&gt;
+
+&lt;p&gt;Rounding out the file descriptor system calls is &lt;code&gt;dup()&lt;/code&gt;. &lt;code&gt;dup()&lt;/code&gt; takes in a file descriptor integer and returns another file descriptor that points to the same file. &lt;/p&gt;
+
+&lt;p&gt;The file descriptor mechanism is way more powerful than I originally gave it credit for. It’s a simple little trick, but it’s brilliant - because things can write to a “file”, even if it’s not a file at all. The user processes can treat them all the same way.&lt;/p&gt;
+
+&lt;p&gt;Okay, I’m going to put a stop to things there before moving on to pipes! &lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>Where did my application go? and other tails from the log files</title>
+			<link href="http://josephmosby.com/2015/10/20/where-did-my-application-go.html"/>
+			<updated>2015-10-20T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/20/where-did-my-application-go</id>
+			<content type="html">&lt;p&gt;I woke up this morning to yet another fun little situation from my application. As opposed to the prior set of errors, where response times were creeping up into the uncomfortably high range, this is exactly the opposite: the application stops responding to anything. Here’s what that graph looks like in New Relic:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/errors2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;At 7:11AM, my application simply dies, according to New Relic. Into the breach!&lt;/p&gt;
+
+&lt;p&gt;I think that I likely only need about a hundred thousand lines of my logs to get back to the timeframe in question, so let’s cull those out and locate anything happening in the 7:10-7:19 timeframe:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tail -100000 django-www.log &amp;gt; outage.log
+$ grep -m 1 -n &quot;07:1&quot; django-www.log
+
+2825:{address space usage: 3589083136 bytes/3422MB} {rss usage: 318144512 bytes/303MB} [pid: 8510|app: 0|req: 4874/239423] [IP ADDRESS] () {50 vars in 1552 bytes} [Mon Oct 19 13:07:10 2015] GET /petro/s/90050/hillary-clinton-won-wont-always-be-this-way =&amp;gt; generated 42453 bytes in 302 msecs (HTTP/1.1 200) 3 headers in 250 bytes (2 switches on core 17)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Whoops, too far. Let me slice this up a little bit more and back it up a few minutes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tail -30000 outage.log | grep -m 1 -n &quot;Oct 20 07:10&quot;
+
+13411:{address space usage: 3518570496 bytes/3355MB} {rss usage: 126271488 bytes/120MB} [pid: 11089|app: 0|req: 4972/319841] [IP ADDRESS] () {44 vars in 751 bytes} [Tue Oct 20 07:05:01 2015] GET /2012/04/the-land-of-hope-and-dreams.php =&amp;gt; generated 58612 bytes in 41 msecs (HTTP/1.1 404) 2 headers in 95 bytes (2 switches on core 230)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Okay, so I’m going to slice out the last 16,589 lines, which will start me close to the beginning of the outage:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tail -16589 django-www.log &amp;gt; outage.log
+$ sed -n 1,3500p outage.log &amp;gt; temp.log &amp;amp;&amp;amp; mv temp.log outage.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s get started. I’m going to look for the point where my app started throwing 500 errors.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ grep -m 20 -n &quot;HTTP/1.1 500&quot; outage.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That prints out the first 20 lines of my application throwing 500 errors, and a lot of them are on things that I know shouldn’t 500. I’m going to dig into my Sentry error logging to see what the problem is, and…crap.&lt;/p&gt;
+
+&lt;p&gt;At some point, I or one of my teammates accidentally removed the Sentry and Raven configuration from our Django app, so we haven’t actually captured any of these errors. Awesome. This might be a dead end for now. I’m going to add the configuration lines back into the app:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;INSTALLED_APPS = (
+    &#39;django.contrib.contenttypes&#39;,
+    &#39;django.contrib.sessions&#39;,
+    &#39;django.contrib.messages&#39;,
+    &#39;django.contrib.staticfiles&#39;,
+    &#39;raven.contrib.django.raven_compat&#39;
+    ... other apps ...
+)
+
+import raven
+RAVEN_CONFIG = {
+    &#39;dsn&#39;: &#39;RAVEN KEY HERE&#39;,
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That’s a frustrating dead end, but it’s something we should have caught. I’m adding a simple test case into our test suite to make sure it doesn’t happen again.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from django.test import TestCase
+from django.core.management import call_command
+
+class TestRavenUp(TestCase):
+
+	def test_raven_up(self):
+		stdout_backup = sys.stdout
+		sys.stdout = open(&#39;/tmp/raven_up&#39;, &#39;w&#39;)
+		call_command(&#39;raven&#39;, &#39;test&#39;)
+
+		f = open(&#39;/tmp/raven_up&#39;, &#39;r&#39;)
+		config = f.read()
+		f.close()
+
+		sys.stdout = stdout_backup
+		self.assertTrue(&#39;[MUH SERVER NAME]&#39; in config)
+		self.assertTrue(&#39;[MUH APPLICATION KEY]&#39; in config)
+
+		print(&#39;Inspect [MUH SENTRY SERVER] to note that event has been logged.&#39;)
+
+		os.remove(&#39;/tmp/raven_up&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That will spit out a test event to Sentry if we have everything configured appropriately. Hopefully I’ll have an update with error logs the next time it happens (but I hope it doesn’t happen again).&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>Debugging uWSGI dropouts</title>
+			<link href="http://josephmosby.com/2015/10/19/debugging-uwsgi-dropouts.html"/>
+			<updated>2015-10-19T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/19/debugging-uwsgi-dropouts</id>
+			<content type="html">&lt;p&gt;On Friday night, our National Journal app suddenly stopped responding to requests. Our response time went straight through the roof, but this didn’t correspond to any noticeable increase in load. In fact, our throughput (the requests per minute we respond to) had been declining up until the breakdown. We didn’t have any noticeable spike in traffic that corresponded to this outage, so I suspect our &lt;code&gt;uwsgi&lt;/code&gt; configuration may be to blame. Here’s what the graph looked like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/errors.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I’m going to tear through the &lt;code&gt;uwsgi&lt;/code&gt; logs today to see if I can nail down the culprit. If my &lt;code&gt;uwsgi&lt;/code&gt; threads are dying and not coming back, I’d expect to see a message like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;worker 1 killed successfully (pid: 17421)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;that wasn’t accompanied with a message like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Respawned uWSGI worker 1 (new pid: 9438)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I’ve pulled the log files down from one of our application servers and will be going through it. I want to start by culling things down to only things that occurred in that 5:00-5:45 timeframe, so let’s whittle it down with some &lt;code&gt;grep&lt;/code&gt;. I’ll use the &lt;code&gt;-m 1&lt;/code&gt; flag to call only the first occurrence and the &lt;code&gt;-n&lt;/code&gt; flag to show the line number.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ grep -m 1 -n &quot;Oct 16 17:00:00&quot; django-www.log
+
+763413:{address space usage: 3525341184 bytes/3362MB} {rss usage: 135106560 bytes/128MB} [pid: 2449|app: 0|req: 1197/17093] [IP ADDRESS] () {42 vars in 736 bytes} [Fri Oct 16 17:00:00 2015] GET /s/54699/1-easy-way-donald-trump-could-have-been-even-richer-doing-nothing =&amp;gt; generated 304819 bytes in 178 msecs (HTTP/1.1 200) 5 headers in 263 bytes (6 switches on core 96)
+
+$ grep -m 1 -n &quot;Oct 16 17:45:00&quot; django-www.log
+ 
+768139:{address space usage: 3510857728 bytes/3348MB} {rss usage: 103940096 bytes/99MB} [pid: 11399|app: 0|req: 174/680] [IP ADDRESS] () {48 vars in 919 bytes} [Fri Oct 16 17:45:00 2015] GET /energy/scientists-go-beyond-science-to-explain-their-climate-terror-20140826?ref=facebook.com =&amp;gt; generated 0 bytes in 31 msecs (HTTP/1.1 302) 3 headers in 226 bytes (1 switches on core 143)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now I’m going to use &lt;code&gt;sed&lt;/code&gt; to create a new file of only that range of lines from 763413 to 768139, to make parsing faster and easier. I’ll drop this output into a new file called &lt;code&gt;outage.log&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sed -n 763413,768139p django-www.log &amp;gt; outage.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Okay, now that I’ve whittled things down, I want to look for things indicating my workers died:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ grep -n &quot;killed successfully&quot; outage.log
+$ grep -n &quot;Seeya&quot; outage.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Both of those didn’t yield anything. Let’s maybe instead look for signs of spawning:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ grep -n &quot;spawn&quot; outage.log
+
+999:DAMN ! worker 1 (pid: 2449) died, killed by signal 9 :( trying respawn ...
+1000:Respawned uWSGI worker 1 (new pid: 8359)
+1862:Fri Oct 16 17:28:18 2015 - HARAKIRI [core 151] [IP ADDRESS] - GET /member/energy/n2k-energy-solyndra-spawns-calls-for-more-probes-dems-ask-obama-to-hold-off-on-keystone-20111027 since 1445030637
+1882:Fri Oct 16 17:28:18 2015 - HARAKIRI [core 171] [IP ADDRESS] - GET /member/energy/n2k-energy-solyndra-spawns-calls-for-more-probes-dems-ask-obama-to-hold-off-on-keystone-20111027 since 1445030802
+1972:DAMN ! worker 3 (pid: 2977) died, killed by signal 9 :( trying respawn ...
+1973:Respawned uWSGI worker 3 (new pid: 9731)
+2324:DAMN ! worker 2 (pid: 2712) died, killed by signal 9 :( trying respawn ...
+2325:Respawned uWSGI worker 2 (new pid: 10063)
+2601:DAMN ! worker 4 (pid: 3240) died, killed by signal 9 :( trying respawn ...
+2602:Respawned uWSGI worker 4 (new pid: 10065)
+3006:DAMN ! worker 1 (pid: 8359) died, killed by signal 9 :( trying respawn ...
+3007:Respawned uWSGI worker 1 (new pid: 10593)
+4025:spawned uWSGI master process (pid: 11394)
+4026:spawned uWSGI worker 1 (pid: 11397, cores: 256)
+4027:spawned uWSGI worker 2 (pid: 11398, cores: 256)
+4029:spawned uWSGI worker 3 (pid: 11399, cores: 256)
+4030:spawned uWSGI worker 4 (pid: 11400, cores: 256)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;NOW we’re cooking. I’m going to chop things up a little bit more, since I can tell from this that we rebooted the app at line 4025.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sed -n 1,4030p outage.log &amp;gt; outage2.log &amp;amp;&amp;amp; mv outage2.log outage.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now let’s look for something weird. I’m going to just dump out some of the things I’ve looked for.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ grep -n &quot;17:23&quot; outage.log
+$ grep -n &quot;HARAKIRI&quot; outage.log
+$ grep -n &quot;spawn&quot; outage.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then I came back to this and scrolled back up through the files:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ grep -n &quot;17:23&quot; outage.log
+
+1393:Fri Oct 16 17:23:00 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1395:Fri Oct 16 17:23:00 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1401:Fri Oct 16 17:23:08 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1404:Fri Oct 16 17:23:10 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1408:Fri Oct 16 17:23:15 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1409:Fri Oct 16 17:23:15 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1414:Fri Oct 16 17:23:16 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1417:Fri Oct 16 17:23:17 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1421:Fri Oct 16 17:23:20 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1424:Fri Oct 16 17:23:21 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1432:Fri Oct 16 17:23:32 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1436:Fri Oct 16 17:23:38 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That maps &lt;em&gt;exactly&lt;/em&gt; back to the time that our application started spiking. I think I may have a breadcrumb.&lt;/p&gt;
+
+&lt;p&gt;… goes to Google …&lt;/p&gt;
+
+&lt;p&gt;Maybe not. &lt;code&gt;uwsgi&lt;/code&gt; throws out those broken pipe errors in the instance of a timeout, and it would make sense that things would be timing out around that time.&lt;/p&gt;
+
+&lt;p&gt;But what a second. I’m going to scroll up the log files until a few minutes &lt;em&gt;before&lt;/em&gt; the crash starts acting up to see if I can pinpoint what went wrong. Here’s a sample line from that timeframe:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{address space usage: 3521130496 bytes/3358MB} {rss usage: 167030784 bytes/159MB} [pid: 2712|app: 0|req: 1548/18272] [IP ADDRESS] () {40 vars in 668 bytes} [Fri Oct 16 17:17:50 2015] GET /columns/political-connections =&amp;gt; generated 58615 bytes in 18558 msecs (HTTP/1.1 404) 2 headers in 95 bytes (2 switches on core 16)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That took us 18.5 seconds to generate a 404 page for a broken link. That’s absurd. Right around the time that I read this line, one of our system administrators (who I’ve been live-updating as I worked) comes running around the corner to say: &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; we didn&#39;t have uwsgi timeouts set on nginx!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ahh. So &lt;code&gt;nginx&lt;/code&gt; was timing out on sending and receiving data to and from &lt;code&gt;uwsgi&lt;/code&gt;, but weren’t &lt;em&gt;actually&lt;/em&gt; timing out. We were just letting &lt;code&gt;uwsgi&lt;/code&gt; spin into infinity. We fix that with these lines in our &lt;code&gt;nginx.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;location / {
+	... stuff ...
+	uwsgi_read_timeout 300;
+    uwsgi_send_timeout 300;
+    ... stuff ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We think that might be our ticket, allowing these dropped connections to actually timeout. We’ll need a few days in production before I give the all-clear, but I think that might do it!&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>What does systemd do?</title>
+			<link href="http://josephmosby.com/2015/10/17/what-does-systemd-do.html"/>
+			<updated>2015-10-17T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/17/what-does-systemd-do</id>
+			<content type="html">&lt;p&gt;I mentioned in an &lt;a href=&quot;http://josephmosby.com/2015/10/17/what-does-systemctl-do.html&quot;&gt;earlier post&lt;/a&gt; that &lt;code&gt;systemctl&lt;/code&gt; appeared to be tied to &lt;code&gt;systemd&lt;/code&gt;, which looked like a much more important program. In this post, I’m going to explore &lt;code&gt;systemd&lt;/code&gt; and see what it does.&lt;/p&gt;
+
+&lt;p&gt;Turns out, it does a LOT. And people are super unhappy about it.&lt;/p&gt;
+
+&lt;p&gt;I loosely knew the Unix philosophy, which essentially states that programs should be tiny and do very little, rather than one program taking on monolithic functionality. Doug McIlroy, a former head of the Bell Labs Computing Sciences Research Center, summarized it thus:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;This is the Unix philosophy: Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;systemd&lt;/code&gt; does way more than this. It does a bajillion things, and it does them well, but it still does a bajillion things rather than just one. &lt;/p&gt;
+
+&lt;p&gt;At its core, &lt;code&gt;systemd&lt;/code&gt; is a Linux init system. It’s designed to kick off programs - every single program that runs on a Unix system. As such, it’s the first process spawned when a system boots:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ps -ef | grep &quot;systemd&quot;
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+root      1636     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-journald
+root      1649     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-udevd
+dbus      2488     1  0 00:40 ?        00:00:01 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+root      2490     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-logind
+root     15732 15713  0 16:36 pts/3    00:00:00 grep --color=auto systemd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;PID 1! The maker of all other services in a Unix operating system! I never knew what PID 1 would be, but there it is: &lt;code&gt;systemd&lt;/code&gt;. This post is going to be heavy, I think. And I’ll probably leave myself asking more questions. I’m not really grokking anything in-depth from the &lt;a href=&quot;https://en.wikipedia.org/wiki/Systemd&quot;&gt;Wikipedia page&lt;/a&gt; for &lt;code&gt;systemd&lt;/code&gt;, so off I go to the &lt;a href=&quot;http://www.freedesktop.org/software/systemd/man/systemd.html&quot;&gt;man pages&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;systemd&lt;/code&gt; has an entire “Concepts” page devoted to it, which is extremely useful. It states that &lt;code&gt;systemd&lt;/code&gt; has a concept of units - our services, sockets, and other objects we used earlier. &lt;code&gt;nginx&lt;/code&gt; is a unit. &lt;code&gt;dashboard&lt;/code&gt; is a unit. Now we get some meat about what those units can be, and I’m just going to copy and paste the list here.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Service units, which start and control daemons and the processes they consist of.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Socket units, which encapsulate local IPC or network sockets in the system, useful for socket-based activation. &lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Target units are useful to group units, or provide well-known synchronization points during boot-up.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Device units expose kernel devices in systemd and may be used to implement device-based activation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Mount units control mount points in the file system.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Automount units provide automount capabilities, for on-demand mounting of file systems as well as parallelized boot-up.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Snapshot units can be used to temporarily save the state of the set of systemd units, which later may be restored by activating the saved snapshot unit.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Timer units are useful for triggering activation of other units based on timers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Swap units are very similar to mount units and encapsulate memory swap partitions or files of the operating system.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Path units may be used to activate other services when file system objects change or are modified.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Slice units may be used to group units which manage system processes (such as service and scope units) in a hierarchical tree for resource management purposes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Scope units are similar to service units, but manage foreign processes instead of starting them as well. &lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I still don’t know what a target unit is, so I’m going to move into the man page for &lt;code&gt;systemd.target&lt;/code&gt; for a moment. This line is helpful from those pages: “They exist merely to group units via dependencies (useful as boot targets), and to establish standardized names for synchronization points used in dependencies between units.” I think I’ve got it now - if you want to smash together a bunch of units into one (like you’d need to do for a multi-user system), you use a target unit.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;systemd&lt;/code&gt; also manages the dependencies of units, and that’s where those &lt;code&gt;Requires&lt;/code&gt;, &lt;code&gt;Conflicts&lt;/code&gt;, &lt;code&gt;After&lt;/code&gt;, and &lt;code&gt;Before&lt;/code&gt; lines came into play earlier. From my dashboard service’s &lt;code&gt;systemctl show&lt;/code&gt; output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Requires=basic.target
+Wants=system.slice
+WantedBy=multi-user.target
+Conflicts=shutdown.target
+Before=shutdown.target multi-user.target
+After=network.target systemd-journald.socket basic.target system.slice
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;My service Requires &lt;code&gt;basic.target&lt;/code&gt;, Conflicts with &lt;code&gt;shutdown.target&lt;/code&gt;, must be before &lt;code&gt;shutdown.target&lt;/code&gt; and &lt;code&gt;multi-user.target&lt;/code&gt;, and must come after &lt;code&gt;network.target&lt;/code&gt;, &lt;code&gt;systemd-journald.socket&lt;/code&gt;, &lt;code&gt;basic.target&lt;/code&gt;, and &lt;code&gt;system.slice&lt;/code&gt;. I’m not sure what most of these mean, but it does make sense that my web program should be loaded after the &lt;code&gt;network&lt;/code&gt; has been loaded.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;systemd&lt;/code&gt; states that it loads information about unit configuration from system directories and user directories, which I can find by typing the following commands in:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pkg-config systemd --variable=systemdsystemunitdir
+/usr/lib/systemd/system
+
+$ pkg-config systemd --variable=systemduserunitdir
+/usr/lib/systemd/user
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s go see what’s in those:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /usr/lib/systemd/system
+$ ls
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ooh, I see a bunch of files that look like the &lt;code&gt;.service&lt;/code&gt; files I was tinkering around with last night but didn’t understand! Let’s inspect a few.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cat sound.target
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Sound Card
+Documentation=man:systemd.special(7)
+StopWhenUnneeded=yes
+
+$ cat halt.target
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Halt
+Documentation=man:systemd.special(7)
+DefaultDependencies=no
+Requires=systemd-halt.service
+After=systemd-halt.service
+AllowIsolate=yes
+
+[Install]
+Alias=ctrl-alt-del.target
+
+$ cat crond.service
+[Unit]
+Description=Command Scheduler
+After=syslog.target auditd.service systemd-user-sessions.service time-sync.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/crond
+ExecStart=/usr/sbin/crond -n $CRONDARGS
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So these &lt;code&gt;.service&lt;/code&gt; and &lt;code&gt;.target&lt;/code&gt; files are all part of the configuration that &lt;code&gt;systemd&lt;/code&gt; requires. The &lt;code&gt;crond.service&lt;/code&gt; configuration isn’t &lt;code&gt;crond&lt;/code&gt; itself, it’s a file that tells &lt;code&gt;systemd&lt;/code&gt; how to start and manage &lt;code&gt;crond&lt;/code&gt;. I’m getting it now!&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;systemd&lt;/code&gt; can also receive certain signals, such as &lt;code&gt;SIGTERM&lt;/code&gt;, &lt;code&gt;SIGINT&lt;/code&gt;, and &lt;code&gt;SIGRTMIN+15&lt;/code&gt;, which are more black magic to me. I’m not sure how I would send those signals to &lt;code&gt;systemd&lt;/code&gt;, but maybe those things aren’t for me in the way I think of them.&lt;/p&gt;
+
+&lt;p&gt;I think that’s a good start into &lt;code&gt;systemd&lt;/code&gt;, but I can tell I’m just scratching the surface with it. Next up: this &lt;a href=&quot;http://0pointer.de/blog/projects/systemd.html&quot;&gt;blog post&lt;/a&gt; on the origins of &lt;code&gt;systemd&lt;/code&gt; and the &lt;code&gt;systemd&lt;/code&gt; &lt;a href=&quot;http://www.freedesktop.org/wiki/Software/systemd/&quot;&gt;homepage&lt;/a&gt;.&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>What does systemctl do?</title>
+			<link href="http://josephmosby.com/2015/10/17/what-does-systemctl-do.html"/>
+			<updated>2015-10-17T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/17/what-does-systemctl-do</id>
+			<content type="html">&lt;p&gt;In my &lt;a href=&quot;http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html&quot;&gt;earlier post&lt;/a&gt; on nginx and uWSGI, I used &lt;code&gt;systemctl&lt;/code&gt; to kick off my app. I admittedly don’t know much about systemctl (or about CentOS, if we’re being totally honest), so I wanted to dig more into that.&lt;/p&gt;
+
+&lt;p&gt;My first round of looking for documentation took me to the Fedora project’s &lt;a href=&quot;https://docs.fedoraproject.org/en-US/Fedora/15/html/Deployment_Guide/ch-Services_and_Daemons.html&quot;&gt;documentation on services and daemons&lt;/a&gt;. (Turns out that &lt;a href=&quot;https://danielmiessler.com/study/fedora_redhat_centos/&quot;&gt;CentOS is ultimately a fork of Fedora&lt;/a&gt;) The official documentation seems like a good place to start here. It gives a nice description of how to check the status of my service, so I’m going to do that here.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl status dashboard.service
+dashboard.service - uwsgi instance to serve dashboard
+   Loaded: loaded (/etc/systemd/system/dashboard.service; enabled)
+   Active: active (running) since Sat 2015-10-17 04:32:57 UTC; 10h ago
+ Main PID: 14914 (uwsgi)
+   CGroup: /system.slice/dashboard.service
+           ├─14914 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14916 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14917 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14918 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14919 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           └─14920 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+
+Oct 17 04:32:57 [INFO ABOUT MY LINODE] uwsgi[14914]: spawned uWSGI worker 5 (pid: 14920, cores: 1)
+Oct 17 04:33:00 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 1/1] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 722 b...re 0)
+Oct 17 04:33:00 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14919|app: 0|req: 1/2] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 713 b...re 0)
+Oct 17 04:33:00 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 2/3] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 680 b...re 0)
+Oct 17 04:35:56 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 3/4] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 722 b...re 0)
+Oct 17 04:35:56 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14916|app: 0|req: 1/5] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 713 b...re 0)
+Oct 17 04:35:59 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 4/6] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 680 b...re 0)
+Oct 17 04:37:15 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 5/7] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 722 b...re 0)
+Oct 17 04:37:16 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14919|app: 0|req: 2/8] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 713 b...re 0)
+Oct 17 04:37:16 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14916|app: 0|req: 2/9] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 680 b...re 0)
+Hint: Some lines were ellipsized, use -l to show in full.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I masked out what I think would be identifying details that I don’t want out there. The first commented-out section was my Linode’s name, but the second was an IP address that I did not recognize. Maybe it’s my IPv4 address? Maybe it’s the Linode’s hypervisor IP address? I think, though, that these logs may be from uWSGI and not from &lt;code&gt;systemctl&lt;/code&gt;. I say this because the Fedora documentation doesn’t have anything that looks like this in their &lt;a href=&quot;https://docs.fedoraproject.org/en-US/Fedora/15/html/Deployment_Guide/s1-services-running.html&quot;&gt;page about these logs&lt;/a&gt;. I’m going to skip it for now. Most of the other information on Fedora’s page here is about using the tool, which I’ve already done, so I’m going to move on to the raw man pages.&lt;/p&gt;
+
+&lt;p&gt;The man page for &lt;code&gt;systemctl&lt;/code&gt; gives the following description for its use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;systemctl — Control the systemd system and service manager
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Okay, so &lt;code&gt;systemctl&lt;/code&gt; is actually used to control the &lt;code&gt;systemd&lt;/code&gt; tool. Maybe the documentation was a little sparse because &lt;code&gt;systemd&lt;/code&gt; is where the money is. Still, let’s go through the &lt;a href=&quot;http://www.freedesktop.org/software/systemd/man/systemctl.html&quot;&gt;man page&lt;/a&gt; to see what we can get here. I’m going to punch through the commands one by one to walk through what they can do.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl -t
+systemctl: option requires an argument -- &#39;t&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Mer, that didn’t go well. I didn’t read the documentation enough. It requires a listing of unit types, which I can find here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl -t help
+Available unit types:
+service
+socket
+target
+device
+mount
+automount
+snapshot
+timer
+swap
+path
+slice
+scope
+
+$ systemctl -t service
+
+UNIT                               LOAD   ACTIVE SUB     DESCRIPTION
+.... stuff ...
+crond.service                      loaded active running Command Scheduler
+dashboard.service                  loaded active running uwsgi instance to serve dashboard
+dbus.service                       loaded active running D-Bus System Message Bus
+.... stuff ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Aha! There’s my &lt;code&gt;dashboard&lt;/code&gt; service, sandwiched right in between cron and something called &lt;code&gt;dbus&lt;/code&gt;. It looks like it’s loaded, active, and running, which is what I would expect. &lt;code&gt;$ systemctl --state=active&lt;/code&gt; provides the same information, just a different way to cut the data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl -t service --recursive
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This doesn’t work as expected on my machine. It may be live on Fedora, but disabled on CentOS or something like that.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl -t service --reverse
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The man page says this should do the following: “Show reverse dependencies between units with list-dependencies, i.e. follow dependencies of type WantedBy=, RequiredBy=, RequiredByOverridable=, PartOf=, BoundBy=, instead of Wants= and similar.” I remember having to type &lt;code&gt;WantedBy=&lt;/code&gt; in my configuration earlier:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vi /etc/systemd/system/dashboard.service
+
+[Unit]
+Description=uwsgi instance to serve dashboard
+After=network.target
+
+[Service]
+User=ghost
+Group=nginx
+WorkingDirectory=/var/www/dashboard
+Environment=&quot;PATH=/var/www/dashboard/venv/bin&quot;
+ExecStart=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Okay, so I must have configured &lt;code&gt;dashboard.service&lt;/code&gt; to start with some sort of a dependency: this &lt;code&gt;multi-user.target&lt;/code&gt; thing. Let’s see if I can find that.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl -t target
+
+UNIT                LOAD   ACTIVE SUB    DESCRIPTION
+... stuff ...
+local-fs.target     loaded active active Local File Systems
+multi-user.target   loaded active active Multi-User System
+network.target      loaded active active Network
+... stuff ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It looks like these “targets” are super important. I didn’t know you could even have a Unix system without multiple users, but it looks like that’s something you have to manually turn on - and can turn off. Crazy.&lt;/p&gt;
+
+&lt;p&gt;There are two commands here that I don’t want to fiddle with too much for now, because I plan to go down a &lt;code&gt;systemd&lt;/code&gt; rabbit hole and these look like I could cause problems if I don’t know what I’m doing. I’ll circle back to them.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl --job-mode= ? 
+$ systemctl --fail 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The rest of the options here look like they’re tied to actually starting and stopping services, rather than just managing them. Rather than try to imply what’s going on with these, I want to jump down to the Commands section so I can start understanding what this utility can do.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl list-units
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This does the same thing as just typing &lt;code&gt;systemctl&lt;/code&gt;, and it dumps out an unfiltered list of running services and sockets and things.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl start [SOMETHING]
+$ systemctl stop [SOMETHING]
+$ systemctl restart [SOMETHING]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I used these last night, and they do exactly what I’d expect. They start, stop, and restart services. This one’s new though:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl reload [SOMETHING]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When we type this, we can reload the configuration of a service without actually reloading the service itself. We could reload &lt;code&gt;nginx.conf&lt;/code&gt; by typing &lt;code&gt;systemctl reload nginx&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now for what is the unexpectedly big kahuna:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl show dashboard
+
+Id=dashboard.service
+Names=dashboard.service
+Requires=basic.target
+Wants=system.slice
+WantedBy=multi-user.target
+Conflicts=shutdown.target
+Before=shutdown.target multi-user.target
+After=network.target systemd-journald.socket basic.target system.slice
+Description=uwsgi instance to serve dashboard
+LoadState=loaded
+ActiveState=active
+SubState=running
+FragmentPath=/etc/systemd/system/dashboard.service
+UnitFileState=enabled
+InactiveExitTimestamp=Sat 2015-10-17 04:32:57 UTC
+InactiveExitTimestampMonotonic=13928551290
+ActiveEnterTimestamp=Sat 2015-10-17 04:32:57 UTC
+ActiveEnterTimestampMonotonic=13928551290
+ActiveExitTimestamp=Sat 2015-10-17 04:31:52 UTC
+ActiveExitTimestampMonotonic=13863477373
+InactiveEnterTimestamp=Sat 2015-10-17 04:31:52 UTC
+InactiveEnterTimestampMonotonic=13863477373
+CanStart=yes
+CanStop=yes
+CanReload=no
+CanIsolate=no
+StopWhenUnneeded=no
+RefuseManualStart=no
+RefuseManualStop=no
+AllowIsolate=no
+DefaultDependencies=yes
+OnFailureIsolate=no
+IgnoreOnIsolate=no
+IgnoreOnSnapshot=no
+NeedDaemonReload=no
+JobTimeoutUSec=0
+ConditionTimestamp=Sat 2015-10-17 04:32:57 UTC
+ConditionTimestampMonotonic=13928549499
+ConditionResult=yes
+Transient=no
+Slice=system.slice
+ControlGroup=/system.slice/dashboard.service
+Type=simple
+Restart=no
+NotifyAccess=none
+RestartUSec=100ms
+TimeoutStartUSec=1min 30s
+TimeoutStopUSec=1min 30s
+WatchdogUSec=0
+WatchdogTimestampMonotonic=0
+StartLimitInterval=10000000
+StartLimitBurst=5
+StartLimitAction=none
+ExecStart={ path=/var/www/dashboard/venv/bin/uwsgi ; argv[]=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini ; ignore_errors=no ; start_time=[Sat 2
+PermissionsStartOnly=no
+RootDirectoryStartOnly=no
+RemainAfterExit=no
+GuessMainPID=yes
+MainPID=14914
+ControlPID=0
+Result=success
+Environment=PATH=/var/www/dashboard/venv/bin
+UMask=0022
+LimitCPU=18446744073709551615
+LimitFSIZE=18446744073709551615
+LimitDATA=18446744073709551615
+LimitSTACK=18446744073709551615
+LimitCORE=18446744073709551615
+LimitRSS=18446744073709551615
+LimitNOFILE=4096
+LimitAS=18446744073709551615
+LimitNPROC=3934
+LimitMEMLOCK=65536
+LimitLOCKS=18446744073709551615
+LimitSIGPENDING=3934
+LimitMSGQUEUE=819200
+LimitNICE=0
+LimitRTPRIO=0
+LimitRTTIME=18446744073709551615
+WorkingDirectory=/var/www/dashboard
+OOMScoreAdjust=0
+Nice=0
+IOScheduling=0
+CPUSchedulingPolicy=0
+CPUSchedulingPriority=0
+TimerSlackNSec=50000
+CPUSchedulingResetOnFork=no
+NonBlocking=no
+StandardInput=null
+StandardOutput=journal
+StandardError=inherit
+TTYReset=no
+TTYVHangup=no
+TTYVTDisallocate=no
+SyslogPriority=30
+SyslogLevelPrefix=yes
+SecureBits=0
+CapabilityBoundingSet=18446744073709551615
+User=ghost
+Group=nginx
+MountFlags=0
+PrivateTmp=no
+PrivateNetwork=no
+SameProcessGroup=no
+IgnoreSIGPIPE=yes
+NoNewPrivileges=no
+KillMode=control-group
+KillSignal=15
+SendSIGKILL=yes
+SendSIGHUP=no
+CPUAccounting=no
+CPUShares=1024
+BlockIOAccounting=no
+BlockIOWeight=1000
+MemoryAccounting=no
+MemoryLimit=18446744073709551615
+DevicePolicy=auto
+ExecMainStartTimestamp=Sat 2015-10-17 04:32:57 UTC
+ExecMainStartTimestampMonotonic=13928551199
+ExecMainExitTimestampMonotonic=0
+ExecMainPID=14914
+ExecMainCode=0
+ExecMainStatus=0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I KNOW WHAT LIKE A TENTH OF THIS MEANS. THIS IS AWESOME.&lt;/p&gt;
+
+&lt;p&gt;I’m going to take a break here and digest some of the information gleaned from this little exercise. More to come!&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>How are PIDs assigned?</title>
+			<link href="http://josephmosby.com/2015/10/17/how-are-pids-assigned.html"/>
+			<updated>2015-10-17T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/17/how-are-pids-assigned</id>
+			<content type="html">&lt;p&gt;I want to take a moment to step through the &lt;code&gt;ps&lt;/code&gt; command and how PIDs are assigned, because I want to walk through the first 10 processes kicked off when CentOS boots. I assume that PIDs are assigned based on the order in which they’re created, but I’m not 100% certain on that. Let’s take a look.&lt;/p&gt;
+
+&lt;p&gt;Wikipedia states:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;In Unix-like operating systems, new processes are created by the fork() system call. ... Process ID 1 is usually the init process primarily responsible for starting and shutting down the system. ... Process IDs are usually allocated on a sequential basis, beginning at 0 and rising to a maximum value which varies from system to system.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So PID 1, our &lt;code&gt;systemd&lt;/code&gt; process, is created first (though there’s a PID 0 which comes before), and all of the other processes follow sequentially. This makes things easier, as now I can (hopefully) get a listing of the first ten things CentOS does on boot. I wasn’t looking for anything more formal than this, so let’s move on.&lt;/p&gt;
+
+&lt;p&gt;I don’t quite know how to get information on a specific process by giving its ID, so let’s just try something out:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ps 1
+PID TTY      STAT   TIME COMMAND
+1 	?        Ss     0:04 /usr/lib/systemd/systemd --system --deserialize 21
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That was simple enough. There’s &lt;code&gt;systemd&lt;/code&gt;, just as I expected. Let’s look at some others.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ps 2
+PID TTY      STAT   TIME COMMAND
+2 	?        S      0:00 [kthreadd]
+
+$ ps 3
+PID TTY      STAT   TIME COMMAND
+3 	?        S      0:00 [ksoftirqd/0]
+
+$ ps 4
+# BLANK
+
+$ ps 5
+PID TTY      STAT   TIME COMMAND
+5 	?        S&amp;lt;     0:00 [kworker/0:0H]
+
+$ ps 6
+PID TTY      STAT   TIME COMMAND
+6 	?        S      0:00 [kworker/u2:0]
+
+$ ps 7
+PID TTY      STAT   TIME COMMAND
+7 	?        S      0:00 [rcu_sched]
+
+$ ps 8
+PID TTY      STAT   TIME COMMAND
+8 	?        S      0:00 [rcu_bh]
+
+$ ps 9
+PID TTY      STAT   TIME COMMAND
+9 	?        S      0:00 [migration/0]
+
+$ ps 10
+PID TTY      STAT   TIME COMMAND
+   	10 	?        S&amp;lt;     0:00 [khelper]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Well, I couldn’t get 10 commands (#4 was out), but I did get 9:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code&gt;systemd&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;kthreadd&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;ksoftirqd/0&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;kworker/0:0H&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;kworker/u2:0&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;rcu_sched&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;rcu_bh&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;migration/0&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;khelper&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Let’s take a look into what they do to see if they do anything interesting. &lt;code&gt;systemd&lt;/code&gt; we know.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;kthreadd&lt;/code&gt; is the “kernel thread daemon,” and it’s actually not controlled by &lt;code&gt;systemd&lt;/code&gt;. It’s controlled by the kernel itself. I’m not familiar enough with the kernel (yet) to do any interesting work with this, but I can see from a &lt;code&gt;ps -ef&lt;/code&gt; command that the rest of our listed processes are spawned by this one. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+root         2     0  0 00:40 ?        00:00:00 [kthreadd]
+root         3     2  0 00:40 ?        00:00:00 [ksoftirqd/0]
+root         5     2  0 00:40 ?        00:00:00 [kworker/0:0H]
+root         6     2  0 00:40 ?        00:00:00 [kworker/u2:0]
+root         7     2  0 00:40 ?        00:00:00 [rcu_sched]
+root         8     2  0 00:40 ?        00:00:00 [rcu_bh]
+root         9     2  0 00:40 ?        00:00:00 [migration/0]
+root        10     2  0 00:40 ?        00:00:00 [khelper]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That PPID thread - right there in the middle - indicates that each of the following PIDs was spawned by &lt;code&gt;kthreadd&lt;/code&gt;. So we’ll obviously need to come back and explore this one in more detail.&lt;/p&gt;
+
+&lt;p&gt;Next on the list is &lt;code&gt;ksoftirqd&lt;/code&gt;, which “is a per-cpu kernel thread that runs when the machine is under heavy soft-interrupt load.” &lt;a href=&quot;http://www.ms.sapientia.ro/~lszabo/unix_linux_hejprogramozas/man_en/htmlman9/ksoftirqd.9.html&quot;&gt;docs here&lt;/a&gt; Again, I’m not 100% certain on how this works, but I’m bookmarking &lt;a href=&quot;https://lwn.net/Articles/520076/&quot;&gt;this page&lt;/a&gt; for future reference.&lt;/p&gt;
+
+&lt;p&gt;The next two are inherently related: they’re &lt;code&gt;kworker&lt;/code&gt; kernel processes. They handle work for system calls, rather than user calls. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rcu_sched&lt;/code&gt; and &lt;code&gt;rcu_bh&lt;/code&gt; are apparently a bit more arcane, given the lack of easy-to-find information about them. RCU stands for “Read-Copy-Update”, and it’s a synchronization mechanism. I’ll be digging more into this later, but I’m bookmarking &lt;a href=&quot;http://lwn.net/Articles/262464/&quot;&gt;this article&lt;/a&gt; for future reference.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;migration&lt;/code&gt; process is also a kernel process, and it distributes the load across processor cores.&lt;/p&gt;
+
+&lt;p&gt;Finally (and perhaps fortuitously) we have &lt;code&gt;khelper&lt;/code&gt;. This process is used to make calls to user processes from within the kernel, allowing the kernel and user processes to talk to each other.&lt;/p&gt;
+
+&lt;p&gt;So we’ve got our first ten processes. What does this &lt;code&gt;ps&lt;/code&gt; process output tell us about them? Let’s take a second look at our sample data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first column here is the user who kicked off the process: in this case, it’s the root user. The PID is our process ID, and the PPID is the PID of the parent that spawned the process. C is used for CPU scheduling information. STIME is the time the process started. TTY is the terminal associated with the process. TIME is the CPU time the process has used. And CMD is the command itself. There are loads more options that we could incorporate here, but this is the default configuration for CentOS machines.&lt;/p&gt;
+
+&lt;p&gt;I think &lt;code&gt;ps&lt;/code&gt; will need its own set of digging (like many other Unix utilities), so I’m going to stop here. Here are my open questions kicked off from this exercise:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;What does the kernel thread daemon do?&lt;/li&gt;
+  &lt;li&gt;What is a software interrupt?&lt;/li&gt;
+  &lt;li&gt;What is the read-copy-update mechanism?&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>Up and Running with Flask on a Brand New Linode</title>
+			<link href="http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html"/>
+			<updated>2015-10-16T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode</id>
+			<content type="html">&lt;p&gt;Tonight, I’m building a minimalistic Flask app that will run on Linode. Flask is a relatively new framework for me. I’ve dealt with CentOS, nginx, and uwsgi at work, but I’ve never tried to get them installed on my own. Time to get started.&lt;/p&gt;
+
+&lt;h3 id=&quot;step-1-install-and-configure-nginx-round-1&quot;&gt;Step 1: Install and configure nginx, round 1&lt;/h3&gt;
+
+&lt;p&gt;I am skipping over the step where we create a CentOS 7 machine from the Linode dashboard. I can’t think of a good way to explain that one without screenshots. Let’s assume we have one, and let’s install the necessaries on it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum install epel-release
+$ yum install nginx
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Okay! That was simple enough. Here we’ve installed nginx, which will allow us to serve up our web pages. I want to start here because I like the feedback of knowing that I’m serving up web pages from the very start.&lt;/p&gt;
+
+&lt;p&gt;I know that I plan to serve multiple sites off of this one server, so I need to adjust my domain and nginx configuration accordingly. In Namecheap, I’ve created 2 A records - dashboard.mosby.io and www.mosby.io - which I’ll both point at this server’s IP address. I’ll let nginx sort out the parsing.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# /etc/nginx/nginx.conf
+
+... # stuff here that you shouldn&#39;t remove
+
+http {
+
+	... # more stuff here that you shouldn&#39;t remove
+
+	server { 
+		listen	80;
+		server_name	www.mosby.io;
+		root /var/www/main;
+	}
+
+	server {
+		listen	80;
+		server_name	dashboard.mosby.io;
+		root /var/www/dashboard;
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;nginx has a configuration file called &lt;code&gt;nginx.conf&lt;/code&gt; that we’re going to modify to serve our sites. Here, we’ve said that any request incoming will either be for &lt;code&gt;www.mosby.io&lt;/code&gt; or &lt;code&gt;dashboard.mosby.io&lt;/code&gt;. If it’s for &lt;code&gt;www&lt;/code&gt;, we’re going to serve content from &lt;code&gt;/var/www/main&lt;/code&gt;. If it’s for &lt;code&gt;dashboard&lt;/code&gt;, we’re going to serve content from &lt;code&gt;/var/www/dashboard&lt;/code&gt;. We can test this out by creating two text files:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# /var/www/main/index.html
+
+Hello, www.mosby.io!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;AND&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# /var/www/dashboard/index.html
+
+Hello, dashboard.mosby.io!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Assuming that you’ve already pointed your two subdomain to your Linode’s IP address, these will each display their respective content. Success!&lt;/p&gt;
+
+&lt;h3 id=&quot;step-2-install-python3-flask-and-uwsgi&quot;&gt;Step 2: Install Python3, Flask and uWSGI&lt;/h3&gt;
+
+&lt;p&gt;This is the part I know least about this entire process. Let’s start by installing Python 3, pip, and a version of &lt;code&gt;virtualenv&lt;/code&gt; that’s cool with all of this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum install python34
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ python3.4 get-pip.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now I’m going to move into my dashboard folder and create the application. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /var/www/dashboard
+$ virtualenv venv
+$ source venv/bin/activate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We’ve got a local instance of Python3 and pip now. Time to get uWSGI and Flask.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install uwsgi flask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wait hold on. uWSGI just crapped out on installation. I missed something. The scary error message looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Command &quot;/var/www/dashboard/venv/bin/python3.4 -c &quot;import setuptools, tokenize;__file__=&#39;/tmp/pip-build-5a_chnf_/uwsgi/setup.py&#39;;exec(compile(getattr(tokenize, &#39;open&#39;, open)(__file__).read().replace(&#39;\r\n&#39;, &#39;\n&#39;), __file__, &#39;exec&#39;))&quot; install --record /tmp/pip-8zr4gl3_-record/install-record.txt --single-version-externally-managed --compile --install-headers /var/www/dashboard/venv/include/site/python3.4/uwsgi&quot; failed with error code 1 in /tmp/pip-build-5a_chnf_/uwsgi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But that’s not the root of the problem. I’ve got to scroll up the stack trace for that.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;In file included from plugins/python/python_plugin.c:1:0:
+plugins/python/uwsgi_python.h:2:20: fatal error: Python.h: No such file or directory
+ #include &amp;lt;Python.h&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I don’t have Python headers installed on this system! Let’s see if I can do that.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum install python34-devel
+$ pip install uwsgi flask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Okay, that worked!&lt;/p&gt;
+
+&lt;p&gt;And now, let’s convert our little test HTML from before into a Flask app. We’re then going to remove the HTML file, which will let us confirm that we’ve actually set of Flask and uWSGI correctly when we see it again. I’m going to do some work here using the &lt;code&gt;vi&lt;/code&gt; editor, but if you’re not familiar with it, please replace the &lt;code&gt;vi&lt;/code&gt; commands with &lt;code&gt;nano&lt;/code&gt;. It’s simpler.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vi app.py
+
+from flask import Flask
+application = Flask(__name__)
+
+@application.route(&quot;/&quot;)
+def helloworld():
+	return &quot;Hello, dashboard.mosby.io on Flask!&quot;
+
+if __name__ == &quot;__main__&quot;:
+	application.run(host=&#39;0.0.0.0&#39;)
+
+$ rm index.html
+$ python app.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I can see that I’ve done it all right by going to my new homepage in my browser! Visiting dashboard.mosby.io:5000 will show me my updated page. &lt;/p&gt;
+
+&lt;h3 id=&quot;step-3-configure-uwsgi-serving&quot;&gt;Step 3: Configure uWSGI Serving&lt;/h3&gt;
+
+&lt;p&gt;We’ve got ourselves a basic skin of an application, so let’s hook it up to nginx through uWSGI.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It works! Exactly the same way it did when we ran the application directly. Let’s build a &lt;code&gt;.ini&lt;/code&gt; file so we can do this more repeatedly.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vi dashboard.ini
+
+[uwsgi]
+module = wsgi
+
+master = true
+processes = 5
+
+uid = ghost
+socket = dashboard.sock
+chown-socket = ghost:nginx
+chmod-socket = 660
+vacuum = true
+
+die-on-term = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This &lt;code&gt;ini&lt;/code&gt; file does a few things for us. It points to the wsgi module, sets it in master mode, and spawns 5 processes of the app. It also ties to the uWSGI process to a Unix socket, and will remove (vacuum) that socket when the process stops.&lt;/p&gt;
+
+&lt;p&gt;I’m also specifying that the &lt;code&gt;ghost&lt;/code&gt; user will own this process. (I’ve been doing all of this work as &lt;code&gt;root&lt;/code&gt;, which is not a good practice for running the application) I now need to create the ghost user and add it to the nginx group.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ useradd ghost
+$ usermod -a -G nginx ghost
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Verify that you did it right:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ id ghost
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You should see the &lt;code&gt;ghost&lt;/code&gt; user attached to the nginx group. Onward!&lt;/p&gt;
+
+&lt;h3 id=&quot;step-4-start-on-boot&quot;&gt;Step 4: Start on Boot&lt;/h3&gt;
+
+&lt;p&gt;When our server comes online, we want our uWSGI app to be available immediately. Let’s start by creating a service file in our &lt;code&gt;/etc/systemd/system&lt;/code&gt; directory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vi /etc/systemd/system/dashboard.service
+
+[Unit]
+Description=uwsgi instance to serve dashboard
+After=network.target
+
+[Service]
+User=ghost
+Group=nginx
+WorkingDirectory=/var/www/dashboard
+Environment=&quot;PATH=/var/www/dashboard/venv/bin&quot;
+ExecStart=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is black magic going on here that I need to dig into more. I don’t know &lt;em&gt;why&lt;/em&gt; we do all of these things, but I do know that we’re specifying the working directory, and the environment, and what should happen when we start things up. Which we’ll do now.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl start dashboard
+$ systemctl enable dashboard
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;step-5-proxy-requests-from-nginx&quot;&gt;Step 5: Proxy Requests from Nginx&lt;/h3&gt;
+
+&lt;p&gt;Now it’s time that we return to our &lt;code&gt;nginx.conf&lt;/code&gt; file. We need to modify our dashboard server block to handle the uwsgi application.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# /etc/nginx/nginx.conf
+
+... # stuff here that you shouldn&#39;t remove
+
+http {
+
+	... # more stuff here that you shouldn&#39;t remove
+
+	server { 
+		listen	80;
+		server_name	www.mosby.io;
+		root /var/www/main;
+	}
+
+	server {
+		listen	80;
+		server_name	dashboard.mosby.io;
+		
+		location / {
+			include uwsgi_params;
+			uwsgi_pass unix:/var/www/dashboard/dashboard.sock;
+		}
+	}
+}
+
+$ nginx -t &amp;lt;-- test your configuration
+$ service nginx reload
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now we go to our browser and punch in dashboard.mosby.io, and… crap.&lt;/p&gt;
+
+&lt;p&gt;502 Bad Gateway. What did I do wrong here? That error means nginx can’t talk to our application.&lt;/p&gt;
+
+&lt;p&gt;Ahh, I’ve been doing all this as root. Everything is currently owned by root, which means that neither &lt;code&gt;ghost&lt;/code&gt; nor &lt;code&gt;nginx&lt;/code&gt; can see my dashboard socket. Let’s change that. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chown ghost:nginx /var/www/dashboard
+$ service nginx reload
+$ systemctl restart dashboard
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And, we’re back, folks!&lt;/p&gt;
+
+&lt;p&gt;That’s a basic configuration for getting an Flask/uWSGI/nginx app up and running on a CentOS Linode box. If you decide to do something other than CentOS, most of it should still work, but the initialization service script will probably not. You can browse the repository for all of this &lt;a href=&quot;https://github.com/josephmosby/dashboard/tree/c776c8875f8eaf094e2c506e1c0aca91693b7323&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>PyGotham '15 - Building an ALU</title>
+			<link href="http://josephmosby.com/2015/08/17/pygotham-15-building-an-alu.html"/>
+			<updated>2015-08-17T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/08/17/pygotham-15-building-an-alu</id>
+			<content type="html">&lt;p&gt;Really had an awesome time at PyGotham 2015! The organization is phenomenal and really made a fellow East Coaster feel welcome. &lt;/p&gt;
+
+&lt;p&gt;Talk is here: &lt;a href=&quot;http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python&quot;&gt;http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;And slides are here: &lt;a href=&quot;http://josephmosby.com/presentations/pygotham2015&quot;&gt;http://josephmosby.com/presentations/pygotham2015&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Example code is here: &lt;a href=&quot;http://josephmosby.com/presentations/pygotham2015/chip_functions.py&quot;&gt;http://josephmosby.com/presentations/pygotham2015/chip_functions.py&lt;/a&gt;&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>PyOhio '15 - Production Django</title>
+			<link href="http://josephmosby.com/2015/08/03/pyohio-15-production-django.html"/>
+			<updated>2015-08-03T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/08/03/pyohio-15-production-django</id>
+			<content type="html">&lt;p&gt;Over the weekend, I gave a talk at PyOhio 2015 on Production Django applications. Due to the tireless efforts of the video staff, that talk is already available online less than 24 hours later.&lt;/p&gt;
+
+&lt;p&gt;Talk is here: &lt;a href=&quot;http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se&quot;&gt;http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;And slides are here: &lt;a href=&quot;http://josephmosby.com/presentations/pyohio2015&quot;&gt;http://josephmosby.com/presentations/pyohio2015&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Special thanks to &lt;a href=&quot;http://roberttownley.com/&quot;&gt;Robert Townley&lt;/a&gt; who gave pre-con feedback and &lt;a href=&quot;http://juliangindi.com/&quot;&gt;Julian Gindi&lt;/a&gt; who gave an earlier talk that inspired some of the material. &lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>Trusting Python&comma; and the Ken Thompson hack</title>
+			<link href="http://josephmosby.com/2015/07/18/trusting-python-and-the-ken-thompson-hack.html"/>
+			<updated>2015-07-18T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2015/07/18/trusting-python-and-the-ken-thompson-hack</id>
+			<content type="html">&lt;p&gt;I have always treated Python compilation as a black box. Code goes in, web services come out, everyone is happy. Then I went through &lt;a href=&quot;http://www.nand2tetris.org/&quot;&gt;NAND2Tetris&lt;/a&gt; and picked up a copy of &lt;a href=&quot;http://www.amazon.com/Programming-Language-Brian-W-Kernighan/dp/0131103628/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1437243255&amp;amp;sr=1-1&amp;amp;keywords=the+c+programming+language&quot;&gt;The C Programming Language&lt;/a&gt;, and it’s been tough to rest as easy ever since. &lt;/p&gt;
+
+&lt;p&gt;Python (in its most common derivative, CPython) is not fed straight into a computer’s processor. It’s first “interpreted” into C code, which is then compiled by a C compiler into assembly language, which is then translated into 1’s and 0’s that the computer can actually understand. Let’s take a look at this: &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&#39;Hello, world!&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That’s the incredibly simple Python code for printing “Hello, world!” Here’s what that looks like in the Python source code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;static PyObject *
+builtin_print(PyObject *self, PyObject *args, PyObject *kwds)
+{
+    static char *kwlist[] = {&quot;sep&quot;, &quot;end&quot;, &quot;file&quot;, &quot;flush&quot;, 0};
+    static PyObject *dummy_args;
+    PyObject *sep = NULL, *end = NULL, *file = NULL, *flush = NULL;
+    int i, err;
+
+    if (dummy_args == NULL &amp;amp;&amp;amp; !(dummy_args = PyTuple_New(0)))
+        return NULL;
+    if (!PyArg_ParseTupleAndKeywords(dummy_args, kwds, &quot;|OOOO:print&quot;,
+                                     kwlist, &amp;amp;sep, &amp;amp;end, &amp;amp;file, &amp;amp;flush))
+        return NULL;
+    if (file == NULL || file == Py_None) {
+        file = _PySys_GetObjectId(&amp;amp;PyId_stdout);
+        if (file == NULL) {
+            PyErr_SetString(PyExc_RuntimeError, &quot;lost sys.stdout&quot;);
+            return NULL;
+        }
+
+        /* sys.stdout may be None when FILE* stdout isn&#39;t connected */
+        if (file == Py_None)
+            Py_RETURN_NONE;
+    }
+
+    if (sep == Py_None) {
+        sep = NULL;
+    }
+    else if (sep &amp;amp;&amp;amp; !PyUnicode_Check(sep)) {
+        PyErr_Format(PyExc_TypeError,
+                     &quot;sep must be None or a string, not %.200s&quot;,
+                     sep-&amp;gt;ob_type-&amp;gt;tp_name);
+        return NULL;
+    }
+    if (end == Py_None) {
+        end = NULL;
+    }
+    else if (end &amp;amp;&amp;amp; !PyUnicode_Check(end)) {
+        PyErr_Format(PyExc_TypeError,
+                     &quot;end must be None or a string, not %.200s&quot;,
+                     end-&amp;gt;ob_type-&amp;gt;tp_name);
+        return NULL;
+    }
+
+    for (i = 0; i &amp;lt; PyTuple_Size(args); i++) {
+        if (i &amp;gt; 0) {
+            if (sep == NULL)
+                err = PyFile_WriteString(&quot; &quot;, file);
+            else
+                err = PyFile_WriteObject(sep, file,
+                                         Py_PRINT_RAW);
+            if (err)
+                return NULL;
+        }
+        err = PyFile_WriteObject(PyTuple_GetItem(args, i), file,
+                                 Py_PRINT_RAW);
+        if (err)
+            return NULL;
+    }
+
+    if (end == NULL)
+        err = PyFile_WriteString(&quot;\n&quot;, file);
+    else
+        err = PyFile_WriteObject(end, file, Py_PRINT_RAW);
+    if (err)
+        return NULL;
+
+    if (flush != NULL) {
+        PyObject *tmp;
+        int do_flush = PyObject_IsTrue(flush);
+        if (do_flush == -1)
+            return NULL;
+        else if (do_flush) {
+            tmp = _PyObject_CallMethodId(file, &amp;amp;PyId_flush, &quot;&quot;);
+            if (tmp == NULL)
+                return NULL;
+            else
+                Py_DECREF(tmp);
+        }
+    }
+
+    Py_RETURN_NONE;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I understand very little of what’s actually going on here. I do know that ultimately this code has to end up at some sort of terminal output unless I specify otherwise, and I do know that I’ll probably do that by writing to a dedicated terminal output memory location which is probably specified by a C pointer, and this is the extent of my understanding. And we haven’t even made it to assembly code yet. Or to binary instructions. &lt;/p&gt;
+
+&lt;p&gt;I go on trusting the CPython interpreter because I have no choice. Perhaps the &lt;code&gt;PyArg_ParseTupleAndKeywords&lt;/code&gt; function has a side effect of batching my printed output up and sending it back to a Python mailing list somewhere, for them to laugh at my coding mistakes. Maybe it’s something more nefarious. &lt;/p&gt;
+
+&lt;p&gt;I can look through the CPython source code and see that &lt;code&gt;PyArg_ParseTupleAndKeywords&lt;/code&gt; does exactly what it says it’s going to. But what if the &lt;em&gt;C compiler itself&lt;/em&gt; is batching my printed output up and sending it off? In 1984 Ken Thompson described &lt;a href=&quot;http://c2.com/cgi/wiki?TheKenThompsonHack&quot;&gt;exactly that&lt;/a&gt; with a hack that would allow a compiler to do all sorts of terrible things, including overwriting all evidence of its existence. You could detect it, of course, but you’d have to have a trusted compiler - something that most 2015 developers are not prepared to write. (myself included)&lt;/p&gt;
+
+&lt;p&gt;And so I have to trust my computer. I have to trust Intel, Apple, all of the component manufacturers, the &lt;code&gt;gcc&lt;/code&gt; team, the CPython team, and everybody in between, because I am not prepared to compute otherwise. &lt;/p&gt;
+</content>
+		</entry>
+		
+</feed>

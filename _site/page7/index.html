@@ -1,0 +1,535 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/22/rocking-out-with-aifc.html"><h3>Rocking out with aifc</h3></a>
+		<div class="date">December 22, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>In 1985, Electronic Arts (then publishing such games as <a href="http://en.wikipedia.org/wiki/The_Bard%27s_Tale_(1985_video_game)">The Bard’s Tale</a>) convened a group of engineers, software developers, and computer manufacturers to define a data interchange format for graphics, audio, and text. The aim was to create a file format with accompanying objects, data structures and interfaces that would be interchangeable across platforms for the budding gaming audience. This was a bold new time in data storage, when Apple had just invented a wonderful little tool called the “clipboard.” </p>
+
+<p>A few years later, Apple defined a fork of the EA IFF 85 standard with the Audio Interchange File Format, which allowed for multiple channels of audio with customizable sample rates and widths. The data was stored in Motorola 68000 format, which used big-endian order (most significant bytes first). <code>.aiff</code> and its compressed brother <code>.aifc</code> were the audio standard on iTunes for decades.</p>
+
+<p>The <code>aifc</code> <a href="https://docs.python.org/2.7/library/aifc.html#module-aifc">module</a> for Python is used to read and write <code>aiff</code> files on OS X. If you’re looking into using Python in the professional audio world, <code>aifc</code> should be in your toolkit. It’s a fairly simple module to navigate. I downloaded some sample AIFF files from <a href="http://www-mmsp.ece.mcgill.ca/documents/AudioFormats/AIFF/Samples.html">here</a> to play around with.</p>
+
+<pre><code>import aifc
+
+tune = aifc.open('sample1.aif')
+
+print tune.getparams()
+</code></pre>
+
+<p>In the sample file I’m using, this will yield a tuple with values <code>(2, 1, 8000, 23493, 'NONE', 'not compressed')</code>. That tuple indicates that we have two channels (stereo sound), one byte per sample, a framerate of 8000 frames per second, 23493 frames, and no compression.</p>
+
+<p>Now, if I wanted to create an AIFF object with these parameters, I’d do something like the following:</p>
+
+<pre><code>import aifc
+
+tune = aifc.aiff()
+
+tune.setnchannels(2)
+tune.setsampwidth(1)
+tune.setframerate(8000)
+tune.setnframes(23493)
+tune.setcomptype('NONE')
+</code></pre>
+
+<p>And then I could write data to the file as needed with <code>aifc.writeframes(data)</code>. </p>
+
+<p>That’s all there is to it! Obviously we haven’t done much with this particular module - that needs far more libraries to support audio creation and playback. We’ll see those later on.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/22/rocking-out-with-aifc.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/22/dbm-non-relational-databases-before-that-was-a-thing.html"><h3>DBM - non-relational databases before that was a thing</h3></a>
+		<div class="date">December 22, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>In 1970, databases were all the rage. Big stinkin’ associative databases, mostly sold by IBM and running on a mainframe. A gentleman by the name of Edgar Codd was starting to beat the drum on this idea called a “relational” database, but IBM had no interest in cannibalizing the sales of its IMS software in favor of this new-fangled relational thingy. Until Larry Ellison started competing with IBM with his Oracle database, everybody was using these associative databases.</p>
+
+<p>Everybody, of course, included AT&amp;T. They commissioned their own DB engine, dubbed “DataBase Manager”, in 1979. DBM stored data in a key-value array, restricted writes to a single process at a time, and used hash tables to implement the data structure. UC Berkeley would go on to release ndbm to support concurrency, and several other groups released their own open source clones to succeed the original dbm structure. </p>
+
+<p>With Python, you can have your very own dbm-style database using the <code>anydbm</code> module. Throw back to the seventies with this little guy: </p>
+
+<pre><code>import anydbm
+
+db = anydbm.open('mydb', 'c')
+
+db['home'] = 'www.josephmosby.com'
+db['docs'] = 'docs.python.org'
+
+for k, v in db.iteritems():
+	print k, ': ', v
+
+db.close()
+</code></pre>
+
+<p>This snippet of code will open up a dbm-style database (and create it if it doesn’t exist - note the ‘c’ flag), add some values in a key-value fashion, print those values back, and close the database. It’s like a Python dictionary but you can store it. </p>
+
+<p>The next time you’re working on a system from the 1980s that happens to know how to run Python scripts, please shoot me a note and let me know how awesome this <code>anydbm</code> module is!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/22/dbm-non-relational-databases-before-that-was-a-thing.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/21/what-in-heavens-name-is-an-abstract-base-class.html"><h3>What in heaven's name is an abstract base class?</h3></a>
+		<div class="date">December 21, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>Let’s talk about duck-typing for a second. Duck-typing is an object-oriented programming principle that allows an object’s methods and properties to handle the semantics and behavior of an object without the need to determine what type of object it actually is. The idea is that “if it looks like a duck and quacks like a duck, it’s a duck” and the programmer doesn’t need to first ask the object if it’s actually a duck. We can just start asking it to quack.</p>
+
+<p>An example:</p>
+
+<pre><code>[1, 2, 3, 4, 5].len() # 5
+"hello".len()		  # 5
+</code></pre>
+
+<p>I don’t need to ask the object if it’s a string or a list before calling <code>len()</code>. I’m trusting that the object’s <code>len()</code> method already knows what to do. </p>
+
+<p><em>Abstract base classes</em> complement duck-typing by providing an alternative way to define an interface when all of the possible use cases for an object might not have been anticipated by the designer. This scenario might pop up in a large development team, or if a software plugin might be written by an external team. In theory, we create an abstract base class by defining a class and marking its methods as <em>abstract</em>, then registering a concrete class with the interface or by simply subclassing the abstract class.</p>
+
+<p>Confused yet? Don’t worry, my head’s spinning a bit too. Let’s continue.</p>
+
+<p>I define an abstract base class like so:</p>
+
+<pre><code>import abc
+
+class Animal:
+	__metaclass__ = abc.ABCMeta
+
+	@abc.abstractmethod
+	def greet(self):
+		return
+</code></pre>
+
+<p>With the <code>__metaclass__ = abc.ABCMeta</code> declaration, we’ve defined <code>Animal</code> as an abstract base class. We’ve also defined an abstract method, <code>greet()</code>, that doesn’t do anything but return. That’s totally okay - anything that inherits from <code>Animal</code> will need to write their own <code>greet()</code> anyway, as concrete classes can’t access those abstract methods directly. Let’s finish this out:</p>
+
+<pre><code>import abc
+
+class Animal:
+	__metaclass__ = abc.ABCMeta
+
+	@abc.abstractmethod
+	def greet(self):
+		return
+
+class Lion:
+
+	def greet(self):
+		return "ROAR"
+
+Animal.register(Lion)
+
+print('Subclass:', issubclass(Lion, Animal))
+print('Instance:', isinstance(Lion(), Animal))
+</code></pre>
+
+<p>Our <code>Lion</code> implements the <code>Animal</code> API, but it’s not derived from <code>Animal</code>. </p>
+
+<p>We’ll see this approach again when we look at the <a href="https://docs.python.org/2/library/collections.html#module-collections">collections</a> module, which uses abstract base classes to test whether a collection is hashable or a mapping.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/21/what-in-heavens-name-is-an-abstract-base-class.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/20/exploring-the-future-module.html"><h3>Exploring the __future__ module and learning about division</h3></a>
+		<div class="date">December 20, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>Python adds new features to the language all the time, but occasionally those features are completely incompatible with existing features of the language. In many cases, they completely rewrite a core <a href="/2014/12/19/hacking-builtin-for-fun-no-profit.html">built-in function</a> or key operator of the language. The <code>__future__</code> <a href="https://docs.python.org/2.7/library/__future__.html#module-__future__">module</a> contains several of those new features - some of which have already made it into Python 2.7 at the time of this writing. A few of them are designed to prepare Python 2.x users for sea changes coming with Python 3.x.</p>
+
+<p>The <code>print()</code> function is one of those new features. In 2.x, the <code>print</code> statement allowed developers to print to <code>stdout</code>, but it wasn’t very robust. If you wanted to print to a different output, or rewrite part of how <code>print</code> formats its output, you just couldn’t. <code>print</code> was too hard-coded into the syntax of how Python worked. By changing it into a function, though, we can change the separators, add different ends, or output to a file.</p>
+
+<p>The <code>print()</code> syntax looks like this, as specified in <a href="https://www.python.org/dev/peps/pep-3105/">PEP 3105</a>:</p>
+
+<p><code>def print(*args, sep=' ', end='\n', file=None)</code></p>
+
+<p>And we can experiment with it like this:</p>
+
+<pre><code>from __future__ import print_function
+
+print('Next level printing with print()')
+print('Can\'t do this any more: print "Hello World!"')
+print('Have to use print("Hello World!")')
+print("Hello", "world", sep="-", end="flipper\n")
+</code></pre>
+
+<p>Cool, no? Though syntactically it’s a big mental shift from the current <code>print</code>, it’s unquestionably much more robust.</p>
+
+<p>Python 3.x also brings in a new mechanism for handling division. Python 2.x used something called “floor division” when the <code>/</code> operator was called. It would divide and then discard the remainder and round downward to yield an integer, so “8/7” would yield “1” rather than “1.142857…”. By bringing in Python 3.x’s version of division, 8/7 will yield the float. 8//7 will bring in the old floor division.</p>
+
+<pre><code>from __future__ import division, print_function
+print('8/7:', 8/7)
+print('8//7', 8//7)
+</code></pre>
+
+<p>And finally, Python has even included an Easter egg for those developers who love and miss C’s mechanism for separating code blocks using braces instead of whitespace:</p>
+
+<pre><code>from __future__ import braces
+</code></pre>
+
+<p>:)</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/20/exploring-the-future-module.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/20/a-brief-word-on-main.html"><h3>A brief word on __main__</h3></a>
+		<div class="date">December 20, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>Okay, <code>__main__</code> is technically a Python module. Technically, it’s the scope of the program that’s currently being executed.</p>
+
+<p>I wanted to find something interesting about <code>__main__</code>, I really did. But there’s nothing out there. All you really need this for is this:</p>
+
+<pre><code>if __name__ == "__main__":
+	main()
+</code></pre>
+
+<p>That little snippet will execute a <code>main()</code> function if your program is currently being executed (i.e., not a module of another program). And that’s it. It’s good to know it’s there, and now that we know, we can move on.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/20/a-brief-word-on-main.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/19/hacking-builtin-for-fun-no-profit.html"><h3>Hacking __builtin__ for fun, no profit</h3></a>
+		<div class="date">December 19, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>Python’s <code>__builtin__</code> module contains all of the language’s <a href="https://docs.python.org/2.7/library/functions.html">built-in functions</a>, which should be reasonably obvious from the name. Python is really, really insistent that its built-ins are perfectly sufficient and that you shouldn’t go around messing with them. This is a large part of the reason that I almost threw up the first time I had to go <a href="http://stackoverflow.com/questions/394144/what-does-monkey-patching-exactly-mean-in-ruby">monkeypatching</a> in Ruby… it just doesn’t <em>feel</em> right. But for the sake of argument, let’s do some screwing around with the built-in functions.</p>
+
+<pre><code>import __builtin__
+
+def hex(x):
+	'''Return the basic hex function, but with extra YOLO attached.'''
+	f = __builtin__.hex(x)
+	if f[0] == '-':
+		return f[0] + 'yol' + f[1:]
+	else:
+		return 'yol' + f
+</code></pre>
+
+<p>The <a href="https://docs.python.org/2.7/library/functions.html#hex">hex function</a> is designed to return the hexadecimal representation of an integer, prefixed with 0x. I felt like this representation could be much improved with a bit of extra YOLO, and patched the function accordingly. <em><strong>Now</strong></em> I can call <code>hex(255)</code> and receive back “yol0xff”, a marked improvement over the prior implementation. </p>
+
+<pre><code>import __builtin__
+
+def len(s):
+	'''Return the basic len function, but subtract one so we show what the last position number is.'''
+	l = __builtin__.len(s)
+	return l-1
+</code></pre>
+
+<p>I’m lazy, and don’t always like to calculate the length of a list or string then subtract one to access the last element of a list. Why not ask <code>len()</code> to do that work for me? Now I can call <code>len('hello')</code> and receive a value of 4, allowing me to easily determine the number of the last character any time and every time.</p>
+
+<p>Okay, okay… I can think of no reason why any programmer would want to go messing around with the <code>__builtin__</code> library. It would be horribly un-Pythonic to start wrapping the core Python functions like this. But it’s good to know that we can.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/19/hacking-builtin-for-fun-no-profit.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/10/30/cooking-my-first-ever-drupal-theme-from-scratch.html"><h3>Cooking My First Ever Drupal Theme From Scratch</h3></a>
+		<div class="date">October 30, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>About six months ago, I would have said that I was starting to figure Drupal out. I’ll assure you now wthat I have no idea. I have picked up a few tricks here and there, though, and the Drupal templating system is starting to make some sense to me.</p>
+
+<p>When I started building Drupal sites, I built them in <a href="https://www.drupal.org/project/zen">Zen</a> or one of the many subthemes built off of it. Zen’s philosophy is to anticipate much of what an experienced front-end developer would drop in to a non-Drupal site (such as Sass and Compass) and incorporate those into the base theme and subthemes from the beginning. Like most of the current popular Drupal themes, it’s responsive and mobile-first. A theme structure with that many bells and whistles was too much for my back-end developer brain at the time, and I was scared off to other options.</p>
+
+<p><a href="https://www.drupal.org/project/omega">Omega</a> is Zen’s largest competitor. Version 3 of the framework provides a shiny graphical interface for creating responsive content regions, and I loved it. It was point-and-click web design! Omega happily produces five little stylesheets for you to use at different page widths and then does the rest of the work for you. Sure, my stylesheet file sizes would blow up trying to sift through the cruft Omega produces, but I didn’t have to learn much about actual theming. Omega, <a href="https://www.drupal.org/project/delta">Delta</a> and <a href="https://www.drupal.org/project/context">Context</a> did it all for me.</p>
+
+<p>My blissful ignorance came to an end when I revisited a site built by another development shop using Zen as a base theme. The horror! So many custom tpl.php files, so many PHP if statements and variables within those files! My complacent Drupal ignorance came crashing down around me. I was forced to battle with Drupal’s theme engine, and I did not leave the fire unscathed. I arose, and now come with wisdom about battling the dragon for those who follow in my footsteps.</p>
+
+<p>Let’s talk about .info files.</p>
+
+<h3 id="what-does-a-info-file-do-anyway">What does a .info file do, anyway?</h3>
+
+<p>Drupal’s <code>.info</code> file is where all of the tools your theme will use are declared. It’s not about content - we are miles away from content right now - it’s about defining the tools we’ll use to organize that content on a page. A sample <code>.info</code> file looks something like this: </p>
+
+<script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/base.info"></script>
+
+<p>In the first blob we name our theme and specify the Drupal version (core) that it works with. In our second and third we add stylesheets and JavaScripts - our theme will pick up those files and add them into the <code>&lt;head&gt;</code> of any page with that theme. The directories are given relative to the theme’s .info file. </p>
+
+<p>Our fourth blob contains the regions of our theme. I can place content into the <code>main_menu</code> region with this theme, the <code>content</code> region, or the <code>box_one</code> region. Though your theme must contain a <code>content</code> region, you can name the rest of them anything you like. Follow your heart. You’ll be using these names later. </p>
+
+<p>Once we’ve created our <code>.info</code> file, we need to put it to use - we need to find a home for our content.</p>
+
+<h3 id="what-does-a-tpl-file-do">What does a tpl file do?</h3>
+
+<p>Drupal uses these nifty files with <code>.tpl.php</code> extensions to build its pages, and most of them hang out like pitchers in a bullpen in the <code>modules/system</code> folder waiting for you to override them. Theoretically, we really only need one to build a new theme: the <code>page.tpl.php</code> file. Here’s our example <code>page.tpl.php</code> file for this theme:</p>
+
+<script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/templates/page.tpl.php"></script>
+
+<p>Astute <a href="http://getbootstrap.com/">Bootstrap</a> users may note that we’re pulling in some Bootstrap elements here. We have <code>container</code> classes, with <code>row</code> classes within them, then some <code>col-md-6</code> classes, and then a little snippet of PHP code. This <code>&lt;?php print render($page['sm_icons_top']); ?&gt;</code> is where the magic happens. Drupal picks up anything that we’ve placed into the <code>sm_icons_top</code> region - whether it be a menu, a view, a block, etc. - and renders it into the page. You can see how that ultimately pans out in the HTML here:</p>
+
+<script src="https://gist.github.com/josephmosby/08851b82b4d14818bb75.js"></script>
+
+<p>You can see our <code>#top_menu</code>, our <code>row</code> class, and our <code>col-md-6</code> class followed by the block content Drupal popped into our page. That’s the extremely basic purpose of <code>tpl.php</code> files: they provide homes in the HTML for certain content regions, we create blocks and drop them into those content regions through the administration tools, and finally our <code>tpls</code> take care of the rendering. Fantastic.</p>
+
+<h3 id="but-drupal-variables-are-weird">But Drupal variables are weird…</h3>
+
+<p>All too true. I won’t even profess to fully understand how to actually get at a specific piece of content, and Drupal’s documentation is notoriously bad on the subject. I have figured out a few tricks though:</p>
+
+<ul>
+  <li>In <code>page.tpl.php</code>, access the content in a specific region with <code>render($page['region-name'])</code></li>
+  <li>Make sure to render your metatags with <code>render($page['content']['metatags'])</code> or else some modules and libraries will behave strangely</li>
+  <li>To access individual fields from <code>page.tpl.php</code>, use the syntax <code>print_r($node-&gt;field_fieldname['und'][0]['value'])</code>. This is not recommended behavior, but is occasionally necessary. The ‘und’ refers to the language (und is English… inexplicably), the ‘0’ to the place in the array and the ‘value’ for the actual content.</li>
+  <li>To call in a block, use <code>module_invoke('module', 'view', 'block-id')</code> where the ‘module’ is the module that produced the block (such as Webform or Views), the ‘view’ is the type of view (probably just block_view) and the ‘block-id’ is the machine name for the block</li>
+</ul>
+
+<h3 id="i-have-ie-specific-stylesheets-and-libraries-that-need-conditional-comments-where-do-those-come-in">I have IE-specific stylesheets and libraries that need conditional comments. Where do those come in?</h3>
+
+<p>I wondered this myself as Bootstrap requires some IE-specific libraries to be dropped in. The Internet yields a lot of solutions that don’t really work for this but are worth mentioning anyway:</p>
+
+<ul>
+  <li>Add them in your <code>.info</code> file. That won’t help you with conditional comments but it is a solution.</li>
+  <li>Add them with <code>drupal_add_css()</code> or <code>drupal_add_js()</code>. Same problem as above, though I suppose you could do some wizardry with detecting user agents and conditional logic.</li>
+  <li>Add an element with <code>drupal_add_html_head()</code>. I can never get this to work.</li>
+</ul>
+
+<p>The best solution I’ve found is to just add them directly into the <code>html.tpl.php</code> file. </p>
+
+<script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/templates/html.tpl.php"></script>
+
+<p>You can see toward the bottom where I’ve added in those conditional libraries. It feels ugly, but that’s the cleanest way I’ve discovered.</p>
+
+<h3 id="whats-next">What’s next?</h3>
+
+<p>I know that Drupal lets me get much more granular with my templating - down to the region, node and block level. I have no idea how to wrangle those templates yet, though, so those are next on my list. I’d also like to not have these hacky queries of the <code>$page</code> object that required me to guess how the object was structured half of the time. Till next time!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/10/30/cooking-my-first-ever-drupal-theme-from-scratch.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/08/26/the-magic-in-the-machine.html"><h3>The Magic in the Machine</h3></a>
+		<div class="date">August 26, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>Our love affair with computers has a long, complex history. We did not fall in love with them because they allowed us to be more productive. Nor did we love them because they encouraged us to talk to our friends over the Internet. Our first love affair began a decade before the web, when the first PCs gave software developers the ability to create new and interesting art forms such as Tron, The Last Starfighter and Castle Wolfenstein. It is creative computing, the creation of art out of code, that has always resonated with us. Creative computing is what excites us about our devices and keeps drawing us in for more.</p>
+
+<p>Yet as the computer invades every aspect of our personal and professional lives, we have sacrificed that original magic for efficiency. Digital design concepts and capabilities have improved exponentially over the years, but the trends have been toward flat, functional, sterile, clean design. Hardware products have emphasized simple screen real estate while removing as much of the surrounding matter as possible. Web design is focused on maximizing “conversions” while optimizing for machines to add to search engine indexes.</p>
+
+<p>A craving for efficiency in creative computing implies that we have a host of vaguely unpleasant tasks to accomplish on the machine, so we should make it as easy as possible for users to get to what they need to do quickly and get out. Creative computing is becoming a race to find the hyper-optimized, mechanical place where users can move through their fast food assembly line of digital tasks so they can move to the next fast food assembly line of digital tasks, over and over again in perpetuity. There is no joy at the end of this tunnel.</p>
+
+<p>In the real world, the joy has always been outside the screen, and creative computing at its best is a way to augment our experiences with and memories of that world. It’s not the cold pixel representation of some meat on a plate in an Instagram feed; it’s the memory of the fantastic steak dinner date with a group of friends you’ve known since college that truly brings us joy. That silly Instagram shot is just a reminder that brings a memory to life in our minds. Even for millennials or post-millennials who grew up with the Internet and entered the working world armed with smart phones and social media accounts, our joy has never been contained inside a screen.</p>
+
+<p>Psychologists, sociologists, neuroscientists and anthropologists have spent years on soapboxes shouting about the dangers of too much screen use, evidenced by <a href="http://www.dailymail.co.uk/sciencetech/article-2175230/Too-time-online-lead-stress-sleeping-disorders-depression.html">screen-induced sleeping disorders</a> and <a href="http://www.huffingtonpost.com/2012/11/28/south-korea-internet-addicted_n_2202371.html">Internet addiction centers</a>. Yet these complaints are so often branded as a problem of the Internet itself, that there is some inherent problem with our computing-enabled society. Our computers and our Internet connections are not the problem: like the TV revolution decades before, our insistence on staring at a single glowing screen for hours on end is a problem.</p>
+
+<p>It is time for creative computing to break out of its screen. It is time for us to rekindle the magic of computing on a familiar ground we still love: the real world.</p>
+
+<p>For a long time, the wizardry of blurring the lines of the physical and the digital world was a cost-prohibitive proposition for most creative campaigns. Most technologists, creative agencies and marketing departments simply could not afford the infrastructure required to connect the two worlds. That landscape has now changed. Our audiences are equipped with cameras, GPS devices, and microphones in their mobile devices at all times. Inexpensive microcontrollers now allow software developers to play with sensors and electronic devices with ease. The ubiquity of wireless networks allows us to connect a vast array of devices over the air at any time.</p>
+
+<p>We have already begun experimenting with these tools in our own D.C. office, with a website that lets a colleague who recently moved to Seattle manipulate the lights at his old desk. The possibilities are endless; these tools allow us to build anything our minds can imagine. They grant us the ability to jump back and forth between worlds, to split our interactions between the physical and the digital in ways that science fiction could only dream of decades earlier. We no longer need to restrict ourselves to dreaming about these things – their secrets have been unlocked, and they can be built at any time.</p>
+
+<p>The next wave of creative computing and the future digital marketing and PR campaigns it spawns will not be restricted to an audience’s screens. They will touch them where they live, in the real world. They will be there for audiences to touch, feel, smell and experience without needing to reach for a portable glowing screen. They will make the machine invisible and will share an audience’s joy when magical, unexpected things begin to happen in the real world, things that creative computing will enable and inspire.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/08/26/the-magic-in-the-machine.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/05/28/ford-mosbys-amazing-burger-recipe.html"><h3>Ford Mosby's Amazing Burger Recipe</h3></a>
+		<div class="date">May 28, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>I like to think that the parts of my brain that like programming and the parts of my brain that like cooking are somehow intricately linked. I have a tendency to start out with a stack of recipes as “inspiration” and then improvise the rest on the spot, and that certainly reveals itself in my coding style as well. And now that I’m improving as a programmer and investigating rules and frameworks, I’m following recipes far more closely. This might all be coincidence, and it might just be a sign that I’m maturing as a <strong>human being</strong> rather than as a programmer or cook, but I’m going to say it’s all linked until proven otherwise.</p>
+
+<p>My mom cooks far more than my dad. I inherited quite a bit from her and still consult her on techniques and ideas all the time. She would never admit that she was a great cook, but I was spoiled so much on home-cooked meals from her over the years that I simply had to start doing the same when I moved into my own apartment. Dad was the grillmaster, though, and this is the simple recipe he’s most known for. Good food is meant to be shared. </p>
+
+<h3 id="dads-burgers">Dad’s Burgers</h3>
+
+<p>You will need:</p>
+
+<ul>
+  <li>ground beef, 80% lean, poundage based on how many people you’re feeding (I like to go around 1/2 lb per person, leftovers aren’t a bad thing)</li>
+  <li>eggs</li>
+  <li>worcestershire sauce</li>
+  <li>salt</li>
+  <li>pepper</li>
+  <li>garlic powder</li>
+</ul>
+
+<p>Prepare the patties:</p>
+
+<ol>
+  <li>Start your grill to crank it to about 400°.</li>
+  <li>Dump all of your burger meat into a big bowl. </li>
+  <li>For each pound of meat, crack a whole egg into the bowl. </li>
+  <li>Add a tablespoon and a half of worcestershire, a teaspoon of salt, a teaspoon of pepper and a teaspoon of garlic powder per pound of meat.</li>
+  <li>Get your hands into that meat and start massaging those eggs into it. Don’t be shy about it. Get it all mixed in there.</li>
+  <li>With your hands, scoop out a handful of meat about the size of a baseball. Turn it around in your hands to compress it into a round ball.</li>
+  <li>Press the ball of meat into a cookie sheet. Flatten it until it’s about 2/3 of an inch thick.</li>
+  <li>Repeat until all of your meat is formed into burgers. Don’t leave leftover raw meat.</li>
+  <li>Slap each of those burgers on the grill and shut the top quickly. <em>Don’t leave your grill top open.</em></li>
+  <li>Wait four minutes, then flip them. Shut the top again.</li>
+  <li>Wait four minutes, then check them. When you poke the burgers, they should be a bit springy, not soggy. </li>
+  <li>If not springy yet, flip them once more, give them two minutes, then pull them out. </li>
+</ol>
+
+<p>Voilà. With your own two hands and fire, you have produced burgers. Maybe melt some cheese on top of them next time or toast the buns. The summer is yours to conquer.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/05/28/ford-mosbys-amazing-burger-recipe.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/04/18/a-modest-proposal-for-accessibility-driven-web-development-for-government.html"><h3>A Modest Proposal for Accessibility-Driven Web Development within Government</h3></a>
+		<div class="date">April 18, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>I have never been a developer specifically tasked with making web applications accessible to users with disabilities, but I still find myself engaged in conversations about web accessibility with my friends employed by government agencies here in Washington, D.C. There is always some new service or technology or design that government employees would love to bring in, but they’re not legally allowed to because it’s not “Section 508-compliant.” This inevitably sparks a conversation about making technology accessible, and it’s all too often sparked by non-developers who can’t understand why developers just can’t make their products accessible. It’s one of the most misunderstood problems facing the accessibility community, and it shows no signs of being resolved any time soon. </p>
+
+<p>I would be remiss if I tried to solve the entire web accessibility problem in a blog post, but I can hopefully shed some light on how the problems start - now that I’ve had the opportunity to fix a few of my own.</p>
+
+<p>Recently, my team was tasked to make some changes to a web site with a map that showed text content when a user hovered over it. I can’t show the site itself, but <a href="https://www.mapbox.com/mapbox.js/example/v1.0.0/show-tooltips-on-hover/">this page</a> gives a decent representation of what we added. It’s a red-flag accessibility problem because it implies that sight is required to operate the web application, and not every possible user can see the screen. Some are navigating it through screen readers. I’ve had some training in how to spot these sorts of things, though, and I realized that we could easily just head off the user by placing <code>aria</code> tags within the map when a user stumbled upon it, and we could also place the tooltips in the HTML document such that a user could still read them. This was about five minutes worth of extra work, and all I needed to do was organize my HTML in such a way that a screen reader could figure it out. </p>
+
+<p>I can do this because I’m not just thinking about accessibility (which would have caused me to forego the map idea altogether), and I’m not just trying to hammer out a task in a hurry (which would have caused me to skip the HTML rearrangement). I’ve got time and training to notice the problem and creatively solve it. That happens at every level with our team at <a href="http://www.apcoworldwide.com">APCO Worldwide</a>. Our team members developing wireframes and user interfaces have accessibility in the back of their mind, our designers are thinking about color contrasts and font choices, and our developers are sorting through their HTML to make sure we don’t make some sort of confusing error in our code. We’re not accessibility professionals, we’re creative professionals who happen to know that not every user has the same experience with a computer that we do.</p>
+
+<p>We also plan our designs and our development in a holistic manner, and we iterate through multiple rounds of feedback to get it right. We decide who gets to have feedback and who doesn’t. And we don’t just say “yes” to any change that comes down the pipe: we weigh changes through our creative expertise before we implement them, and we push back on our clients if they make changes that will be problematic. If a client requests something that’s going to impact the accessibility of the site (such as a color contrast issue or a font change), we discuss it internally and propose alternatives before we just start coding. </p>
+
+<h3 id="what-government-gets-wrong">What Government Gets Wrong</h3>
+
+<p>Government has recently taken an interest in good design, which is all for the best. But it has focused heavily on simply hiring individual designers rather than <em>focusing on a creative process that emphasizes excellent, accessible design throughout.</em> This requires a commitment to a management style that is inherently at odds with how government develops and deals with IT solutions. </p>
+
+<p>Government tends to want to shift all the blame for bad, inaccessible design on contractors, but I don’t think that’s the whole of the problem. We pull off accessible design well and we’re a contract-based shop. Our team is fortunate enough to be trusted to do our jobs and left to work, relatively uninterrupted, for decent blocks of time. Despite my contractor nature, my clients trust me to get my job done and don’t particularly care where or how I do it, so long as the end product is exactly what they asked for. Any government contractor will testify that this is typically not the case in the government.</p>
+
+<p>Rather, you’re in an environment where the agency’s security office has insisted that you must work in their office on their machines at the time of day that they specify, you’re confronted with at least six half-hour to one-hour meetings per day from every project manager trying to use the same contractors for their own projects, and your design sensibilities will be whittled away by the occasional SES manager who just loves the color orange and really can’t understand why you can’t incorporate some orange into the design. Trust me, government project managers, I know that none of you is individually that bad. Collectively, however, there is a management culture within government that does not tolerate the daily structure required to consistently execute excellent, accessible design. </p>
+
+<p>I know how we address this issue within our firm, and I imagine that the government solution to this problem is quite similar. We employ a “traffic manager” whose job is strictly to keep the designers on task and away from distractions by handling all of the overhead and scheduling that tries to plague them. Invoices, client meetings, rush projects - the traffic manager handles it all, and gives the designers direction on where to go each day. If a designer needs time to finish a deliverable, they tell the traffic manager about it before going offline - and if you happen to have some rush project that absolutely needs doing that day, you go through the traffic manager first. </p>
+
+<p>The traffic manager is there to put a halt to one of the most basic problems with organizational culture: individually, no one is really a problem in the way of creative work. It’s when we all individually have problems at the same time that we become a collective, pervasive problem. The traffic manager is there to put a bottleneck to that collective problem. Can government bring in that sort of management style to fix its accessible design issues? Absolutely.</p>
+
+<h3 id="what-about-externally-developed-products">What About Externally-Developed Products?</h3>
+
+<p>Government agencies make use of Facebook, Twitter, and a host of other services that were not put together by contractors. Those services are all too often inaccessible to their detriment. But after thinking on <em>where</em> these products are developed, it doesn’t surprise me. Washington, D.C. confronts accessibility issues every day while other tech capitals rarely face it.</p>
+
+<p>Growing up in the Southeast, I went my entire life never regularly interacting with vision- or hearing-impaired individuals. The city has almost no public transportation, which makes it difficult for the vision-impaired to independently get around. It’s a little bit easier on the hearing-impaired - but nothing compared to living near <a href="https://www.gallaudet.edu/">Galludet University</a> where the bartenders know sign language. This is the environment for much of the country, and it’s certainly the environment where these web services are being constructed. If we want accessible web services built by default, we have to constantly remind those developers if they aren’t going to regularly interact with users who can’t fully see the screen or hear a video. </p>
+
+<p>And, to be honest, we’re going to have to make a case for it. Less than 3% of all Americans have some form of vision impairment that can’t be fully corrected. Of that group, most are over the age of 65 - hardly the target market for Twitter’s developers if we’re trying to convince them of a large new market out there. We must instead focus on the concept of access to information, and the importance of the information we want to convey. When Egypt’s access to many Internet services was shut down during a wave of protests, <a href="http://www.theguardian.com/technology/2011/feb/01/google-twitter-egypt">Google and Twitter stepped up</a> to provide access to Twitter via standard phone connections. Access to information is in these companies’ DNA, and that’s where we have to focus our accessibility efforts. Section 508, WCAG, etc., etc., don’t matter - what matters is that we have users who cannot access important information, and only these externally-developed services can help us get those messages out. </p>
+
+<hr />
+
+<p>Can these problems be solved? I think so. We need only break outside of our bubbles - both within Washington, DC government culture and without - and realize that there is a different way of doing business outside of our walls. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/04/18/a-modest-proposal-for-accessibility-driven-web-development-for-government.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-offset-3 col-8">
+		<div class="pagination">
+			
+			<a href="/page6" class="previous">Previous</a>
+			
+
+			<span class="page_number">Page: 7 of 8</span>
+
+			
+			<a href="/page8" class="next">Next</a>
+			
+		</div>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/21/what-in-heavens-name-is-an-abstract-base-class.html"><h3>What in heaven's name is an abstract base class?</h3></a>
+	</div>
+	<div class="col-8">
+		<p><em>I've been writing a series of blog posts to eventually cover every single module in the Python Standard Library. Check them all out <a href="/blog/pymods">here</a>.</em></p>
+
+<p>Let’s talk about duck-typing for a second. Duck-typing is an object-oriented programming principle that allows an object’s methods and properties to handle the semantics and behavior of an object without the need to determine what type of object it actually is. The idea is that “if it looks like a duck and quacks like a duck, it’s a duck” and the programmer doesn’t need to first ask the object if it’s actually a duck. We can just start asking it to quack.</p>
+
+<p>An example:</p>
+
+<pre><code>[1, 2, 3, 4, 5].len() # 5
+"hello".len()		  # 5
+</code></pre>
+
+<p>I don’t need to ask the object if it’s a string or a list before calling <code>len()</code>. I’m trusting that the object’s <code>len()</code> method already knows what to do. </p>
+
+<p><em>Abstract base classes</em> complement duck-typing by providing an alternative way to define an interface when all of the possible use cases for an object might not have been anticipated by the designer. This scenario might pop up in a large development team, or if a software plugin might be written by an external team. In theory, we create an abstract base class by defining a class and marking its methods as <em>abstract</em>, then registering a concrete class with the interface or by simply subclassing the abstract class.</p>
+
+<p>Confused yet? Don’t worry, my head’s spinning a bit too. Let’s continue.</p>
+
+<p>I define an abstract base class like so:</p>
+
+<pre><code>import abc
+
+class Animal:
+	__metaclass__ = abc.ABCMeta
+
+	@abc.abstractmethod
+	def greet(self):
+		return
+</code></pre>
+
+<p>With the <code>__metaclass__ = abc.ABCMeta</code> declaration, we’ve defined <code>Animal</code> as an abstract base class. We’ve also defined an abstract method, <code>greet()</code>, that doesn’t do anything but return. That’s totally okay - anything that inherits from <code>Animal</code> will need to write their own <code>greet()</code> anyway, as concrete classes can’t access those abstract methods directly. Let’s finish this out:</p>
+
+<pre><code>import abc
+
+class Animal:
+	__metaclass__ = abc.ABCMeta
+
+	@abc.abstractmethod
+	def greet(self):
+		return
+
+class Lion:
+
+	def greet(self):
+		return "ROAR"
+
+Animal.register(Lion)
+
+print('Subclass:', issubclass(Lion, Animal))
+print('Instance:', isinstance(Lion(), Animal))
+</code></pre>
+
+<p>Our <code>Lion</code> implements the <code>Animal</code> API, but it’s not derived from <code>Animal</code>. </p>
+
+<p>We’ll see this approach again when we look at the <a href="https://docs.python.org/2/library/collections.html#module-collections">collections</a> module, which uses abstract base classes to test whether a collection is hashable or a mapping.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/21/what-in-heavens-name-is-an-abstract-base-class.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/17/what-does-systemd-do.html"><h3>What does systemd do?</h3></a>
+	</div>
+	<div class="col-8">
+		<p>I mentioned in an <a href="http://josephmosby.com/2015/10/17/what-does-systemctl-do.html">earlier post</a> that <code>systemctl</code> appeared to be tied to <code>systemd</code>, which looked like a much more important program. In this post, I’m going to explore <code>systemd</code> and see what it does.</p>
+
+<p>Turns out, it does a LOT. And people are super unhappy about it.</p>
+
+<p>I loosely knew the Unix philosophy, which essentially states that programs should be tiny and do very little, rather than one program taking on monolithic functionality. Doug McIlroy, a former head of the Bell Labs Computing Sciences Research Center, summarized it thus:</p>
+
+<pre><code>This is the Unix philosophy: Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.
+</code></pre>
+
+<p><code>systemd</code> does way more than this. It does a bajillion things, and it does them well, but it still does a bajillion things rather than just one. </p>
+
+<p>At its core, <code>systemd</code> is a Linux init system. It’s designed to kick off programs - every single program that runs on a Unix system. As such, it’s the first process spawned when a system boots:</p>
+
+<pre><code>$ ps -ef | grep "systemd"
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+root      1636     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-journald
+root      1649     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-udevd
+dbus      2488     1  0 00:40 ?        00:00:01 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+root      2490     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-logind
+root     15732 15713  0 16:36 pts/3    00:00:00 grep --color=auto systemd
+</code></pre>
+
+<p>PID 1! The maker of all other services in a Unix operating system! I never knew what PID 1 would be, but there it is: <code>systemd</code>. This post is going to be heavy, I think. And I’ll probably leave myself asking more questions. I’m not really grokking anything in-depth from the <a href="https://en.wikipedia.org/wiki/Systemd">Wikipedia page</a> for <code>systemd</code>, so off I go to the <a href="http://www.freedesktop.org/software/systemd/man/systemd.html">man pages</a>. </p>
+
+<p><code>systemd</code> has an entire “Concepts” page devoted to it, which is extremely useful. It states that <code>systemd</code> has a concept of units - our services, sockets, and other objects we used earlier. <code>nginx</code> is a unit. <code>dashboard</code> is a unit. Now we get some meat about what those units can be, and I’m just going to copy and paste the list here.</p>
+
+<ol>
+  <li>
+    <p>Service units, which start and control daemons and the processes they consist of.</p>
+  </li>
+  <li>
+    <p>Socket units, which encapsulate local IPC or network sockets in the system, useful for socket-based activation. </p>
+  </li>
+  <li>
+    <p>Target units are useful to group units, or provide well-known synchronization points during boot-up.</p>
+  </li>
+  <li>
+    <p>Device units expose kernel devices in systemd and may be used to implement device-based activation.</p>
+  </li>
+  <li>
+    <p>Mount units control mount points in the file system.</p>
+  </li>
+  <li>
+    <p>Automount units provide automount capabilities, for on-demand mounting of file systems as well as parallelized boot-up.</p>
+  </li>
+  <li>
+    <p>Snapshot units can be used to temporarily save the state of the set of systemd units, which later may be restored by activating the saved snapshot unit.</p>
+  </li>
+  <li>
+    <p>Timer units are useful for triggering activation of other units based on timers.</p>
+  </li>
+  <li>
+    <p>Swap units are very similar to mount units and encapsulate memory swap partitions or files of the operating system.</p>
+  </li>
+  <li>
+    <p>Path units may be used to activate other services when file system objects change or are modified.</p>
+  </li>
+  <li>
+    <p>Slice units may be used to group units which manage system processes (such as service and scope units) in a hierarchical tree for resource management purposes.</p>
+  </li>
+  <li>
+    <p>Scope units are similar to service units, but manage foreign processes instead of starting them as well. </p>
+  </li>
+</ol>
+
+<p>I still don’t know what a target unit is, so I’m going to move into the man page for <code>systemd.target</code> for a moment. This line is helpful from those pages: “They exist merely to group units via dependencies (useful as boot targets), and to establish standardized names for synchronization points used in dependencies between units.” I think I’ve got it now - if you want to smash together a bunch of units into one (like you’d need to do for a multi-user system), you use a target unit.</p>
+
+<p><code>systemd</code> also manages the dependencies of units, and that’s where those <code>Requires</code>, <code>Conflicts</code>, <code>After</code>, and <code>Before</code> lines came into play earlier. From my dashboard service’s <code>systemctl show</code> output:</p>
+
+<pre><code>Requires=basic.target
+Wants=system.slice
+WantedBy=multi-user.target
+Conflicts=shutdown.target
+Before=shutdown.target multi-user.target
+After=network.target systemd-journald.socket basic.target system.slice
+</code></pre>
+
+<p>My service Requires <code>basic.target</code>, Conflicts with <code>shutdown.target</code>, must be before <code>shutdown.target</code> and <code>multi-user.target</code>, and must come after <code>network.target</code>, <code>systemd-journald.socket</code>, <code>basic.target</code>, and <code>system.slice</code>. I’m not sure what most of these mean, but it does make sense that my web program should be loaded after the <code>network</code> has been loaded.</p>
+
+<p><code>systemd</code> states that it loads information about unit configuration from system directories and user directories, which I can find by typing the following commands in:</p>
+
+<pre><code>$ pkg-config systemd --variable=systemdsystemunitdir
+/usr/lib/systemd/system
+
+$ pkg-config systemd --variable=systemduserunitdir
+/usr/lib/systemd/user
+</code></pre>
+
+<p>Let’s go see what’s in those:</p>
+
+<pre><code>$ cd /usr/lib/systemd/system
+$ ls
+</code></pre>
+
+<p>Ooh, I see a bunch of files that look like the <code>.service</code> files I was tinkering around with last night but didn’t understand! Let’s inspect a few.</p>
+
+<pre><code>$ cat sound.target
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Sound Card
+Documentation=man:systemd.special(7)
+StopWhenUnneeded=yes
+
+$ cat halt.target
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Halt
+Documentation=man:systemd.special(7)
+DefaultDependencies=no
+Requires=systemd-halt.service
+After=systemd-halt.service
+AllowIsolate=yes
+
+[Install]
+Alias=ctrl-alt-del.target
+
+$ cat crond.service
+[Unit]
+Description=Command Scheduler
+After=syslog.target auditd.service systemd-user-sessions.service time-sync.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/crond
+ExecStart=/usr/sbin/crond -n $CRONDARGS
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<p>So these <code>.service</code> and <code>.target</code> files are all part of the configuration that <code>systemd</code> requires. The <code>crond.service</code> configuration isn’t <code>crond</code> itself, it’s a file that tells <code>systemd</code> how to start and manage <code>crond</code>. I’m getting it now!</p>
+
+<p><code>systemd</code> can also receive certain signals, such as <code>SIGTERM</code>, <code>SIGINT</code>, and <code>SIGRTMIN+15</code>, which are more black magic to me. I’m not sure how I would send those signals to <code>systemd</code>, but maybe those things aren’t for me in the way I think of them.</p>
+
+<p>I think that’s a good start into <code>systemd</code>, but I can tell I’m just scratching the surface with it. Next up: this <a href="http://0pointer.de/blog/projects/systemd.html">blog post</a> on the origins of <code>systemd</code> and the <code>systemd</code> <a href="http://www.freedesktop.org/wiki/Software/systemd/">homepage</a>.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/17/what-does-systemd-do.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,389 @@
+<!doctype html>
+<html>
+	<head>
+	
+	<title>josephmosby.com</title>
+	<meta charset="utf-8" />
+	
+	<link rel="stylesheet" href="/stylesheets/style.css">
+	
+	<!--[if lt IE9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	</head>
+	
+	<body>
+		
+		<div class="title">
+			<div id="top_title">Joseph Mosby</div>
+			<div id="bottom_title">on Python, the web, agency life and sometimes pie</div>
+		</div>
+		
+		<div class="wrapper">
+		<div class="sidebar">
+			<ul>
+				<li><a href="/">about</a></li>
+				<li><a href="/portfolio">portfolio</a></li>
+				<li><a href="/resources/resume.doc">résumé</a></li>
+				<li><a href="/blog">blog</a></li>
+				<li><a href="/presentations">presentations</a></li>
+			</ul>
+		</div>
+		
+		<div class="content">
+			<p>I've been writing a series of posts to eventually cover every single module in the Python Standard Library. Check them out here!</p>
+<ul class="bloglist">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  	<li>
+      <a href="/2015/02/12/seeding-a-database-with-queues-and-threading.html">Seeding a database with queues and threading</a><br />
+      <p>Don’t try this at home. There is no good reason to do this.</p>
+
+
+      February 12, 2015
+      <br />
+    </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  	<li>
+      <a href="/2015/01/23/object-presentation-with-pprint.html">Object presentation with pprint</a><br />
+      <p>In my <a href="/2015/01/21/string-presentation-with-textwrap.html">last post</a>, I discovered that there are all sorts of awesome things you can do to format strings for presentation in a Python program. In this episode, I learn that it’s possible to do the same thing with all Python objects using <code>pprint</code>!</p>
+
+
+      January 23, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2015/01/21/string-presentation-with-textwrap.html">String presentation with textwrap</a><br />
+      <p>I haven’t written that many programs that run solely from the command line with a lot of user instructions incorporated into the program flow, so I haven’t done much Python display text processing. But if I had, <code>textwrap</code> would very likely be one of my best friends.</p>
+
+
+      January 21, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2015/01/20/a-short-word-on-stringio.html">A short word on StringIO</a><br />
+      <p>The <code>StringIO</code> library has a nifty purpose. It provides you with a buffer in memory that allows you to read and write strings without saving a file to disk. </p>
+
+
+      January 20, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2015/01/18/examining-audio-files-with-sndhdr.html">Examining audio files with sndhdr</a><br />
+      <p>In our <a href="/2015/01/17/the-images-are-coming-from-inside-the-bytestreams.html">last installment</a>, we cracked open some image files and looked at the raw bytestreams to assess what type of image file we were looking at. Python’s <code>imghdr</code> module is designed to automate all of that at need. Python provides a companion library, <code>sndhdr</code>, to do the exact same thing for sound files. </p>
+
+
+      January 18, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2015/01/17/the-images-are-coming-from-inside-the-bytestreams.html">The images are coming from INSIDE the bytestreams</a><br />
+      <p>Okay, let’s first clarify that I’ve been working with digital images for longer than I’m comfortable with to just now learn how to do this. But that’s neither here nor there. Obviously, images are streams of bytes just like every other piece of information stored on your computer. And obviously, there’s got to be something inherent in the byte stream and how it’s encoded that tells the computer how to open it. There’s something that makes a PNG different from a TIFF, and the computer knows how the difference between the two. But how? How does a computer know when it’s looking at a PNG or a TIFF when it starts to read the file? </p>
+
+
+      January 17, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2015/01/15/mostly-insecure-cryptography-and-crypt.html">Mostly insecure cryptography and crypt()</a><br />
+      <p>In the 1970s, DES was all the rage. The Data Encryption Standard was the standard for encryption of federal government data and everything unclassified was expected to use it. The algorithm uses a 56-bit key size and some NSA-suggested substitution boxes to encrypt and decrypt data. It was great for the 1970s, but we knew it was susceptible to brute-force attacks then - and in the 1990s, DES was finally cracked. It’s since been replaced by more robust cryptographic algorithms, but it remains a part of the legacy Unix codebase via the <code>crypt(3)</code> tool. </p>
+
+
+      January 15, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2015/01/14/did-you-know-theres-a-color-system-called-yiq.html">Did you know there's a color system called YIQ?</a><br />
+      <p>I certainly didn’t. YIQ is used if you’re building software that’s going to transmit over NTSC (broadcast television). YIQ contains information about the luminance and chrominance of colors. Luminance, as we might expect, can be measured on a spectrum from totally white to totally black. <a href="http://wolfcrow.com/blog/understanding-luminance-and-chrominance/">Chrominance is the color information in a signal</a>. These two values merge together in the YIQ data format, where Y represents luminance information, and I and Q represent chrominance information.</p>
+
+
+      January 14, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2015/01/13/combining-pickle-and-anydbm-to-form-shelve.html">Combining pickle and anydbm to form shelve</a><br />
+      <p>Now that we’ve talked about both <a href="http://josephmosby.com/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html">pickle</a> and <a href="http://josephmosby.com/2014/12/22/dbm-non-relational-databases-before-that-was-a-thing.html">anydbm</a>, we can now talk about marrying the two with <code>shelve</code>. The <code>shelve</code> module brings <code>pickle</code> functionality to dbm-style databases, allowing us to store massive data entries in dictionary form without the expected performance hit. It’s the middle option between a full-on database implementation and simple flat file storage. </p>
+
+
+      January 13, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html">Storing objects with the best-named module ever, pickle</a><br />
+      <p>I love <code>pickle</code>. I love that Python has a module named pickle. I have never used pickle before, but I like that it’s there. Let’s take a look at what pickle does.</p>
+
+
+      January 12, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2015/01/06/more-high-performance-iterable-work-with-bisect.html">More high-performance iterable work with bisect</a><br />
+      <p>In my <a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html">last post</a>, I explored the Python array data structure. In keeping with the vibe of iterable data structures, I’m moving on to cover the <code>bisect</code> module.</p>
+
+
+      January 06, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html">And here I was thinking arrays were for JavaScript and lists were for Python</a><br />
+      <p>Python has arrays. Python even has an entirely special module that lets you build arrays. Like arrays in Java and C++, arrays from the <code>arrays</code> module must all be of a certain type of data. I assume these things must be wicked fast, but I wonder how large the array would have to be before there would be a noticeable difference.</p>
+
+
+      January 05, 2015
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html">Saving yourself from command-line parsing hell with argparse</a><br />
+      <p>Before <code>argparse</code>, I thought the only way to deal with command line arguments was to use <code>sys.argv</code>. You throw a series of arguments at a program, munge through them with <code>sys.argv[0]</code>, <code>sys.argv[1]</code>, etc. and hope for the best. And you hope that you always have full control over the arguments coming at your program through the command line. But what do you do if you have optional arguments, or flags? You could write your own parsers to handle all of that, but that’s where <code>argparse</code> comes in. </p>
+
+
+      December 30, 2014
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2014/12/22/rocking-out-with-aifc.html">Rocking out with aifc</a><br />
+      <p>In 1985, Electronic Arts (then publishing such games as <a href="http://en.wikipedia.org/wiki/The_Bard%27s_Tale_(1985_video_game)">The Bard’s Tale</a>) convened a group of engineers, software developers, and computer manufacturers to define a data interchange format for graphics, audio, and text. The aim was to create a file format with accompanying objects, data structures and interfaces that would be interchangeable across platforms for the budding gaming audience. This was a bold new time in data storage, when Apple had just invented a wonderful little tool called the “clipboard.” </p>
+
+
+      December 22, 2014
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2014/12/22/dbm-non-relational-databases-before-that-was-a-thing.html">DBM - non-relational databases before that was a thing</a><br />
+      <p>In 1970, databases were all the rage. Big stinkin’ associative databases, mostly sold by IBM and running on a mainframe. A gentleman by the name of Edgar Codd was starting to beat the drum on this idea called a “relational” database, but IBM had no interest in cannibalizing the sales of its IMS software in favor of this new-fangled relational thingy. Until Larry Ellison started competing with IBM with his Oracle database, everybody was using these associative databases.</p>
+
+
+      December 22, 2014
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2014/12/21/what-in-heavens-name-is-an-abstract-base-class.html">What in heaven's name is an abstract base class?</a><br />
+      <p>Let’s talk about duck-typing for a second. Duck-typing is an object-oriented programming principle that allows an object’s methods and properties to handle the semantics and behavior of an object without the need to determine what type of object it actually is. The idea is that “if it looks like a duck and quacks like a duck, it’s a duck” and the programmer doesn’t need to first ask the object if it’s actually a duck. We can just start asking it to quack.</p>
+
+
+      December 21, 2014
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2014/12/20/exploring-the-future-module.html">Exploring the __future__ module and learning about division</a><br />
+      <p>Python adds new features to the language all the time, but occasionally those features are completely incompatible with existing features of the language. In many cases, they completely rewrite a core <a href="/2014/12/19/hacking-builtin-for-fun-no-profit.html">built-in function</a> or key operator of the language. The <code>__future__</code> <a href="https://docs.python.org/2.7/library/__future__.html#module-__future__">module</a> contains several of those new features - some of which have already made it into Python 2.7 at the time of this writing. A few of them are designed to prepare Python 2.x users for sea changes coming with Python 3.x.</p>
+
+
+      December 20, 2014
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2014/12/20/a-brief-word-on-main.html">A brief word on __main__</a><br />
+      <p>Okay, <code>__main__</code> is technically a Python module. Technically, it’s the scope of the program that’s currently being executed.</p>
+
+
+      December 20, 2014
+      <br />
+    </li>
+  
+  
+  
+  	<li>
+      <a href="/2014/12/19/hacking-builtin-for-fun-no-profit.html">Hacking __builtin__ for fun, no profit</a><br />
+      <p>Python’s <code>__builtin__</code> module contains all of the language’s <a href="https://docs.python.org/2.7/library/functions.html">built-in functions</a>, which should be reasonably obvious from the name. Python is really, really insistent that its built-ins are perfectly sufficient and that you shouldn’t go around messing with them. This is a large part of the reason that I almost threw up the first time I had to go <a href="http://stackoverflow.com/questions/394144/what-does-monkey-patching-exactly-mean-in-ruby">monkeypatching</a> in Ruby… it just doesn’t <em>feel</em> right. But for the sake of argument, let’s do some screwing around with the built-in functions.</p>
+
+
+      December 19, 2014
+      <br />
+    </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+		</div>
+		
+		</div>
+	</body>
+	
+	<script>
+	
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45638065-1', 'josephmosby.com');
+  ga('send', 'pageview');
+  
+  	</script>
+  	
+  	<script>
+  	
+  	var _spinnakr_site_id='133278057';
+  	(function(d,t,a){var g=d.createElement(t), s=d.getElementsByTagName(t)[0];g[a]=a;g.src='//s5.spn.ee/js/so.js'; s.parentNode.insertBefore(g,s)}(document,'script','async'));
+  	
+  	</script> 

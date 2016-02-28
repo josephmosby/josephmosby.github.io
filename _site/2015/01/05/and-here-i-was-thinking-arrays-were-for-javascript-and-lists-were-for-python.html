@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html"><h3>And here I was thinking arrays were for JavaScript and lists were for Python</h3></a>
+	</div>
+	<div class="col-8">
+		<p><em>I've been writing a series of blog posts to eventually cover every single module in the Python Standard Library. Check them all out <a href="/blog/pymods">here</a>.</em></p>
+
+<p>Python has arrays. Python even has an entirely special module that lets you build arrays. Like arrays in Java and C++, arrays from the <code>arrays</code> module must all be of a certain type of data. I assume these things must be wicked fast, but I wonder how large the array would have to be before there would be a noticeable difference.</p>
+
+<p>Having nothing further to say about single-type arrays, let us proceed with the code!</p>
+
+<pre><code>import array
+
+a = array.array('c', 'check out my sick array')
+
+print "As array:", a
+</code></pre>
+
+<p>In our first little snippet here, we’re turning a string into an array to start conducting experiments. The first parameter - <code>'c'</code> - specifies that this array will be full of <em>characters</em>.</p>
+
+<pre><code>a.extend(', it has so many bytes')
+
+print a
+
+print a[10:23]
+</code></pre>
+
+<p>We continue fiddling with our array by extending it. We can also slice arrays into smaller arrays, as we see here. </p>
+
+<pre><code>output_data = open('array-ex', 'wb')
+
+a.tofile(output_data)
+
+output_data.flush()
+</code></pre>
+
+<p>Arrays built using <code>array.array()</code> have a built-in function to save the data to a file. By opening a file object, calling <code>tofile(file_name)</code> on the array, and flushing the file object, we write our array to disk.</p>
+
+<pre><code>input_data = open('array-ex', 'rb')
+
+raw_data = input_data.read()
+
+print 'Raw data:', raw_data
+</code></pre>
+
+<p>We’ve extracted our raw data from the file as binary information. To read it into a new array we’ll do the following:</p>
+
+<pre><code>input_data.seek(0)
+
+second_array = array.array('c')
+
+second_array.fromfile(input_data, len(a))
+
+print second_array
+</code></pre>
+
+<p>And that’s about it for arrays. Super easy on memory, super fast, and useful in situations where performance is critical.</p>
+
+<ul>
+  <li>special thanks to PYMOTW for <a href="http://pymotw.com/2/array/">some inspiration</a> on stuff to do with arrays as examples</li>
+</ul>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

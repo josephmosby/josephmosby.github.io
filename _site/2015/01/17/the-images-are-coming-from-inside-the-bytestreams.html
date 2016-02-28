@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/17/the-images-are-coming-from-inside-the-bytestreams.html"><h3>The images are coming from INSIDE the bytestreams</h3></a>
+	</div>
+	<div class="col-8">
+		<p>Okay, let’s first clarify that I’ve been working with digital images for longer than I’m comfortable with to just now learn how to do this. But that’s neither here nor there. Obviously, images are streams of bytes just like every other piece of information stored on your computer. And obviously, there’s got to be something inherent in the byte stream and how it’s encoded that tells the computer how to open it. There’s something that makes a PNG different from a TIFF, and the computer knows how the difference between the two. But how? How does a computer know when it’s looking at a PNG or a TIFF when it starts to read the file? </p>
+
+<p>The answer, my friends, is in the byte stream. I just learned how to read it with mine own two eyes and I am very excited to share this knowledge with you. </p>
+
+<p>Open up a PNG file with your code-writing text editor of choice (I know this will work in Sublime). You’ll have a massive eight-column byte stream open up in front of you, and you’ll also notice that it starts with these characters: <code>8950 4e47 0d0a</code>. Those are hex codes, and they mean something very specific: <code>‰P NG \r\n</code>. This is the universal sign of a PNG file, and you’ll find it on any PNG file that you open! </p>
+
+<p>Now do the same with a TIFF file. You’ll notice the file starts with the following hex codes: <code>4d4d 002a 0000</code>. That stands for <code>MM NUL* NULNULNULNUL</code>. The MM, in this instance, signals the computer that we’re working in a big-endian data format. We then have a null character and an asterisk - which also corresponds to the number 42. The 42 here is chosen for its “<a href="http://www.douglasadams.eu/en_h2g2_references.php">deep philosophical significance</a>.” If you see the byte order and 42, you’ve got a TIFF file!</p>
+
+<p>Chances are that you won’t want to visually inspect your image files to see what they are all the time, so Python has provided a helper library to do that: <code>imghdr</code>. It has one function:</p>
+
+<pre><code>import imghdr
+
+print imghdr.what('snowman.tiff') # 'tiff'
+</code></pre>
+
+<p>The <code>what(filename)</code> function is used to detect file format. It can do so for the following image types: RGB, GIF, PBM, PPM, TIFF, RAST, XBM, JPEG, BMP, PNG. </p>
+
+<p>Go forth and read bytestreams!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/17/the-images-are-coming-from-inside-the-bytestreams.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/20/exploring-the-future-module.html"><h3>Exploring the __future__ module and learning about division</h3></a>
+	</div>
+	<div class="col-8">
+		<p><em>I've been writing a series of blog posts to eventually cover every single module in the Python Standard Library. Check them all out <a href="/blog/pymods">here</a>.</em></p>
+
+<p>Python adds new features to the language all the time, but occasionally those features are completely incompatible with existing features of the language. In many cases, they completely rewrite a core <a href="/2014/12/19/hacking-builtin-for-fun-no-profit.html">built-in function</a> or key operator of the language. The <code>__future__</code> <a href="https://docs.python.org/2.7/library/__future__.html#module-__future__">module</a> contains several of those new features - some of which have already made it into Python 2.7 at the time of this writing. A few of them are designed to prepare Python 2.x users for sea changes coming with Python 3.x.</p>
+
+<p>The <code>print()</code> function is one of those new features. In 2.x, the <code>print</code> statement allowed developers to print to <code>stdout</code>, but it wasn’t very robust. If you wanted to print to a different output, or rewrite part of how <code>print</code> formats its output, you just couldn’t. <code>print</code> was too hard-coded into the syntax of how Python worked. By changing it into a function, though, we can change the separators, add different ends, or output to a file.</p>
+
+<p>The <code>print()</code> syntax looks like this, as specified in <a href="https://www.python.org/dev/peps/pep-3105/">PEP 3105</a>:</p>
+
+<p><code>def print(*args, sep=' ', end='\n', file=None)</code></p>
+
+<p>And we can experiment with it like this:</p>
+
+<pre><code>from __future__ import print_function
+
+print('Next level printing with print()')
+print('Can\'t do this any more: print "Hello World!"')
+print('Have to use print("Hello World!")')
+print("Hello", "world", sep="-", end="flipper\n")
+</code></pre>
+
+<p>Cool, no? Though syntactically it’s a big mental shift from the current <code>print</code>, it’s unquestionably much more robust.</p>
+
+<p>Python 3.x also brings in a new mechanism for handling division. Python 2.x used something called “floor division” when the <code>/</code> operator was called. It would divide and then discard the remainder and round downward to yield an integer, so “8/7” would yield “1” rather than “1.142857…”. By bringing in Python 3.x’s version of division, 8/7 will yield the float. 8//7 will bring in the old floor division.</p>
+
+<pre><code>from __future__ import division, print_function
+print('8/7:', 8/7)
+print('8//7', 8//7)
+</code></pre>
+
+<p>And finally, Python has even included an Easter egg for those developers who love and miss C’s mechanism for separating code blocks using braces instead of whitespace:</p>
+
+<pre><code>from __future__ import braces
+</code></pre>
+
+<p>:)</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/20/exploring-the-future-module.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/17/how-are-pids-assigned.html"><h3>How are PIDs assigned?</h3></a>
+	</div>
+	<div class="col-8">
+		<p>I want to take a moment to step through the <code>ps</code> command and how PIDs are assigned, because I want to walk through the first 10 processes kicked off when CentOS boots. I assume that PIDs are assigned based on the order in which they’re created, but I’m not 100% certain on that. Let’s take a look.</p>
+
+<p>Wikipedia states:</p>
+
+<pre><code>In Unix-like operating systems, new processes are created by the fork() system call. ... Process ID 1 is usually the init process primarily responsible for starting and shutting down the system. ... Process IDs are usually allocated on a sequential basis, beginning at 0 and rising to a maximum value which varies from system to system.
+</code></pre>
+
+<p>So PID 1, our <code>systemd</code> process, is created first (though there’s a PID 0 which comes before), and all of the other processes follow sequentially. This makes things easier, as now I can (hopefully) get a listing of the first ten things CentOS does on boot. I wasn’t looking for anything more formal than this, so let’s move on.</p>
+
+<p>I don’t quite know how to get information on a specific process by giving its ID, so let’s just try something out:</p>
+
+<pre><code>$ ps 1
+PID TTY      STAT   TIME COMMAND
+1 	?        Ss     0:04 /usr/lib/systemd/systemd --system --deserialize 21
+</code></pre>
+
+<p>That was simple enough. There’s <code>systemd</code>, just as I expected. Let’s look at some others.</p>
+
+<pre><code>$ ps 2
+PID TTY      STAT   TIME COMMAND
+2 	?        S      0:00 [kthreadd]
+
+$ ps 3
+PID TTY      STAT   TIME COMMAND
+3 	?        S      0:00 [ksoftirqd/0]
+
+$ ps 4
+# BLANK
+
+$ ps 5
+PID TTY      STAT   TIME COMMAND
+5 	?        S&lt;     0:00 [kworker/0:0H]
+
+$ ps 6
+PID TTY      STAT   TIME COMMAND
+6 	?        S      0:00 [kworker/u2:0]
+
+$ ps 7
+PID TTY      STAT   TIME COMMAND
+7 	?        S      0:00 [rcu_sched]
+
+$ ps 8
+PID TTY      STAT   TIME COMMAND
+8 	?        S      0:00 [rcu_bh]
+
+$ ps 9
+PID TTY      STAT   TIME COMMAND
+9 	?        S      0:00 [migration/0]
+
+$ ps 10
+PID TTY      STAT   TIME COMMAND
+   	10 	?        S&lt;     0:00 [khelper]
+</code></pre>
+
+<p>Well, I couldn’t get 10 commands (#4 was out), but I did get 9:</p>
+
+<ol>
+  <li><code>systemd</code></li>
+  <li><code>kthreadd</code></li>
+  <li><code>ksoftirqd/0</code></li>
+  <li><code>kworker/0:0H</code></li>
+  <li><code>kworker/u2:0</code></li>
+  <li><code>rcu_sched</code></li>
+  <li><code>rcu_bh</code></li>
+  <li><code>migration/0</code></li>
+  <li><code>khelper</code></li>
+</ol>
+
+<p>Let’s take a look into what they do to see if they do anything interesting. <code>systemd</code> we know.</p>
+
+<p><code>kthreadd</code> is the “kernel thread daemon,” and it’s actually not controlled by <code>systemd</code>. It’s controlled by the kernel itself. I’m not familiar enough with the kernel (yet) to do any interesting work with this, but I can see from a <code>ps -ef</code> command that the rest of our listed processes are spawned by this one. </p>
+
+<pre><code>UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+root         2     0  0 00:40 ?        00:00:00 [kthreadd]
+root         3     2  0 00:40 ?        00:00:00 [ksoftirqd/0]
+root         5     2  0 00:40 ?        00:00:00 [kworker/0:0H]
+root         6     2  0 00:40 ?        00:00:00 [kworker/u2:0]
+root         7     2  0 00:40 ?        00:00:00 [rcu_sched]
+root         8     2  0 00:40 ?        00:00:00 [rcu_bh]
+root         9     2  0 00:40 ?        00:00:00 [migration/0]
+root        10     2  0 00:40 ?        00:00:00 [khelper]
+</code></pre>
+
+<p>That PPID thread - right there in the middle - indicates that each of the following PIDs was spawned by <code>kthreadd</code>. So we’ll obviously need to come back and explore this one in more detail.</p>
+
+<p>Next on the list is <code>ksoftirqd</code>, which “is a per-cpu kernel thread that runs when the machine is under heavy soft-interrupt load.” <a href="http://www.ms.sapientia.ro/~lszabo/unix_linux_hejprogramozas/man_en/htmlman9/ksoftirqd.9.html">docs here</a> Again, I’m not 100% certain on how this works, but I’m bookmarking <a href="https://lwn.net/Articles/520076/">this page</a> for future reference.</p>
+
+<p>The next two are inherently related: they’re <code>kworker</code> kernel processes. They handle work for system calls, rather than user calls. </p>
+
+<p><code>rcu_sched</code> and <code>rcu_bh</code> are apparently a bit more arcane, given the lack of easy-to-find information about them. RCU stands for “Read-Copy-Update”, and it’s a synchronization mechanism. I’ll be digging more into this later, but I’m bookmarking <a href="http://lwn.net/Articles/262464/">this article</a> for future reference.</p>
+
+<p>The <code>migration</code> process is also a kernel process, and it distributes the load across processor cores.</p>
+
+<p>Finally (and perhaps fortuitously) we have <code>khelper</code>. This process is used to make calls to user processes from within the kernel, allowing the kernel and user processes to talk to each other.</p>
+
+<p>So we’ve got our first ten processes. What does this <code>ps</code> process output tell us about them? Let’s take a second look at our sample data:</p>
+
+<pre><code>UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+</code></pre>
+
+<p>The first column here is the user who kicked off the process: in this case, it’s the root user. The PID is our process ID, and the PPID is the PID of the parent that spawned the process. C is used for CPU scheduling information. STIME is the time the process started. TTY is the terminal associated with the process. TIME is the CPU time the process has used. And CMD is the command itself. There are loads more options that we could incorporate here, but this is the default configuration for CentOS machines.</p>
+
+<p>I think <code>ps</code> will need its own set of digging (like many other Unix utilities), so I’m going to stop here. Here are my open questions kicked off from this exercise:</p>
+
+<ol>
+  <li>What does the kernel thread daemon do?</li>
+  <li>What is a software interrupt?</li>
+  <li>What is the read-copy-update mechanism?</li>
+</ol>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/17/how-are-pids-assigned.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

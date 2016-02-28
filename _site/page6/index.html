@@ -1,0 +1,598 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/20/a-short-word-on-stringio.html"><h3>A short word on StringIO</h3></a>
+		<div class="date">January 20, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>The <code>StringIO</code> library has a nifty purpose. It provides you with a buffer in memory that allows you to read and write strings without saving a file to disk. </p>
+
+<pre><code>import StringIO
+
+output = StringIO.StringIO()
+
+output.write('This is a string!\n')
+output.write('This is a second line string!')
+</code></pre>
+
+<p>Okay, so we’ve got ourselves a string buffer with some strings. Now what can we do?</p>
+
+<pre><code>print output.read()
+</code></pre>
+
+<p>Wait… that didn’t really do anything. Ah yes! Because it’s a file-like object, we have to return to the beginning of the object to read it again.</p>
+
+<pre><code>output.seek(0)
+print output.read()
+</code></pre>
+
+<p>Anything you can do with a file, you can do with this string buffer. It’s quite useful for capturing output or dealing with test cases like these. And in the event that you need a much faster cousin, <code>StringIO</code> comes with a <code>cStringIO</code> <a href="/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html">just like our</a> <code>pickle</code> module came with its <code>cPickle</code>. We’ll see this again in future test applications.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/20/a-short-word-on-stringio.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/18/examining-audio-files-with-sndhdr.html"><h3>Examining audio files with sndhdr</h3></a>
+		<div class="date">January 18, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>In our <a href="/2015/01/17/the-images-are-coming-from-inside-the-bytestreams.html">last installment</a>, we cracked open some image files and looked at the raw bytestreams to assess what type of image file we were looking at. Python’s <code>imghdr</code> module is designed to automate all of that at need. Python provides a companion library, <code>sndhdr</code>, to do the exact same thing for sound files. </p>
+
+<p>Did you know, for example, that all .aif files start with “FO RM,” followed by characters indicating the file size, followed by “AIFF?” I didn’t know that. MP3 files start with characters to synchronize the frames, followed by the MPEG version. Python is here to automatically check all of this for you.</p>
+
+<pre><code>import sndhdr
+
+print sndhdr.what('snowman.mp3') # 'mp3'
+</code></pre>
+
+<p>Go forth and examine audio files, my friends.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/18/examining-audio-files-with-sndhdr.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/17/the-images-are-coming-from-inside-the-bytestreams.html"><h3>The images are coming from INSIDE the bytestreams</h3></a>
+		<div class="date">January 17, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Okay, let’s first clarify that I’ve been working with digital images for longer than I’m comfortable with to just now learn how to do this. But that’s neither here nor there. Obviously, images are streams of bytes just like every other piece of information stored on your computer. And obviously, there’s got to be something inherent in the byte stream and how it’s encoded that tells the computer how to open it. There’s something that makes a PNG different from a TIFF, and the computer knows how the difference between the two. But how? How does a computer know when it’s looking at a PNG or a TIFF when it starts to read the file? </p>
+
+<p>The answer, my friends, is in the byte stream. I just learned how to read it with mine own two eyes and I am very excited to share this knowledge with you. </p>
+
+<p>Open up a PNG file with your code-writing text editor of choice (I know this will work in Sublime). You’ll have a massive eight-column byte stream open up in front of you, and you’ll also notice that it starts with these characters: <code>8950 4e47 0d0a</code>. Those are hex codes, and they mean something very specific: <code>‰P NG \r\n</code>. This is the universal sign of a PNG file, and you’ll find it on any PNG file that you open! </p>
+
+<p>Now do the same with a TIFF file. You’ll notice the file starts with the following hex codes: <code>4d4d 002a 0000</code>. That stands for <code>MM NUL* NULNULNULNUL</code>. The MM, in this instance, signals the computer that we’re working in a big-endian data format. We then have a null character and an asterisk - which also corresponds to the number 42. The 42 here is chosen for its “<a href="http://www.douglasadams.eu/en_h2g2_references.php">deep philosophical significance</a>.” If you see the byte order and 42, you’ve got a TIFF file!</p>
+
+<p>Chances are that you won’t want to visually inspect your image files to see what they are all the time, so Python has provided a helper library to do that: <code>imghdr</code>. It has one function:</p>
+
+<pre><code>import imghdr
+
+print imghdr.what('snowman.tiff') # 'tiff'
+</code></pre>
+
+<p>The <code>what(filename)</code> function is used to detect file format. It can do so for the following image types: RGB, GIF, PBM, PPM, TIFF, RAST, XBM, JPEG, BMP, PNG. </p>
+
+<p>Go forth and read bytestreams!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/17/the-images-are-coming-from-inside-the-bytestreams.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/15/mostly-insecure-cryptography-and-crypt.html"><h3>Mostly insecure cryptography and crypt()</h3></a>
+		<div class="date">January 15, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>In the 1970s, DES was all the rage. The Data Encryption Standard was the standard for encryption of federal government data and everything unclassified was expected to use it. The algorithm uses a 56-bit key size and some NSA-suggested substitution boxes to encrypt and decrypt data. It was great for the 1970s, but we knew it was susceptible to brute-force attacks then - and in the 1990s, DES was finally cracked. It’s since been replaced by more robust cryptographic algorithms, but it remains a part of the legacy Unix codebase via the <code>crypt(3)</code> tool. </p>
+
+<p>Because you might need to one day access legacy systems where data is encrypted using <code>crypt(3)</code>, Python has provided a helpful little module with <code>crypt</code>. It has a single function: <code>crypt.crypt(word, salt)</code>, where the word represents the data to be encrypted and the salt is a two-character alphanumeric string. It’s as easy as would be expected:</p>
+
+<pre><code>import crypt
+
+print crypt.crypt('hello there', 'ht') # ht5gSI1o04H8I
+</code></pre>
+
+<p>And with just that simple function, we have an DES-encrypted password for use on a legacy Unix system. In case you ever need one.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/15/mostly-insecure-cryptography-and-crypt.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/14/did-you-know-theres-a-color-system-called-yiq.html"><h3>Did you know there's a color system called YIQ?</h3></a>
+		<div class="date">January 14, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I certainly didn’t. YIQ is used if you’re building software that’s going to transmit over NTSC (broadcast television). YIQ contains information about the luminance and chrominance of colors. Luminance, as we might expect, can be measured on a spectrum from totally white to totally black. <a href="http://wolfcrow.com/blog/understanding-luminance-and-chrominance/">Chrominance is the color information in a signal</a>. These two values merge together in the YIQ data format, where Y represents luminance information, and I and Q represent chrominance information.</p>
+
+<p>In the event that you are ever building software that must make use of the YIQ color format but you’re really only great at dealing with RGB, Python is happy to accommodate you! The <code>colorsys</code> module provides color format conversions between RGB, YIQ, HLS and HSV. It works about how you’d expect:</p>
+
+<pre><code>import colorsys
+
+print colorsys.rgb_to_yiq(82, 0, 99)
+
+print colorsys.yiq_to_rgb(35.49, 17.52, 47.91)
+
+print colorsys.rgb_to_hls(82, 0, 99)
+
+print colorsys.hls_to_rgb(0.833, 49.5, -1.020619)
+
+print colorsys.rgb_to_hsv(82, 0, 99)
+
+print colorsys.hsv_to_rgb(0.833333333, 1, 99)
+</code></pre>
+
+<p>And that’s it - just those six functions for all of the color conversions you’ll ever need when dealing with coordinate-based color systems.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/14/did-you-know-theres-a-color-system-called-yiq.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/13/combining-pickle-and-anydbm-to-form-shelve.html"><h3>Combining pickle and anydbm to form shelve</h3></a>
+		<div class="date">January 13, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Now that we’ve talked about both <a href="http://josephmosby.com/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html">pickle</a> and <a href="http://josephmosby.com/2014/12/22/dbm-non-relational-databases-before-that-was-a-thing.html">anydbm</a>, we can now talk about marrying the two with <code>shelve</code>. The <code>shelve</code> module brings <code>pickle</code> functionality to dbm-style databases, allowing us to store massive data entries in dictionary form without the expected performance hit. It’s the middle option between a full-on database implementation and simple flat file storage. </p>
+
+<p>We create a new shelf like so:</p>
+
+<pre><code>import shelve
+
+s = shelve.open('shelving', flag='c') # the open() method is a wrapper around anydbm.open()
+
+s['name'] = "Joe"
+
+s.close()
+</code></pre>
+
+<p>A shelf is created by using the <code>shelve</code> module’s <code>open()</code> method, a wrapper around <code>anydbm.open()</code>. Once we have that shelf, we can treat it much like we would a dictionary. We save a value by specifying a dictionary key/value pair. Finally, we close the filestream. </p>
+
+<p>Reading data from the shelf is equally simple:</p>
+
+<pre><code>import shelve
+
+s = shelve.open('shelving', flag='r')
+
+print s['name']
+
+s.close()
+</code></pre>
+
+<p>By default, a shelf does not save modifications to volatile object structure. We see this in the following example:</p>
+
+<pre><code>import shelve
+
+s = shelve.open('shelving', flag='c') # the open() method is a wrapper around anydbm.open()
+
+s['name'] = {}
+
+s.close()
+
+s = shelve.open('shelving')
+
+s['name']['fname'] = 'Joe'
+s['name']['lname'] = 'Mosby'
+
+s.close()
+
+s = shelve.open('shelving')
+
+print s['name'] # will print {}
+
+s.close()
+</code></pre>
+
+<p>However, if we enable <code>writeback</code> when we open the shelf, we can make direct changes to an object. (warning: performance will take a hit as this will open a potentially massive object in memory)</p>
+
+<pre><code>import shelve
+
+s = shelve.open('shelving', flag='c') # the open() method is a wrapper around anydbm.open()
+
+s['name'] = {}
+
+s.close()
+
+s = shelve.open('shelving', writeback=True)
+
+s['name']['fname'] = 'Joe'
+s['name']['lname'] = 'Mosby'
+
+s.close()
+
+s = shelve.open('shelving')
+
+print s['name'] # will print {'fname': 'Joe', 'lname': 'Mosby'}
+
+s.close()
+</code></pre>
+
+<p>And that’s where we stand with <code>shelve</code>. Not too much to it - just a little persistence library built for a very niche database format.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/13/combining-pickle-and-anydbm-to-form-shelve.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html"><h3>Storing objects with the best-named module ever, pickle</h3></a>
+		<div class="date">January 12, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I love <code>pickle</code>. I love that Python has a module named pickle. I have never used pickle before, but I like that it’s there. Let’s take a look at what pickle does.</p>
+
+<p>Per the docs, <code>pickle</code> provides an algorithm for serializing and unserializing a Python object. When we pickle an object, we turn it into a stream of bytes that can be sent to another process or saved to a file to be reconstructed at a later time. You still have to define the class in the namespace of the process reading the pickle - a pickled object comes with object data but no way to tell the program about an object type that’s not already in the process namespace. <code>pickle</code> also comes with a faster <code>cPickle</code> companion that’s written in C to make it super fast. </p>
+
+<p>We can kick things off like so:</p>
+
+<pre><code>import pickle
+
+class Cucumber:
+
+	def __init__(self, height):
+		self.height = height
+
+	def grow(self):
+		self.height += 1
+		return "Current height is: ", str(self.height)
+
+veggie = Cucumber(2)
+veggie.grow()
+
+print pickle.dumps(veggie)
+
+veggie.grow()
+
+print pickle.dumps(veggie)
+</code></pre>
+
+<p>Here, I have created a <code>Cucumber</code> object type and given it a method <code>grow()</code>, which will increment its height. Calling the <code>pickle.dumps()</code> method on an instance of our <code>Cucumber</code> yields a short string of ASCII characters as a representation of our object. </p>
+
+<p>I can also save objects to files and reload them in perfect condition:</p>
+
+<pre><code>veggie_two = Cucumber(4)
+
+file_save = open('pickled_veggies', 'w')
+
+pickle.dump(veggie_two, file_save)
+
+file_save.close()
+
+file_read = open('pickled_veggies', 'r')
+
+veggie_three = pickle.load(file_read)
+
+print "Veggie Three Height: ", str(veggie_three.height)
+</code></pre>
+
+<p><code>pickle</code>’s <code>dump()</code> mechanism (not <code>dumps()</code> with a ‘s’) is used to save these ASCII object strings to a file, and <code>load()</code> is used to read them back from that file. <code>loads()</code> would read them from a string. </p>
+
+<p>And that’s what <code>pickle</code> does, simply and well. It makes your objects into strings, light, compact and ready to be stored forever. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/06/more-high-performance-iterable-work-with-bisect.html"><h3>More high-performance iterable work with bisect</h3></a>
+		<div class="date">January 06, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>In my <a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html">last post</a>, I explored the Python array data structure. In keeping with the vibe of iterable data structures, I’m moving on to cover the <code>bisect</code> module.</p>
+
+<p><code>bisect</code> uses a simple bisection algorithm to insert items into a list without botching the sort. The gist of the algorithm is simple: we’re going to create a midpoint using the low and high marks of the list, check if our value is greater than or less than the midpoint, then use the midpoint to slice the list into smaller and smaller lists until our item falls right at the midpoint.</p>
+
+<p>You can see this in action here:</p>
+
+<pre><code>def bisect_pseudo(a_list, my_value):
+	low = 0
+	high = len(a_list)
+
+	while low &lt; high:
+		midpoint = (low+high)//2
+
+		if my_value &lt; a_list[midpoint]:
+			high = midpoint
+		else:
+			low = midpoint + 1
+
+		print "low:", low, "high", high
+
+	return low
+
+my_list = [1, 4, 9, 16, 25]
+
+print "Value greater than midpoint: "
+bisect_pseudo(my_list, 10)
+
+print "Value less than midpoint: "
+bisect_pseudo(my_list, 2)
+</code></pre>
+
+<p>In this example, we see the algorithm sifting through our list, searching for the point in the list where our test value would naturally slide in. This is a left bisection algorithm - where we start from the left side of the list and work up - and the reverse would be a right bisection algorithm. The <code>bisect</code> module includes both.</p>
+
+<pre><code>import bisect
+
+names = ['Joe', 'Beth', 'Steve']
+
+names.sort()
+
+print names
+
+print bisect.bisect_left(names, 'David')
+
+bisect.insort_left(names, 'David')
+
+print names
+</code></pre>
+
+<p>In this example, we’re using the <code>bisect_left()</code> function, an implementation of the same algorithm described above, to find the midpoint in our sorted list. The <code>insort_left()</code> function will perform this algorithm and then insert our value exactly where it needs to be. The code using the right bisection algorithm looks similar:</p>
+
+<pre><code>print bisect.bisect_right(names, 'Shamyl')
+
+bisect.insort_right(names, 'Shamyl')
+
+print names
+</code></pre>
+
+<p>The Python <code>bisect</code> module is fairly quick, but it will use a faster C implementation if one’s available. That’s all there is to it! </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/06/more-high-performance-iterable-work-with-bisect.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html"><h3>And here I was thinking arrays were for JavaScript and lists were for Python</h3></a>
+		<div class="date">January 05, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Python has arrays. Python even has an entirely special module that lets you build arrays. Like arrays in Java and C++, arrays from the <code>arrays</code> module must all be of a certain type of data. I assume these things must be wicked fast, but I wonder how large the array would have to be before there would be a noticeable difference.</p>
+
+<p>Having nothing further to say about single-type arrays, let us proceed with the code!</p>
+
+<pre><code>import array
+
+a = array.array('c', 'check out my sick array')
+
+print "As array:", a
+</code></pre>
+
+<p>In our first little snippet here, we’re turning a string into an array to start conducting experiments. The first parameter - <code>'c'</code> - specifies that this array will be full of <em>characters</em>.</p>
+
+<pre><code>a.extend(', it has so many bytes')
+
+print a
+
+print a[10:23]
+</code></pre>
+
+<p>We continue fiddling with our array by extending it. We can also slice arrays into smaller arrays, as we see here. </p>
+
+<pre><code>output_data = open('array-ex', 'wb')
+
+a.tofile(output_data)
+
+output_data.flush()
+</code></pre>
+
+<p>Arrays built using <code>array.array()</code> have a built-in function to save the data to a file. By opening a file object, calling <code>tofile(file_name)</code> on the array, and flushing the file object, we write our array to disk.</p>
+
+<pre><code>input_data = open('array-ex', 'rb')
+
+raw_data = input_data.read()
+
+print 'Raw data:', raw_data
+</code></pre>
+
+<p>We’ve extracted our raw data from the file as binary information. To read it into a new array we’ll do the following:</p>
+
+<pre><code>input_data.seek(0)
+
+second_array = array.array('c')
+
+second_array.fromfile(input_data, len(a))
+
+print second_array
+</code></pre>
+
+<p>And that’s about it for arrays. Super easy on memory, super fast, and useful in situations where performance is critical.</p>
+
+<ul>
+  <li>special thanks to PYMOTW for <a href="http://pymotw.com/2/array/">some inspiration</a> on stuff to do with arrays as examples</li>
+</ul>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html"><h3>Saving yourself from command-line parsing hell with argparse</h3></a>
+		<div class="date">December 30, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>Before <code>argparse</code>, I thought the only way to deal with command line arguments was to use <code>sys.argv</code>. You throw a series of arguments at a program, munge through them with <code>sys.argv[0]</code>, <code>sys.argv[1]</code>, etc. and hope for the best. And you hope that you always have full control over the arguments coming at your program through the command line. But what do you do if you have optional arguments, or flags? You could write your own parsers to handle all of that, but that’s where <code>argparse</code> comes in. </p>
+
+<p><code>argparse</code> provides a wrapper around <code>sys.argv</code> that… well, it parses arguments. The name is rather intuitive. </p>
+
+<p>A program utilizing <code>argparse</code> requires an <code>ArgumentParser</code> object to be much use at all. The arguments supplied to the <code>ArgumentParser</code> upon initialization provide much of the information on how we’ll use the tool. We’ll do that like so:</p>
+
+<pre><code>import argparse
+
+parser = argparse.ArgumentParser(description='A custom tool for rustling or unrustling jimmies.', usage='Use the custom tool in a manner that keeps your jimmies unrustled.')
+</code></pre>
+
+<p>The “description” and “usage” strings provide information that will be displayed when a user wants to read the manual on your program. We’ll look at that output in a bit once we add some arguments.</p>
+
+<pre><code>parser.add_argument('jimmies', type=int, nargs='+', help='Jimmies, in this instance, are a list of integers delimited by spaces.')
+</code></pre>
+
+<p>I’ve added an argument here that will be named ‘jimmies.’ By design, any argument that does not have a ‘-‘ preceding its name is a positional argument. <code>jimmies</code> expects arguments to be integers (<code>type=int</code>) and everything supplied on the command line will be cobbled together into a list (<code>nargs='+'</code>). We’ve also provided some help text here.</p>
+
+<pre><code>parser.add_argument('--rustle', dest='rustle', action='store_const', const=shuffle, default=unshuffle, help='The rustle flag determines if you would like further rustling of your jimmies. Otherwise, this program will naturally seek unrustlement.')
+</code></pre>
+
+<p>I’ve now added an optional flag here called <code>--rustle</code>. This will send everything into a function called <code>rustle</code>. <code>rustle</code> will do one of two things here: it will either make use of a function called <code>shuffle</code> if the flag is present, or it will make use of a function called unshuffle if the flag is absent. The <code>action</code> parameter indicates that we should store a constant value regardless. We’ll use a default value if the <code>--rustle</code> flag isn’t present, but we’ll use the <code>const</code> otherwise.</p>
+
+<p>Let’s assume that <code>unshuffle()</code> and <code>shuffle()</code> were defined elsewhere in the program like so.</p>
+
+<pre><code>import random 
+
+def unshuffle(parsed_items):
+	parsed_items.sort()
+	return parsed_items
+
+def shuffle(parsed_items):
+	random.shuffle(parsed_items)
+	return parsed_items
+</code></pre>
+
+<p>Then finally, we have to use the program:</p>
+
+<pre><code>if __name__ == "__main__":
+	args = parser.parse_args()
+	print args.rustle(args.jimmies)
+</code></pre>
+
+<p>The <code>args = parser.parse_args()</code> will produce a list of arguments based on what was supplied at the command-line. Now that we have some <code>args</code> in our namespace, we can <code>args.rustle()</code> our <code>args.jimmies</code>.</p>
+
+<pre><code>$ python argparse-example.py --help
+
+usage: Use the custom tool in a manner that keeps your jimmies unrustled.
+
+A custom tool for rustling or unrustling jimmies.
+
+positional arguments:
+  jimmies     Jimmies, in this instance, are a list of integers delimited by
+              spaces.
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --rustle    The rustle flag determines if you would like further rustling of
+              your jimmies. Otherwise, this program will naturally seek
+              unrustlement.
+
+$ python argparse-example.py 4 8 1 2
+[1, 2, 4, 8]
+
+$ python argparse-example.py 4 8 1 2 --rustle
+[2, 8, 1, 4]
+</code></pre>
+
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-offset-3 col-8">
+		<div class="pagination">
+			
+			<a href="/page5" class="previous">Previous</a>
+			
+
+			<span class="page_number">Page: 6 of 8</span>
+
+			
+			<a href="/page7" class="next">Next</a>
+			
+		</div>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

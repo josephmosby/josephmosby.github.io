@@ -1,0 +1,1446 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/21/forks-and-file-descriptors-an-intro-to-unix-concepts.html"><h3>Forks and file descriptors - an intro to Unix concepts</h3></a>
+		<div class="date">October 21, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I’m exploring MIT’s course on Operating System Engineering in the hopes to get a better feel for how Linux works under the hood, and it’s already answered a few questions about the things I was seeing in <code>ps</code> earlier. Though the OS course deals with a Unix variant (not Linux), the low-level architecture is similar enough that I think I can assume Linux operates the same way.</p>
+
+<p>xv6, the Unix variant used in this course, has a kernel that interfaces with hardware and user-level programs. This creates the notion of “user space” and “kernel space,” with a single process jumping back and forth between the two to complete its work. When the process needs to use one of the services from the kernel, it invokes a system call - a specific function in the kernel.</p>
+
+<p>Unix provides these services (and many more, but this appears to be all xv6 offers):</p>
+
+<ol>
+  <li><code>fork()</code>, which creates a process</li>
+  <li><code>exit()</code>, which terminates the current process</li>
+  <li><code>wait()</code>, which waits until a child process exits</li>
+  <li><code>kill(pid)</code>, which kills a process with the given PID</li>
+  <li><code>getpid()</code>, return current process’s PID</li>
+  <li><code>sleep(n)</code>, sleep for n seconds</li>
+  <li><code>exec(filename, *argv)</code>, load a file and execute it with the given arguments</li>
+  <li><code>sbrk(n)</code>, increase process memory by n bytes</li>
+  <li><code>open(filename, flags)</code>, open a file with read or write flags</li>
+  <li><code>read(fd, buf, n)</code>, read n bytes from an open file into a buffer <code>buf</code></li>
+  <li><code>write(fd, buf, n)</code>, write n bytes from a buffer <code>buf</code> into an open file</li>
+  <li><code>close(fd)</code>, release open file fd</li>
+  <li><code>dup(fd)</code>, duplicate fd</li>
+  <li><code>pipe(p)</code>, create a pipe and return fd’s in p</li>
+  <li><code>chdir(dirname)</code>, change the current directory</li>
+  <li><code>mkdir(dirname)</code>, create a new directory</li>
+  <li><code>mknod(name, major, minor)</code>, create a device file</li>
+  <li><code>fstat(fd)</code>, return info about an open file</li>
+  <li><code>link(f1, f2)</code>, create another name (f2) for the file f1</li>
+  <li><code>unlink(filename)</code>, remove a file</li>
+</ol>
+
+<p>The shell uses each of the system calls to do its work. It’s just a run-of-the-mill program like anything else. </p>
+
+<p>The xv6 textbook provides the following mini-example of a program using fork to do its work. I want to give it a shot running on my own machine. Here’s how the proram is written in the textbook:</p>
+
+<pre><code>int pid;
+
+pid = fork();
+
+if(pid &gt; 0){
+
+printf("parent: child=%d\n", pid);
+
+pid = wait();
+
+printf("child %d is done\n", pid);
+
+} else if(pid == 0){
+
+printf("child: exiting\n");
+
+exit();
+
+} else {
+
+printf("fork error\n");
+
+}
+</code></pre>
+
+<p>And here’s how I had to tweak it to get it running on my Mac:</p>
+
+ 	#include <stdio.h>
+</stdio.h><pre><code>#include &lt;unistd.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char **argv) {
+	int pid;
+
+	pid = fork();
+	if(pid &gt; 0) {
+        printf("parent: child=%d\n", pid);
+        pid = wait(0);
+        printf("child %d is done\n", pid);
+	} else if(pid == 0) {
+        printf("child: exiting\n");
+        exit(0);
+	} else {
+	    printf("fork error\n");
+	}
+
+	return 0;
+}
+</code></pre>
+
+<p>The <code>stdio.h</code> library makes sense, because that’s what contains the <code>printf()</code> functions to dump things out to the console. I received an error when I tried to use <code>fork()</code> without <code>unistd.h</code>, so I’m assuming <code>fork()</code> sits there, and I received more errors when I tried to use <code>wait()</code> and <code>exit()</code> without <code>stdlib.h</code>. <code>fork()</code> contains the same memory contents of the parent process - in the parent process, <code>fork()</code> will return the child’s PID, but in the child, it will return 0 - so we see the <code>if</code> statements trigger for the child and for the parent.</p>
+
+<p><code>exec()</code>, by contrast, doesn’t return to the parent process. It replaces the calling process with a new process stored somewhere in the file system. Let’s take a look at the textbook’s pseudocode:</p>
+
+<pre><code>char *argv[3];
+
+argv[0] = "echo";
+argv[1] = "hello";
+argv[2] = 0;
+exec("/bin/echo", argv);
+printf("exec error\n");
+</code></pre>
+
+<p>Try as I might, I couldn’t get this program into a usable shape where it would run. After two nights banging my head against it, I decided to scrap it - mostly because I get the gist of what it’s going for. Here was where I finished up:</p>
+
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+int main() {
+    char args[3];
+    args[0] = "echo";
+    args[1] = "hello";
+    args[2] = "0";
+    exec("/bin/echo", args);
+    printf("exec error\n");
+}
+</code></pre>
+
+<p>I think that the probably may ultimately have something to do with the differing implementations of a Mac OS (where I’m testing this) versus a true Linux platform. At any rate, this helps me understand what my shell is doing! It’s doing a combo of these two programs to execute any program I type into the shell. It first takes my command from the command line, then <code>fork</code>s the command line process, calls my command using <code>exec</code>, waits for the command to finish, then returns control using <code>wait()</code>. And that’s why certain processes don’t immediately jump back over to shell control (things like <code>vi</code> for example), because the <code>fork</code>ed process hasn’t given control back until I close <code>vi</code>. </p>
+
+<p>Ooh, and this also helps <code>systemd</code> make more sense. I suspect that <code>systemd</code> takes control of PID 1 and then immediately loops through anything in the <code>/etc/systemd/system/</code> folder to start launching services based on the configuration files there, <code>fork</code>ing processes as it goes.</p>
+
+<p>Next up on our list of functionality is I/O, where we start with file descriptors. According to the text, a file descriptor is an integer tied to some kernel-managed file object. User-level programs deal with the file object through the <code>read()</code> and <code>write()</code> system calls. The <code>read(fd, buf, n)</code> call takes in a file descriptor integer and reads <code>n</code> bytes into buffer <code>buf</code>. Subsequent calls to <code>read()</code> will start where <code>n</code> stopped. If we called <code>read(12, buf, 512)</code>, we would read 512 bytes from <code>fd</code> 12 into buffer <code>buf</code> on the first read. If we called it again, we would start at byte #512 then read another 512 bytes (ending at 1024). <code>write(fd, buf, n)</code> follows a similar pattern, writing <code>n</code> bytes from buffer <code>buf</code> to file descriptor <code>fd</code>.</p>
+
+<p>Here is the pseudocode given for a simple <code>cat</code>-like program:</p>
+
+<pre><code>char buf[512];
+int n;
+
+for(;;) {
+	// with file descriptor 0, read 512 bytes from file
+	n = read(0, buf, sizeof buf);
+
+	if(n == 0) {
+		// if we've reached the end
+		break;
+	}
+
+	if(n &lt; 0) {
+		// if n less than 0, error
+		fprintf(2, "read error");
+		exit();
+	}
+
+	if(write(1, buf, n) != n) {
+		// write to output object 1, log if error
+		fprintf(2, "write error");
+		exit();
+	}
+}
+</code></pre>
+
+<p>So I read from <code>fd</code> 0 to a buffer, then write from that buffer to an output object. That could be a terminal output:</p>
+
+<pre><code>cat myfile.txt
+</code></pre>
+
+<p>or piped to a command:</p>
+
+<pre><code>cat myfile.txt | awk --something something--
+</code></pre>
+
+<p>or written to another file:</p>
+
+<pre><code>cat myfile.txt &gt; myfile2.txt
+</code></pre>
+
+<p><code>cat</code> doesn’t have to care, it’s reading and writing to any descriptor that’s given to it. </p>
+
+<p>Rounding out the file descriptor system calls is <code>dup()</code>. <code>dup()</code> takes in a file descriptor integer and returns another file descriptor that points to the same file. </p>
+
+<p>The file descriptor mechanism is way more powerful than I originally gave it credit for. It’s a simple little trick, but it’s brilliant - because things can write to a “file”, even if it’s not a file at all. The user processes can treat them all the same way.</p>
+
+<p>Okay, I’m going to put a stop to things there before moving on to pipes! </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/21/forks-and-file-descriptors-an-intro-to-unix-concepts.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/20/where-did-my-application-go.html"><h3>Where did my application go? and other tails from the log files</h3></a>
+		<div class="date">October 20, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I woke up this morning to yet another fun little situation from my application. As opposed to the prior set of errors, where response times were creeping up into the uncomfortably high range, this is exactly the opposite: the application stops responding to anything. Here’s what that graph looks like in New Relic:</p>
+
+<p><img src="/images/errors2.png" alt="" /></p>
+
+<p>At 7:11AM, my application simply dies, according to New Relic. Into the breach!</p>
+
+<p>I think that I likely only need about a hundred thousand lines of my logs to get back to the timeframe in question, so let’s cull those out and locate anything happening in the 7:10-7:19 timeframe:</p>
+
+<pre><code>$ tail -100000 django-www.log &gt; outage.log
+$ grep -m 1 -n "07:1" django-www.log
+
+2825:{address space usage: 3589083136 bytes/3422MB} {rss usage: 318144512 bytes/303MB} [pid: 8510|app: 0|req: 4874/239423] [IP ADDRESS] () {50 vars in 1552 bytes} [Mon Oct 19 13:07:10 2015] GET /petro/s/90050/hillary-clinton-won-wont-always-be-this-way =&gt; generated 42453 bytes in 302 msecs (HTTP/1.1 200) 3 headers in 250 bytes (2 switches on core 17)
+</code></pre>
+
+<p>Whoops, too far. Let me slice this up a little bit more and back it up a few minutes.</p>
+
+<pre><code>$ tail -30000 outage.log | grep -m 1 -n "Oct 20 07:10"
+
+13411:{address space usage: 3518570496 bytes/3355MB} {rss usage: 126271488 bytes/120MB} [pid: 11089|app: 0|req: 4972/319841] [IP ADDRESS] () {44 vars in 751 bytes} [Tue Oct 20 07:05:01 2015] GET /2012/04/the-land-of-hope-and-dreams.php =&gt; generated 58612 bytes in 41 msecs (HTTP/1.1 404) 2 headers in 95 bytes (2 switches on core 230)
+</code></pre>
+
+<p>Okay, so I’m going to slice out the last 16,589 lines, which will start me close to the beginning of the outage:</p>
+
+<pre><code>$ tail -16589 django-www.log &gt; outage.log
+$ sed -n 1,3500p outage.log &gt; temp.log &amp;&amp; mv temp.log outage.log
+</code></pre>
+
+<p>Let’s get started. I’m going to look for the point where my app started throwing 500 errors.</p>
+
+<pre><code>$ grep -m 20 -n "HTTP/1.1 500" outage.log
+</code></pre>
+
+<p>That prints out the first 20 lines of my application throwing 500 errors, and a lot of them are on things that I know shouldn’t 500. I’m going to dig into my Sentry error logging to see what the problem is, and…crap.</p>
+
+<p>At some point, I or one of my teammates accidentally removed the Sentry and Raven configuration from our Django app, so we haven’t actually captured any of these errors. Awesome. This might be a dead end for now. I’m going to add the configuration lines back into the app:</p>
+
+<pre><code>INSTALLED_APPS = (
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'raven.contrib.django.raven_compat'
+    ... other apps ...
+)
+
+import raven
+RAVEN_CONFIG = {
+    'dsn': 'RAVEN KEY HERE',
+}
+</code></pre>
+
+<p>That’s a frustrating dead end, but it’s something we should have caught. I’m adding a simple test case into our test suite to make sure it doesn’t happen again.</p>
+
+<pre><code>from django.test import TestCase
+from django.core.management import call_command
+
+class TestRavenUp(TestCase):
+
+	def test_raven_up(self):
+		stdout_backup = sys.stdout
+		sys.stdout = open('/tmp/raven_up', 'w')
+		call_command('raven', 'test')
+
+		f = open('/tmp/raven_up', 'r')
+		config = f.read()
+		f.close()
+
+		sys.stdout = stdout_backup
+		self.assertTrue('[MUH SERVER NAME]' in config)
+		self.assertTrue('[MUH APPLICATION KEY]' in config)
+
+		print('Inspect [MUH SENTRY SERVER] to note that event has been logged.')
+
+		os.remove('/tmp/raven_up')
+</code></pre>
+
+<p>That will spit out a test event to Sentry if we have everything configured appropriately. Hopefully I’ll have an update with error logs the next time it happens (but I hope it doesn’t happen again).</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/20/where-did-my-application-go.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/19/debugging-uwsgi-dropouts.html"><h3>Debugging uWSGI dropouts</h3></a>
+		<div class="date">October 19, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>On Friday night, our National Journal app suddenly stopped responding to requests. Our response time went straight through the roof, but this didn’t correspond to any noticeable increase in load. In fact, our throughput (the requests per minute we respond to) had been declining up until the breakdown. We didn’t have any noticeable spike in traffic that corresponded to this outage, so I suspect our <code>uwsgi</code> configuration may be to blame. Here’s what the graph looked like:</p>
+
+<p><img src="/images/errors.png" alt="" /></p>
+
+<p>I’m going to tear through the <code>uwsgi</code> logs today to see if I can nail down the culprit. If my <code>uwsgi</code> threads are dying and not coming back, I’d expect to see a message like this:</p>
+
+<pre><code>worker 1 killed successfully (pid: 17421)
+</code></pre>
+
+<p>that wasn’t accompanied with a message like this:</p>
+
+<pre><code>Respawned uWSGI worker 1 (new pid: 9438)
+</code></pre>
+
+<p>I’ve pulled the log files down from one of our application servers and will be going through it. I want to start by culling things down to only things that occurred in that 5:00-5:45 timeframe, so let’s whittle it down with some <code>grep</code>. I’ll use the <code>-m 1</code> flag to call only the first occurrence and the <code>-n</code> flag to show the line number.</p>
+
+<pre><code>$ grep -m 1 -n "Oct 16 17:00:00" django-www.log
+
+763413:{address space usage: 3525341184 bytes/3362MB} {rss usage: 135106560 bytes/128MB} [pid: 2449|app: 0|req: 1197/17093] [IP ADDRESS] () {42 vars in 736 bytes} [Fri Oct 16 17:00:00 2015] GET /s/54699/1-easy-way-donald-trump-could-have-been-even-richer-doing-nothing =&gt; generated 304819 bytes in 178 msecs (HTTP/1.1 200) 5 headers in 263 bytes (6 switches on core 96)
+
+$ grep -m 1 -n "Oct 16 17:45:00" django-www.log
+ 
+768139:{address space usage: 3510857728 bytes/3348MB} {rss usage: 103940096 bytes/99MB} [pid: 11399|app: 0|req: 174/680] [IP ADDRESS] () {48 vars in 919 bytes} [Fri Oct 16 17:45:00 2015] GET /energy/scientists-go-beyond-science-to-explain-their-climate-terror-20140826?ref=facebook.com =&gt; generated 0 bytes in 31 msecs (HTTP/1.1 302) 3 headers in 226 bytes (1 switches on core 143)
+</code></pre>
+
+<p>Now I’m going to use <code>sed</code> to create a new file of only that range of lines from 763413 to 768139, to make parsing faster and easier. I’ll drop this output into a new file called <code>outage.log</code>.</p>
+
+<pre><code>$ sed -n 763413,768139p django-www.log &gt; outage.log
+</code></pre>
+
+<p>Okay, now that I’ve whittled things down, I want to look for things indicating my workers died:</p>
+
+<pre><code>$ grep -n "killed successfully" outage.log
+$ grep -n "Seeya" outage.log
+</code></pre>
+
+<p>Both of those didn’t yield anything. Let’s maybe instead look for signs of spawning:</p>
+
+<pre><code>$ grep -n "spawn" outage.log
+
+999:DAMN ! worker 1 (pid: 2449) died, killed by signal 9 :( trying respawn ...
+1000:Respawned uWSGI worker 1 (new pid: 8359)
+1862:Fri Oct 16 17:28:18 2015 - HARAKIRI [core 151] [IP ADDRESS] - GET /member/energy/n2k-energy-solyndra-spawns-calls-for-more-probes-dems-ask-obama-to-hold-off-on-keystone-20111027 since 1445030637
+1882:Fri Oct 16 17:28:18 2015 - HARAKIRI [core 171] [IP ADDRESS] - GET /member/energy/n2k-energy-solyndra-spawns-calls-for-more-probes-dems-ask-obama-to-hold-off-on-keystone-20111027 since 1445030802
+1972:DAMN ! worker 3 (pid: 2977) died, killed by signal 9 :( trying respawn ...
+1973:Respawned uWSGI worker 3 (new pid: 9731)
+2324:DAMN ! worker 2 (pid: 2712) died, killed by signal 9 :( trying respawn ...
+2325:Respawned uWSGI worker 2 (new pid: 10063)
+2601:DAMN ! worker 4 (pid: 3240) died, killed by signal 9 :( trying respawn ...
+2602:Respawned uWSGI worker 4 (new pid: 10065)
+3006:DAMN ! worker 1 (pid: 8359) died, killed by signal 9 :( trying respawn ...
+3007:Respawned uWSGI worker 1 (new pid: 10593)
+4025:spawned uWSGI master process (pid: 11394)
+4026:spawned uWSGI worker 1 (pid: 11397, cores: 256)
+4027:spawned uWSGI worker 2 (pid: 11398, cores: 256)
+4029:spawned uWSGI worker 3 (pid: 11399, cores: 256)
+4030:spawned uWSGI worker 4 (pid: 11400, cores: 256)
+</code></pre>
+
+<p>NOW we’re cooking. I’m going to chop things up a little bit more, since I can tell from this that we rebooted the app at line 4025.</p>
+
+<pre><code>$ sed -n 1,4030p outage.log &gt; outage2.log &amp;&amp; mv outage2.log outage.log
+</code></pre>
+
+<p>And now let’s look for something weird. I’m going to just dump out some of the things I’ve looked for.</p>
+
+<pre><code>$ grep -n "17:23" outage.log
+$ grep -n "HARAKIRI" outage.log
+$ grep -n "spawn" outage.log
+</code></pre>
+
+<p>Then I came back to this and scrolled back up through the files:</p>
+
+<pre><code>$ grep -n "17:23" outage.log
+
+1393:Fri Oct 16 17:23:00 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1395:Fri Oct 16 17:23:00 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1401:Fri Oct 16 17:23:08 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1404:Fri Oct 16 17:23:10 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1408:Fri Oct 16 17:23:15 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1409:Fri Oct 16 17:23:15 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1414:Fri Oct 16 17:23:16 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1417:Fri Oct 16 17:23:17 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1421:Fri Oct 16 17:23:20 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1424:Fri Oct 16 17:23:21 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1432:Fri Oct 16 17:23:32 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1436:Fri Oct 16 17:23:38 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+</code></pre>
+
+<p>That maps <em>exactly</em> back to the time that our application started spiking. I think I may have a breadcrumb.</p>
+
+<p>… goes to Google …</p>
+
+<p>Maybe not. <code>uwsgi</code> throws out those broken pipe errors in the instance of a timeout, and it would make sense that things would be timing out around that time.</p>
+
+<p>But what a second. I’m going to scroll up the log files until a few minutes <em>before</em> the crash starts acting up to see if I can pinpoint what went wrong. Here’s a sample line from that timeframe:</p>
+
+<pre><code>{address space usage: 3521130496 bytes/3358MB} {rss usage: 167030784 bytes/159MB} [pid: 2712|app: 0|req: 1548/18272] [IP ADDRESS] () {40 vars in 668 bytes} [Fri Oct 16 17:17:50 2015] GET /columns/political-connections =&gt; generated 58615 bytes in 18558 msecs (HTTP/1.1 404) 2 headers in 95 bytes (2 switches on core 16)
+</code></pre>
+
+<p>That took us 18.5 seconds to generate a 404 page for a broken link. That’s absurd. Right around the time that I read this line, one of our system administrators (who I’ve been live-updating as I worked) comes running around the corner to say: </p>
+
+<pre><code>&gt; we didn't have uwsgi timeouts set on nginx!
+</code></pre>
+
+<p>Ahh. So <code>nginx</code> was timing out on sending and receiving data to and from <code>uwsgi</code>, but weren’t <em>actually</em> timing out. We were just letting <code>uwsgi</code> spin into infinity. We fix that with these lines in our <code>nginx.conf</code>:</p>
+
+<pre><code>location / {
+	... stuff ...
+	uwsgi_read_timeout 300;
+    uwsgi_send_timeout 300;
+    ... stuff ...
+}
+</code></pre>
+
+<p>We think that might be our ticket, allowing these dropped connections to actually timeout. We’ll need a few days in production before I give the all-clear, but I think that might do it!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/19/debugging-uwsgi-dropouts.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/17/what-does-systemd-do.html"><h3>What does systemd do?</h3></a>
+		<div class="date">October 17, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I mentioned in an <a href="http://josephmosby.com/2015/10/17/what-does-systemctl-do.html">earlier post</a> that <code>systemctl</code> appeared to be tied to <code>systemd</code>, which looked like a much more important program. In this post, I’m going to explore <code>systemd</code> and see what it does.</p>
+
+<p>Turns out, it does a LOT. And people are super unhappy about it.</p>
+
+<p>I loosely knew the Unix philosophy, which essentially states that programs should be tiny and do very little, rather than one program taking on monolithic functionality. Doug McIlroy, a former head of the Bell Labs Computing Sciences Research Center, summarized it thus:</p>
+
+<pre><code>This is the Unix philosophy: Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.
+</code></pre>
+
+<p><code>systemd</code> does way more than this. It does a bajillion things, and it does them well, but it still does a bajillion things rather than just one. </p>
+
+<p>At its core, <code>systemd</code> is a Linux init system. It’s designed to kick off programs - every single program that runs on a Unix system. As such, it’s the first process spawned when a system boots:</p>
+
+<pre><code>$ ps -ef | grep "systemd"
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+root      1636     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-journald
+root      1649     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-udevd
+dbus      2488     1  0 00:40 ?        00:00:01 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+root      2490     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-logind
+root     15732 15713  0 16:36 pts/3    00:00:00 grep --color=auto systemd
+</code></pre>
+
+<p>PID 1! The maker of all other services in a Unix operating system! I never knew what PID 1 would be, but there it is: <code>systemd</code>. This post is going to be heavy, I think. And I’ll probably leave myself asking more questions. I’m not really grokking anything in-depth from the <a href="https://en.wikipedia.org/wiki/Systemd">Wikipedia page</a> for <code>systemd</code>, so off I go to the <a href="http://www.freedesktop.org/software/systemd/man/systemd.html">man pages</a>. </p>
+
+<p><code>systemd</code> has an entire “Concepts” page devoted to it, which is extremely useful. It states that <code>systemd</code> has a concept of units - our services, sockets, and other objects we used earlier. <code>nginx</code> is a unit. <code>dashboard</code> is a unit. Now we get some meat about what those units can be, and I’m just going to copy and paste the list here.</p>
+
+<ol>
+  <li>
+    <p>Service units, which start and control daemons and the processes they consist of.</p>
+  </li>
+  <li>
+    <p>Socket units, which encapsulate local IPC or network sockets in the system, useful for socket-based activation. </p>
+  </li>
+  <li>
+    <p>Target units are useful to group units, or provide well-known synchronization points during boot-up.</p>
+  </li>
+  <li>
+    <p>Device units expose kernel devices in systemd and may be used to implement device-based activation.</p>
+  </li>
+  <li>
+    <p>Mount units control mount points in the file system.</p>
+  </li>
+  <li>
+    <p>Automount units provide automount capabilities, for on-demand mounting of file systems as well as parallelized boot-up.</p>
+  </li>
+  <li>
+    <p>Snapshot units can be used to temporarily save the state of the set of systemd units, which later may be restored by activating the saved snapshot unit.</p>
+  </li>
+  <li>
+    <p>Timer units are useful for triggering activation of other units based on timers.</p>
+  </li>
+  <li>
+    <p>Swap units are very similar to mount units and encapsulate memory swap partitions or files of the operating system.</p>
+  </li>
+  <li>
+    <p>Path units may be used to activate other services when file system objects change or are modified.</p>
+  </li>
+  <li>
+    <p>Slice units may be used to group units which manage system processes (such as service and scope units) in a hierarchical tree for resource management purposes.</p>
+  </li>
+  <li>
+    <p>Scope units are similar to service units, but manage foreign processes instead of starting them as well. </p>
+  </li>
+</ol>
+
+<p>I still don’t know what a target unit is, so I’m going to move into the man page for <code>systemd.target</code> for a moment. This line is helpful from those pages: “They exist merely to group units via dependencies (useful as boot targets), and to establish standardized names for synchronization points used in dependencies between units.” I think I’ve got it now - if you want to smash together a bunch of units into one (like you’d need to do for a multi-user system), you use a target unit.</p>
+
+<p><code>systemd</code> also manages the dependencies of units, and that’s where those <code>Requires</code>, <code>Conflicts</code>, <code>After</code>, and <code>Before</code> lines came into play earlier. From my dashboard service’s <code>systemctl show</code> output:</p>
+
+<pre><code>Requires=basic.target
+Wants=system.slice
+WantedBy=multi-user.target
+Conflicts=shutdown.target
+Before=shutdown.target multi-user.target
+After=network.target systemd-journald.socket basic.target system.slice
+</code></pre>
+
+<p>My service Requires <code>basic.target</code>, Conflicts with <code>shutdown.target</code>, must be before <code>shutdown.target</code> and <code>multi-user.target</code>, and must come after <code>network.target</code>, <code>systemd-journald.socket</code>, <code>basic.target</code>, and <code>system.slice</code>. I’m not sure what most of these mean, but it does make sense that my web program should be loaded after the <code>network</code> has been loaded.</p>
+
+<p><code>systemd</code> states that it loads information about unit configuration from system directories and user directories, which I can find by typing the following commands in:</p>
+
+<pre><code>$ pkg-config systemd --variable=systemdsystemunitdir
+/usr/lib/systemd/system
+
+$ pkg-config systemd --variable=systemduserunitdir
+/usr/lib/systemd/user
+</code></pre>
+
+<p>Let’s go see what’s in those:</p>
+
+<pre><code>$ cd /usr/lib/systemd/system
+$ ls
+</code></pre>
+
+<p>Ooh, I see a bunch of files that look like the <code>.service</code> files I was tinkering around with last night but didn’t understand! Let’s inspect a few.</p>
+
+<pre><code>$ cat sound.target
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Sound Card
+Documentation=man:systemd.special(7)
+StopWhenUnneeded=yes
+
+$ cat halt.target
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Halt
+Documentation=man:systemd.special(7)
+DefaultDependencies=no
+Requires=systemd-halt.service
+After=systemd-halt.service
+AllowIsolate=yes
+
+[Install]
+Alias=ctrl-alt-del.target
+
+$ cat crond.service
+[Unit]
+Description=Command Scheduler
+After=syslog.target auditd.service systemd-user-sessions.service time-sync.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/crond
+ExecStart=/usr/sbin/crond -n $CRONDARGS
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<p>So these <code>.service</code> and <code>.target</code> files are all part of the configuration that <code>systemd</code> requires. The <code>crond.service</code> configuration isn’t <code>crond</code> itself, it’s a file that tells <code>systemd</code> how to start and manage <code>crond</code>. I’m getting it now!</p>
+
+<p><code>systemd</code> can also receive certain signals, such as <code>SIGTERM</code>, <code>SIGINT</code>, and <code>SIGRTMIN+15</code>, which are more black magic to me. I’m not sure how I would send those signals to <code>systemd</code>, but maybe those things aren’t for me in the way I think of them.</p>
+
+<p>I think that’s a good start into <code>systemd</code>, but I can tell I’m just scratching the surface with it. Next up: this <a href="http://0pointer.de/blog/projects/systemd.html">blog post</a> on the origins of <code>systemd</code> and the <code>systemd</code> <a href="http://www.freedesktop.org/wiki/Software/systemd/">homepage</a>.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/17/what-does-systemd-do.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/17/what-does-systemctl-do.html"><h3>What does systemctl do?</h3></a>
+		<div class="date">October 17, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>In my <a href="http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html">earlier post</a> on nginx and uWSGI, I used <code>systemctl</code> to kick off my app. I admittedly don’t know much about systemctl (or about CentOS, if we’re being totally honest), so I wanted to dig more into that.</p>
+
+<p>My first round of looking for documentation took me to the Fedora project’s <a href="https://docs.fedoraproject.org/en-US/Fedora/15/html/Deployment_Guide/ch-Services_and_Daemons.html">documentation on services and daemons</a>. (Turns out that <a href="https://danielmiessler.com/study/fedora_redhat_centos/">CentOS is ultimately a fork of Fedora</a>) The official documentation seems like a good place to start here. It gives a nice description of how to check the status of my service, so I’m going to do that here.</p>
+
+<pre><code>$ systemctl status dashboard.service
+dashboard.service - uwsgi instance to serve dashboard
+   Loaded: loaded (/etc/systemd/system/dashboard.service; enabled)
+   Active: active (running) since Sat 2015-10-17 04:32:57 UTC; 10h ago
+ Main PID: 14914 (uwsgi)
+   CGroup: /system.slice/dashboard.service
+           ├─14914 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14916 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14917 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14918 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14919 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           └─14920 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+
+Oct 17 04:32:57 [INFO ABOUT MY LINODE] uwsgi[14914]: spawned uWSGI worker 5 (pid: 14920, cores: 1)
+Oct 17 04:33:00 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 1/1] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 722 b...re 0)
+Oct 17 04:33:00 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14919|app: 0|req: 1/2] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 713 b...re 0)
+Oct 17 04:33:00 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 2/3] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 680 b...re 0)
+Oct 17 04:35:56 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 3/4] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 722 b...re 0)
+Oct 17 04:35:56 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14916|app: 0|req: 1/5] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 713 b...re 0)
+Oct 17 04:35:59 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 4/6] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 680 b...re 0)
+Oct 17 04:37:15 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 5/7] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 722 b...re 0)
+Oct 17 04:37:16 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14919|app: 0|req: 2/8] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 713 b...re 0)
+Oct 17 04:37:16 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14916|app: 0|req: 2/9] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 680 b...re 0)
+Hint: Some lines were ellipsized, use -l to show in full.
+</code></pre>
+
+<p>I masked out what I think would be identifying details that I don’t want out there. The first commented-out section was my Linode’s name, but the second was an IP address that I did not recognize. Maybe it’s my IPv4 address? Maybe it’s the Linode’s hypervisor IP address? I think, though, that these logs may be from uWSGI and not from <code>systemctl</code>. I say this because the Fedora documentation doesn’t have anything that looks like this in their <a href="https://docs.fedoraproject.org/en-US/Fedora/15/html/Deployment_Guide/s1-services-running.html">page about these logs</a>. I’m going to skip it for now. Most of the other information on Fedora’s page here is about using the tool, which I’ve already done, so I’m going to move on to the raw man pages.</p>
+
+<p>The man page for <code>systemctl</code> gives the following description for its use:</p>
+
+<pre><code>systemctl — Control the systemd system and service manager
+</code></pre>
+
+<p>Okay, so <code>systemctl</code> is actually used to control the <code>systemd</code> tool. Maybe the documentation was a little sparse because <code>systemd</code> is where the money is. Still, let’s go through the <a href="http://www.freedesktop.org/software/systemd/man/systemctl.html">man page</a> to see what we can get here. I’m going to punch through the commands one by one to walk through what they can do.</p>
+
+<pre><code>$ systemctl -t
+systemctl: option requires an argument -- 't'
+</code></pre>
+
+<p>Mer, that didn’t go well. I didn’t read the documentation enough. It requires a listing of unit types, which I can find here:</p>
+
+<pre><code>$ systemctl -t help
+Available unit types:
+service
+socket
+target
+device
+mount
+automount
+snapshot
+timer
+swap
+path
+slice
+scope
+
+$ systemctl -t service
+
+UNIT                               LOAD   ACTIVE SUB     DESCRIPTION
+.... stuff ...
+crond.service                      loaded active running Command Scheduler
+dashboard.service                  loaded active running uwsgi instance to serve dashboard
+dbus.service                       loaded active running D-Bus System Message Bus
+.... stuff ...
+</code></pre>
+
+<p>Aha! There’s my <code>dashboard</code> service, sandwiched right in between cron and something called <code>dbus</code>. It looks like it’s loaded, active, and running, which is what I would expect. <code>$ systemctl --state=active</code> provides the same information, just a different way to cut the data.</p>
+
+<pre><code>$ systemctl -t service --recursive
+</code></pre>
+
+<p>This doesn’t work as expected on my machine. It may be live on Fedora, but disabled on CentOS or something like that.</p>
+
+<pre><code>$ systemctl -t service --reverse
+</code></pre>
+
+<p>The man page says this should do the following: “Show reverse dependencies between units with list-dependencies, i.e. follow dependencies of type WantedBy=, RequiredBy=, RequiredByOverridable=, PartOf=, BoundBy=, instead of Wants= and similar.” I remember having to type <code>WantedBy=</code> in my configuration earlier:</p>
+
+<pre><code>$ vi /etc/systemd/system/dashboard.service
+
+[Unit]
+Description=uwsgi instance to serve dashboard
+After=network.target
+
+[Service]
+User=ghost
+Group=nginx
+WorkingDirectory=/var/www/dashboard
+Environment="PATH=/var/www/dashboard/venv/bin"
+ExecStart=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<p>Okay, so I must have configured <code>dashboard.service</code> to start with some sort of a dependency: this <code>multi-user.target</code> thing. Let’s see if I can find that.</p>
+
+<pre><code>$ systemctl -t target
+
+UNIT                LOAD   ACTIVE SUB    DESCRIPTION
+... stuff ...
+local-fs.target     loaded active active Local File Systems
+multi-user.target   loaded active active Multi-User System
+network.target      loaded active active Network
+... stuff ...
+</code></pre>
+
+<p>It looks like these “targets” are super important. I didn’t know you could even have a Unix system without multiple users, but it looks like that’s something you have to manually turn on - and can turn off. Crazy.</p>
+
+<p>There are two commands here that I don’t want to fiddle with too much for now, because I plan to go down a <code>systemd</code> rabbit hole and these look like I could cause problems if I don’t know what I’m doing. I’ll circle back to them.</p>
+
+<pre><code>$ systemctl --job-mode= ? 
+$ systemctl --fail 
+</code></pre>
+
+<p>The rest of the options here look like they’re tied to actually starting and stopping services, rather than just managing them. Rather than try to imply what’s going on with these, I want to jump down to the Commands section so I can start understanding what this utility can do.</p>
+
+<pre><code>$ systemctl list-units
+</code></pre>
+
+<p>This does the same thing as just typing <code>systemctl</code>, and it dumps out an unfiltered list of running services and sockets and things.</p>
+
+<pre><code>$ systemctl start [SOMETHING]
+$ systemctl stop [SOMETHING]
+$ systemctl restart [SOMETHING]
+</code></pre>
+
+<p>I used these last night, and they do exactly what I’d expect. They start, stop, and restart services. This one’s new though:</p>
+
+<pre><code>$ systemctl reload [SOMETHING]
+</code></pre>
+
+<p>When we type this, we can reload the configuration of a service without actually reloading the service itself. We could reload <code>nginx.conf</code> by typing <code>systemctl reload nginx</code>.</p>
+
+<p>Now for what is the unexpectedly big kahuna:</p>
+
+<pre><code>$ systemctl show dashboard
+
+Id=dashboard.service
+Names=dashboard.service
+Requires=basic.target
+Wants=system.slice
+WantedBy=multi-user.target
+Conflicts=shutdown.target
+Before=shutdown.target multi-user.target
+After=network.target systemd-journald.socket basic.target system.slice
+Description=uwsgi instance to serve dashboard
+LoadState=loaded
+ActiveState=active
+SubState=running
+FragmentPath=/etc/systemd/system/dashboard.service
+UnitFileState=enabled
+InactiveExitTimestamp=Sat 2015-10-17 04:32:57 UTC
+InactiveExitTimestampMonotonic=13928551290
+ActiveEnterTimestamp=Sat 2015-10-17 04:32:57 UTC
+ActiveEnterTimestampMonotonic=13928551290
+ActiveExitTimestamp=Sat 2015-10-17 04:31:52 UTC
+ActiveExitTimestampMonotonic=13863477373
+InactiveEnterTimestamp=Sat 2015-10-17 04:31:52 UTC
+InactiveEnterTimestampMonotonic=13863477373
+CanStart=yes
+CanStop=yes
+CanReload=no
+CanIsolate=no
+StopWhenUnneeded=no
+RefuseManualStart=no
+RefuseManualStop=no
+AllowIsolate=no
+DefaultDependencies=yes
+OnFailureIsolate=no
+IgnoreOnIsolate=no
+IgnoreOnSnapshot=no
+NeedDaemonReload=no
+JobTimeoutUSec=0
+ConditionTimestamp=Sat 2015-10-17 04:32:57 UTC
+ConditionTimestampMonotonic=13928549499
+ConditionResult=yes
+Transient=no
+Slice=system.slice
+ControlGroup=/system.slice/dashboard.service
+Type=simple
+Restart=no
+NotifyAccess=none
+RestartUSec=100ms
+TimeoutStartUSec=1min 30s
+TimeoutStopUSec=1min 30s
+WatchdogUSec=0
+WatchdogTimestampMonotonic=0
+StartLimitInterval=10000000
+StartLimitBurst=5
+StartLimitAction=none
+ExecStart={ path=/var/www/dashboard/venv/bin/uwsgi ; argv[]=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini ; ignore_errors=no ; start_time=[Sat 2
+PermissionsStartOnly=no
+RootDirectoryStartOnly=no
+RemainAfterExit=no
+GuessMainPID=yes
+MainPID=14914
+ControlPID=0
+Result=success
+Environment=PATH=/var/www/dashboard/venv/bin
+UMask=0022
+LimitCPU=18446744073709551615
+LimitFSIZE=18446744073709551615
+LimitDATA=18446744073709551615
+LimitSTACK=18446744073709551615
+LimitCORE=18446744073709551615
+LimitRSS=18446744073709551615
+LimitNOFILE=4096
+LimitAS=18446744073709551615
+LimitNPROC=3934
+LimitMEMLOCK=65536
+LimitLOCKS=18446744073709551615
+LimitSIGPENDING=3934
+LimitMSGQUEUE=819200
+LimitNICE=0
+LimitRTPRIO=0
+LimitRTTIME=18446744073709551615
+WorkingDirectory=/var/www/dashboard
+OOMScoreAdjust=0
+Nice=0
+IOScheduling=0
+CPUSchedulingPolicy=0
+CPUSchedulingPriority=0
+TimerSlackNSec=50000
+CPUSchedulingResetOnFork=no
+NonBlocking=no
+StandardInput=null
+StandardOutput=journal
+StandardError=inherit
+TTYReset=no
+TTYVHangup=no
+TTYVTDisallocate=no
+SyslogPriority=30
+SyslogLevelPrefix=yes
+SecureBits=0
+CapabilityBoundingSet=18446744073709551615
+User=ghost
+Group=nginx
+MountFlags=0
+PrivateTmp=no
+PrivateNetwork=no
+SameProcessGroup=no
+IgnoreSIGPIPE=yes
+NoNewPrivileges=no
+KillMode=control-group
+KillSignal=15
+SendSIGKILL=yes
+SendSIGHUP=no
+CPUAccounting=no
+CPUShares=1024
+BlockIOAccounting=no
+BlockIOWeight=1000
+MemoryAccounting=no
+MemoryLimit=18446744073709551615
+DevicePolicy=auto
+ExecMainStartTimestamp=Sat 2015-10-17 04:32:57 UTC
+ExecMainStartTimestampMonotonic=13928551199
+ExecMainExitTimestampMonotonic=0
+ExecMainPID=14914
+ExecMainCode=0
+ExecMainStatus=0
+</code></pre>
+
+<p>I KNOW WHAT LIKE A TENTH OF THIS MEANS. THIS IS AWESOME.</p>
+
+<p>I’m going to take a break here and digest some of the information gleaned from this little exercise. More to come!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/17/what-does-systemctl-do.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/17/how-are-pids-assigned.html"><h3>How are PIDs assigned?</h3></a>
+		<div class="date">October 17, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I want to take a moment to step through the <code>ps</code> command and how PIDs are assigned, because I want to walk through the first 10 processes kicked off when CentOS boots. I assume that PIDs are assigned based on the order in which they’re created, but I’m not 100% certain on that. Let’s take a look.</p>
+
+<p>Wikipedia states:</p>
+
+<pre><code>In Unix-like operating systems, new processes are created by the fork() system call. ... Process ID 1 is usually the init process primarily responsible for starting and shutting down the system. ... Process IDs are usually allocated on a sequential basis, beginning at 0 and rising to a maximum value which varies from system to system.
+</code></pre>
+
+<p>So PID 1, our <code>systemd</code> process, is created first (though there’s a PID 0 which comes before), and all of the other processes follow sequentially. This makes things easier, as now I can (hopefully) get a listing of the first ten things CentOS does on boot. I wasn’t looking for anything more formal than this, so let’s move on.</p>
+
+<p>I don’t quite know how to get information on a specific process by giving its ID, so let’s just try something out:</p>
+
+<pre><code>$ ps 1
+PID TTY      STAT   TIME COMMAND
+1 	?        Ss     0:04 /usr/lib/systemd/systemd --system --deserialize 21
+</code></pre>
+
+<p>That was simple enough. There’s <code>systemd</code>, just as I expected. Let’s look at some others.</p>
+
+<pre><code>$ ps 2
+PID TTY      STAT   TIME COMMAND
+2 	?        S      0:00 [kthreadd]
+
+$ ps 3
+PID TTY      STAT   TIME COMMAND
+3 	?        S      0:00 [ksoftirqd/0]
+
+$ ps 4
+# BLANK
+
+$ ps 5
+PID TTY      STAT   TIME COMMAND
+5 	?        S&lt;     0:00 [kworker/0:0H]
+
+$ ps 6
+PID TTY      STAT   TIME COMMAND
+6 	?        S      0:00 [kworker/u2:0]
+
+$ ps 7
+PID TTY      STAT   TIME COMMAND
+7 	?        S      0:00 [rcu_sched]
+
+$ ps 8
+PID TTY      STAT   TIME COMMAND
+8 	?        S      0:00 [rcu_bh]
+
+$ ps 9
+PID TTY      STAT   TIME COMMAND
+9 	?        S      0:00 [migration/0]
+
+$ ps 10
+PID TTY      STAT   TIME COMMAND
+   	10 	?        S&lt;     0:00 [khelper]
+</code></pre>
+
+<p>Well, I couldn’t get 10 commands (#4 was out), but I did get 9:</p>
+
+<ol>
+  <li><code>systemd</code></li>
+  <li><code>kthreadd</code></li>
+  <li><code>ksoftirqd/0</code></li>
+  <li><code>kworker/0:0H</code></li>
+  <li><code>kworker/u2:0</code></li>
+  <li><code>rcu_sched</code></li>
+  <li><code>rcu_bh</code></li>
+  <li><code>migration/0</code></li>
+  <li><code>khelper</code></li>
+</ol>
+
+<p>Let’s take a look into what they do to see if they do anything interesting. <code>systemd</code> we know.</p>
+
+<p><code>kthreadd</code> is the “kernel thread daemon,” and it’s actually not controlled by <code>systemd</code>. It’s controlled by the kernel itself. I’m not familiar enough with the kernel (yet) to do any interesting work with this, but I can see from a <code>ps -ef</code> command that the rest of our listed processes are spawned by this one. </p>
+
+<pre><code>UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+root         2     0  0 00:40 ?        00:00:00 [kthreadd]
+root         3     2  0 00:40 ?        00:00:00 [ksoftirqd/0]
+root         5     2  0 00:40 ?        00:00:00 [kworker/0:0H]
+root         6     2  0 00:40 ?        00:00:00 [kworker/u2:0]
+root         7     2  0 00:40 ?        00:00:00 [rcu_sched]
+root         8     2  0 00:40 ?        00:00:00 [rcu_bh]
+root         9     2  0 00:40 ?        00:00:00 [migration/0]
+root        10     2  0 00:40 ?        00:00:00 [khelper]
+</code></pre>
+
+<p>That PPID thread - right there in the middle - indicates that each of the following PIDs was spawned by <code>kthreadd</code>. So we’ll obviously need to come back and explore this one in more detail.</p>
+
+<p>Next on the list is <code>ksoftirqd</code>, which “is a per-cpu kernel thread that runs when the machine is under heavy soft-interrupt load.” <a href="http://www.ms.sapientia.ro/~lszabo/unix_linux_hejprogramozas/man_en/htmlman9/ksoftirqd.9.html">docs here</a> Again, I’m not 100% certain on how this works, but I’m bookmarking <a href="https://lwn.net/Articles/520076/">this page</a> for future reference.</p>
+
+<p>The next two are inherently related: they’re <code>kworker</code> kernel processes. They handle work for system calls, rather than user calls. </p>
+
+<p><code>rcu_sched</code> and <code>rcu_bh</code> are apparently a bit more arcane, given the lack of easy-to-find information about them. RCU stands for “Read-Copy-Update”, and it’s a synchronization mechanism. I’ll be digging more into this later, but I’m bookmarking <a href="http://lwn.net/Articles/262464/">this article</a> for future reference.</p>
+
+<p>The <code>migration</code> process is also a kernel process, and it distributes the load across processor cores.</p>
+
+<p>Finally (and perhaps fortuitously) we have <code>khelper</code>. This process is used to make calls to user processes from within the kernel, allowing the kernel and user processes to talk to each other.</p>
+
+<p>So we’ve got our first ten processes. What does this <code>ps</code> process output tell us about them? Let’s take a second look at our sample data:</p>
+
+<pre><code>UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+</code></pre>
+
+<p>The first column here is the user who kicked off the process: in this case, it’s the root user. The PID is our process ID, and the PPID is the PID of the parent that spawned the process. C is used for CPU scheduling information. STIME is the time the process started. TTY is the terminal associated with the process. TIME is the CPU time the process has used. And CMD is the command itself. There are loads more options that we could incorporate here, but this is the default configuration for CentOS machines.</p>
+
+<p>I think <code>ps</code> will need its own set of digging (like many other Unix utilities), so I’m going to stop here. Here are my open questions kicked off from this exercise:</p>
+
+<ol>
+  <li>What does the kernel thread daemon do?</li>
+  <li>What is a software interrupt?</li>
+  <li>What is the read-copy-update mechanism?</li>
+</ol>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/17/how-are-pids-assigned.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html"><h3>Up and Running with Flask on a Brand New Linode</h3></a>
+		<div class="date">October 16, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Tonight, I’m building a minimalistic Flask app that will run on Linode. Flask is a relatively new framework for me. I’ve dealt with CentOS, nginx, and uwsgi at work, but I’ve never tried to get them installed on my own. Time to get started.</p>
+
+<h3 id="step-1-install-and-configure-nginx-round-1">Step 1: Install and configure nginx, round 1</h3>
+
+<p>I am skipping over the step where we create a CentOS 7 machine from the Linode dashboard. I can’t think of a good way to explain that one without screenshots. Let’s assume we have one, and let’s install the necessaries on it.</p>
+
+<pre><code>$ yum install epel-release
+$ yum install nginx
+</code></pre>
+
+<p>Okay! That was simple enough. Here we’ve installed nginx, which will allow us to serve up our web pages. I want to start here because I like the feedback of knowing that I’m serving up web pages from the very start.</p>
+
+<p>I know that I plan to serve multiple sites off of this one server, so I need to adjust my domain and nginx configuration accordingly. In Namecheap, I’ve created 2 A records - dashboard.mosby.io and www.mosby.io - which I’ll both point at this server’s IP address. I’ll let nginx sort out the parsing.</p>
+
+<pre><code># /etc/nginx/nginx.conf
+
+... # stuff here that you shouldn't remove
+
+http {
+
+	... # more stuff here that you shouldn't remove
+
+	server { 
+		listen	80;
+		server_name	www.mosby.io;
+		root /var/www/main;
+	}
+
+	server {
+		listen	80;
+		server_name	dashboard.mosby.io;
+		root /var/www/dashboard;
+	}
+}
+</code></pre>
+
+<p>nginx has a configuration file called <code>nginx.conf</code> that we’re going to modify to serve our sites. Here, we’ve said that any request incoming will either be for <code>www.mosby.io</code> or <code>dashboard.mosby.io</code>. If it’s for <code>www</code>, we’re going to serve content from <code>/var/www/main</code>. If it’s for <code>dashboard</code>, we’re going to serve content from <code>/var/www/dashboard</code>. We can test this out by creating two text files:</p>
+
+<pre><code># /var/www/main/index.html
+
+Hello, www.mosby.io!
+</code></pre>
+
+<p>AND</p>
+
+<pre><code># /var/www/dashboard/index.html
+
+Hello, dashboard.mosby.io!
+</code></pre>
+
+<p>Assuming that you’ve already pointed your two subdomain to your Linode’s IP address, these will each display their respective content. Success!</p>
+
+<h3 id="step-2-install-python3-flask-and-uwsgi">Step 2: Install Python3, Flask and uWSGI</h3>
+
+<p>This is the part I know least about this entire process. Let’s start by installing Python 3, pip, and a version of <code>virtualenv</code> that’s cool with all of this:</p>
+
+<pre><code>$ yum install python34
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ python3.4 get-pip.py
+</code></pre>
+
+<p>Now I’m going to move into my dashboard folder and create the application. </p>
+
+<pre><code>$ cd /var/www/dashboard
+$ virtualenv venv
+$ source venv/bin/activate
+</code></pre>
+
+<p>We’ve got a local instance of Python3 and pip now. Time to get uWSGI and Flask.</p>
+
+<pre><code>$ pip install uwsgi flask
+</code></pre>
+
+<p>Wait hold on. uWSGI just crapped out on installation. I missed something. The scary error message looks like this:</p>
+
+<pre><code>Command "/var/www/dashboard/venv/bin/python3.4 -c "import setuptools, tokenize;__file__='/tmp/pip-build-5a_chnf_/uwsgi/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-8zr4gl3_-record/install-record.txt --single-version-externally-managed --compile --install-headers /var/www/dashboard/venv/include/site/python3.4/uwsgi" failed with error code 1 in /tmp/pip-build-5a_chnf_/uwsgi
+</code></pre>
+
+<p>But that’s not the root of the problem. I’ve got to scroll up the stack trace for that.</p>
+
+<pre><code>In file included from plugins/python/python_plugin.c:1:0:
+plugins/python/uwsgi_python.h:2:20: fatal error: Python.h: No such file or directory
+ #include &lt;Python.h&gt;
+</code></pre>
+
+<p>I don’t have Python headers installed on this system! Let’s see if I can do that.</p>
+
+<pre><code>$ yum install python34-devel
+$ pip install uwsgi flask
+</code></pre>
+
+<p>Okay, that worked!</p>
+
+<p>And now, let’s convert our little test HTML from before into a Flask app. We’re then going to remove the HTML file, which will let us confirm that we’ve actually set of Flask and uWSGI correctly when we see it again. I’m going to do some work here using the <code>vi</code> editor, but if you’re not familiar with it, please replace the <code>vi</code> commands with <code>nano</code>. It’s simpler.</p>
+
+<pre><code>$ vi app.py
+
+from flask import Flask
+application = Flask(__name__)
+
+@application.route("/")
+def helloworld():
+	return "Hello, dashboard.mosby.io on Flask!"
+
+if __name__ == "__main__":
+	application.run(host='0.0.0.0')
+
+$ rm index.html
+$ python app.py
+</code></pre>
+
+<p>I can see that I’ve done it all right by going to my new homepage in my browser! Visiting dashboard.mosby.io:5000 will show me my updated page. </p>
+
+<h3 id="step-3-configure-uwsgi-serving">Step 3: Configure uWSGI Serving</h3>
+
+<p>We’ve got ourselves a basic skin of an application, so let’s hook it up to nginx through uWSGI.</p>
+
+<pre><code>$ uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi
+</code></pre>
+
+<p>It works! Exactly the same way it did when we ran the application directly. Let’s build a <code>.ini</code> file so we can do this more repeatedly.</p>
+
+<pre><code>$ vi dashboard.ini
+
+[uwsgi]
+module = wsgi
+
+master = true
+processes = 5
+
+uid = ghost
+socket = dashboard.sock
+chown-socket = ghost:nginx
+chmod-socket = 660
+vacuum = true
+
+die-on-term = true
+</code></pre>
+
+<p>This <code>ini</code> file does a few things for us. It points to the wsgi module, sets it in master mode, and spawns 5 processes of the app. It also ties to the uWSGI process to a Unix socket, and will remove (vacuum) that socket when the process stops.</p>
+
+<p>I’m also specifying that the <code>ghost</code> user will own this process. (I’ve been doing all of this work as <code>root</code>, which is not a good practice for running the application) I now need to create the ghost user and add it to the nginx group.</p>
+
+<pre><code>$ useradd ghost
+$ usermod -a -G nginx ghost
+</code></pre>
+
+<p>Verify that you did it right:</p>
+
+<pre><code>$ id ghost
+</code></pre>
+
+<p>You should see the <code>ghost</code> user attached to the nginx group. Onward!</p>
+
+<h3 id="step-4-start-on-boot">Step 4: Start on Boot</h3>
+
+<p>When our server comes online, we want our uWSGI app to be available immediately. Let’s start by creating a service file in our <code>/etc/systemd/system</code> directory.</p>
+
+<pre><code>$ vi /etc/systemd/system/dashboard.service
+
+[Unit]
+Description=uwsgi instance to serve dashboard
+After=network.target
+
+[Service]
+User=ghost
+Group=nginx
+WorkingDirectory=/var/www/dashboard
+Environment="PATH=/var/www/dashboard/venv/bin"
+ExecStart=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<p>There is black magic going on here that I need to dig into more. I don’t know <em>why</em> we do all of these things, but I do know that we’re specifying the working directory, and the environment, and what should happen when we start things up. Which we’ll do now.</p>
+
+<pre><code>$ systemctl start dashboard
+$ systemctl enable dashboard
+</code></pre>
+
+<h3 id="step-5-proxy-requests-from-nginx">Step 5: Proxy Requests from Nginx</h3>
+
+<p>Now it’s time that we return to our <code>nginx.conf</code> file. We need to modify our dashboard server block to handle the uwsgi application.</p>
+
+<pre><code># /etc/nginx/nginx.conf
+
+... # stuff here that you shouldn't remove
+
+http {
+
+	... # more stuff here that you shouldn't remove
+
+	server { 
+		listen	80;
+		server_name	www.mosby.io;
+		root /var/www/main;
+	}
+
+	server {
+		listen	80;
+		server_name	dashboard.mosby.io;
+		
+		location / {
+			include uwsgi_params;
+			uwsgi_pass unix:/var/www/dashboard/dashboard.sock;
+		}
+	}
+}
+
+$ nginx -t &lt;-- test your configuration
+$ service nginx reload
+</code></pre>
+
+<p>And now we go to our browser and punch in dashboard.mosby.io, and… crap.</p>
+
+<p>502 Bad Gateway. What did I do wrong here? That error means nginx can’t talk to our application.</p>
+
+<p>Ahh, I’ve been doing all this as root. Everything is currently owned by root, which means that neither <code>ghost</code> nor <code>nginx</code> can see my dashboard socket. Let’s change that. </p>
+
+<pre><code>$ chown ghost:nginx /var/www/dashboard
+$ service nginx reload
+$ systemctl restart dashboard
+</code></pre>
+
+<p>And, we’re back, folks!</p>
+
+<p>That’s a basic configuration for getting an Flask/uWSGI/nginx app up and running on a CentOS Linode box. If you decide to do something other than CentOS, most of it should still work, but the initialization service script will probably not. You can browse the repository for all of this <a href="https://github.com/josephmosby/dashboard/tree/c776c8875f8eaf094e2c506e1c0aca91693b7323">here</a>.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/08/17/pygotham-15-building-an-alu.html"><h3>PyGotham '15 - Building an ALU</h3></a>
+		<div class="date">August 17, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Really had an awesome time at PyGotham 2015! The organization is phenomenal and really made a fellow East Coaster feel welcome. </p>
+
+<p>Talk is here: <a href="http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python">http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python</a></p>
+
+<p>And slides are here: <a href="http://josephmosby.com/presentations/pygotham2015">http://josephmosby.com/presentations/pygotham2015</a></p>
+
+<p>Example code is here: <a href="http://josephmosby.com/presentations/pygotham2015/chip_functions.py">http://josephmosby.com/presentations/pygotham2015/chip_functions.py</a></p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/08/17/pygotham-15-building-an-alu.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/08/03/pyohio-15-production-django.html"><h3>PyOhio '15 - Production Django</h3></a>
+		<div class="date">August 03, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Over the weekend, I gave a talk at PyOhio 2015 on Production Django applications. Due to the tireless efforts of the video staff, that talk is already available online less than 24 hours later.</p>
+
+<p>Talk is here: <a href="http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se">http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se</a></p>
+
+<p>And slides are here: <a href="http://josephmosby.com/presentations/pyohio2015">http://josephmosby.com/presentations/pyohio2015</a></p>
+
+<p>Special thanks to <a href="http://roberttownley.com/">Robert Townley</a> who gave pre-con feedback and <a href="http://juliangindi.com/">Julian Gindi</a> who gave an earlier talk that inspired some of the material. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/08/03/pyohio-15-production-django.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/07/18/trusting-python-and-the-ken-thompson-hack.html"><h3>Trusting Python&comma; and the Ken Thompson hack</h3></a>
+		<div class="date">July 18, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I have always treated Python compilation as a black box. Code goes in, web services come out, everyone is happy. Then I went through <a href="http://www.nand2tetris.org/">NAND2Tetris</a> and picked up a copy of <a href="http://www.amazon.com/Programming-Language-Brian-W-Kernighan/dp/0131103628/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1437243255&amp;sr=1-1&amp;keywords=the+c+programming+language">The C Programming Language</a>, and it’s been tough to rest as easy ever since. </p>
+
+<p>Python (in its most common derivative, CPython) is not fed straight into a computer’s processor. It’s first “interpreted” into C code, which is then compiled by a C compiler into assembly language, which is then translated into 1’s and 0’s that the computer can actually understand. Let’s take a look at this: </p>
+
+<pre><code>print('Hello, world!')
+</code></pre>
+
+<p>That’s the incredibly simple Python code for printing “Hello, world!” Here’s what that looks like in the Python source code:</p>
+
+<pre><code>static PyObject *
+builtin_print(PyObject *self, PyObject *args, PyObject *kwds)
+{
+    static char *kwlist[] = {"sep", "end", "file", "flush", 0};
+    static PyObject *dummy_args;
+    PyObject *sep = NULL, *end = NULL, *file = NULL, *flush = NULL;
+    int i, err;
+
+    if (dummy_args == NULL &amp;&amp; !(dummy_args = PyTuple_New(0)))
+        return NULL;
+    if (!PyArg_ParseTupleAndKeywords(dummy_args, kwds, "|OOOO:print",
+                                     kwlist, &amp;sep, &amp;end, &amp;file, &amp;flush))
+        return NULL;
+    if (file == NULL || file == Py_None) {
+        file = _PySys_GetObjectId(&amp;PyId_stdout);
+        if (file == NULL) {
+            PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
+            return NULL;
+        }
+
+        /* sys.stdout may be None when FILE* stdout isn't connected */
+        if (file == Py_None)
+            Py_RETURN_NONE;
+    }
+
+    if (sep == Py_None) {
+        sep = NULL;
+    }
+    else if (sep &amp;&amp; !PyUnicode_Check(sep)) {
+        PyErr_Format(PyExc_TypeError,
+                     "sep must be None or a string, not %.200s",
+                     sep-&gt;ob_type-&gt;tp_name);
+        return NULL;
+    }
+    if (end == Py_None) {
+        end = NULL;
+    }
+    else if (end &amp;&amp; !PyUnicode_Check(end)) {
+        PyErr_Format(PyExc_TypeError,
+                     "end must be None or a string, not %.200s",
+                     end-&gt;ob_type-&gt;tp_name);
+        return NULL;
+    }
+
+    for (i = 0; i &lt; PyTuple_Size(args); i++) {
+        if (i &gt; 0) {
+            if (sep == NULL)
+                err = PyFile_WriteString(" ", file);
+            else
+                err = PyFile_WriteObject(sep, file,
+                                         Py_PRINT_RAW);
+            if (err)
+                return NULL;
+        }
+        err = PyFile_WriteObject(PyTuple_GetItem(args, i), file,
+                                 Py_PRINT_RAW);
+        if (err)
+            return NULL;
+    }
+
+    if (end == NULL)
+        err = PyFile_WriteString("\n", file);
+    else
+        err = PyFile_WriteObject(end, file, Py_PRINT_RAW);
+    if (err)
+        return NULL;
+
+    if (flush != NULL) {
+        PyObject *tmp;
+        int do_flush = PyObject_IsTrue(flush);
+        if (do_flush == -1)
+            return NULL;
+        else if (do_flush) {
+            tmp = _PyObject_CallMethodId(file, &amp;PyId_flush, "");
+            if (tmp == NULL)
+                return NULL;
+            else
+                Py_DECREF(tmp);
+        }
+    }
+
+    Py_RETURN_NONE;
+}
+</code></pre>
+
+<p>I understand very little of what’s actually going on here. I do know that ultimately this code has to end up at some sort of terminal output unless I specify otherwise, and I do know that I’ll probably do that by writing to a dedicated terminal output memory location which is probably specified by a C pointer, and this is the extent of my understanding. And we haven’t even made it to assembly code yet. Or to binary instructions. </p>
+
+<p>I go on trusting the CPython interpreter because I have no choice. Perhaps the <code>PyArg_ParseTupleAndKeywords</code> function has a side effect of batching my printed output up and sending it back to a Python mailing list somewhere, for them to laugh at my coding mistakes. Maybe it’s something more nefarious. </p>
+
+<p>I can look through the CPython source code and see that <code>PyArg_ParseTupleAndKeywords</code> does exactly what it says it’s going to. But what if the <em>C compiler itself</em> is batching my printed output up and sending it off? In 1984 Ken Thompson described <a href="http://c2.com/cgi/wiki?TheKenThompsonHack">exactly that</a> with a hack that would allow a compiler to do all sorts of terrible things, including overwriting all evidence of its existence. You could detect it, of course, but you’d have to have a trusted compiler - something that most 2015 developers are not prepared to write. (myself included)</p>
+
+<p>And so I have to trust my computer. I have to trust Intel, Apple, all of the component manufacturers, the <code>gcc</code> team, the CPython team, and everybody in between, because I am not prepared to compute otherwise. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/07/18/trusting-python-and-the-ken-thompson-hack.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-offset-3 col-8">
+		<div class="pagination">
+			
+			<a href="/index.html" class="previous">Previous</a>
+			
+
+			<span class="page_number">Page: 2 of 8</span>
+
+			
+			<a href="/page3" class="next">Next</a>
+			
+		</div>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

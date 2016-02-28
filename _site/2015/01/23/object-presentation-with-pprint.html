@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/23/object-presentation-with-pprint.html"><h3>Object presentation with pprint</h3></a>
+	</div>
+	<div class="col-8">
+		<p>In my <a href="/2015/01/21/string-presentation-with-textwrap.html">last post</a>, I discovered that there are all sorts of awesome things you can do to format strings for presentation in a Python program. In this episode, I learn that it’s possible to do the same thing with all Python objects using <code>pprint</code>!</p>
+
+<p>Let’s crack it open and get to some pretty-printing!</p>
+
+<pre><code>import pprint
+
+pp = pprint.PrettyPrinter(indent=4, width=60)
+</code></pre>
+
+<p>Okay, I’ve implemented a <code>PrettyPrinter</code> object that expects to indent things at the four-space mark and each line can only be 60 characters long. Cool. </p>
+
+<pre><code>team = ['We', 'live', 'in', 'cities', 'you\'ll', 'never', 'see', 'on', 'screen', 'not', 'very', 'pretty', 'but', 'we', 'sure', 'know', 'how', 'to', 'run', 'things']
+
+# yes, that is a list of words in the chorus of Lorde's "Team"
+
+pp.pprint(team)
+</code></pre>
+
+<p>Okay, awesome. I now print everything on its own line with a slight indentation. </p>
+
+<p>What happens if I throw a custom object at it?</p>
+
+<pre><code>class Dog:
+	def __init__(self, name, owner):
+		self.name = name
+		self.owner = owner
+
+my_dog = Dog('Rufus', 'Joe')
+
+pp.pprint(my_dog) # &lt;__main__.Dog instance at 0x1007ebc20&gt;
+</code></pre>
+
+<p>Oh, that’s disappointing. I was	hoping I’d get a nifty way of doing this without having to define a custom <code>repr()</code> method on <code>Dog</code>. Ah well.</p>
+
+<p>So <code>pprint</code> does some stuff awesome, and some stuff… not as awesome. Onward!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/23/object-presentation-with-pprint.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

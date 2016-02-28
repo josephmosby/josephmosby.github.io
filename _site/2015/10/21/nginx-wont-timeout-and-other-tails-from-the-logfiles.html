@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/21/nginx-wont-timeout-and-other-tails-from-the-logfiles.html"><h3>nginx won't timeout, and other tails from the log files</h3></a>
+	</div>
+	<div class="col-8">
+		<p>We had yet another instance of nginx allowing requests to spin into infinity, and now I’m starting to get a little frustrated with it. I’m going to take a different tack and see if I can sniff out the point when these requests start to blow up. To do this, I’m going to use the <code>awk</code> tool to find any and all requests that take longer than 3000 milliseconds, which is well beyond the tolerance point for my application. Most of our requests average out in the 100-150ms range, with long running requests taking 500ms. Let’s dump some things out from the log files.</p>
+
+<pre><code>cat django-www.log | awk '$33 &gt; 3000 {print NR-1 ": " $0;}' &gt; high.log
+</code></pre>
+
+<p>So what this little snippet will do is <code>cat</code> the entire log file out, then pipe the output through an <code>awk</code> command. The syntax of <code>awk</code> breaks the file up based on delimiters (I think space is the default), which you can then access by number. <code>$33</code>, in this case, is the 33rd character, which is our millisecond mark. If it’s greater than 3000, I print the line number, the line itself, then dump all that out to a file called <code>high.log</code>.</p>
+
+<p>Onward.</p>
+
+<p>I don’t know why this stuck out to me, but I gave the address space usage and the rss usage of my uwsgi threads a second look this time. Here’s what they look like under normal traffic for a small sample.</p>
+
+<pre><code>{address space usage: 3510480896 bytes/3347MB} {rss usage: 84557824 bytes/80MB} [pid: 5542|app: 0|req: 394/98579] 
+{address space usage: 3510046720 bytes/3347MB} {rss usage: 101765120 bytes/97MB} [pid: 5875|app: 0|req: 387/98580] 
+{address space usage: 3510497280 bytes/3347MB} {rss usage: 106389504 bytes/101MB} [pid: 6922|app: 0|req: 70/98581] 
+{address space usage: 3510497280 bytes/3347MB} {rss usage: 106500096 bytes/101MB} [pid: 6922|app: 0|req: 71/98582] 
+{address space usage: 3521171456 bytes/3358MB} {rss usage: 135237632 bytes/128MB} [pid: 4706|app: 0|req: 660/98583] 
+{address space usage: 3510046720 bytes/3347MB} {rss usage: 101765120 bytes/97MB} [pid: 5875|app: 0|req: 388/98584] 
+{address space usage: 3510480896 bytes/3347MB} {rss usage: 84557824 bytes/80MB} [pid: 5542|app: 0|req: 395/98585] 
+</code></pre>
+
+<p>The address space usage hovers at about 3.3GB, but the rss usage averages out around 100MB under normal traffic. Here’s what it looks like when we spike:</p>
+
+<pre><code>{address space usage: 3518722048 bytes/3355MB} {rss usage: 148234240 bytes/141MB} [pid: 28562|app: 0|req: 4128/36509]
+{address space usage: 3537321984 bytes/3373MB} {rss usage: 153063424 bytes/145MB} [pid: 28827|app: 0|req: 4137/36512]
+{address space usage: 3518103552 bytes/3355MB} {rss usage: 125833216 bytes/120MB}
+{address space usage: 3537321984 bytes/3373MB} {rss usage: 153255936 bytes/146MB} [pid: 28827|app: 0|req: 4138/36517]
+{address space usage: 3518722048 bytes/3355MB} {rss usage: 148992000 bytes/142MB} [pid: 28562|app: 0|req: 4137/36523]
+{address space usage: 3518722048 bytes/3355MB} {rss usage: 148992000 bytes/142MB} [pid: 28562|app: 0|req: 4137/36525]
+</code></pre>
+
+<p>Our address space usage is the same, but our rss usage is pushing over 142MB for almost every request. I want to dig more into this.</p>
+
+<p>I stumbled upon this discussion thread on the <code>uwsgi</code> issues page from someone experiencing the same sort of performance degradation with almost the same sort of configuration that we have: <code>uwsgi</code>, <code>supervisord</code>, Django. The solution suggested here is to add <code>die-on-term=True</code> to our <code>uwsgi</code> config, but I want to look into that a little more before I just start adding things to our <code>uwsgi</code> config. (the issue thread is <a href="https://github.com/unbit/uwsgi/issues/296">here</a>)</p>
+
+<p>The issue is distilled <a href="http://uwsgi-docs.readthedocs.org/en/latest/ThingsToKnow.html">here</a> (second bullet). Before uWSGI 2.1, sending the <code>SIGTERM</code> signal to <code>uwsgi</code> means “brutally reload the stack”, which is not convention. <code>SIGINT</code> or <code>SIGQUIT</code> has the same behavior in uWSGI that <code>SIGTERM</code> has in other applications. Searching for <code>supervisord SIGTERM</code> yielded this StackOverflow answer:</p>
+
+<pre><code>supervisord will emit a SIGTERM signal when a stop is requested. Your child can very probably catch and process this signal (the stopsignal configuration can change the signal sent).
+
+http://stackoverflow.com/a/20299217/1020642
+</code></pre>
+
+<p>But my child CAN’T catch and process that signal. In fact, it <a href="https://github.com/unbit/uwsgi/issues/296#issuecomment-36086359">actually totally ignores it</a>. It trips over it and brutally reloads the stack if I’m running <code>uwsgi</code> prior to 2.1.</p>
+
+<pre><code>$ uwsgi --version
+2.0.9
+</code></pre>
+
+<p>So to fix this bug, we either need to upgrade <code>uwsgi</code>, or send the <code>die-on-term</code> option, which will correct this behavior. Adding the <code>die-on-term</code> directive is the quicker and less potentially problematic version. This will go in our <code>uwsgi.ini</code> file:</p>
+
+<pre><code>[uwsgi]
+... stuff ...
+processes=4
+threads=256
+harakiri=20
+max-requests=5000
+die-on-term=True # yay
+... stuff ...
+</code></pre>
+
+<p>And now we’ll reload and give it a shot. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/21/nginx-wont-timeout-and-other-tails-from-the-logfiles.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

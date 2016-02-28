@@ -1,0 +1,272 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+
+	<title></title>
+	
+	<!-- Required stylesheet -->
+	<link rel="stylesheet" href="/include/deckjs/core/deck.core.css">
+	
+	<!-- Extension CSS files go here. Remove or add as needed. -->
+	<link rel="stylesheet" href="/include/deckjs/extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/status/deck.status.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/scale/deck.scale.css">
+
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="main.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="/include/deckjs/themes/transition/horizontal-slide.css">
+	
+	<!-- Required Modernizr file -->
+	<script src="/include/deckjs/modernizr.custom.js"></script>
+
+	<link rel="stylesheet" href="/stylesheets/fibonacci.css">
+	<link rel="stylesheet" href="/stylesheets/custom.css">
+	
+	<!--[if lt IE9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+	<div class="wrapper" id="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-13">
+					<a href="/"><h3></h3></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wrapper" id="slides">
+	<div class="container deck-container">
+		<section class="slide" id="intro">
+		<div id="main_header">Breaking the Fourth Wall: Using Python Web Services to Control Arduino Microcontrollers</div>
+	
+		<div class="bio">
+		<div class="bio_name">Joseph Mosby</div>
+		<div class="bio_twitter_handle">@josephmosby</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide1">
+		<div class="slide_header">Poor man's schematics</div>
+	
+		<div class="slide_wrapper">
+		<img src="images/schematic.jpg" />
+		</div>
+	</section>
+
+	<section class="slide" id="slide2">
+		<div class="slide_header">YOU WILL NEED</div>
+	
+		<div class="slide_wrapper">
+		<div class="col1">
+			<ul>
+				<li><a href="http://www.amazon.com/gp/product/B006H06TVG/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B006H06TVG&linkCode=as2&tag=josephmosbyco-20&linkId=XFD43ONSL2DB4BBC">Arduino UNO (1)</a></li>
+				<li><a href="http://www.amazon.com/gp/product/B001MSU1HG/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B001MSU1HG&linkCode=as2&tag=josephmosbyco-20&linkId=5TANZHNZY2S5D2PV">USB cable (1)</a></li>
+				<li><a href="http://www.amazon.com/gp/product/B009SQQF9C/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B009SQQF9C&linkCode=as2&tag=josephmosbyco-20&linkId=ZVIUHHCD4URZGYFI">Raspberry Pi (1)</a></li>
+				<li><a href="http://www.amazon.com/gp/product/B00ITYAASG/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00ITYAASG&linkCode=as2&tag=josephmosbyco-20&linkId=C4F7TZJZL6HZBAQ2">USB power adapter (1)</a></li>
+			</ul>
+			<ul>
+				<li>Flask</li>
+				<li>pyserial</li>
+			</ul>
+		</div>
+		<div class="col2">
+			<img src="images/its-dangerous.jpg" />
+		</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide3">
+		<div class="slide_header">Grokking the Arduino</div>
+		<div class="slide_wrapper">
+		<img src="images/arduino-grok.png" />
+		</div>
+
+	</section>
+
+	<section class="slide" id="slide4">
+		<div class="slide_header">Arduino code goals</div>
+		<div class="slide_wrapper">
+		<ul>
+			<li>Initialize a listener on the serial port</li>
+			<li>Read incoming serial data</li>
+			<li>Turn a light on and off depending on the serial byte received</li>
+		</ul>
+		</div>
+	</section>
+	<section class="slide" id="slide5">
+
+		<div class="slide_header">Arduino code</div>
+		<div class="slide_wrapper">
+			<p>(C, not Python)</p>
+		<code style="color:black;">
+			void setup() {<br>
+				&nbsp;&nbsp;Serial.begin(9600);<br>
+			}<br>
+			<br>
+			void loop() {<br>
+				&nbsp;&nbsp;if (Serial.available() > 0) {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;	char inByte = Serial.read();<br>
+				&nbsp;&nbsp;}<br>
+				<br>
+				&nbsp;&nbsp;if (inByte == '1') {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;	digitalWrite(1, HIGH);<br>
+				&nbsp;&nbsp;}<br>
+				<br>
+				&nbsp;&nbsp;else if (inByte == '0') {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;	digitalWrite(1, LOW);<br>
+				&nbsp;&nbsp;}<br>
+			}
+		</code>
+		</div>
+	</section>
+
+	<section class="slide" id="slide6">
+
+		<div class="slide_header">Python code, round 1</div>
+		<code style="color:black;">
+			import serial<br>
+			<br>
+			ser = serial.Serial('/dev/ttyACM0', 9600)<br>
+			<br>
+			def turn_on():<br>
+				&nbsp;&nbsp;ser.write(b'1')<br>
+				&nbsp;&nbsp;return ""<br>
+			<br>
+			def turn_off():<br>
+				&nbsp;&nbsp;ser.write(b'0')<br>
+				&nbsp;&nbsp;return ""<br>
+		</code>
+		
+	</section>
+
+	<section class="slide" id="slide7">
+		<div class="slide_header">find your USB serial device</div>
+		<div class="slide_wrapper">
+			<code style="color:black;">ls /dev</code>
+			<br>
+			<p>Will probably be something like ttyACM0 or ttyACM1.</p>
+		</div>
+
+	</section>	
+
+	<section class="slide" id="slide8">
+		<div class="slide_header">Build out the Flask app</div>
+		<div class="slide_wrapper">
+			<code style="color:black;">
+			# views.py<br><br>
+			from flask import Response, send_file<br>
+			from app import app<br>
+			import serial<br>
+			<br>
+			ser = serial.Serial('/dev/ttyACM0', 9600)<br>
+			<br>
+			@app.route('/', methods=['GET'])<br>
+			def index():<br>
+			&nbsp;&nbsp;	return send_file('index.html')<br>
+			<br>
+			@app.route('/on', methods=['POST'])<br>
+			def turn_on():<br>
+				&nbsp;&nbsp;ser.write(b'1')<br>
+				&nbsp;&nbsp;return ""<br>
+			<br>
+			@app.route('/off', methods=['POST'])<br>
+			def turn_off():<br>
+				&nbsp;&nbsp;ser.write(b'0')<br>
+				&nbsp;&nbsp;return ""<br>
+			<br>
+			# __init__.py<br><br>
+			from flask import Flask<br>
+			app = Flask(__name__)<br>
+			<br>
+			from app import views<br>
+			<br>
+			# wsgihandler.py<br><br>
+			import sys<br>
+			sys.path.append('/home/www-data/sardine')<br>
+			sys.path.append('/home/www-data/sardine/app')<br>
+			<br>
+			from app import app as application # because WSGI is weird
+		</code>
+		</div>
+	</section>
+	<section class="slide" id="slide9">
+		<div class="slide_header">Apache configuration</div>
+		<div class="slide_wrapper">
+			<code style="color:black;">
+				&lt;VirtualHost *&gt;<br>
+					<br>
+					ServerName sardine<br>
+					DocumentRoot /home/www-data/sardine<br>
+					WSGIDaemonProcess sardine user=sardine group=sardine threads=5<br>
+					WSGIScriptAlias / /home/www-data/sardine/wsgihandler.py<br>
+					<br>
+				&lt;/VirtualHost&gt;
+			</code>
+		</div>
+	</section>
+
+	<section class="slide" id="slide10">
+
+		<div class="slide_header">questions?</div>
+		
+	</section>	
+
+	<!-- Begin extension snippets. Add or remove as needed. -->
+
+	<!-- deck.navigation snippet -->
+	<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+	<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+	<!-- deck.status snippet -->
+	<p class="deck-status">
+		<span class="deck-status-current"></span>
+		/
+		<span class="deck-status-total"></span>
+	</p>
+
+	<!-- deck.goto snippet -->
+	<form action="." method="get" class="goto-form">
+		<label for="goto-slide">Go to slide:</label>
+		<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+		<datalist id="goto-datalist"></datalist>
+		<input type="submit" value="Go">
+	</form>
+
+	<!-- deck.hash snippet -->
+	<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+	</div>
+	</div>
+
+	
+		<!-- Required JS files. -->
+	<script src="/include/deckjs/jquery-1.7.2.min.js"></script>
+	<script src="/include/deckjs/core/deck.core.js"></script>
+
+	<!-- Extension JS files. Add or remove as needed. -->
+	<script src="/include/deckjs/core/deck.core.js"></script>
+	<script src="/include/deckjs/extensions/hash/deck.hash.js"></script>
+	<script src="/include/deckjs/extensions/menu/deck.menu.js"></script>
+	<script src="/include/deckjs/extensions/goto/deck.goto.js"></script>
+	<script src="/include/deckjs/extensions/status/deck.status.js"></script>
+	<script src="/include/deckjs/extensions/navigation/deck.navigation.js"></script>
+	<script src="/include/deckjs/extensions/scale/deck.scale.js"></script>
+
+	<!-- Initialize the deck. You can put this in an external file if desired. -->
+	<script>
+		$(function() {
+			$.deck('.slide');
+		});
+	</script>
+</body>
+</html>

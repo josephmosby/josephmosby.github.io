@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/20/where-did-my-application-go.html"><h3>Where did my application go? and other tails from the log files</h3></a>
+	</div>
+	<div class="col-8">
+		<p>I woke up this morning to yet another fun little situation from my application. As opposed to the prior set of errors, where response times were creeping up into the uncomfortably high range, this is exactly the opposite: the application stops responding to anything. Here’s what that graph looks like in New Relic:</p>
+
+<p><img src="/images/errors2.png" alt="" /></p>
+
+<p>At 7:11AM, my application simply dies, according to New Relic. Into the breach!</p>
+
+<p>I think that I likely only need about a hundred thousand lines of my logs to get back to the timeframe in question, so let’s cull those out and locate anything happening in the 7:10-7:19 timeframe:</p>
+
+<pre><code>$ tail -100000 django-www.log &gt; outage.log
+$ grep -m 1 -n "07:1" django-www.log
+
+2825:{address space usage: 3589083136 bytes/3422MB} {rss usage: 318144512 bytes/303MB} [pid: 8510|app: 0|req: 4874/239423] [IP ADDRESS] () {50 vars in 1552 bytes} [Mon Oct 19 13:07:10 2015] GET /petro/s/90050/hillary-clinton-won-wont-always-be-this-way =&gt; generated 42453 bytes in 302 msecs (HTTP/1.1 200) 3 headers in 250 bytes (2 switches on core 17)
+</code></pre>
+
+<p>Whoops, too far. Let me slice this up a little bit more and back it up a few minutes.</p>
+
+<pre><code>$ tail -30000 outage.log | grep -m 1 -n "Oct 20 07:10"
+
+13411:{address space usage: 3518570496 bytes/3355MB} {rss usage: 126271488 bytes/120MB} [pid: 11089|app: 0|req: 4972/319841] [IP ADDRESS] () {44 vars in 751 bytes} [Tue Oct 20 07:05:01 2015] GET /2012/04/the-land-of-hope-and-dreams.php =&gt; generated 58612 bytes in 41 msecs (HTTP/1.1 404) 2 headers in 95 bytes (2 switches on core 230)
+</code></pre>
+
+<p>Okay, so I’m going to slice out the last 16,589 lines, which will start me close to the beginning of the outage:</p>
+
+<pre><code>$ tail -16589 django-www.log &gt; outage.log
+$ sed -n 1,3500p outage.log &gt; temp.log &amp;&amp; mv temp.log outage.log
+</code></pre>
+
+<p>Let’s get started. I’m going to look for the point where my app started throwing 500 errors.</p>
+
+<pre><code>$ grep -m 20 -n "HTTP/1.1 500" outage.log
+</code></pre>
+
+<p>That prints out the first 20 lines of my application throwing 500 errors, and a lot of them are on things that I know shouldn’t 500. I’m going to dig into my Sentry error logging to see what the problem is, and…crap.</p>
+
+<p>At some point, I or one of my teammates accidentally removed the Sentry and Raven configuration from our Django app, so we haven’t actually captured any of these errors. Awesome. This might be a dead end for now. I’m going to add the configuration lines back into the app:</p>
+
+<pre><code>INSTALLED_APPS = (
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'raven.contrib.django.raven_compat'
+    ... other apps ...
+)
+
+import raven
+RAVEN_CONFIG = {
+    'dsn': 'RAVEN KEY HERE',
+}
+</code></pre>
+
+<p>That’s a frustrating dead end, but it’s something we should have caught. I’m adding a simple test case into our test suite to make sure it doesn’t happen again.</p>
+
+<pre><code>from django.test import TestCase
+from django.core.management import call_command
+
+class TestRavenUp(TestCase):
+
+	def test_raven_up(self):
+		stdout_backup = sys.stdout
+		sys.stdout = open('/tmp/raven_up', 'w')
+		call_command('raven', 'test')
+
+		f = open('/tmp/raven_up', 'r')
+		config = f.read()
+		f.close()
+
+		sys.stdout = stdout_backup
+		self.assertTrue('[MUH SERVER NAME]' in config)
+		self.assertTrue('[MUH APPLICATION KEY]' in config)
+
+		print('Inspect [MUH SENTRY SERVER] to note that event has been logged.')
+
+		os.remove('/tmp/raven_up')
+</code></pre>
+
+<p>That will spit out a test event to Sentry if we have everything configured appropriately. Hopefully I’ll have an update with error logs the next time it happens (but I hope it doesn’t happen again).</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/20/where-did-my-application-go.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

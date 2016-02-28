@@ -1,0 +1,861 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/03/23/what-consulting-will-teach-you.html"><h3>What Consulting Will Teach You</h3></a>
+		<div class="date">March 23, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>It’s hiring season for most senior college students in the United States. A few things have changed since my senior year of college - the economy has improved dramatically, the technology industry is a serious draw for many who have never coded a day in their lives, Austin and Nashville are among the hottest places to be. But even with the shifts in the culture, it’s still a stressful time for college students trying to choose the next direction of their lives. If you’re in that boat, this post is for you.</p>
+
+<p>For many of you, consulting firms will provide job opportunities and rewards far beyond the wildest imaginations of any other business that wants to hire you. Their business model is simple: for each hour that you work, they will bill their clients for an hour of time. If your billable rate is $150 per hour, you will bring upwards of $300,000 in revenue to the consulting firm by the end of the year. Paying you $75,000 or so, then, is insane money for you as a young college graduate and chump change for them. Your first lesson will be that smart people know how to make money off of your sweat and make you okay with it.</p>
+
+<p>Many of them will advertise that you’ll be traveling for your job and they’ll hold up examples of their professionals in New York City, in San Francisco, in Miami. Your second lesson will be that most of the major American cities who purchase consulting services are actually in the heartland - places like Minneapolis, or West Virginia, or Peoria. There is a lot of America out there, and you will realize that it is much more diverse in culture than you could imagine.</p>
+
+<p>You will go to a client site and you will slug away on a project. You will show your work and your thought process in explicit detail. This work and thought process will be promptly torn to shreds and rebuilt anew, and you will learn that there are all sorts of new ways to be wrong in the real world. Sometimes you presented a half-baked idea. Sometimes your logic was correct based on your information, but you didn’t know that there was additional information hidden from you. And sometimes you will be wrong because of politics. All of these will end in the same result - you will rework your ideas, and you will learn to try again.</p>
+
+<p>You will encounter control freaks. Everyone around you will be a control freak, because this the type of person who is drawn to consulting. The entire client service business model, however, is based on a totally subjective thing - client acceptance of your work - and suddenly everything will be out of your control. This is difficult at best when one control freak is trying to deal with intangible and unknown requirements. This is nearly impossible when four control freaks are placed in a room with no clear leader and asked to produce some sort of report to turn in to a manager. This devolves into insanity when these four control freaks suddenly have three sets of review by control freaks and a client who might decide something differently based on whether he had a burrito for lunch. You will learn to enhance your calm, or you will explode.</p>
+
+<p>You will learn that the megacorporate world is neither fair nor unfair - it simply is. You will work extremely hard and receive the praise of your superiors only to learn that the client decided not to choose your project for the next fiscal year, and your performance review goes down the tube accordingly. You will see that the person sitting next to you also worked extremely hard, and the client <em>did</em> choose their project, and now their performance review shoots through the roof but they have to spend six months in the Sacramento suburbs. You were dropped from your existing client and placed on a new client with offices on the beach in L.A. You will learn that these things simply happen, with little to no rhyme or reason.</p>
+
+<p>Above all, you will learn how to articulate your ideas in a way that turns them into a final action. You will learn how to make things happen with your words, and you will realize how important it is to be able to do this in the business world. This is the heart of consulting: your ideas may be brilliant, your work product may be exquisite, but your words will be what brings them to life. There are few other jobs that can teach you this as quickly as consulting will.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/23/what-consulting-will-teach-you.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/03/01/a-brand-new-code-review-and-integration-workflow.html"><h3>A brand new code review and integration workflow</h3></a>
+		<div class="date">March 01, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I’ve been fortunate to join the <a href="http://www.nationaljournal.com/">National Journal</a> with a stack of brand new product managers and developers. As we form a new product team, we also need to address some of the operational nuances of bringing our team together. Part of that process includes defining and standardizing our workflow for code review, testing, and integration.</p>
+
+<p>Our process starts by branching master off into a specific feature branch, with the intention that we’ll push a set of changes through the review and testing process as a single set of commits that only pertain to that feature. </p>
+
+<p>We keep our feature branches local (though publishing a branch to GitHub isn’t a problem). Once we’re ready for our code to go to peer review, we execute the following commands to bring it into the review branch:</p>
+
+<pre><code>$ git checkout review
+$ git merge feature-branch
+$ git pull origin review
+</code></pre>
+
+<p>We’re approaching the code review process with a simple checklist, inspired by principles from Atul Gawande’s <a href="http://www.amazon.com/Checklist-Manifesto-How-Things-Right/dp/0312430000/ref=sr_1_1/185-7726352-5707960?s=books&amp;ie=UTF8&amp;qid=1424833091&amp;sr=1-1&amp;keywords=the+check+list+manifesto">The Checklist Manifesto</a> and Guido van Rossum’s <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8 guidelines</a> for Python code. </p>
+
+<ol>
+  <li>My code is indented with tabs.</li>
+  <li>Classes follow the CapWords naming convention and functions follow the lowercase_underscore convention.</li>
+  <li>Every public class and function has an associated docstring describing what the item does.</li>
+  <li>Any unusual or complex functions and algorithms have an associated comment describing the rationale for the approach. Any use of Exceptions is documented with comments.</li>
+  <li>The file does not have any code that is commented out, nor does it have any “TODOs”.</li>
+  <li>All print() functions that go to the development console have been removed.</li>
+  <li>The code has associated tests.</li>
+</ol>
+
+<p>Our checklist is only seven items long. We chose to leave off some items from PEP 8 compliance because we believe these items encompass the heart of good, readable Python code that our team can agree on as we’re developing at a rapid pace. Holding up code that deals with a priority ticket because someone’s lines have too many characters is not justifiable, but stopping a bugfix because it’s undocumented most certainly is. </p>
+
+<p>In addition to these checklist items, we talk through our logical approach to solving the problem, the necessity of certain functions or exceptions, and possible scenarios that might cause failures. If the peer reviewer is satisfied with the code, we execute the following commands to merge our changes with testing:</p>
+
+<pre><code>$ git checkout testing
+$ git pull origin review
+$ git pull origin testing
+</code></pre>
+
+<p>The testing branch is used by our functional testers to determine that everything’s working properly. The app should work perfectly at this stage - if it doesn’t, it’s headed back to the review pipeline. No one commits directly to testing, so any conflicts will be resolved during the commit to review. If the testers are satisfied, we prepare for the move to production with the following commands:</p>
+
+<pre><code>$ git checkout staging
+$ git pull origin testing
+$ git pull origin staging
+</code></pre>
+
+<p>To recap: </p>
+
+<p><img src="/images/review_workflow.svg" alt="Git workflow" /></p>
+
+<ol>
+  <li>Create local branch of master for the feature.</li>
+  <li>Complete work in branch and merge to review. </li>
+  <li>Peer review changes and pull review into testing.</li>
+  <li>Test changes and pull into master.</li>
+</ol>
+
+<p>What do we have left to do? </p>
+
+<ol>
+  <li>Proper integration into our production environment. We’re looking at something like <a href="https://travis-ci.com/">TravisCI</a> or <a href="https://circleci.com/">CircleCI</a> to manage our build process. </li>
+  <li>Write tests for all the code that was written before we standardized on a review process. </li>
+  <li>Write a PEP 8 linter to condense the style review. </li>
+  <li>Bonus: it might be nice to have a simple push-button approach to move everything between branches. </li>
+</ol>
+
+<p>This is getting us started. We’re still workshopping it, but it’s standardizing us on an approach and getting our team in line.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/01/a-brand-new-code-review-and-integration-workflow.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/02/16/cloning-postgres-to-mongo-in-real-time-with-django.html"><h3>Cloning Postgres to Mongo in real time with Django</h3></a>
+		<div class="date">February 16, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Django comes baked with one major setback: it can’t properly support non-relational databases. A few attempts to rectify this problem have been made, but none of them can handle Django’s administration menu at the same time. So if your application simultaneously requires the speed of a non-relational database and the ease of the administration menu, you’re going to need to figure out a way to run two databases - one relational, one not - and keep the two in sync. We’re going to do that very thing with Postgres and MongoDB here.</p>
+
+<p>You will need: </p>
+
+<ul>
+  <li><a href="http://api.mongodb.org/python/current/">pymongo</a></li>
+  <li><a href="https://docs.djangoproject.com/en/1.7/topics/signals/">Django signals (part of Django core)</a></li>
+</ul>
+
+<p>PyMongo provides us a convenient API to access MongoDB, while signals will allow us to perform certain actions upon saving a model. We begin by importing all of the necessaries and creating receiver functions to handle our signals:</p>
+
+<pre><code># models.py 
+
+from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+
+class MyModel(models.Model):
+	pass
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+	pass
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+	pass
+</code></pre>
+
+<p>We use the <code>@receiver</code> decorator to indicate what event should trigger the <code>save_mongo_instance()</code> and <code>delete_mongo_instance()</code>. Our functions will fire immediately after a model saves to or deletes from our Postgres database (indicated by the post_save and post_delete parameters). These functions must also take in a sender (the Model triggering the method) and a fungible number of <code>kwargs</code>. One of these <code>kwargs</code> will be the specific Model <em>instance</em> we just saved or deleted.</p>
+
+<p>These receiver methods will fire on <em>every</em> save or delete, regardless of the model that called it. If I have foreign key relationships, it won’t make sense for me to save all of those into the database as their own Documents - I should be nesting those within other Documents. I need some way to dictate which models should and should not be saved as their own Documents in a Mongo collection.</p>
+
+<pre><code># models.py 
+
+class MyModel(models.Model):
+	mongoable = True
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+</code></pre>
+
+<p>I’ve added a property to <code>MyModel</code> that indicates it is “mongoable” (I made that word up). If <code>mongoable</code> is set to <code>True</code>, we’ll save it to the Mongo database - otherwise we’ll ignore the save event by returning out of the function.</p>
+
+<p>Now we need to get the instance. </p>
+
+<pre><code># models.py 
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+</code></pre>
+
+<p>We extract the instance information - the specific data we just saved to Postgres - by pulling it out of the <code>kwargs</code> sent to our receiver function. Now we must parse them out! I created a helper utility to do this very thing and placed it in the <code>utils</code> directory of my Django project, so it looks something like this:</p>
+
+<pre><code>mongoproject/
+|
+|--mongoproject/
+	|
+	|--settings.py
+	|
+|--mongoapp/
+	|
+	|--__init__.py
+	|--models.py
+	|
+|--utils/
+	|
+	|--__init__.py
+	|--mongo_clone.py
+</code></pre>
+
+<p>I’ve also modified <code>settings.py</code> to add my Mongo connection info:</p>
+
+<pre><code># settings.py
+
+MONGO_DB_HOST = 'localhost'
+MONGO_DB_PORT = 27017
+</code></pre>
+
+<p>And my mongo_clone.py utility looks <a href="https://gist.github.com/josephmosby/7ac22f01ccf738e94d7a">like this</a>:</p>
+
+<pre><code># mongo_clone.py
+
+import pymongo
+from django.db.models import Model
+from django.db.models.fields.files import ImageFieldFile
+from django.conf import settings
+
+def get_mongo_db():
+	client = pymongo.MongoClient(settings.MONGO_DB_HOST, settings.MONGO_DB_PORT)
+	db = client.test
+	return db
+
+def convert_fields(model):
+	"""
+	Recursive function to iterate over all fields in a Model.
+	If the field is a ForeignKey, ManyToManyField or OneToOneField, 
+	go into the model and recursively store fields.
+	"""
+	fields = model._meta.get_all_field_names()
+	update_fields = {}
+
+	for field in fields:
+		try: 
+			field_value = getattr(model, field)
+			if getattr(field_value, 'all', None):
+				"""
+				Branch for a ManyToManyField.
+				Iterate over each Model in and append data to a list.
+				Add list to dictionary.
+				"""
+				fk_list = []
+
+				for fk_model in field_value.all():
+					fk_list.append(convert_fields(fk_model))
+
+				update_fields[field] = fk_list
+
+			elif isinstance(field_value, Model):
+				"""
+				Branch for a ForeignKey or OneToOneField.
+				Create data for the Model and add to dictionary.
+				"""
+
+				update_fields[field] = convert_fields(field_value)
+
+			elif isinstance(field_value, ImageFieldFile):
+				"""
+				Serialize an ImageField.
+				"""
+				try:
+					update_fields[field] = field_value.path
+				except ValueError:
+					"""
+					ValueError occurs if there is no actual File (i.e., is null).
+					"""
+					update_fields[field] = ""
+
+			else:
+				"""
+				Branch for a standard field.
+				Add data to the dictionary.
+				"""
+
+				if field == "id":
+					update_fields["pg_" + model._meta.verbose_name + "_id"] = field_value
+				else:
+					update_fields[field] = field_value
+
+		except AttributeError:
+			"""
+			ManyToManyFields will throw an AttributeError when trying to reference the parent.
+			"""
+			pass
+			
+			
+	return update_fields
+</code></pre>
+
+<p>Let’s walk through the branches of <code>convert_fields()</code> one by one. The function is designed to turn a Model into a dictionary of key/value pairs, iterating through each field and recursively digging into ForeignKeys and ManyToManyFields to created nested dictionaries. Our first two lines of the function create the primary dictionary and find the field names of the model.</p>
+
+<p>We then begin a try/except block. Django ForeignKeys and ManyToManyFields store data in the Postgres database about their parent, but it’s not specified directly in my Model. We deal with that by passing on an <code>AttributeError</code>. Next we loop through all fields.</p>
+
+<p>It’s perhaps most useful here to skip down directly to the <code>else</code> branch of this if/else statement. This is for our standard text and date fields - anything we can easily serialize. Our recursive function will always end up here. We’ll continue to go deeper and deeper into our relationships as we’re building our nested dictionaries for ForeignKeys, but once we have an object that has no relationships, we’ll simply be serializing its fields with this branch.</p>
+
+<p>Immediately above that branch is our test for an <code>ImageField</code>, which can’t be neatly serialized. We tackle this by finding the path of the ImageFieldFile and attaching that to our dictionary.</p>
+
+<p>Our first bit of recursion comes when we hit the branch above that, when we deal with ForeignKeys. Our FK model will be attached to the original model’s ForeignKey field - but at the end of the day, it’s just a standard model with fields that we could parse out with our bottom branch. We’ll recursively call our <code>convert_fields</code> function on the model to do just that.</p>
+
+<p>Our top branch deals with ManyToManyFields, which come through as a <code>Manager</code>. Managers are tough to detect, but they do have an <code>all()</code> method that no other field should have. We’ll look for that method to find a ManyToManyField, then we’re just looping through every attached Model and appending their keys to the dictionary.</p>
+
+<p>Now we call our helper method as part of our receiver:</p>
+
+<pre><code># models.py 
+
+from utils.mongo_clone import get_mongo_db, convert_fields
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+
+	update_fields = convert_fields(instance)
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+</code></pre>
+
+<p>And we’ll save all this to the database by connecting to our DB and using a find_and_modify transaction:</p>
+
+<pre><code># models.py 
+
+from utils.mongo_clone import get_mongo_db, convert_fields
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+
+	update_fields = convert_fields(instance)
+	db = get_mongo_db()
+
+    mongo_instance = db.test.find_and_modify(query={"pg_instance_id": instance.id},
+                                            update={"$set": update_fields},
+                                            upsert=True,
+                                            full_response=True,
+                                            new=True)
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+</code></pre>
+
+<p>Deleting is far easier. All we have to do here is find the Mongo ID that corresponds to the deleted Postgres ID:</p>
+
+<pre><code># models.py 
+
+from utils.mongo_clone import get_mongo_db, convert_fields
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+
+	update_fields = convert_fields(instance)
+	db = get_mongo_db()
+
+    mongo_instance = db.test.find_and_modify(query={"pg_instance_id": instance.id},
+                                            update={"$set": update_fields},
+                                            upsert=True,
+                                            full_response=True,
+                                            new=True)
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+
+	db = get_mongo_db()
+
+	mongo_instance = db.test.remove( {"pg_instance_id": instance.id })
+</code></pre>
+
+<p>And we’re cooking. We’re still querying the original Postgres database - for now - but we’ll fix that soon enough.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/02/16/cloning-postgres-to-mongo-in-real-time-with-django.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/02/15/the-psychology-of-a-small-playlist-on-repeat.html"><h3>The psychology of a small playlist on repeat</h3></a>
+		<div class="date">February 15, 2015</div>
+	</div>
+	<div class="col-8">
+		<p><a href="http://ma.tt">Matt Mullenweg</a> <a href="http://fourhourworkweek.com/2015/02/09/matt-mullenweg/">listens to a single song on repeat</a> when he needs to get in “the zone.” This is fascinating to me, as I am a Spotify user fueled by chaos. I have always been a little spastic about my <a href="http://open.spotify.com/user/josephmosby">Spotify playlists</a>, creating new lists for each month based on my musical whims at the moment. The idea of restricting myself to only a few songs at a time is absolutely absurd. I had to try it. I created a playlist of three songs that I’ve already been playing quite a bit: </p>
+
+<ul>
+  <li><a href="http://open.spotify.com/track/0uqMUcdMvQtNQLO4jVockW">Calvin Harris and Nicky Romero - “Iron”</a></li>
+  <li><a href="http://open.spotify.com/track/2si03bj1f2F4X0Hyy0yCPx">Chromeo - “Bonafied Lovin”</a></li>
+  <li><a href="http://open.spotify.com/track/26qDnsrrvZbylEOUMKLGRh">Oasis - “The Masterplan”</a></li>
+</ul>
+
+<p>Armed with my newly crowned “Focus” playlist, I got to work late at night when my brain was starting to fall asleep. I sat down to some frustrating programming tasks, put my playlist on repeat and began my experiment.</p>
+
+<p>It worked! As I ramped up into my work, I immediately found the flow much faster than normal. I focused on the lyrics on the first pass, a bit less on the second pass, and by the third pass I was barely aware of the background noise. It was fantastic. Even the slower beats of “The Masterplan” weren’t breaking me out of an energetic flow. I cranked through everything I’d set out for myself without a second thought.</p>
+
+<p>Why does it work? Surely there’s something in the human psyche that makes this work for me just as well as it does for Matt. What is it? I needed to do some research. </p>
+
+<p>Arkansas psychologist Elizabeth Hellmuth Margulis wrote book called <a href="http://www.amazon.com/Repeat-How-Music-Plays-Mind/dp/0199990824/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1424026191&amp;sr=1-1&amp;keywords=on+repeat+how+music+plays+the+mind"><em>On Repeat: How Music Plays the Mind</em></a> that tangentially delves into this question. </p>
+
+<blockquote>
+  <p>Musical repetition gets us mentally imagining or singing through the bit we expect to come next… A sense of shared subjectivity with the music can arise. In descriptions of their most intense experiences of music, people often talk about a sense that the boundary between the music and themselves has dissolved.</p>
+</blockquote>
+
+<p>Okay, that helps us out. The more we listen to music on repeat, we tend to dissolve into it. That’s extremely useful for creative work, when tuning out the monkey mind is of utmost importance. </p>
+
+<p>There’s a psychological principle at work here called the <a href="http://changingminds.org/explanations/theories/mere_exposure.htm">Mere Exposure Theory</a>. It states that we like something the more we’re exposed to it; we like the familiar. W.R. Kunst-Wilson and R.B. Zajonc demonstrated this can happen with the most mundane of objects by flashing octagons at experimental patients and finding that they liked octagons much more after the subliminal stimulus. Though we eventually get sick of songs, it’s quite easy to swap them out for others in the playlist after we hit our threshold. </p>
+
+<p>I think we have our answer. Repetition of anything makes us like the thing even more, while repetition of music specifically helps us sink into a groove. Perfect for improving our mood and ramping up our productivity at the same time.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/02/15/the-psychology-of-a-small-playlist-on-repeat.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/02/12/seeding-a-database-with-queues-and-threading.html"><h3>Seeding a database with queues and threading</h3></a>
+		<div class="date">February 12, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Don’t try this at home. There is no good reason to do this.</p>
+
+<p>Moving on.</p>
+
+<p>Let’s say we wanted to seed a MongoDB database with a ton of records. And let’s just say that we had a Django app connected to that Mongo database. We’d likely be using <a href="http://django-nonrel.org/">django-nonrel</a> with its MongoDB connector. And let’s again say that we have a models.py file that looks like this:</p>
+
+<pre><code># models.py
+
+from django.db import models
+from djangotoolbox.fields import ListField, EmbeddedModelField
+
+class Author(models.Model):
+	name = models.CharField(max_length=60, blank=False)
+
+class Tag(models.Model):
+	name = models.CharField(max_length=40, blank=False)
+
+class Article(models.Model):
+	title = models.CharField(max_length=60, blank=False)
+	subhead = models.CharField(max_length=140)
+	date = models.DateField(auto_now=True)
+	content = models.TextField()
+	authors = ListField(EmbeddedModelField('Author'))
+	tags = ListField(EmbeddedModelField('Tag'))
+</code></pre>
+
+<p>We’ve got some fairly standard models here - an Article with Tags and Authors embedded in. Now we’ll need a seed file:</p>
+
+<pre><code># seed.py
+import os, sys, django
+import random
+from datetime import date, timedelta as td
+from time import sleep
+import Queue, threading
+
+sys.path.append('/path/to/my/project/mongotest/')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mongotest.settings")
+
+from dbtest.models import Author, Tag, Article
+</code></pre>
+
+<p>Nothing too crazy worth noting here. I need to append my project folder to <code>sys.path</code> and configure the <code>DJANGO_SETTINGS_MODULE</code> environment variable so that my app <code>dbtest</code> is registered with the system. </p>
+
+<pre><code># seed.py continued
+
+AUTHOR_FILE = 'authors.txt'
+TAG_FILE = 'tags.txt'
+CONTENT_FILES = ['text1.txt', 'text2.txt', 'text3.txt', 'text4.txt', 'text5.txt', 'text6.txt', 'text7.txt']
+TITLES = ['Numeric abstract base classes', 'The numeric tower', 'Notes for type implementors', 'Number-theoretic and representation functions', 'Decimal fixed point and floating point arithmetic', 'Rational numbers', 'Higher order functions and operations', 'Generate pseudo-random numbers', 'Functions creating iterators', 'Mapping operators to functions']
+DATE_DIFF = date(2014, 12, 31) - date(1999, 1, 1)
+</code></pre>
+
+<p>The contents of these files bear some explanation. I have an authors.txt file and tags.txt file that contain lists of authors and tags (presidents’ names for authors and random words from Wikipedia for tags). I have seven textN.txt files that each contain lorem ipsum text. And I have some titles yanked from Python’s <code>math</code> module. The <code>DATE_DIFF</code> is used to calculate days between January 1, 1999 and December 31, 2014. We’ll use that last bit later.</p>
+
+<pre><code># seed.py continued
+
+def store_models(file):
+'''Initialize with tags and author names from text files.'''
+	f = open(file)
+	f_text = f.read().split('\n')
+	for item in f_text:
+		if file == 'tags.txt':
+			new_tag = Tag(name=item)
+			new_tag.save()
+		elif file == 'authors.txt':
+			new_author = Author(name=item)
+			new_author.save()
+		else:
+			print('Whoa, not a file')
+			return ""
+
+store_models(TAG_FILE)
+store_models(AUTHOR_FILE)
+</code></pre>
+
+<p>We continue this by creating a stack of tags and authors that we’ll need later.</p>
+
+<pre><code># seed.py continued
+
+def prep_half_entry(q, contents, titles, dates):
+	title = random.choice(titles)
+	content = random.choice(contents)
+	subhead = random.choice(titles) + " " + random.choice(contents)[:15]
+	article_date = random.choice(dates)
+	article = Article(title=title, subhead=subhead, content=content, date=article_date)
+	article.save()
+	q.put(article)
+
+def write_full_entry_to_db(q, tags, authors):
+	sleep(0.05)
+	article = q.get()
+	authors_list = [random.choice(authors)]
+	tags_list = [random.choice(tags)]
+	article.authors.extend(authors_list)
+	article.tags.extend(tags_list)
+	article.save()
+</code></pre>
+
+<p>Here we have two functions that we’re going to turn into lots of tiny little threads. The <code>prep_half_entry()</code> function takes four parameters: a queue and sets of contents, titles and dates. From there, it will haphazardly choose some titles, contents, subheads, and dates, and then save the article. It will then put that article on the Queue using the <code>q.put()</code> method - meaning we can access it from other threads. The <code>write_full_entry_to_db()</code> function expects to receive a Queue, a set of tags, and a set of authors. From there, it will pop the first Article it finds off the queue, then complete the entry with tags and authors. The <code>sleep(0.05)</code> is only in there to make the function stall so we can watch the queue grow.</p>
+
+<pre><code># seed.py continued
+
+q = Queue.Queue()
+contents = [open(x).read() for x in CONTENT_FILES]
+dates = [date(1999, 1, 1)+td(days=i) for i in range(DATE_DIFF.days + 1)]
+tags = Tag.objects.all()
+authors = Author.objects.all()
+</code></pre>
+
+<p>Here we build the Queue object a few other sources of data our functions need to complete their work. Remember that <code>prep_half_entry()</code> and <code>write_full_entry_to_db()</code> are just going to shuffle up entries to seed the DB.</p>
+
+<pre><code>for i in range(0, 500):
+
+	t_one = threading.Thread(target=prep_half_entry, args=(q, contents, TITLES, dates))
+	t_two = threading.Thread(target=write_full_entry_to_db, args=(q, tags, authors))
+
+	t_one.daemon = True
+	t_two.daemon = True
+
+	t_one.start()
+	t_two.start()
+
+	if q.qsize() &gt;= 8:
+		print q.qsize()
+</code></pre>
+
+<p>Here’s where the magic happens. We’re now going to spin up a thousand daemon threads and set them loose on this operation. <code>t_one</code> will be 500 threads of prepping half-completed entries and placing them in the queue. <code>t_two</code> will look for entries on the queue and finish them out before saving them to the database.</p>
+
+<p>This sort of raw approach is suboptimal - if you’d like to do something like this at scale, use <a href="http://www.celeryproject.org/">Celery</a>. But it makes a cute little proof of concept.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/02/12/seeding-a-database-with-queues-and-threading.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/02/11/asking-if-someone-believes-in-evolution-is-a-dangerous-question.html"><h3>Asking if someone "believes" in evolution is a dangerous question</h3></a>
+		<div class="date">February 11, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Recently, likely presidential candidate Scott Walker was asked if he <a href="http://www.nationaljournal.com/twenty-sixteen/scott-walker-just-got-asked-if-he-believes-in-evolution-he-punted-20150211">believed in evolution and accepted it.</a>” He punted on the question, drawing scorn from people who follow the things American politicians say at London think tanks.</p>
+
+<p>I am uncomfortable with asking if individuals believe in evolution, or any other theories supported by scientific evidence. The theory of evolution seems to me to make sense based on the huge repository of quantifiable evidence in its favor. Scientists far more qualified than I am have tested this theory repeatedly and it explains much of how we experience the world. I find it to be far more likely than the theory that we simply popped into existence a few thousand years ago, and <a href="http://www.theatlantic.com/national/archive/2014/10/pope-francis-evolution/382143/">the pope has stated the same</a>.</p>
+
+<p>A few centuries ago, every reputable scientist looked at the visual evidence of stars moving around the earth and concluded that the earth was the center of the universe. The scientific community had ignored the heliocentric ideas of <a href="http://www.britannica.com/EBchecked/topic/34377/Aristarchus-of-Samos">Aristarchus of Samos</a> and suggested that he be hauled before the priests for blasphemy. The community also didn’t think much of <a href="http://www.britannica.com/EBchecked/topic/414150/Nicholas-Of-Cusa">Cardinal Nicholas of Cusa</a>, who suggested that the universe might not have a center at all. I suspect that people in power of the times were asked in the public square if they <em>believed</em> in the blasphemous theories proposed by Aristarchus and Nicholas. No doubt a few scholars had promising careers shot down after they were laughed at for believing such insane ideas. </p>
+
+<p>And belief comes with its own risks. Confirmation bias dictates that we will seek out evidence that confirms our beliefs and ignore evidence that contradicts those beliefs. And <a href="http://youarenotsosmart.com/2011/06/10/the-backfire-effect/">the backfire effect</a> compounds this problem: if you’re confronted with evidence that contradicts your beliefs, those beliefs are likely to strengthen. Are these the sorts of characteristics we want our politicians to take on lightly, especially when the belief has little to no bearing on their ability to govern?</p>
+
+<p>I tend to favor politicians with a healthy degree of skepticism about the world around them. There is so much that people outside the Oval Office simply do not know, information that will likely circumvent much of the way candidates currently see the world. I can’t help but hope that politicians who seek that office are exceptionally guarded before they jump to beliefs. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/02/11/asking-if-someone-believes-in-evolution-is-a-dangerous-question.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/31/the-first-time-i-felt-like-an-engineer.html"><h3>The first time I felt like an engineer</h3></a>
+		<div class="date">January 31, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>For the first time in my life, I feel like an engineer.</p>
+
+<p>I have launched a startup and built countless production websites. I teach programming classes at a startup trade school. And I never felt like an engineer until now. </p>
+
+<p>I have no university degree declaring that I have formal training in computer science or software engineering. My degree says I know accounting. I started teaching myself how to code because I hated the idea of going to a big corporation or a small financial advisory firm and I developed a dream of having a business I could build myself. It was 2010 and THE SOCIAL NETWORK had just dropped, amplifying the dream of thousands of young entrepreneurs who were convinced that if they just learned how to code they could become the next Zuckerberg. I am amused now to say that I was one of them. </p>
+
+<p>2010 came and went. 2011 came along and I left school and became a management consultant rather than a startup entrepreneur. Nothing wrong with making some decent coin right after college, right? I enjoyed doing that for a while until the itch started to get after me again. I volunteered to help a friend get his startup off the ground and finally launched a project. I still didn’t feel like an engineer. </p>
+
+<p>I took a full-time engineering role at a public relations firm and was paid to code for the first time in my life. I was completely lost. When you’re learning how to code you stay in a happy little place playing connect the dots with tutorials and occasionally venturing out on your own experiment. When you’re building a brand new startup you’re working with zero code base at all and can make it in your own image. When you take a full-time gig with an established company, you’re suddenly thrown into the code wilderness where things aren’t perfect and you’re forced to confront systems without time for full-blown tutorials on them. And it’s scary as hell. I didn’t feel like an engineer. </p>
+
+<p>No matter what I tried, I couldn’t make myself feel like a professional coder. I thought first “if I launch a startup” then I’ll absolutely feel like an engineer. That didn’t work. I launched a product and still felt like an impostor. Then I said “if I get paid to be an engineer” then I’ll feel like an engineer. I started getting a paycheck for coding and just felt lost and confused. I kept looking for someone else or some milestone to make me feel like an engineer. I started speaking on panels and blogging and churning out pet projects, anything I could to hopefully hit that point where I’d feel like I’d made it.</p>
+
+<p>Sometime in the mix of side projects and full-time work, I had so much going on that I forgot to think about being an engineer. I was just doing the work, day in and day out. And when I finally remembered to think about it again, I realized that something had shifted. Doing the work - actual engineering work, not tech meetups or networking or speaking on panels - had turned me into an engineer. I wasn’t talking about being an engineer or thinking about being an engineer, I was just <em>doing</em> it. </p>
+
+<p>Ira Glass of This American Life has a very poignant reflection on storytelling that should resonate with would-be engineers as well. I leave it here to close this post with his words. </p>
+
+<blockquote>
+  <p>Nobody tells this to people who are beginners, I wish someone told me. All of us who do creative work, we get into it because we have good taste. But there is this gap. For the first couple years you make stuff, it’s just not that good. It’s trying to be good, it has potential, but it’s not. But your taste, the thing that got you into the game, is still killer. And your taste is why your work disappoints you. A lot of people never get past this phase, they quit. Most people I know who do interesting, creative work went through years of this. We know our work doesn’t have this special thing that we want it to have. We all go through this. And if you are just starting out or you are still in this phase, you gotta know its normal and the most important thing you can do is do a lot of work. Put yourself on a deadline so that every week you will finish one story. It is only by going through a volume of work that you will close that gap, and your work will be as good as your ambitions. And I took longer to figure out how to do this than anyone I’ve ever met. It’s gonna take awhile. It’s normal to take awhile. You’ve just gotta fight your way through.</p>
+</blockquote>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/31/the-first-time-i-felt-like-an-engineer.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/29/exploring-the-math-module.html"><h3>Exploring the math module</h3></a>
+		<div class="date">January 29, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I could write code for days using the <code>math</code> module and never hit the end. <code>math</code> is huge. It’s designed to keep you from rewriting a stack of mathematical functions that someone had inevitably written before (formulas for calculating the sine, cosine, tangent, etc). </p>
+
+<p>So rather than write a stack of example code, let’s instead discuss what <code>math</code> can do for you. <code>math</code> can do any of these functions on integers only - <code>cmath</code> provides the same, but allows complex numbers.</p>
+
+<h3 id="number-theoretic-and-representation-functions">Number-theoretic and representation functions</h3>
+
+<p>These functions deal with a few basic theoretical calculations that didn’t quite fit anywhere else. Things like <code>factorial()</code>, <code>fabs()</code> (which calculates absolute value), and <code>modf()</code> which returns the fractional and integer parts of a float can all be found here. </p>
+
+<h3 id="power-and-logarithmic-functions">Power and logarithmic functions</h3>
+
+<p>As can be expected, you’ll find things with exponents and logarithms here. Need to calculate e^x? Use <code>exp(x)</code>. Need to get x^y? Use <code>pow(x, y)</code>. Logarithms use <code>log(x, [base])</code>. Easy stuff here.</p>
+
+<h3 id="trigonometric-functions">Trigonometric functions</h3>
+
+<p>This is where all of the trigonometric functions live: things like <code>sin(x)</code>, <code>cos(x)</code>, <code>tan(x)</code>. I wish I’d known about this in the eleventh grade with Mrs. May. </p>
+
+<h3 id="angular-conversion-functions">Angular conversion functions</h3>
+
+<p>Need to go from degrees to radians? Use <code>radians(x)</code>. Need to go from radians to degrees? Use <code>degrees(x)</code>.</p>
+
+<h3 id="hyperbolic-functions">Hyperbolic functions</h3>
+
+<p>I never used these in eleventh grade and am only moderately aware of what they do. If you need the hyperbolic tangent of x - <code>tanh(x)</code> - or the inverse hyperbolic cosine - <code>acosh(x)</code> - this is where to look. </p>
+
+<h3 id="error-functions">Error functions</h3>
+
+<p>Same thing for error functions. I am not proud of how much math I don’t know right now.</p>
+
+<h3 id="constants">Constants</h3>
+
+<p>These I’ve got, though! This is where <code>pi</code> and <code>e</code> live.</p>
+
+<p><code>math</code> is great, and if you’re going to using Python for statistical or scientific computing, it’s a must-know. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/29/exploring-the-math-module.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/23/object-presentation-with-pprint.html"><h3>Object presentation with pprint</h3></a>
+		<div class="date">January 23, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>In my <a href="/2015/01/21/string-presentation-with-textwrap.html">last post</a>, I discovered that there are all sorts of awesome things you can do to format strings for presentation in a Python program. In this episode, I learn that it’s possible to do the same thing with all Python objects using <code>pprint</code>!</p>
+
+<p>Let’s crack it open and get to some pretty-printing!</p>
+
+<pre><code>import pprint
+
+pp = pprint.PrettyPrinter(indent=4, width=60)
+</code></pre>
+
+<p>Okay, I’ve implemented a <code>PrettyPrinter</code> object that expects to indent things at the four-space mark and each line can only be 60 characters long. Cool. </p>
+
+<pre><code>team = ['We', 'live', 'in', 'cities', 'you\'ll', 'never', 'see', 'on', 'screen', 'not', 'very', 'pretty', 'but', 'we', 'sure', 'know', 'how', 'to', 'run', 'things']
+
+# yes, that is a list of words in the chorus of Lorde's "Team"
+
+pp.pprint(team)
+</code></pre>
+
+<p>Okay, awesome. I now print everything on its own line with a slight indentation. </p>
+
+<p>What happens if I throw a custom object at it?</p>
+
+<pre><code>class Dog:
+	def __init__(self, name, owner):
+		self.name = name
+		self.owner = owner
+
+my_dog = Dog('Rufus', 'Joe')
+
+pp.pprint(my_dog) # &lt;__main__.Dog instance at 0x1007ebc20&gt;
+</code></pre>
+
+<p>Oh, that’s disappointing. I was	hoping I’d get a nifty way of doing this without having to define a custom <code>repr()</code> method on <code>Dog</code>. Ah well.</p>
+
+<p>So <code>pprint</code> does some stuff awesome, and some stuff… not as awesome. Onward!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/23/object-presentation-with-pprint.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/21/string-presentation-with-textwrap.html"><h3>String presentation with textwrap</h3></a>
+		<div class="date">January 21, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I haven’t written that many programs that run solely from the command line with a lot of user instructions incorporated into the program flow, so I haven’t done much Python display text processing. But if I had, <code>textwrap</code> would very likely be one of my best friends.</p>
+
+<p>The <code>textwrap</code> module is designed to wrap text, produce some formatted paragraphs, or totally strip out indentation from strings. It’s there for your convenience. Let’s take a look at what it can do:</p>
+
+<pre><code>import textwrap
+
+my_string = "The textwrap module is designed to wrap text, produce some formatted paragraphs, or totally strip out indentation from strings. It's there for your convenience. Let's take a look at what it can do:"
+
+print my_string
+
+print textwrap.wrap(my_string, 60)
+</code></pre>
+
+<p>Whoa whoa whoa there, that’s some weirdness. I’ve clearly got a cut-up string there, but it’s in list format. Let’s clean that up a bit:</p>
+
+<pre><code>print "\n".join(textwrap.wrap(my_string, 60))
+</code></pre>
+
+<p>But wait a second, that seems like writing a bunch of characters that I didn’t want to write. Let’s use <code>fill()</code>!</p>
+
+<pre><code>print textwrap.fill(my_string)
+</code></pre>
+
+<p>Okay, so <code>fill()</code> pretty much does the exact same thing as <code>wrap()</code>, but it automatically joins everything and adds some newlines in. </p>
+
+<p>Now let’s fiddle around with <code>dedent()</code>:</p>
+
+<pre><code>my_string = "\t\t" + my_string
+
+print my_string
+
+print textwrap.dedent(my_string)
+</code></pre>
+
+<p>I’ve added in some tabs here just to showcase what <code>dedent()</code> is designed to do. You can add whitespace to the beginning of your strings - such as if you wanted to include paragraphs in the source code - but then strip it out for presentation in your app.</p>
+
+<p>And that’s a <code>textwrap</code>!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/21/string-presentation-with-textwrap.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-offset-3 col-8">
+		<div class="pagination">
+			
+			<a href="/page4" class="previous">Previous</a>
+			
+
+			<span class="page_number">Page: 5 of 8</span>
+
+			
+			<a href="/page6" class="next">Next</a>
+			
+		</div>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

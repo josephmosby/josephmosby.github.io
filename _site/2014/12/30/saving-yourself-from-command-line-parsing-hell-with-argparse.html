@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html"><h3>Saving yourself from command-line parsing hell with argparse</h3></a>
+	</div>
+	<div class="col-8">
+		<p><em>I've been writing a series of blog posts to eventually cover every single module in the Python Standard Library. Check them all out <a href="/blog/pymods">here</a>.</em></p>
+
+<p>Before <code>argparse</code>, I thought the only way to deal with command line arguments was to use <code>sys.argv</code>. You throw a series of arguments at a program, munge through them with <code>sys.argv[0]</code>, <code>sys.argv[1]</code>, etc. and hope for the best. And you hope that you always have full control over the arguments coming at your program through the command line. But what do you do if you have optional arguments, or flags? You could write your own parsers to handle all of that, but that’s where <code>argparse</code> comes in. </p>
+
+<p><code>argparse</code> provides a wrapper around <code>sys.argv</code> that… well, it parses arguments. The name is rather intuitive. </p>
+
+<p>A program utilizing <code>argparse</code> requires an <code>ArgumentParser</code> object to be much use at all. The arguments supplied to the <code>ArgumentParser</code> upon initialization provide much of the information on how we’ll use the tool. We’ll do that like so:</p>
+
+<pre><code>import argparse
+
+parser = argparse.ArgumentParser(description='A custom tool for rustling or unrustling jimmies.', usage='Use the custom tool in a manner that keeps your jimmies unrustled.')
+</code></pre>
+
+<p>The “description” and “usage” strings provide information that will be displayed when a user wants to read the manual on your program. We’ll look at that output in a bit once we add some arguments.</p>
+
+<pre><code>parser.add_argument('jimmies', type=int, nargs='+', help='Jimmies, in this instance, are a list of integers delimited by spaces.')
+</code></pre>
+
+<p>I’ve added an argument here that will be named ‘jimmies.’ By design, any argument that does not have a ‘-‘ preceding its name is a positional argument. <code>jimmies</code> expects arguments to be integers (<code>type=int</code>) and everything supplied on the command line will be cobbled together into a list (<code>nargs='+'</code>). We’ve also provided some help text here.</p>
+
+<pre><code>parser.add_argument('--rustle', dest='rustle', action='store_const', const=shuffle, default=unshuffle, help='The rustle flag determines if you would like further rustling of your jimmies. Otherwise, this program will naturally seek unrustlement.')
+</code></pre>
+
+<p>I’ve now added an optional flag here called <code>--rustle</code>. This will send everything into a function called <code>rustle</code>. <code>rustle</code> will do one of two things here: it will either make use of a function called <code>shuffle</code> if the flag is present, or it will make use of a function called unshuffle if the flag is absent. The <code>action</code> parameter indicates that we should store a constant value regardless. We’ll use a default value if the <code>--rustle</code> flag isn’t present, but we’ll use the <code>const</code> otherwise.</p>
+
+<p>Let’s assume that <code>unshuffle()</code> and <code>shuffle()</code> were defined elsewhere in the program like so.</p>
+
+<pre><code>import random 
+
+def unshuffle(parsed_items):
+	parsed_items.sort()
+	return parsed_items
+
+def shuffle(parsed_items):
+	random.shuffle(parsed_items)
+	return parsed_items
+</code></pre>
+
+<p>Then finally, we have to use the program:</p>
+
+<pre><code>if __name__ == "__main__":
+	args = parser.parse_args()
+	print args.rustle(args.jimmies)
+</code></pre>
+
+<p>The <code>args = parser.parse_args()</code> will produce a list of arguments based on what was supplied at the command-line. Now that we have some <code>args</code> in our namespace, we can <code>args.rustle()</code> our <code>args.jimmies</code>.</p>
+
+<pre><code>$ python argparse-example.py --help
+
+usage: Use the custom tool in a manner that keeps your jimmies unrustled.
+
+A custom tool for rustling or unrustling jimmies.
+
+positional arguments:
+  jimmies     Jimmies, in this instance, are a list of integers delimited by
+              spaces.
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --rustle    The rustle flag determines if you would like further rustling of
+              your jimmies. Otherwise, this program will naturally seek
+              unrustlement.
+
+$ python argparse-example.py 4 8 1 2
+[1, 2, 4, 8]
+
+$ python argparse-example.py 4 8 1 2 --rustle
+[2, 8, 1, 4]
+</code></pre>
+
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

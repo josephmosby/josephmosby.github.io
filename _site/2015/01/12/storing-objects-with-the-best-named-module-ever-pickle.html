@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html"><h3>Storing objects with the best-named module ever, pickle</h3></a>
+	</div>
+	<div class="col-8">
+		<p><em>I've been writing a series of blog posts to eventually cover every single module in the Python Standard Library. Check them all out <a href="/blog/pymods">here</a>.</em></p>
+
+<p>I love <code>pickle</code>. I love that Python has a module named pickle. I have never used pickle before, but I like that it’s there. Let’s take a look at what pickle does.</p>
+
+<p>Per the docs, <code>pickle</code> provides an algorithm for serializing and unserializing a Python object. When we pickle an object, we turn it into a stream of bytes that can be sent to another process or saved to a file to be reconstructed at a later time. You still have to define the class in the namespace of the process reading the pickle - a pickled object comes with object data but no way to tell the program about an object type that’s not already in the process namespace. <code>pickle</code> also comes with a faster <code>cPickle</code> companion that’s written in C to make it super fast. </p>
+
+<p>We can kick things off like so:</p>
+
+<pre><code>import pickle
+
+class Cucumber:
+
+	def __init__(self, height):
+		self.height = height
+
+	def grow(self):
+		self.height += 1
+		return "Current height is: ", str(self.height)
+
+veggie = Cucumber(2)
+veggie.grow()
+
+print pickle.dumps(veggie)
+
+veggie.grow()
+
+print pickle.dumps(veggie)
+</code></pre>
+
+<p>Here, I have created a <code>Cucumber</code> object type and given it a method <code>grow()</code>, which will increment its height. Calling the <code>pickle.dumps()</code> method on an instance of our <code>Cucumber</code> yields a short string of ASCII characters as a representation of our object. </p>
+
+<p>I can also save objects to files and reload them in perfect condition:</p>
+
+<pre><code>veggie_two = Cucumber(4)
+
+file_save = open('pickled_veggies', 'w')
+
+pickle.dump(veggie_two, file_save)
+
+file_save.close()
+
+file_read = open('pickled_veggies', 'r')
+
+veggie_three = pickle.load(file_read)
+
+print "Veggie Three Height: ", str(veggie_three.height)
+</code></pre>
+
+<p><code>pickle</code>’s <code>dump()</code> mechanism (not <code>dumps()</code> with a ‘s’) is used to save these ASCII object strings to a file, and <code>load()</code> is used to read them back from that file. <code>loads()</code> would read them from a string. </p>
+
+<p>And that’s what <code>pickle</code> does, simply and well. It makes your objects into strings, light, compact and ready to be stored forever. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

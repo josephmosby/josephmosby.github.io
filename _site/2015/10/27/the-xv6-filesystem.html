@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2015/10/27/the-xv6-filesystem.html"><h3>The xv6 filesystem</h3></a>
+	</div>
+	<div class="col-8">
+		<p>The file system of an operating system is one of those things I haven’t thought about in years, ever since I went through the painful process of reformatting USB sticks when different versions of Windows used different file systems. But I’ve never really thought about how those things have to be implemented. </p>
+
+<p>On xv6, files are either data files, which are “uninterpreted byte arrays,” and directories, which are references to data files or other directories. So a directory is nothing more than a special file that points to other files. Cool. Directories form a tree starting at the root, and a path is a set of directories going out from the root. If a path doesn’t start with a root, paths start from the current working directory of a given process. </p>
+
+<p>That means <code>chdir()</code> is a system call that changes the current working directory of a process, and <code>mkdir()</code> is the system call that creates a new directory. <code>mknod()</code> is a similar call that creates a kernel device (such as a keyboard). When a process opens the kernel device file, the kernel will redirect the <code>read()</code> and <code>write()</code> to the kernel device instead of to a specific data file.</p>
+
+<p>The <code>fstat()</code> call gives information about a specific object that a file descriptor points to. <code>fstat(fd)</code> takes in a file descriptor and returns a C <code>struct</code> called <code>stat</code>, which has an implementation that looks something like this:</p>
+
+<pre><code>#define T_DIR 1 // directory
+#define T_FILE 2 // file
+#define T_DEV 3 // device
+
+struct stat {
+	short type; // type of file
+	int dev; // file system's disk device
+	uint ino; // inode number
+	short nlink; // number of links to file
+	uint size; // size of file in bytes
+}
+</code></pre>
+
+<p>The name of the file is not included in this information table, because names are distinct from the actual file. An “inode” is the only unique identifier of a file that the kernel sees: names are just “links” back to an individual inode. Thus the following system calls will create two names for a file with the same inode:</p>
+
+<pre><code>open("a", O_CREATE|O_WRONLY);
+link("a", "b");
+</code></pre>
+
+<p>Calling <code>fstat()</code> on either of the file descriptors attached to “a” or “b” will demonstrate that they’re tied back to the same file with the same inode number. <code>unlink()</code> will do the opposite of <code>link()</code>. It deletes the name, but will not delete the file itself.</p>
+
+<p>In xv6, these types of operations are implemented as user-level programs, rather than baking the system calls into the shell itself. <code>mkdir</code> is not a direct call to the system, but a user program that calls the <code>mkdir()</code> system call. Same with <code>rm</code>. <code>cd</code> is a notable exception, because it changes the working directory of the shell itself rather than a child process of the shell.</p>
+
+<p>And that’s it for the xv6 system calls! I can treat the xv6 kernel as something abstracted away now that I have all of the system calls for interacting with it. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/27/the-xv6-filesystem.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

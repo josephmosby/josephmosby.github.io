@@ -1,0 +1,192 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+
+	<title></title>
+	
+	<!-- Required stylesheet -->
+	<link rel="stylesheet" href="/include/deckjs/core/deck.core.css">
+	
+	<!-- Extension CSS files go here. Remove or add as needed. -->
+	<link rel="stylesheet" href="/include/deckjs/extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/status/deck.status.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="/include/deckjs/extensions/scale/deck.scale.css">
+
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="main.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="/include/deckjs/themes/transition/horizontal-slide.css">
+	
+	<!-- Required Modernizr file -->
+	<script src="/include/deckjs/modernizr.custom.js"></script>
+
+	<link rel="stylesheet" href="/stylesheets/fibonacci.css">
+	<link rel="stylesheet" href="/stylesheets/custom.css">
+	
+	<!--[if lt IE9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+	<div class="wrapper" id="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-13">
+					<a href="/"><h3></h3></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wrapper" id="slides">
+	<div class="container deck-container">
+		<section class="slide" id="intro">
+		<div id="main_header">Using Drupal's Content APIs to Build Real-Time Mobile Apps</div>
+	
+		<div class="bio">
+		<div class="bio_name">Joseph Mosby</div>
+		<div class="bio_twitter_handle">@josephmosby</div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide1">
+		<div class="slide_header">Meetings Mean Business</div>
+	
+		<div class="slide_wrapper">
+		<div class="col1"><img src="images/screenshot1.jpeg" /></div>
+		<div class="col2"><img src="images/screenshot2.jpeg" /></div>
+		</div>
+	</section>
+
+	<section class="slide" id="slide2">
+		<div class="slide_header">Requirements</div>
+	
+		<div class="slide_wrapper">
+		<ul>
+			<li>Content must be stored natively on the device</li>
+			<li>Content will be refreshed regularly</li>
+			<li>Content type data may change</li>
+			<li>Content must be updated in lockstep with website</li>
+		</ul>
+		</div>
+	</section>
+
+	<section class="slide" id="slide3">
+	
+		<div class="slide_wrapper">
+		<div class="big_text">Drupal's Content API Module!</div>
+		<div class="subheader_text">(sponsored by the FCC and Seabourne)</div>
+		</div>
+
+	</section>
+
+	<section class="slide" id="slide4">
+
+		<div class="slide_header">The Content API Module</div>
+		<ul>
+			<li>Publishes all Drupal content as a web API</li>
+			<li>Allows admins to customize what is returned via API calls</li>
+			<li>Allows searching by type, node ID, title, author, relationship, etc.</li>
+			<li>End users can add, remove and modify content in a familiar Drupal interface</li>
+		</ul>
+		
+	</section>
+
+	<section class="slide" id="slide5">
+
+		<div class="slide_header">MMB's Workflow</div>
+		<ol>
+			<li>When app is opened, query the API for all content</li>
+			<li>Parse manifest XML and check if content is loaded on device already</li>
+			<li>For new or updated content, load detail page XML and download data</li>
+			<li>Store all data and render on device</li>
+		</ol>
+		
+	</section>
+
+	<section class="slide" id="slide6">
+
+		<ul>
+			<li>Google's recommended XML parsing approach on Android took more than 10 seconds to parse</li>
+			<li>Google's recommended HTTP connection approach took 50 seconds to download data</li>
+			<li>Our "Programming Android" book had buggy code examples</li>
+			<li>Content API module only returns 10 records before pagination</li>
+		</ul>
+
+		<div class="what"><img src="images/what.png" /></div>
+		
+	</section>
+
+	<section class="slide" id="slide7">
+
+		<div class="slide_header">Resources</div>
+		<ul>
+			<li><a href="https://drupal.org/project/contentapi">Drupal's Content API Module</a></li>
+			<li><a href="http://steveliles.github.io/comparing_java_xml_parsing_mechanisms_for_android.html">SAX versus XML parsing in Android</a></li>
+			<li><a href="http://stackoverflow.com/questions/2022170/how-to-execute-web-request-in-its-own-thread">Stack Overflow on ASyncTasks for HTTP requests</a></li>
+			<li><a href="http://shop.oreilly.com/product/0636920023005.do">The dubious Programming Android book</a></li>
+			<li><a href="http://imakewebthings.com/deck.js/">deck.js</a></li>
+		</ul>
+
+		<div class="bio">
+		<div class="bio_name">Joseph Mosby</div>
+		<div class="bio_twitter_handle">@josephmosby</div>
+		</div>
+		
+	</section>	
+
+	<!-- Begin extension snippets. Add or remove as needed. -->
+
+	<!-- deck.navigation snippet -->
+	<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+	<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+	<!-- deck.status snippet -->
+	<p class="deck-status">
+		<span class="deck-status-current"></span>
+		/
+		<span class="deck-status-total"></span>
+	</p>
+
+	<!-- deck.goto snippet -->
+	<form action="." method="get" class="goto-form">
+		<label for="goto-slide">Go to slide:</label>
+		<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+		<datalist id="goto-datalist"></datalist>
+		<input type="submit" value="Go">
+	</form>
+
+	<!-- deck.hash snippet -->
+	<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+	</div>
+	</div>
+
+	
+		<!-- Required JS files. -->
+	<script src="/include/deckjs/jquery-1.7.2.min.js"></script>
+	<script src="/include/deckjs/core/deck.core.js"></script>
+
+	<!-- Extension JS files. Add or remove as needed. -->
+	<script src="/include/deckjs/core/deck.core.js"></script>
+	<script src="/include/deckjs/extensions/hash/deck.hash.js"></script>
+	<script src="/include/deckjs/extensions/menu/deck.menu.js"></script>
+	<script src="/include/deckjs/extensions/goto/deck.goto.js"></script>
+	<script src="/include/deckjs/extensions/status/deck.status.js"></script>
+	<script src="/include/deckjs/extensions/navigation/deck.navigation.js"></script>
+	<script src="/include/deckjs/extensions/scale/deck.scale.js"></script>
+
+	<!-- Initialize the deck. You can put this in an external file if desired. -->
+	<script>
+		$(function() {
+			$.deck('.slide');
+		});
+	</script>
+</body>
+</html>

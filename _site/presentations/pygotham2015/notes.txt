@@ -1,0 +1,5 @@
+Inferring types -- LLVM is static typed
+will type hints in python 3.5 make it worth switching from Python 2.7 to Python 3.5?
+
+LLVM-IR
+Tupleware

@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				<div class="row">
+	<div class="col-3">
+		<a href="/2014/03/24/open-source-search-technologies-for-human-beings-part-1.html"><h3>Open Source Search Technologies for Human Beings - Part 1</h3></a>
+	</div>
+	<div class="col-8">
+		<p>Search is one of those features that’s become so “baked in” to the way we experience the web that it’s often an afterthought for us as users. We peck a few well-chosen words into the Google search bar, press enter, and end up where we needed to be. It’s become a mental backup system to the point that we no longer even need to bookmark a link any more as long as we can remember the few keywords that will bring us back to the page. Though I develop websites every single day, I had never actually thought about the search technology that brings users to my page and allows them to find the content they wanted.</p>
+
+<p>I was suddenly forced to confront my ignorance of search when I learned that the General Services Administration would be changing their search software from <a href="https://lucene.apache.org/solr/">Solr</a> to <a href="http://www.elasticsearch.org/">Elasticsearch</a>. Having no idea how either of them worked, I started doing my homework immediately. </p>
+
+<h3 id="how-search-works">How Search Works</h3>
+
+<p>Though the specific implementations vary across platforms, the core of any text-based search technology is the same. The subject matter will be broken down into small components that can be stored in an index that references back to the document in question. The name is not accidental: this works in the same way as a word index that points back to pages at the back of a heavy research book. As we add more documents to the index, this process is repeated and the index size and complexity increases. </p>
+
+<p>In this example, our documents can be anything primarily composed of text. Web pages, Word documents or eBooks could all be comfortably fed into our search engine and happily indexed. Eventually, though, we’ll need to retrieve that information if we want a fully functional search engine. An index of extremely well-organized keywords and documents won’t do us any good if we never use it to retrieve the information we need. To do so, we’ll “query” the index by feeding it a keyword. The search engine will then check its index for all documents that match that keyword and return us the corresponding list of document. If we add more than one keyword, the search engine will query the index to find documents that show up for each individual keyword then compare the results to bring us documents that contain all of our keywords. </p>
+
+<p>Let’s take a quick visual walk through this process. Say we have a document (NFL.doc) that we’d like to index. Our document contains quite a bit of text about the NFL, all of which will be broken down and inserted into our index.</p>
+
+<p><img src="/images/NFLdoc.png" alt="Picture of a document that contains text about the NFL" /></p>
+
+<p>Our indexing process is going to examine the text of the document, split out the words, and point those words back to NFL.doc.</p>
+
+<p><img src="/images/index1.png" alt="Table of keywords that all correspond back to NFL.doc" /></p>
+
+<p>We’ll then add these keyword/document pairings into our main index, which contains similar pairings for other documents.</p>
+
+<p><img src="/images/index2.png" alt="Table of keyword/document pairings that contains NFL and MLS references" /></p>
+
+<p>When a user searches for a term, the search engine will check the index and return the documents that correspond to that term. In this example, our user has searched for “football.”</p>
+
+<p><img src="/images/search.png" alt="Input box prompting user to search. The user has entered &quot;football&quot; into the input box." /></p>
+
+<p>Our example index only has a single entry for the word “football” - the NFL.doc document - and so our search engine returns that document to the user.</p>
+
+<p><img src="/images/single_search_result.png" alt="Table showing a single keyword/document pairing that matches the word football with NFL.doc" /></p>
+
+<p>And that’s the core of a search engine to get us started! In <a href="http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-2.html">Part 2</a> I’ll talk a little bit about Lucene, the nuts and bolts of both Solr and Elasticsearch. In <a href="http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-3.html">Part 3</a>, I’ll compare the two pieces of software to show how they each bring search technology to life for the web. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/03/24/open-source-search-technologies-for-human-beings-part-1.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>

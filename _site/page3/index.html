@@ -1,0 +1,729 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>josephmosby.com</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
+		<link rel="stylesheet" href="/stylesheets/custom.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="wrapper" id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<a href="/"><h3>JOSEPH MOSBY</h3></a>
+
+						<ul class="menu inline">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+							<li><a href="/feed/atom.xml">subscribe</a></li>
+						</ul>
+
+						<a id="hamburger" href="#">MENU</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="dropdown">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<ul class="menu dropdown">
+							<li><a href="/about">about</a></li>
+							<li><a href="/projects">projects</a></li>
+							<li><a href="/presentations">presentations</a></li>
+							<li><a href="/now">now</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="main">
+			<div class="container">
+				
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/07/14/the-uncomfortable-reality-of-software-engineering.html"><h3>The uncomfortable reality of software engineering</h3></a>
+		<div class="date">July 14, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I am haunted by the idea that someone will have to go back and make changes to certain pieces of code that I wrote in the past. The last time that actually happened was on a project that was originally set up as a demo, rife with technical debt as non-technical managers made rapid changes to requirements and promised clients they’d have something to show that same day. Enough of those types of changes and your project suddenly turns into a duck-taped train wreck. No one can read your code and understand how it works, and eventually, you can’t do it either.</p>
+
+<p>I chat with software engineers in all manner of disciplines and this reality is very much the same. Maybe it’s because engineers are working with a management team that doesn’t want to take the time to do things right, but sometimes it’s due to a tired engineer who didn’t sleep well the night before and just wants to find the first fix for a bug that will get him home by 5:30pm. Sometimes it’s more insidious: individually, every feature might have been put into place with proper consideration, but an edge case causes a catastrophic failure once it runs through all of the machinery. </p>
+
+<p>You don’t see that edge case ever properly discussed in the news. It’s too nuanced to make a good story for the general public, and companies are reticent to talk about major problems with their software. Neither <a href="http://www.wired.com/2015/07/united-airlines-flights-grounded-across-us-2nd-time/">United Airlines</a> nor <a href="http://www.wired.com/2015/07/nyse-halts-trading/">NYSE</a> have given any sort of technical reasons for their major glitches last week, but that says a whole lot in and of itself: it wasn’t some sort of concerted cyberterrorist attack, it was just an edge case that finally hit the software where it shouldn’t. Maybe it was just that <a href="http://stackoverflow.com/questions/4456438/how-do-i-correctly-pass-the-string-null-an-employees-proper-surname-to-a-so">Mr. Null</a> booked his first ever United Airlines flight.</p>
+
+<p>Maybe this is all a reality of software engineering and will be forever, but I doubt that. I think we as engineers are approaching our <a href="http://abcnews.go.com/Business/story?id=87293">Arthur Andersen</a> moment. That point where we try to hold our hands up and say that we did what was expected of us and couldn’t possibly do more, but the world will disagree with us. Maybe it’s time we started thinking about how to prevent that moment before it happens because our stakes are much, much higher than the accounting profession’s. No one died because Enron fudged some numbers. They might die if one of those software bugs hits something important: something like an airline.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/07/14/the-uncomfortable-reality-of-software-engineering.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/06/23/a-good-cs-undergraduate-algorithm-problem.html"><h3>A good CS undergraduate algorithm problem</h3></a>
+		<div class="date">June 23, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Okay, here’s a question for an undergraduate algorithms class to solve. In a non-relational database, we have a users collection with user preferences for breaking news alerts. In a separate collection, we have news stories with tags and searchable content. We will run a scheduled job that will pair the two and send news alerts to users if a story that matches their alert preferences has been published in the last half hour. </p>
+
+<p>Given that we have approximately 50,000 users with an average of 5 alerts each and 500,000 stories with an average of 20 topics each and ten paragraphs of searchable content, how do we build this job in a way that it won’t crash the database?</p>
+
+<p>Example tables:</p>
+
+<p>users:</p>
+
+<pre><code>[
+	{ 
+		email: "jane.doe@example.com",
+		alerts: [
+			{
+				type: "open-search",
+				term: "Barack Obama"
+			},
+			{
+				type: "topic",
+				term: "politics"
+			},
+			{
+				type: "topic",
+				term: "congress"
+			},
+			{
+				type: "open-search",
+				term: "natural gas"
+			},
+			{
+				type: "open-search",
+				term: "solar power"
+			}
+		]
+	},
+	{ 
+		email: "john.smith@example.com",
+		alerts: [
+			{
+				type: "open-search",
+				term: "Joe Biden"
+			},
+			{
+				type: "topic",
+				term: "politics"
+			},
+			{
+				type: "open-search",
+				term: "sunglasses"
+			},
+			{
+				type: "topic",
+				term: "house"
+			},
+			{
+				type: "topic",
+				term: "senate"
+			},
+			{
+				type: "open-search",
+				term: "solar power"
+			}
+		]
+	},
+
+	....
+]
+</code></pre>
+
+<p>stories:</p>
+
+<pre><code>[
+	{ 
+		headline: "The Standard Lorem Ipsum passage",
+		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.......",
+		tags: [
+			{
+				term: "Barack Obama"
+			},
+			{
+				term: "president"
+			},
+			{
+				term: "America"
+			}
+		]
+	},
+	{ 
+		headline: "More lorem ipsum passages",
+		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.......",
+		tags: [
+			{
+				term: "Joe Biden"
+			},
+			{
+				term: "vice president"
+			},
+			{
+				term: "Senate"
+			}
+		]
+	},
+]
+</code></pre>
+
+<p>The end result should look something like:</p>
+
+<p>alerts:</p>
+
+<pre><code>[
+	{ 
+		email: 'john.doe@example.com',
+		stories: [
+			{ 
+				headline: "More lorem ipsum passages",
+				content: "Lorem ipsum dolor..."
+			},
+			{
+				headline: "Another lorem ipsum passage",
+				content: "Lorem ipsum dolor..."
+			}
+		]
+	},
+	{ 
+		email: 'jane.smith@example.com',
+		stories: [
+			{ 
+				headline: "Another lorem ipsum passage",
+				content: "Lorem ipsum dolor..."
+			},
+			{
+				headline: "The best of lorem ipsum",
+				content: "Lorem ipsum dolor..."
+			}
+		]
+	}
+]
+</code></pre>
+
+<p>Would love to hear your questions or solutions: josephmosby@gmail.com</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/06/23/a-good-cs-undergraduate-algorithm-problem.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/06/09/einstein-blinked.html"><h3>Einstein blinked</h3></a>
+		<div class="date">June 09, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>It’s the mid-1920s, and a patent clerk from Bern, Switzerland has just rocked the entire physics world with a proof sent to the German Academy of Sciences claiming that our notion of time is relative to the person observing it, and changes if you’re going really, really fast. Not satisfied with this absolutely insane discovery, this very same amateur physicist has the audacity to prove that if you’re in the presence of something huge, your notion of time will change as well. And then just for kicks he proves that light bends around super-huge objects like the time-warping ones. </p>
+
+<p>In short, 1920s Albert Einstein was basically the physics-addicted love child of Elon Musk and Steve Jobs and Drake, with Richard Branson’s hair. He’s crazy talented and he is on every paper imaginable, because it’s the 1920s and no one has anything but dubious investments and bootleg liquor and science in their minds. It’s a brave new world out there.</p>
+
+<p>Einstein’s cooking on the next big thing at this point. He’s proven what happens to Newton’s laws of physics when you’re in the presence of extraordinarily massive objects, but he’s only worked out the details by studying the effects of a single large object at a time. He’s decided it’s time to develop the equations to extrapolate all of this on a universal scale. He’s humming along, approving patents and mathematical equations and just being a general and special relative physical badass, when suddenly he hits an equation that he wasn’t expecting. He realizes that if all of his math checks out, then it implies that the universe must be either expanding or shrinking, but it cannot be a constant size. And he stares, and he ponders, and he thinks some more.</p>
+
+<p>And Einstein blinks.</p>
+
+<p>The idea of a non-constant universe overloads his mind and offends his conception of the world around him. He can’t handle it. He checks the math again and again and realizes that it always checks out, so he <em>changes the equations.</em> He adds the notion of a “cosmological constant,” which is supposed to represent the constant size of the universe or something. It’s total nonsense, naturally, and it takes twelve years for Edwin Hubble to finally have sensitive enough instruments to test the theory that the universe might be expanding after all. Hubble’s discoveries humble Einstein, and he deems the lost years to be the biggest blunder of his life. </p>
+
+<p>Einstein recovers and goes on to make still more contributions to science, and few remember that he once had a totally wrong notion of a constant size to the universe. We remember his ideas on light, and gravity, and time, and still credit him with opening the door to the idea that the universe is expanding. Not with being wrong for twelve straight years.</p>
+
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/06/09/einstein-blinked.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/06/03/you-should-probably-stop-reading-and-going-to-meetups.html"><h3>You should probably stop reading and stop going to meetups</h3></a>
+		<div class="date">June 03, 2015</div>
+	</div>
+	<div class="col-8">
+		<pre><code>When nothing is owed or deserved or expected
+And your life doesn't change by the man that's elected
+If you're loved by someone, you're never rejected
+Decide what to be and go be it
+- The Avett Brothers, "Head Full of Doubt/Road Full of Promise"
+</code></pre>
+
+<p>In November-ish of last year, I was lost. Not the sad sort of lost where you’re wandering around in a daze, but a sort of musingly confused lost. I had experienced a spurt of crazy personal growth while moonlighting for <a href="http://routeam.com">Routeam</a> that had propelled me forward as an engineer, then experienced another spurt when I took my first full-time front-end engineering role, but I hadn’t had anything after that for almost eight months. I no longer felt like I was producing excellent work that was pushing me forward. </p>
+
+<p>Around that time, I asked a mentor (name changed to Dave to protect the innocent) for help. I cannot be thankful enough to Dave for this - he did not know me very well but was still willing to take some time out of his day to talk career advice with a budding engineer. I’m paraphrasing our conversation below to get to the good parts:</p>
+
+<pre><code>Joe: Dave, I built a v1 of a startup product about a year ago, I've built some reasonably complex Python projects since then, I'm not a bad front-end engineer, but I'm stuck. How do I get to the next level as an engineer? What do I need to read or study to move forward? 
+
+Dave: Stop going to meetups, and stop reading a bunch of stuff on the Internet. Go talk to people, and go build things. 
+</code></pre>
+
+<p>The dichotomy between where I was mentally and where I needed to be could not be more stark. At the time, I was lost because I wanted there to be some how-to guide, some magic blog post that I’d read on the Internet that could tell me where to go. I think those things are amazing for engineers as they’re starting out in their careers, but eventually you have to graduate past them. You have to pick something <em>you</em> love doing, and you have to go do it. </p>
+
+<p>Meetups get in your way here. You start going to meetups with the purest of intentions. You want to learn about new technical topics (good) and you want to meet new people in the technology scene (good). But eventually they turn on you. You start to realize that you’ve accumulated enough expertise in a meetup’s subject matter that you’re not learning anything new, and you start to realize that the same people are showing up to the same meetups. <em>You do not have time for this.</em> You need to be building things.</p>
+
+<p>Reading gets in your way here too. When you’re in this mental state of limbo, your reading choices start to represent that mental state. You slowly shift away from “I’m going to hunt for this bit on cybersecurity in Django that would help me with a project RIGHT NOW” to “I should read about Clojure. I don’t know how to program in Clojure and I don’t have any serious plans to learn, but I should read about it.” Your reading becomes a way to dodge taking real action. </p>
+
+<p>To advance past this mental state, you have to make a choice. You have to choose something that you’re going to invest in, and you need to double down. It might be learning a brand new language, or a new framework, or a new use case for a language you already know. Whatever you choose, it’s going to require a lot of dedicated cognitive resources. And meetups and scatterbrained reading will suck up those cognitive resources. </p>
+
+<p>So if you’re in that mental place, I urge you - pick up a hard problem. Turn off the distractions to solve it. That’s the only way to break through.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/06/03/you-should-probably-stop-reading-and-going-to-meetups.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/05/29/chip-economics.html"><h3>Chip Economics</h3></a>
+		<div class="date">May 29, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Over the past few weeks, I’ve been working through <a href="http://nand2tetris.org">NAND2Tetris</a> after the recommendation of <a href="http://juliangindi.com/">Julian Gindi</a>. The NAND2Tetris course takes a single NAND electronic gate, which returns 0 if both inputs are 1 and returns 1 otherwise, and uses this as a building block for a whole host of electronic gates. It’s possible to make a NOT gate out of NAND chips. It’s also possible to build a multiplexer (which picks between inputs based on a control input). And most impressively, we can build an arithmetic logic unit - the core part of a CPU responsible for addition and subtraction - solely out of a stack of NAND chips. When all is said and done, I’ll have built a working computer emulator solely out of these single atomic pieces.</p>
+
+<p>Now, at this point in computer development, I’ve never even <em>seen</em> a real NAND hardware chip, and it’s likely impossible I could see one even if you held it up. They’ve now been shrunk down to a few nanometers wide. Engineers at Intel and AMD obsess over ALU design (I expect, maybe even they don’t any more), but it’s so far abstracted away from my day-to-day work that I could get away with never knowing how one worked for my entire career. But once upon a time, that wasn’t the case. Chips were things you could actually touch, and solder onto a breadboard, and make arcade games out of them. </p>
+
+<p>This exercise has made me look at some of the feats of early computer engineers in a totally different light. In the 1970s, Steve Wozniak was building Pong and <a href="http://thedoteaters.com/?bitstory=breakout">Breakout!</a> arcade games out of hardware chips, soldering together [more sophisticated] logic gates to build games. Atari was willing to pay $5000 ($22K in today’s dollars) for a Breakout chip design that only used 44 chips because chips actually cost enough for that to matter. Logic gates weren’t just vague ideas embedded into processor designs - they were things you could touch, and they cost money. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/29/chip-economics.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/05/13/preventing-file-dupes-in-django.html"><h3>Preventing file dupes in files uploaded through Django</h3></a>
+		<div class="date">May 13, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Many Django applications make use of uploaded files that should never be re-uploaded again after they’ve been uploaded once. An example of this in action might be an image (one image embedded in a blog post might not be a big deal for a small site, but news sites often deal with licensed high-definition images used across several stories) or a large PDF with associated metadata (once the metadata is keyed in once, users shouldn’t be asked to do so again). Let’s talk about two design patterns to handle files, and ways we can deal with duplicates in each one. </p>
+
+<h3 id="the-attachment">The Attachment</h3>
+
+<p>With the Attachment design pattern, a file is part of the model as a Django <a href="https://docs.djangoproject.com/en/1.8/ref/models/fields/#django.db.models.FileField">FileField</a>. This is useful if the file to be attached is known ahead of time and will be of a semi-predictable type (for example, a press release for a scheduled report that will be in PDF format). Two or three additional users may be writing blog posts on the report, and each of them plan to attach the report as well. We don’t want to store a stack of extra copies of the file on the server - so how can we de-dupe them?</p>
+
+<p>Our post is set up like so:</p>
+
+<pre><code>from django.db import models
+
+class ReportPost(models.Model):
+	file = models.FileField()
+	file_sha1 = models.CharField(max_length=40)
+	post_text = models.TextField()
+
+	... etc ...
+</code></pre>
+
+<p>Our <code>ReportPost</code> has space for an uploaded file. We also have a <code>sha1</code> field here. Django can’t automatically detect a duplicate file (<code>unique</code> is not supported for <code>FileFields</code> or any derivatives), so we need to take the SHA-1 text hash of the file in order to check if it’s been uploaded already. We’ll take care of that in the <code>ModelAdmin</code> for this model.</p>
+
+<pre><code>from django.contrib import admin
+import hashlib
+
+def generate_sha(file):
+	sha = hashlib.sha1()
+	file.seek(0)
+	while True:
+		buf = file.read(104857600)
+		if not buf:
+			break
+		sha.update(buf)
+	sha1 = sha.hexdigest()
+	file.seek(0)
+
+	return sha1
+
+class ReportPostAdmin(admin.ModelAdmin):
+	... stuff ...
+
+	def save_model(self, request, obj, form, change):
+		sha = generate_sha(obj.file)
+		obj.file_sha1 = sha
+		match_qs = ReportPost.objects.filter(file_sha1=sha)
+		if match_qs.count() &gt; 0:
+			obj.file = match_qs[0].file
+
+		obj.save()
+</code></pre>
+
+<p>We derive a SHA-1 hash for this file by reading in the first 100 megabytes of data and hashing it. In our <code>ModelAdmin.save_model</code> method, we store that SHA-1 with our model instance. We also run a query against the database for any model instances with that exact same SHA-1 (indicating a match), and replace our instance of the file with the previously uploaded file. </p>
+
+<h3 id="the-file-as-object">The File as Object</h3>
+
+<p>With this design pattern, files are part of a larger object that gives them relevance. Images in a newsroom app, for example, come with credits, licensing information, and various data about how often the image is used. In order to store that metadata about that image, we need a file object.</p>
+
+<pre><code># models.py
+
+class ImageObject(models.Model):
+	caption = models.CharField(max_length=140)
+	credits = models.CharField(max_length=140)
+	image_file = models.ImageField()
+	file_sha1 = models.CharField(max_length=40, unique=True)
+
+# admin.py
+
+class ImageObjectAdmin(admin.ModelAdmin):
+	... stuff ...
+
+	def save_model(self, request, obj, form, change):
+		sha = generate_sha(obj.file)
+		obj.file_sha1 = sha
+		obj.save()
+</code></pre>
+
+<p>With this example, we add some uniqueness to our model, which gives us the ability to easily enforce that each image file will only have one set of metadata. Our app will throw an <code>IntegrityError</code> if a user tries to save a duplicate SHA-1 hash. We’ll need to handle that <code>IntegrityError</code> and redirect our user to the previously uploaded image. We can do that using a new middleware object.</p>
+
+<p>Middleware objects in Django quietly do their thing 99.9% of the time, and you’ll never think twice about them. They’re there for session authentication or CSRF enforcement - things that most of us take for granted. But you can easily add your own middleware with ease by adding a <code>middleware.py</code> file to your application and registering it with <code>settings.py</code>:</p>
+
+<pre><code># settings.py
+
+MIDDLEWARE_CLASSES = (
+	'django.contrib.sessions.middleware.SessionMiddleware',
+	... stuff ...
+	'our_image_app.middleware.RedirectOnSHAViolation',
+)
+</code></pre>
+
+<p>And then in <code>our_image_app/middleware.py</code>:</p>
+
+<pre><code># middleware.py
+
+from django.db import IntegrityError
+from django.http import HttpResponseRedirect
+from utils import generate_sha # same func as before
+from our_image_app.models import ImageObject
+
+class RedirectOnSHAViolation():
+	def process_exception(self, request, exception):
+		if type(exception) == IntegrityError:
+			if "our_image_app/imageobject" in request.path:
+				sha1 = generate_sha1(request.FILES['image_file'])
+				img = ImageObject.objects.get(file_sha1=sha1)
+				return HttpResponseRedirect('/admin/our_image_app/imageobject/') + str(img.id))
+</code></pre>
+
+<p>I never said it was pretty.</p>
+
+<p>Django’s middleware system expects to see a class with a <code>process_exception</code> method that’s really, really stupid. The middleware knows it has a request that caused an error, but that’s about all that it knows. We have to do two checks to make sure that we’re handling the right error here. First, we check that the <code>type</code> of error is <code>IntegrityError</code>. We have to run this check first because every single error in our app could potentially hit this method, so we need to filter for only certain types. Once I’ve confirmed that, I check to see if the <code>IntegrityError</code> came from the <code>ImageObject</code> model within <code>our_image_app</code> - and since <code>ImageObject</code> only has one unique field, I know an <code>IntegrityError</code> here must be a duplicate file. Once I’ve ascertained all of that, then I need to find the file I should have used and redirect the user there instead.</p>
+
+<h3 id="conclusions">Conclusions</h3>
+
+<p>SHA-1 hashes provide an easy way to compensate for Django FileFields’ inability to enforce uniqueness by default. Handling those errors can be a bit messy, but we can create some custom middleware to handle any problems or extend our admin’s built-in methods to help us out.</p>
+
+<p><em>Props to <a href="https://twitter.com/spiggy">@spiggy</a>, who had the original idea of using SHAs to look for duplicate files.</em></p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/13/preventing-file-dupes-in-django.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/05/02/not-all-software-engineers-are-created-equal.html"><h3>Not all software engineers are created equal</h3></a>
+		<div class="date">May 02, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>In my first ever technology job, I was the lowest-ranked member of a consulting team. Our team was hired by a federal government agency to help them figure out how to respond to an annual audit of their IT environment - specifically, a Sarbanes-Oxley Section 404 audit. An auditor would come in, tell the agency where there were problems, and we would help agency staff fix those problems. I had never worked in a government agency before. I had never programmed a financial application before. What good was I? How did I earn the title of “ERS Consultant?”</p>
+
+<p>It’s easy to get lost in job titles in technology, because we technology professionals deal in a world of tools. <code>ls</code> does the same thing every time you run it - it gives you the list of files in a directory. <code>python manage.py migrate</code> does the same thing every time you run it - it makes changes to a database based on changes to a Django project. Software engineers have a tendency to fall into a logical trap of thinking we are like the programs we run: repeatable processes that do the same thing each time, perhaps a little faster over time, but ultimately executing our assigned task whenever we’re needed. “I am a Django web programmer,” we say. “I build Django apps.”</p>
+
+<p>If that is how you think of your work, your career is going to sputter. </p>
+
+<p>When I started in my first-ever technology job, I had tangential experience that was extremely useful in the particular project. I had a master’s degree in accountancy, which meant I had gone into <em>extreme</em> detail about Sarbanes-Oxley in my coursework. I could work the technology of that government agency into that mental framework of “controls” and “materiality” and build something better out of that union. I had also interned with the consulting firm before. Though the internship was with a totally different part of the company, I was familiar with the expectations and the systems that powered the organization. And if you’ve ever taken four hours of a work day trying to find the IT help desk phone line rather than doing something that makes money for the firm, you realize that coming into corporate-world with some pre-existing knowledge is useful.</p>
+
+<p>These things have value to employers. They make you a better technologist. I was not just an “ERS Consultant.” I was a technology professional with accounting experience, and that made me disproportionately useful for a Sarbanes-Oxley project.</p>
+
+<p>I was next picked up by a PR firm to code websites for their clients. Turns out, they didn’t care about my accounting degree. What they did care about was my experience navigating large organizations and my ability to comfortably interact with clients. </p>
+
+<p>PR firms do really, really simple technology work. It’s all shiny front-end pretty stuff. You’re never going to build a machine-learning system that can analyze your client’s Twitter presence in real time, but you will learn how to sweat the spacing of letters in a headline just like a print designer. PR firms want the prettiest thing they can get in the shortest amount of time possible, and often the timeline wins out over the features of the site. That’s how the industry <em>works</em>. You can hope to spend weeks and weeks perfecting an amazing website that showcases all of the wonderful things your client is doing, and it won’t matter at all once the PR “moment” is gone. </p>
+
+<p>You can have a computer science Ph.D. from Stanford and absolutely suck as a developer in a PR firm if you can’t be a little bit like a PR pro yourself. That world isn’t about technology. It’s about words and conversation and making people like you and showing others how they can make people like them, too. And sometimes it involves talking about Sarbanes-Oxley with your client because she has to go into a meeting with a Deloitte auditor who’s asking too many questions. Karma sucks.</p>
+
+<p>Not all software engineers are created equal. Some know accounting. Some know journalism. Some know advertising. Find whatever your “one more thing” is and <em>use it.</em> Solve problems. When necessary, use code. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/02/not-all-software-engineers-are-created-equal.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/21/i-dove-deep-into-migrations-so-you-dont-have-to.html"><h3>I dove deep into a Django migration so you don&#39;t have to</h3></a>
+		<div class="date">April 21, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>It is 2015. I expect to be able to forget my webapp database exists once I plug my credentials into a configuration file. From then on out it should be nothing more than feeding query terms into functions and getting lists back.</p>
+
+<p><em>AND YET.</em></p>
+
+<p>Back in the old days of Django, you had to cut all your database changes yourself. If you made schema changes to an app after you had run <code>syncdb</code>, you had to go figure out how to manage the changes with <code>ALTER TABLE</code> statements. Then Ruby on Rails came along with its cute little migrations that did all the hard work for you. <code>south</code> came along to help Django do the same, and then we finally just decided to roll <code>south</code> into Django core. If you make a change to a model, you run <code>manage.py makemigrations &amp;&amp; manage.py migrate</code> and everything’s happy. </p>
+
+<p>Well, until you’ve got crazy errors spitting out of your console because your relationships changed on three apps at once and two developers working on different portions of the project established a bunch of weird subclassing and EVERYTHING is going to pieces. </p>
+
+<p>And then we must deal with migrations. Let us begin.</p>
+
+<p>A sample migration file (for a model called <code>Post</code>) looks something like this:</p>
+
+<pre><code># -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+from django.db import models, migrations
+
+class Migration(migrations.Migration):
+
+	dependencies = []
+
+	operations = [
+		migrations.CreateModel(
+			name='Post',
+			fields=[
+				('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+				('publication_date', models.DateTimeField(blank=True, null=True)),
+				('title', models.CharField(max_length=255)),
+				('content', models.TextField()),
+			],
+			options={},
+		),
+	]
+</code></pre>
+
+<p>When <code>manage.py migrate</code> is run, Django will read this migration file, see the operations and depencies in the <code>Migration</code> class, and execute appropriate transactions against the target database. </p>
+
+<p>Now, let’s say that we had an <code>Author</code> model (to track <code>Post</code> authors) and establish a <code>ForeignKey</code> here back to the <code>Author</code>. This migration would then look something like this:</p>
+
+<pre><code> # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+from django.db import models, migrations
+
+class Migration(migrations.Migration):
+
+	dependencies = [
+		('authors', '0001_initial'),
+	]
+
+	operations = [
+		migrations.CreateModel(
+			name='Post',
+			fields=[
+				('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+				('publication_date', models.DateTimeField(blank=True, null=True)),
+				('title', models.CharField(max_length=255)),
+				('content', models.TextField()),
+				('author', models.ForeignKey(to='authors.Author'))
+			],
+			options={},
+		),
+	]
+</code></pre>
+
+<p>What’s changed? We’ve added our first dependency! We can’t have a <code>ForeignKey</code> in the database unless we have an <code>authors</code> table. <code>manage.py migrate</code> will sniff out this migration, then go check to make sure it’s run against the database <em>before</em> we run this <code>Post</code> migration. We can then make use of the <code>authors</code> foreign key in our model. </p>
+
+<p>When Django runs those migrations, it will execute the proper SQL commands against your database backend of choice (which you can see if you run <code>manage.py sqlmigrate</code>), then store a record of the migration in a special <code>django_migrations</code> table. This is how Django checks to see if a migration has been run already. If you’ve already got data and schema present in your database (but no migrations), <code>manage.py migrate --fake</code> will generate a migration file and add it to this table, but won’t do any further work to the database. </p>
+
+<p>I can think of at least one “gotcha” with all this, as it’s causing all sorts of trouble for my team at the moment. It’s possible to attach widgets to objects that include <code>ForeignKey</code> relationships. This can really, really trip migrations up. We’ve had to solve it by migrating everything <em>except</em> the field that includes the foreign key, then manually migrating things in order, but even that’s a grab bag. </p>
+
+<p>But aside from that, migrations aren’t that scary! Don’t go coding your own, though.</p>
+
+<p><em>but if you did you could do it just by running <code>manage.py makemigrations --empty yourappname</code> and go from scratch</em></p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/21/i-dove-deep-into-migrations-so-you-dont-have-to.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/20/kanye-west-on-the-american-dream.html"><h3>Kanye West on the American Dream</h3></a>
+		<div class="date">April 20, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>The modern Renaissance man is always <a href="http://www.papermag.com/2015/04/kanye_west.php">worth a read.</a></p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/20/kanye-west-on-the-american-dream.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/19/learning-closures.html"><h3>Learning closures and decorators</h3></a>
+		<div class="date">April 19, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I don’t know why it took me such a long time to pick up closures. They seem so nifty. I have no idea what I’ll use them for [yet] but I like that they’re there.</p>
+
+<p>And now it’s time to play with them.</p>
+
+<p><img src="/images/closure.png" alt="" /></p>
+
+<p>According to StackOverflow:</p>
+
+<pre><code>The most simple way to think of a closure is a function that can be stored as a variable (referred to as a "first-class function"), that has a special ability to access other variables local to the scope it was created in.
+</code></pre>
+
+<p>According to StackOverflow (again):</p>
+
+<pre><code>A closure is a persistent local variable scope
+</code></pre>
+
+<p>According to Wikipedia:</p>
+
+<pre><code>In programming languages, closures (also lexical closures or function closures) are a technique for implementing lexically scoped name binding in languages with first-class functions. Operationally, a closure is a data structure storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or storage location the name was bound to at the time the closure was created.
+</code></pre>
+
+<p>Wikipedia’s definition sounds super fancy. </p>
+
+<p>So a closure is a way to encapsulate variables within a function definition. Then we can access the variables within that function through function calls. Rock on. Let’s make some.</p>
+
+<p>In JavaScript: </p>
+
+<pre><code>var closure = function() { 
+	var count, counter;
+	count = 1;
+	counter = function() {
+		count = count + 1; 
+		return count;
+	}
+	return counter;
+}
+
+var testClosure = closure();
+
+testClosure(); // 2
+testClosure(); // 3
+testClosure(); // 4
+</code></pre>
+
+<p>I tested this out in a Node.js evaluator on my local machine, but you can do the same in your browser console. </p>
+
+<p>In Python:</p>
+
+<pre><code>def closure():
+	count = 1
+	def counter():
+		count += 1
+		return count
+	return counter
+
+test_closure = closure()
+test_closure() # UnboundLocalError: local variable 'count' referenced before assignment
+</code></pre>
+
+<p>Wat. That didn’t go as expected. Python is giving me an <code>UnboundLocalError</code>, which indicates that I called a variable before assigning it. The detailed stack trace points me to line 4, which is <code>count += 1</code>. </p>
+
+<p>It looks like Python uses something called the “decorator” pattern to deal with this sort of work, and the syntax looks different than we would do it with JavaScript. There’s a fantastic <a href="http://thecodeship.com/patterns/guide-to-python-function-decorators/">guide to decorators here</a>. Let’s make use of one to get this code up and running.</p>
+
+<pre><code>def counter(count):
+	return count += 1
+
+def count_decorate(func):
+	def func_wrapper(count):
+		return func(count)
+	return func_wrapper
+</code></pre>
+
+<p>There’s still something wrong with this - it’s not preserving state like I’d want it to. <code>count</code> isn’t preserved across function calls. Perhaps you can’t do that in Python? </p>
+
+<p>Here’s another example of our last bit: (from <a href="http://affiliate.manning.com/idevaffiliate.php?id=1221&amp;url=33">The Quick Python Book</a>):</p>
+
+<pre><code>def makeInc(y):
+	def inc(x):
+		return y + x
+	return inc
+
+test_closure = makeInc(5)
+</code></pre>
+
+<p>And one more thing: bonus material! Since talking about decorators led me to start researching decorators in Python (thinking they’re the same thing), I decided to write a little timer that would tell me how long it took to compute a function: </p>
+
+<pre><code>import time
+
+class timer(object):
+	
+	def __init__(self, f):
+		self.f = f
+
+	def __call__(self, n):
+		self.time1 = time.time()
+		value = self.f(n) # run the function and establish a value
+		self.time2 = time.time()
+		print("it took ", self.time2-self.time1, " to execute")
+		return value # return the function's computed value after timing it
+
+@timer
+def fib(n):
+	a, b = 0, 1
+	for i in range(0, n):
+		a, b = b, a + b
+	return a
+</code></pre>
+
+<p>Our timer object, armed with its <code>__init__</code> and <code>__call__</code> methods, is ready to be a Python decorator! Just by sticking that little <code>@timer</code> in front of our function, we’ll now time its execution before allowing it to finish processing. It’s the same thing that happens with all of those <code>@login_required</code> decorators I have sprinkled throughout my Django code. </p>
+
+<p>What happens if I rewrite my Fibonacci code as a recursive algorithm?</p>
+
+<pre><code>@timer
+def fib(n):
+	if n &lt;= 2:
+		return n
+	else:
+		return fib(n-1) + fib(n-2)
+</code></pre>
+
+<p>It behaves almost exactly like we’d expect - every time our recursive algorithm calls the <code>fib(n)</code> in the recursive algorithm, we rerun the timer! Recursion doesn’t work quite as well in this scenario. Maybe if we tweaked the timer.. that’s for a later experiment.</p>
+
+<p>Have fun with these! Go write all your own decorators now!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/19/learning-closures.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-offset-3 col-8">
+		<div class="pagination">
+			
+			<a href="/page2" class="previous">Previous</a>
+			
+
+			<span class="page_number">Page: 3 of 8</span>
+
+			
+			<a href="/page4" class="next">Next</a>
+			
+		</div>
+	</div>
+</div>
+			</div>
+		</div>
+
+		<div class="wrapper" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-13">
+						<p>Brought to you live from Washington, D.C.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+
+		<script>
+	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-45638065-1', 'josephmosby.com');
+	    ga('send', 'pageview');
+	  
+	  	</script>
+
+  		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+
+	</body>
+
+</html>
