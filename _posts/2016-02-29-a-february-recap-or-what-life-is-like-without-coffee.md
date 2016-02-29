@@ -35,18 +35,15 @@ I again followed the practice of [not setting goals](https://blog.bufferapp.com/
 
 I decided to go cold turkey off of coffee just before January wrapped up. I knew that many highly successful people had gotten off of caffeine over the course of their lives, and I thought it was a worthwhile experiment to try for myself. It turned out to be wildly different than my expectations.
 
-The last time I tried to give up caffeine cold turkey, I was crippled with raging headaches and nausea that made me think I had the flu. I cracked after two days. This time, I gradually reduced my caffeine intake over the course of several months, ultimately consuming only the equivalent of half of a cup of
-coffee per day. When I went off, I had a headache the first night, then did not have any pain afterward.
+The last time I tried to give up caffeine cold turkey, I was crippled with raging headaches and nausea that made me think I had the flu. I cracked after two days. This time, I gradually reduced my caffeine intake over the course of several months, ultimately consuming only the equivalent of half of a cup of coffee per day. When I went off, I had a headache the first night, then did not have any pain afterward.
 
 What I did not account for was "the fog." The fog is a state of mind that exists somewhere between tired and fully awake, and I went through this state in varying degrees over the course of my experiment. My brain didn't feel like it was moving as quickly while it was in the fog, nor was I nearly as motivated to get things done. After the first few days, I was completely functional at my day job, but at nighttime I would grind to get anything done. Though I read more books, lifted heavier weights, and finished my e-book's first draft during this time period, I felt I had to mentally fight to do any of that. 
 
-I believe that it was the fight that made this entire experiment worthwhile. It's one thing to knock out a bunch of tasks when hopped up on caffeine - it's another thing to need to consciously decide what absolutely must be done when you know your caffeineless willpower can only handle so much. That willpower
-training is invaluable. I look forward to having it when I allow myself caffeine once more.
+I believe that it was the fight that made this entire experiment worthwhile. It's one thing to knock out a bunch of tasks when hopped up on caffeine - it's another thing to need to consciously decide what absolutely must be done when you know your caffeineless willpower can only handle so much. That willpower training is invaluable. I look forward to having it when I allow myself caffeine once more.
 
 ### Judo
 
-Judo is the first martial art I've practiced since I was a first grader. It is so much fun and I wish I had tried it earlier. It's an intense workout. The warmups alone will make your core hurt, to say nothing of the part where you start tossing people around. It's almost like an extremely physical chess match,
-with grip position and balance being the dominant factors that win or lose matches rather than total strength. There's no rush quite like it. I'm hooked already after only a few classes and will definitely be hungry for more in 2016.
+Judo is the first martial art I've practiced since I was a first grader. It is so much fun and I wish I had tried it earlier. It's an intense workout. The warmups alone will make your core hurt, to say nothing of the part where you start tossing people around. It's almost like an extremely physical chess match, with grip position and balance being the dominant factors that win or lose matches rather than total strength. There's no rush quite like it. I'm hooked already after only a few classes and will definitely be hungry for more in 2016.
 
 ### Recycling
 
