@@ -5,7 +5,7 @@ title: A February Recap or What Life is Like Without Coffee
 
 In February, I decided to enter life's "Hard Mode." I gave up caffeine completely.
 
-<img src="images/coffee-cup-working-happy.jpg" />
+<img src="/images/coffee-cup-working-happy.jpg" />
 
 I had no idea how this experiment would work and what it would do for my productivity. Here is what I was able to accomplish in the month of February, in similar [format to my January recap](http://josephmosby.com/2016/01/29/a-january-recap-and-some-personal-experiments.html):
 
