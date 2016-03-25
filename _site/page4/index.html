@@ -54,6 +54,152 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/04/20/kanye-west-on-the-american-dream.html"><h3>Kanye West on the American Dream</h3></a>
+		<div class="date">April 20, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>The modern Renaissance man is always <a href="http://www.papermag.com/2015/04/kanye_west.php">worth a read.</a></p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/20/kanye-west-on-the-american-dream.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/04/19/learning-closures.html"><h3>Learning closures and decorators</h3></a>
+		<div class="date">April 19, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I don’t know why it took me such a long time to pick up closures. They seem so nifty. I have no idea what I’ll use them for [yet] but I like that they’re there.</p>
+
+<p>And now it’s time to play with them.</p>
+
+<p><img src="/images/closure.png" alt="" /></p>
+
+<p>According to StackOverflow:</p>
+
+<pre><code>The most simple way to think of a closure is a function that can be stored as a variable (referred to as a "first-class function"), that has a special ability to access other variables local to the scope it was created in.
+</code></pre>
+
+<p>According to StackOverflow (again):</p>
+
+<pre><code>A closure is a persistent local variable scope
+</code></pre>
+
+<p>According to Wikipedia:</p>
+
+<pre><code>In programming languages, closures (also lexical closures or function closures) are a technique for implementing lexically scoped name binding in languages with first-class functions. Operationally, a closure is a data structure storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or storage location the name was bound to at the time the closure was created.
+</code></pre>
+
+<p>Wikipedia’s definition sounds super fancy. </p>
+
+<p>So a closure is a way to encapsulate variables within a function definition. Then we can access the variables within that function through function calls. Rock on. Let’s make some.</p>
+
+<p>In JavaScript: </p>
+
+<pre><code>var closure = function() { 
+	var count, counter;
+	count = 1;
+	counter = function() {
+		count = count + 1; 
+		return count;
+	}
+	return counter;
+}
+
+var testClosure = closure();
+
+testClosure(); // 2
+testClosure(); // 3
+testClosure(); // 4
+</code></pre>
+
+<p>I tested this out in a Node.js evaluator on my local machine, but you can do the same in your browser console. </p>
+
+<p>In Python:</p>
+
+<pre><code>def closure():
+	count = 1
+	def counter():
+		count += 1
+		return count
+	return counter
+
+test_closure = closure()
+test_closure() # UnboundLocalError: local variable 'count' referenced before assignment
+</code></pre>
+
+<p>Wat. That didn’t go as expected. Python is giving me an <code>UnboundLocalError</code>, which indicates that I called a variable before assigning it. The detailed stack trace points me to line 4, which is <code>count += 1</code>. </p>
+
+<p>It looks like Python uses something called the “decorator” pattern to deal with this sort of work, and the syntax looks different than we would do it with JavaScript. There’s a fantastic <a href="http://thecodeship.com/patterns/guide-to-python-function-decorators/">guide to decorators here</a>. Let’s make use of one to get this code up and running.</p>
+
+<pre><code>def counter(count):
+	return count += 1
+
+def count_decorate(func):
+	def func_wrapper(count):
+		return func(count)
+	return func_wrapper
+</code></pre>
+
+<p>There’s still something wrong with this - it’s not preserving state like I’d want it to. <code>count</code> isn’t preserved across function calls. Perhaps you can’t do that in Python? </p>
+
+<p>Here’s another example of our last bit: (from <a href="http://affiliate.manning.com/idevaffiliate.php?id=1221&amp;url=33">The Quick Python Book</a>):</p>
+
+<pre><code>def makeInc(y):
+	def inc(x):
+		return y + x
+	return inc
+
+test_closure = makeInc(5)
+</code></pre>
+
+<p>And one more thing: bonus material! Since talking about decorators led me to start researching decorators in Python (thinking they’re the same thing), I decided to write a little timer that would tell me how long it took to compute a function: </p>
+
+<pre><code>import time
+
+class timer(object):
+	
+	def __init__(self, f):
+		self.f = f
+
+	def __call__(self, n):
+		self.time1 = time.time()
+		value = self.f(n) # run the function and establish a value
+		self.time2 = time.time()
+		print("it took ", self.time2-self.time1, " to execute")
+		return value # return the function's computed value after timing it
+
+@timer
+def fib(n):
+	a, b = 0, 1
+	for i in range(0, n):
+		a, b = b, a + b
+	return a
+</code></pre>
+
+<p>Our timer object, armed with its <code>__init__</code> and <code>__call__</code> methods, is ready to be a Python decorator! Just by sticking that little <code>@timer</code> in front of our function, we’ll now time its execution before allowing it to finish processing. It’s the same thing that happens with all of those <code>@login_required</code> decorators I have sprinkled throughout my Django code. </p>
+
+<p>What happens if I rewrite my Fibonacci code as a recursive algorithm?</p>
+
+<pre><code>@timer
+def fib(n):
+	if n &lt;= 2:
+		return n
+	else:
+		return fib(n-1) + fib(n-2)
+</code></pre>
+
+<p>It behaves almost exactly like we’d expect - every time our recursive algorithm calls the <code>fib(n)</code> in the recursive algorithm, we rerun the timer! Recursion doesn’t work quite as well in this scenario. Maybe if we tweaked the timer.. that’s for a later experiment.</p>
+
+<p>Have fun with these! Go write all your own decorators now!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/19/learning-closures.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/04/12/type-experiments-with-mypy.html"><h3>Type experiments with mypy</h3></a>
 		<div class="date">April 12, 2015</div>
 	</div>
@@ -413,56 +559,6 @@ urlpatterns = patterns('',
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/03/26/periscope-and-the-panopticon.html"><h3>Periscope and the Panopticon</h3></a>
-		<div class="date">March 26, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Tonight, eleven strangers watched my friend Ouzy eat tater tots over Periscope. I was the cameraman. We didn’t promote a livestream of tater tot eating or even tweet about it when the camera starting rolling. I just opened the app and people started watching a man they’d never met eat tots. </p>
-
-<p>I wonder how many people would watch Kim Kardashian eat tots. </p>
-
-<p>This morning I watched someone commute into work. I then watched a segment of a live interview with Jeb Bush. I streamed someone doing yo-yo tricks in our office.</p>
-
-<p>A building exploded in New York City and the news was broken by someone across the street on Periscope. </p>
-
-<p>I used to be uneasy at the thought of the Panopticon - a world where everything can be seen by everyone, anywhere in the world. Anything you say or do can be seen by millions.</p>
-
-<p>A couple was having a first or second date next to us. We didn’t flip out our phones to broadcast it to the world. We joked about their date, we mused about where it would go, but we didn’t record it.</p>
-
-<p>Every politician is looking for opportunities to get their ideas out there and they are competing for attention with my friends eating tater tots. People sign up for The Bachelor to have their dating lives blasted to viewers worldwide but there’s no cameraman out there who’s even thinking about recording a couple on their first date.</p>
-
-<p>There are different power dynamics at play in the Panopticon. The scary scenario relies on there being people in power holding the cameras and viewing the video. But those cameras can be turned around. And sometimes those cameras are just pointing at people eating tots. Sometimes they’re pointed at emergencies where every additional set of eyes helps. We’re back to the same power dynamics we had before, human beings with our same sets of eyes and narrow attention spans. </p>
-
-<p>The Panopticon is finally here. And it’s full of tots.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/26/periscope-and-the-panopticon.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/03/25/what-consulting-will-not-teach-you.html"><h3>What Consulting Will Not Teach You</h3></a>
-		<div class="date">March 25, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Consulting will teach you <a href="/2015/03/23/what-consulting-will-teach-you.html">quite a bit</a>. It will teach you how to deal with people of all makes and models and will teach you how to truly make things happen with your words. But for all of its positives, the consulting world promises to teach a lot that it did not teach me, and that I know many of my consulting peers still struggle with. </p>
-
-<p>Consulting will not teach you what you really <em>want</em> to do. Many potential consultants - myself included - come into the consulting world uncertain about what they want to do with their lives. Consulting promises exposure to a breadth of experiences that no other industry can possibly match. You’ll serve clients of all shapes and sizes, you’ll work with wonderful people who have so much to teach you, and you’ll certainly have a stack of work experience to show off on your resume. But all of this choice won’t imbue you with passion for any one particular thing. You have to find that on your own, and consulting makes it incredibly difficult to do so for many young people. If you’re struggling to make a decision about your future, consulting will not help you make that choice.</p>
-
-<p>Consulting will not teach you how to build a perfect product for the perfect customers. Consultants are rarely brought on to do detailed user and market research <em>and</em> build the product that will serve those users in that market. It’s more common to see one firm brought in to do the market research, neatly packaged in a branded report, followed by a second firm that will devise an “action plan” based on the parts of the report that the client liked, followed by a third firm that will actually build the thing at the lowest cost possible. In no universe is this the most effective way to build a product that makes customers happy.</p>
-
-<p>Consulting will not teach you how to do things on the cheap. There are two types of contracts major consulting firms go after. The first type is driven by legal, regulatory, or compliance-based requirements that will cause giant businesses massive financial pain if they don’t follow the rules. Consulting contracts of this nature are predicated on the notion that it’s far more valuable to pay them a million dollars than risk a fifty-million dollar fine. If the final bill goes up to two million dollars for consulting services, it’s still worth it. The other type of contract comes up with the million dollars could potentially save fifty million or generate an additional fifty million dollars in sales.. and again, if the final bill creeps up an extra half million or so, no problem. This is not a recipe for learning how to do things in a lean, efficient manner. You are playing with sums of money so large that they’re beyond the ken of most mortals.</p>
-
-<p>Consulting will not teach you how to build a business. Consulting will have you swimming in business, to be sure, but you’ll be swimming in businesses that have already been built. They’ve already sorted through their growing pains and can afford to call you up for consulting services. (Now, I should caveat this point. Consulting <em>will</em> present you with a lot of wrong ways to do things, and this knowledge will serve you well when you confront similar situations in a new enterprise.) There is nothing that will teach you how to build a business like <em>actually building a business</em>, and there is nothing that will teach you about building a team like <em>actually building a team</em>. </p>
-
-<p>Ultimately, a gig in consulting will not teach you how to actually be a software engineer or hospital manager or any of the numerous professionals you will support. You are like a grad student who started helping the basketball team and suddenly wound up as an assistant coach, but you are not on the court yourself and you are not the head coach calling the plays. Consulting is an excellent profession! But if you’re hungry to have the responsibility and the consequences of starting and growing a real business, consulting will not satisfy that itch. If you’re struggling to make your mind up about your life and hoping that consulting will help you sort through it, you are likely to be disappointed. You have to jump straight into the world and take a risk - an experience that consulting cannot give you.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/25/what-consulting-will-not-teach-you.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
 
 <div class="row">
 	<div class="col-offset-3 col-8">
@@ -471,7 +567,7 @@ urlpatterns = patterns('',
 			<a href="/page3" class="previous">Previous</a>
 			
 
-			<span class="page_number">Page: 4 of 8</span>
+			<span class="page_number">Page: 4 of 9</span>
 
 			
 			<a href="/page5" class="next">Next</a>

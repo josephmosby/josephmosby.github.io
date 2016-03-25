@@ -3,12 +3,55 @@
 	<title type="text" xml:lang="en">josephmosby.com</title>
 		<link type="application/atom+xml" href="http://josephmosby.com/feed/" rel="self"/>
 	 	<link type="text" href="http://josephmosby.com" rel="alternate"/>
-		<updated>2016-02-28T17:00:54-05:00</updated>
+		<updated>2016-03-24T16:45:01-04:00</updated>
 		<id>http://josephmosby.com</id>
 		<author>
 			<name>Joseph Mosby</name>
 		</author>
 		
+		
+		<entry>
+			<title>I am overjoyed for the Node community</title>
+			<link href="http://josephmosby.com/2016/03/25/i-am-overjoyed-for-the-node-community.html"/>
+			<updated>2016-03-25T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2016/03/25/i-am-overjoyed-for-the-node-community</id>
+			<content type="html">&lt;p&gt;The Node community has hit a huge moment in its growth, and I couldn’t be more excited for it as an outsider looking in. It’s certainly &lt;a href=&quot;http://uk.businessinsider.com/npm-left-pad-controversy-explained-2016-3?r=US&amp;amp;IR=T&quot;&gt;dark times&lt;/a&gt; for Node devs as many of them sort through the issues arising in their own applications after one prolific developer &lt;a href=&quot;https://medium.com/@azerbike/i-ve-just-liberated-my-modules-9045c06be67c#.zdmc1wypg&quot;&gt;rage-quit&lt;/a&gt; and pulled all of his code from the Node Package Manager after a spat with the Kik product team. Many Node developers relied on those packages being part of the NPM infrastructure, and the lack of a tested, readily available alternative that offers the same ease of use makes this abrupt change harder to bear. &lt;/p&gt;
+
+&lt;p&gt;Developer pundits, of which I am sometimes one, have jumped on the question: &lt;a href=&quot;http://www.haneycodes.net/npm-left-pad-have-we-forgotten-how-to-program/&quot;&gt;have we forgotten how to program&lt;/a&gt;? David Haney writes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;I can’t help but be amazed by the fact that developers are taking on dependencies for single line functions that they should be able to write with their eyes closed. In my opinion, if you cannot write a left-pad, is-positive-integer, or isArray function in 5 minutes flat (including the time you spend Googling), then you don’t actually know how to code. Hell, any of these would make a great code screening interview question to determine whether or not a candidate can code.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It’s a totally valid question, and it got me thinking about the growth of the JavaScript community in the years I’ve been coding.&lt;/p&gt;
+
+&lt;p&gt;Most of the young engineers I know who have started coding in the past five years or so started with JavaScript. &lt;a href=&quot;https://www.codecademy.com/&quot;&gt;Codecademy&lt;/a&gt; opened the door for folks who wanted to take a crack at code without much experience, &lt;a href=&quot;https://www.khanacademy.org/computing/hour-of-code/hour-of-drawing-code/v/welcome-hour-of-code&quot;&gt;Khan Academy&lt;/a&gt; offers its basic algorithm classes in JavaScript, and &lt;a href=&quot;http://www.fastcodesign.com/1672655/designers-learn-to-code-heres-how-to-start&quot;&gt;designers everywhere have begun dabbling in JavaScript&lt;/a&gt; to start adding basic functionality into their prototypes. For the longest time, though, JavaScript was just a weird language of dubious syntactic choices that lived in everyone’s browsers but nowhere else. Then &lt;a href=&quot;https://nodejs.org/en/&quot;&gt;Node.js&lt;/a&gt; changed the game. You could start your career tinkering in the browser with JavaScript, but once someone told you that you needed to do something “on the server,” Node was right there! And there was even a &lt;a href=&quot;http://expressjs.com/&quot;&gt;helper library&lt;/a&gt; to do all of the server-side web work for you! The world of JavaScript began to take over the Internet, and &lt;a href=&quot;http://blog.codinghorror.com/the-principle-of-least-power/&quot;&gt;laws were even coined&lt;/a&gt; that indicated that everything would one day be written in this quirky browser language.&lt;/p&gt;
+
+&lt;p&gt;When a technology becomes that huge that quickly without a lot of experienced oversight, it’s tough to figure out what the best practices are supposed to be. It’s not a JavaScript developer problem; this same heavy reliance on a set of core dependencies hit the &lt;a href=&quot;http://www.kalzumeus.com/2013/01/31/what-the-rails-security-issue-means-for-your-startup/&quot;&gt;Ruby startup community&lt;/a&gt; a few years back. Thousands of sites were suddenly exposed and vulnerable and patched almost instantaneously. How did the Rails community know how to develop a patch and roll it out as quickly as they did? It wasn’t something innate that they were born with. The Rails community had many of the same youthful problems that the JavaScript community is now struggling through. But they had learned how to sustain and endure after &lt;a href=&quot;http://www.pcworld.com/article/251259/user_hacks_github_to_showcase_vulnerability_after_rails_developers_dismiss_his_report.html&quot;&gt;suffering through another embarrassing bug&lt;/a&gt; when Egor Homakov hacked GitHub the year before. They had learned that things could go horribly wrong, and they had learned how to respond when they did.&lt;/p&gt;
+
+&lt;p&gt;I look at the history of the Rails community and see so many parallels to the Node community. I look at the response to the Azer/NPM mess and think that the community is taking the right kind of look at its own problems and quickly devising ways to solve them. That’s got me all sorts of excited because there truly is nothing like the JavaScript pipeline for introducing new engineers to code on both sides of the client/server divide. These war stories will help new developers learn best practices that are rarely codified - things like dependency management, over-reliance on dependencies for simple tasks, and that a single failure point can ruin your entire application even when you did nothing wrong but follow instructions.&lt;/p&gt;
+</content>
+		</entry>
+		
+		<entry>
+			<title>How to Read All of the Books You Want in a Month</title>
+			<link href="http://josephmosby.com/2016/03/07/how-to-read-all-of-the-books-you-want-in-a-month.html"/>
+			<updated>2016-03-07T00:00:00-05:00</updated>
+			<id>http://josephmosby.com/2016/03/07/how-to-read-all-of-the-books-you-want-in-a-month</id>
+			<content type="html">&lt;p&gt;In the past two months, I’ve drastically scaled up the number of books I read on a per month basis. On average, I take out two books a week, a far cry from &lt;a href=&quot;https://www.youtube.com/watch?v=7bB_fVDlvhc&quot;&gt;a book every single day&lt;/a&gt;. Sometimes, it’s enjoyable and relaxing reading, sometimes it’s tiring work. The end result, though, is always worthwhile. &lt;/p&gt;
+
+&lt;p&gt;I’ve employed a few different strategies in these two months to churn through my booklist. I don’t have a particular order or anything, so I’m just going to list them out here:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Read fiction in audiobook format.&lt;/em&gt; My colleagues at National Journal got me started on the audiobook kick. A lot of them walk or bike to work, popping in their headphones for the commute and cranking away at one novel after another. Best part: a lot of the audiobooks are available on &lt;a href=&quot;https://www.overdrive.com/&quot;&gt;Overdrive&lt;/a&gt; (i.e., for free!), but anything else can likely be found on &lt;a href=&quot;http://www.audible.com/&quot;&gt;Audible&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Maintain a Goodreads list along with a queue of books at my house.&lt;/em&gt; What I want to read oscillates from week to week. I can’t say at the beginning of month what I’m going to want to read the next week. So, I don’t try. I throw every book I want to read into &lt;a href=&quot;http://www.goodreads.com/&quot;&gt;Goodreads&lt;/a&gt; to save it for later. And I try my hardest, through a combination of Amazon and the DC Public Library, to make sure there are four unread books at my house at all times: two nonfiction and two fiction. If you don’t have a library card yet, perhaps &lt;a href=&quot;http://booksfordc.org/&quot;&gt;BooksForDC&lt;/a&gt; will finally persuade you by showing when a book you want on Amazon could be had for free by reserving it at the library. &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Stop reading and watching other stuff that I don’t really care about.&lt;/em&gt; I don’t watch much television, online or otherwise, half because I don’t own a television and half because there’s nothing much I care to watch. I don’t think I have the attention span for long-running shows, with &lt;em&gt;Game of Thrones&lt;/em&gt; and &lt;em&gt;House of Cards&lt;/em&gt; being the only exception. I even dropped &lt;em&gt;Breaking Bad&lt;/em&gt; after three seasons. I just couldn’t keep up. By avoiding most video content and doing my best to stay away from the dopamine hits of regular social media usage, I free up more time to focus on my reading.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Read only two books at a time, one nonfiction during the day and one fiction before bed.&lt;/em&gt; I don’t stick to this rhythm wholesale any more, as it doesn’t mesh well with my audiobooks. However, it seems that this rhythm may have made it easier to focus on tasks &lt;em&gt;other&lt;/em&gt; that reading, such as social media abstinence or regular experimental code writing.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Move the needle a little bit every day.&lt;/em&gt; I have a line item in my &lt;a href=&quot;http://wayoflifeapp.com/&quot;&gt;Way of Life&lt;/a&gt; app that just says “Read.” Nothing more than that, just a gentle reminder to get a few pages done every day.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There’s probably a lot more I could try to get even more reading done, so if anything is working for you I want to hear about it! &lt;a href=&quot;https://twitter.com/josephmosby&quot;&gt;@josephmosby&lt;/a&gt; &lt;/p&gt;
+</content>
+		</entry>
 		
 		<entry>
 			<title>A February Recap or What Life is Like Without Coffee</title>
@@ -17,7 +60,7 @@
 			<id>http://josephmosby.com/2016/02/29/a-february-recap-or-what-life-is-like-without-coffee</id>
 			<content type="html">&lt;p&gt;In February, I decided to enter life’s “Hard Mode.” I gave up caffeine completely.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/coffee-cup-working-happy.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/coffee-cup-working-happy.jpg&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I had no idea how this experiment would work and what it would do for my productivity. Here is what I was able to accomplish in the month of February, in similar &lt;a href=&quot;http://josephmosby.com/2016/01/29/a-january-recap-and-some-personal-experiments.html&quot;&gt;format to my January recap&lt;/a&gt;:&lt;/p&gt;
 
@@ -52,18 +95,15 @@
 
 &lt;p&gt;I decided to go cold turkey off of coffee just before January wrapped up. I knew that many highly successful people had gotten off of caffeine over the course of their lives, and I thought it was a worthwhile experiment to try for myself. It turned out to be wildly different than my expectations.&lt;/p&gt;
 
-&lt;p&gt;The last time I tried to give up caffeine cold turkey, I was crippled with raging headaches and nausea that made me think I had the flu. I cracked after two days. This time, I gradually reduced my caffeine intake over the course of several months, ultimately consuming only the equivalent of half of a cup of
-coffee per day. When I went off, I had a headache the first night, then did not have any pain afterward.&lt;/p&gt;
+&lt;p&gt;The last time I tried to give up caffeine cold turkey, I was crippled with raging headaches and nausea that made me think I had the flu. I cracked after two days. This time, I gradually reduced my caffeine intake over the course of several months, ultimately consuming only the equivalent of half of a cup of coffee per day. When I went off, I had a headache the first night, then did not have any pain afterward.&lt;/p&gt;
 
 &lt;p&gt;What I did not account for was “the fog.” The fog is a state of mind that exists somewhere between tired and fully awake, and I went through this state in varying degrees over the course of my experiment. My brain didn’t feel like it was moving as quickly while it was in the fog, nor was I nearly as motivated to get things done. After the first few days, I was completely functional at my day job, but at nighttime I would grind to get anything done. Though I read more books, lifted heavier weights, and finished my e-book’s first draft during this time period, I felt I had to mentally fight to do any of that. &lt;/p&gt;
 
-&lt;p&gt;I believe that it was the fight that made this entire experiment worthwhile. It’s one thing to knock out a bunch of tasks when hopped up on caffeine - it’s another thing to need to consciously decide what absolutely must be done when you know your caffeineless willpower can only handle so much. That willpower
-training is invaluable. I look forward to having it when I allow myself caffeine once more.&lt;/p&gt;
+&lt;p&gt;I believe that it was the fight that made this entire experiment worthwhile. It’s one thing to knock out a bunch of tasks when hopped up on caffeine - it’s another thing to need to consciously decide what absolutely must be done when you know your caffeineless willpower can only handle so much. That willpower training is invaluable. I look forward to having it when I allow myself caffeine once more.&lt;/p&gt;
 
 &lt;h3 id=&quot;judo&quot;&gt;Judo&lt;/h3&gt;
 
-&lt;p&gt;Judo is the first martial art I’ve practiced since I was a first grader. It is so much fun and I wish I had tried it earlier. It’s an intense workout. The warmups alone will make your core hurt, to say nothing of the part where you start tossing people around. It’s almost like an extremely physical chess match,
-with grip position and balance being the dominant factors that win or lose matches rather than total strength. There’s no rush quite like it. I’m hooked already after only a few classes and will definitely be hungry for more in 2016.&lt;/p&gt;
+&lt;p&gt;Judo is the first martial art I’ve practiced since I was a first grader. It is so much fun and I wish I had tried it earlier. It’s an intense workout. The warmups alone will make your core hurt, to say nothing of the part where you start tossing people around. It’s almost like an extremely physical chess match, with grip position and balance being the dominant factors that win or lose matches rather than total strength. There’s no rush quite like it. I’m hooked already after only a few classes and will definitely be hungry for more in 2016.&lt;/p&gt;
 
 &lt;h3 id=&quot;recycling&quot;&gt;Recycling&lt;/h3&gt;
 
@@ -1736,130 +1776,6 @@ $ systemctl restart dashboard
 &lt;p&gt;And slides are here: &lt;a href=&quot;http://josephmosby.com/presentations/pygotham2015&quot;&gt;http://josephmosby.com/presentations/pygotham2015&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Example code is here: &lt;a href=&quot;http://josephmosby.com/presentations/pygotham2015/chip_functions.py&quot;&gt;http://josephmosby.com/presentations/pygotham2015/chip_functions.py&lt;/a&gt;&lt;/p&gt;
-</content>
-		</entry>
-		
-		<entry>
-			<title>PyOhio '15 - Production Django</title>
-			<link href="http://josephmosby.com/2015/08/03/pyohio-15-production-django.html"/>
-			<updated>2015-08-03T00:00:00-04:00</updated>
-			<id>http://josephmosby.com/2015/08/03/pyohio-15-production-django</id>
-			<content type="html">&lt;p&gt;Over the weekend, I gave a talk at PyOhio 2015 on Production Django applications. Due to the tireless efforts of the video staff, that talk is already available online less than 24 hours later.&lt;/p&gt;
-
-&lt;p&gt;Talk is here: &lt;a href=&quot;http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se&quot;&gt;http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;And slides are here: &lt;a href=&quot;http://josephmosby.com/presentations/pyohio2015&quot;&gt;http://josephmosby.com/presentations/pyohio2015&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Special thanks to &lt;a href=&quot;http://roberttownley.com/&quot;&gt;Robert Townley&lt;/a&gt; who gave pre-con feedback and &lt;a href=&quot;http://juliangindi.com/&quot;&gt;Julian Gindi&lt;/a&gt; who gave an earlier talk that inspired some of the material. &lt;/p&gt;
-</content>
-		</entry>
-		
-		<entry>
-			<title>Trusting Python&comma; and the Ken Thompson hack</title>
-			<link href="http://josephmosby.com/2015/07/18/trusting-python-and-the-ken-thompson-hack.html"/>
-			<updated>2015-07-18T00:00:00-04:00</updated>
-			<id>http://josephmosby.com/2015/07/18/trusting-python-and-the-ken-thompson-hack</id>
-			<content type="html">&lt;p&gt;I have always treated Python compilation as a black box. Code goes in, web services come out, everyone is happy. Then I went through &lt;a href=&quot;http://www.nand2tetris.org/&quot;&gt;NAND2Tetris&lt;/a&gt; and picked up a copy of &lt;a href=&quot;http://www.amazon.com/Programming-Language-Brian-W-Kernighan/dp/0131103628/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1437243255&amp;amp;sr=1-1&amp;amp;keywords=the+c+programming+language&quot;&gt;The C Programming Language&lt;/a&gt;, and it’s been tough to rest as easy ever since. &lt;/p&gt;
-
-&lt;p&gt;Python (in its most common derivative, CPython) is not fed straight into a computer’s processor. It’s first “interpreted” into C code, which is then compiled by a C compiler into assembly language, which is then translated into 1’s and 0’s that the computer can actually understand. Let’s take a look at this: &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;print(&#39;Hello, world!&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;That’s the incredibly simple Python code for printing “Hello, world!” Here’s what that looks like in the Python source code:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;static PyObject *
-builtin_print(PyObject *self, PyObject *args, PyObject *kwds)
-{
-    static char *kwlist[] = {&quot;sep&quot;, &quot;end&quot;, &quot;file&quot;, &quot;flush&quot;, 0};
-    static PyObject *dummy_args;
-    PyObject *sep = NULL, *end = NULL, *file = NULL, *flush = NULL;
-    int i, err;
-
-    if (dummy_args == NULL &amp;amp;&amp;amp; !(dummy_args = PyTuple_New(0)))
-        return NULL;
-    if (!PyArg_ParseTupleAndKeywords(dummy_args, kwds, &quot;|OOOO:print&quot;,
-                                     kwlist, &amp;amp;sep, &amp;amp;end, &amp;amp;file, &amp;amp;flush))
-        return NULL;
-    if (file == NULL || file == Py_None) {
-        file = _PySys_GetObjectId(&amp;amp;PyId_stdout);
-        if (file == NULL) {
-            PyErr_SetString(PyExc_RuntimeError, &quot;lost sys.stdout&quot;);
-            return NULL;
-        }
-
-        /* sys.stdout may be None when FILE* stdout isn&#39;t connected */
-        if (file == Py_None)
-            Py_RETURN_NONE;
-    }
-
-    if (sep == Py_None) {
-        sep = NULL;
-    }
-    else if (sep &amp;amp;&amp;amp; !PyUnicode_Check(sep)) {
-        PyErr_Format(PyExc_TypeError,
-                     &quot;sep must be None or a string, not %.200s&quot;,
-                     sep-&amp;gt;ob_type-&amp;gt;tp_name);
-        return NULL;
-    }
-    if (end == Py_None) {
-        end = NULL;
-    }
-    else if (end &amp;amp;&amp;amp; !PyUnicode_Check(end)) {
-        PyErr_Format(PyExc_TypeError,
-                     &quot;end must be None or a string, not %.200s&quot;,
-                     end-&amp;gt;ob_type-&amp;gt;tp_name);
-        return NULL;
-    }
-
-    for (i = 0; i &amp;lt; PyTuple_Size(args); i++) {
-        if (i &amp;gt; 0) {
-            if (sep == NULL)
-                err = PyFile_WriteString(&quot; &quot;, file);
-            else
-                err = PyFile_WriteObject(sep, file,
-                                         Py_PRINT_RAW);
-            if (err)
-                return NULL;
-        }
-        err = PyFile_WriteObject(PyTuple_GetItem(args, i), file,
-                                 Py_PRINT_RAW);
-        if (err)
-            return NULL;
-    }
-
-    if (end == NULL)
-        err = PyFile_WriteString(&quot;\n&quot;, file);
-    else
-        err = PyFile_WriteObject(end, file, Py_PRINT_RAW);
-    if (err)
-        return NULL;
-
-    if (flush != NULL) {
-        PyObject *tmp;
-        int do_flush = PyObject_IsTrue(flush);
-        if (do_flush == -1)
-            return NULL;
-        else if (do_flush) {
-            tmp = _PyObject_CallMethodId(file, &amp;amp;PyId_flush, &quot;&quot;);
-            if (tmp == NULL)
-                return NULL;
-            else
-                Py_DECREF(tmp);
-        }
-    }
-
-    Py_RETURN_NONE;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I understand very little of what’s actually going on here. I do know that ultimately this code has to end up at some sort of terminal output unless I specify otherwise, and I do know that I’ll probably do that by writing to a dedicated terminal output memory location which is probably specified by a C pointer, and this is the extent of my understanding. And we haven’t even made it to assembly code yet. Or to binary instructions. &lt;/p&gt;
-
-&lt;p&gt;I go on trusting the CPython interpreter because I have no choice. Perhaps the &lt;code&gt;PyArg_ParseTupleAndKeywords&lt;/code&gt; function has a side effect of batching my printed output up and sending it back to a Python mailing list somewhere, for them to laugh at my coding mistakes. Maybe it’s something more nefarious. &lt;/p&gt;
-
-&lt;p&gt;I can look through the CPython source code and see that &lt;code&gt;PyArg_ParseTupleAndKeywords&lt;/code&gt; does exactly what it says it’s going to. But what if the &lt;em&gt;C compiler itself&lt;/em&gt; is batching my printed output up and sending it off? In 1984 Ken Thompson described &lt;a href=&quot;http://c2.com/cgi/wiki?TheKenThompsonHack&quot;&gt;exactly that&lt;/a&gt; with a hack that would allow a compiler to do all sorts of terrible things, including overwriting all evidence of its existence. You could detect it, of course, but you’d have to have a trusted compiler - something that most 2015 developers are not prepared to write. (myself included)&lt;/p&gt;
-
-&lt;p&gt;And so I have to trust my computer. I have to trust Intel, Apple, all of the component manufacturers, the &lt;code&gt;gcc&lt;/code&gt; team, the CPython team, and everybody in between, because I am not prepared to compute otherwise. &lt;/p&gt;
 </content>
 		</entry>
 		

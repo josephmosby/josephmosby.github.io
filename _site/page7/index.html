@@ -54,6 +54,150 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html"><h3>And here I was thinking arrays were for JavaScript and lists were for Python</h3></a>
+		<div class="date">January 05, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Python has arrays. Python even has an entirely special module that lets you build arrays. Like arrays in Java and C++, arrays from the <code>arrays</code> module must all be of a certain type of data. I assume these things must be wicked fast, but I wonder how large the array would have to be before there would be a noticeable difference.</p>
+
+<p>Having nothing further to say about single-type arrays, let us proceed with the code!</p>
+
+<pre><code>import array
+
+a = array.array('c', 'check out my sick array')
+
+print "As array:", a
+</code></pre>
+
+<p>In our first little snippet here, we’re turning a string into an array to start conducting experiments. The first parameter - <code>'c'</code> - specifies that this array will be full of <em>characters</em>.</p>
+
+<pre><code>a.extend(', it has so many bytes')
+
+print a
+
+print a[10:23]
+</code></pre>
+
+<p>We continue fiddling with our array by extending it. We can also slice arrays into smaller arrays, as we see here. </p>
+
+<pre><code>output_data = open('array-ex', 'wb')
+
+a.tofile(output_data)
+
+output_data.flush()
+</code></pre>
+
+<p>Arrays built using <code>array.array()</code> have a built-in function to save the data to a file. By opening a file object, calling <code>tofile(file_name)</code> on the array, and flushing the file object, we write our array to disk.</p>
+
+<pre><code>input_data = open('array-ex', 'rb')
+
+raw_data = input_data.read()
+
+print 'Raw data:', raw_data
+</code></pre>
+
+<p>We’ve extracted our raw data from the file as binary information. To read it into a new array we’ll do the following:</p>
+
+<pre><code>input_data.seek(0)
+
+second_array = array.array('c')
+
+second_array.fromfile(input_data, len(a))
+
+print second_array
+</code></pre>
+
+<p>And that’s about it for arrays. Super easy on memory, super fast, and useful in situations where performance is critical.</p>
+
+<ul>
+  <li>special thanks to PYMOTW for <a href="http://pymotw.com/2/array/">some inspiration</a> on stuff to do with arrays as examples</li>
+</ul>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html"><h3>Saving yourself from command-line parsing hell with argparse</h3></a>
+		<div class="date">December 30, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>Before <code>argparse</code>, I thought the only way to deal with command line arguments was to use <code>sys.argv</code>. You throw a series of arguments at a program, munge through them with <code>sys.argv[0]</code>, <code>sys.argv[1]</code>, etc. and hope for the best. And you hope that you always have full control over the arguments coming at your program through the command line. But what do you do if you have optional arguments, or flags? You could write your own parsers to handle all of that, but that’s where <code>argparse</code> comes in. </p>
+
+<p><code>argparse</code> provides a wrapper around <code>sys.argv</code> that… well, it parses arguments. The name is rather intuitive. </p>
+
+<p>A program utilizing <code>argparse</code> requires an <code>ArgumentParser</code> object to be much use at all. The arguments supplied to the <code>ArgumentParser</code> upon initialization provide much of the information on how we’ll use the tool. We’ll do that like so:</p>
+
+<pre><code>import argparse
+
+parser = argparse.ArgumentParser(description='A custom tool for rustling or unrustling jimmies.', usage='Use the custom tool in a manner that keeps your jimmies unrustled.')
+</code></pre>
+
+<p>The “description” and “usage” strings provide information that will be displayed when a user wants to read the manual on your program. We’ll look at that output in a bit once we add some arguments.</p>
+
+<pre><code>parser.add_argument('jimmies', type=int, nargs='+', help='Jimmies, in this instance, are a list of integers delimited by spaces.')
+</code></pre>
+
+<p>I’ve added an argument here that will be named ‘jimmies.’ By design, any argument that does not have a ‘-‘ preceding its name is a positional argument. <code>jimmies</code> expects arguments to be integers (<code>type=int</code>) and everything supplied on the command line will be cobbled together into a list (<code>nargs='+'</code>). We’ve also provided some help text here.</p>
+
+<pre><code>parser.add_argument('--rustle', dest='rustle', action='store_const', const=shuffle, default=unshuffle, help='The rustle flag determines if you would like further rustling of your jimmies. Otherwise, this program will naturally seek unrustlement.')
+</code></pre>
+
+<p>I’ve now added an optional flag here called <code>--rustle</code>. This will send everything into a function called <code>rustle</code>. <code>rustle</code> will do one of two things here: it will either make use of a function called <code>shuffle</code> if the flag is present, or it will make use of a function called unshuffle if the flag is absent. The <code>action</code> parameter indicates that we should store a constant value regardless. We’ll use a default value if the <code>--rustle</code> flag isn’t present, but we’ll use the <code>const</code> otherwise.</p>
+
+<p>Let’s assume that <code>unshuffle()</code> and <code>shuffle()</code> were defined elsewhere in the program like so.</p>
+
+<pre><code>import random 
+
+def unshuffle(parsed_items):
+	parsed_items.sort()
+	return parsed_items
+
+def shuffle(parsed_items):
+	random.shuffle(parsed_items)
+	return parsed_items
+</code></pre>
+
+<p>Then finally, we have to use the program:</p>
+
+<pre><code>if __name__ == "__main__":
+	args = parser.parse_args()
+	print args.rustle(args.jimmies)
+</code></pre>
+
+<p>The <code>args = parser.parse_args()</code> will produce a list of arguments based on what was supplied at the command-line. Now that we have some <code>args</code> in our namespace, we can <code>args.rustle()</code> our <code>args.jimmies</code>.</p>
+
+<pre><code>$ python argparse-example.py --help
+
+usage: Use the custom tool in a manner that keeps your jimmies unrustled.
+
+A custom tool for rustling or unrustling jimmies.
+
+positional arguments:
+  jimmies     Jimmies, in this instance, are a list of integers delimited by
+              spaces.
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --rustle    The rustle flag determines if you would like further rustling of
+              your jimmies. Otherwise, this program will naturally seek
+              unrustlement.
+
+$ python argparse-example.py 4 8 1 2
+[1, 2, 4, 8]
+
+$ python argparse-example.py 4 8 1 2 --rustle
+[2, 8, 1, 4]
+</code></pre>
+
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2014/12/22/rocking-out-with-aifc.html"><h3>Rocking out with aifc</h3></a>
 		<div class="date">December 22, 2014</div>
 	</div>
@@ -393,96 +537,6 @@ def len(s):
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-3">
-		<a href="/2014/05/28/ford-mosbys-amazing-burger-recipe.html"><h3>Ford Mosby's Amazing Burger Recipe</h3></a>
-		<div class="date">May 28, 2014</div>
-	</div>
-	<div class="col-8">
-		<p>I like to think that the parts of my brain that like programming and the parts of my brain that like cooking are somehow intricately linked. I have a tendency to start out with a stack of recipes as “inspiration” and then improvise the rest on the spot, and that certainly reveals itself in my coding style as well. And now that I’m improving as a programmer and investigating rules and frameworks, I’m following recipes far more closely. This might all be coincidence, and it might just be a sign that I’m maturing as a <strong>human being</strong> rather than as a programmer or cook, but I’m going to say it’s all linked until proven otherwise.</p>
-
-<p>My mom cooks far more than my dad. I inherited quite a bit from her and still consult her on techniques and ideas all the time. She would never admit that she was a great cook, but I was spoiled so much on home-cooked meals from her over the years that I simply had to start doing the same when I moved into my own apartment. Dad was the grillmaster, though, and this is the simple recipe he’s most known for. Good food is meant to be shared. </p>
-
-<h3 id="dads-burgers">Dad’s Burgers</h3>
-
-<p>You will need:</p>
-
-<ul>
-  <li>ground beef, 80% lean, poundage based on how many people you’re feeding (I like to go around 1/2 lb per person, leftovers aren’t a bad thing)</li>
-  <li>eggs</li>
-  <li>worcestershire sauce</li>
-  <li>salt</li>
-  <li>pepper</li>
-  <li>garlic powder</li>
-</ul>
-
-<p>Prepare the patties:</p>
-
-<ol>
-  <li>Start your grill to crank it to about 400°.</li>
-  <li>Dump all of your burger meat into a big bowl. </li>
-  <li>For each pound of meat, crack a whole egg into the bowl. </li>
-  <li>Add a tablespoon and a half of worcestershire, a teaspoon of salt, a teaspoon of pepper and a teaspoon of garlic powder per pound of meat.</li>
-  <li>Get your hands into that meat and start massaging those eggs into it. Don’t be shy about it. Get it all mixed in there.</li>
-  <li>With your hands, scoop out a handful of meat about the size of a baseball. Turn it around in your hands to compress it into a round ball.</li>
-  <li>Press the ball of meat into a cookie sheet. Flatten it until it’s about 2/3 of an inch thick.</li>
-  <li>Repeat until all of your meat is formed into burgers. Don’t leave leftover raw meat.</li>
-  <li>Slap each of those burgers on the grill and shut the top quickly. <em>Don’t leave your grill top open.</em></li>
-  <li>Wait four minutes, then flip them. Shut the top again.</li>
-  <li>Wait four minutes, then check them. When you poke the burgers, they should be a bit springy, not soggy. </li>
-  <li>If not springy yet, flip them once more, give them two minutes, then pull them out. </li>
-</ol>
-
-<p>Voilà. With your own two hands and fire, you have produced burgers. Maybe melt some cheese on top of them next time or toast the buns. The summer is yours to conquer.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/05/28/ford-mosbys-amazing-burger-recipe.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2014/04/18/a-modest-proposal-for-accessibility-driven-web-development-for-government.html"><h3>A Modest Proposal for Accessibility-Driven Web Development within Government</h3></a>
-		<div class="date">April 18, 2014</div>
-	</div>
-	<div class="col-8">
-		<p>I have never been a developer specifically tasked with making web applications accessible to users with disabilities, but I still find myself engaged in conversations about web accessibility with my friends employed by government agencies here in Washington, D.C. There is always some new service or technology or design that government employees would love to bring in, but they’re not legally allowed to because it’s not “Section 508-compliant.” This inevitably sparks a conversation about making technology accessible, and it’s all too often sparked by non-developers who can’t understand why developers just can’t make their products accessible. It’s one of the most misunderstood problems facing the accessibility community, and it shows no signs of being resolved any time soon. </p>
-
-<p>I would be remiss if I tried to solve the entire web accessibility problem in a blog post, but I can hopefully shed some light on how the problems start - now that I’ve had the opportunity to fix a few of my own.</p>
-
-<p>Recently, my team was tasked to make some changes to a web site with a map that showed text content when a user hovered over it. I can’t show the site itself, but <a href="https://www.mapbox.com/mapbox.js/example/v1.0.0/show-tooltips-on-hover/">this page</a> gives a decent representation of what we added. It’s a red-flag accessibility problem because it implies that sight is required to operate the web application, and not every possible user can see the screen. Some are navigating it through screen readers. I’ve had some training in how to spot these sorts of things, though, and I realized that we could easily just head off the user by placing <code>aria</code> tags within the map when a user stumbled upon it, and we could also place the tooltips in the HTML document such that a user could still read them. This was about five minutes worth of extra work, and all I needed to do was organize my HTML in such a way that a screen reader could figure it out. </p>
-
-<p>I can do this because I’m not just thinking about accessibility (which would have caused me to forego the map idea altogether), and I’m not just trying to hammer out a task in a hurry (which would have caused me to skip the HTML rearrangement). I’ve got time and training to notice the problem and creatively solve it. That happens at every level with our team at <a href="http://www.apcoworldwide.com">APCO Worldwide</a>. Our team members developing wireframes and user interfaces have accessibility in the back of their mind, our designers are thinking about color contrasts and font choices, and our developers are sorting through their HTML to make sure we don’t make some sort of confusing error in our code. We’re not accessibility professionals, we’re creative professionals who happen to know that not every user has the same experience with a computer that we do.</p>
-
-<p>We also plan our designs and our development in a holistic manner, and we iterate through multiple rounds of feedback to get it right. We decide who gets to have feedback and who doesn’t. And we don’t just say “yes” to any change that comes down the pipe: we weigh changes through our creative expertise before we implement them, and we push back on our clients if they make changes that will be problematic. If a client requests something that’s going to impact the accessibility of the site (such as a color contrast issue or a font change), we discuss it internally and propose alternatives before we just start coding. </p>
-
-<h3 id="what-government-gets-wrong">What Government Gets Wrong</h3>
-
-<p>Government has recently taken an interest in good design, which is all for the best. But it has focused heavily on simply hiring individual designers rather than <em>focusing on a creative process that emphasizes excellent, accessible design throughout.</em> This requires a commitment to a management style that is inherently at odds with how government develops and deals with IT solutions. </p>
-
-<p>Government tends to want to shift all the blame for bad, inaccessible design on contractors, but I don’t think that’s the whole of the problem. We pull off accessible design well and we’re a contract-based shop. Our team is fortunate enough to be trusted to do our jobs and left to work, relatively uninterrupted, for decent blocks of time. Despite my contractor nature, my clients trust me to get my job done and don’t particularly care where or how I do it, so long as the end product is exactly what they asked for. Any government contractor will testify that this is typically not the case in the government.</p>
-
-<p>Rather, you’re in an environment where the agency’s security office has insisted that you must work in their office on their machines at the time of day that they specify, you’re confronted with at least six half-hour to one-hour meetings per day from every project manager trying to use the same contractors for their own projects, and your design sensibilities will be whittled away by the occasional SES manager who just loves the color orange and really can’t understand why you can’t incorporate some orange into the design. Trust me, government project managers, I know that none of you is individually that bad. Collectively, however, there is a management culture within government that does not tolerate the daily structure required to consistently execute excellent, accessible design. </p>
-
-<p>I know how we address this issue within our firm, and I imagine that the government solution to this problem is quite similar. We employ a “traffic manager” whose job is strictly to keep the designers on task and away from distractions by handling all of the overhead and scheduling that tries to plague them. Invoices, client meetings, rush projects - the traffic manager handles it all, and gives the designers direction on where to go each day. If a designer needs time to finish a deliverable, they tell the traffic manager about it before going offline - and if you happen to have some rush project that absolutely needs doing that day, you go through the traffic manager first. </p>
-
-<p>The traffic manager is there to put a halt to one of the most basic problems with organizational culture: individually, no one is really a problem in the way of creative work. It’s when we all individually have problems at the same time that we become a collective, pervasive problem. The traffic manager is there to put a bottleneck to that collective problem. Can government bring in that sort of management style to fix its accessible design issues? Absolutely.</p>
-
-<h3 id="what-about-externally-developed-products">What About Externally-Developed Products?</h3>
-
-<p>Government agencies make use of Facebook, Twitter, and a host of other services that were not put together by contractors. Those services are all too often inaccessible to their detriment. But after thinking on <em>where</em> these products are developed, it doesn’t surprise me. Washington, D.C. confronts accessibility issues every day while other tech capitals rarely face it.</p>
-
-<p>Growing up in the Southeast, I went my entire life never regularly interacting with vision- or hearing-impaired individuals. The city has almost no public transportation, which makes it difficult for the vision-impaired to independently get around. It’s a little bit easier on the hearing-impaired - but nothing compared to living near <a href="https://www.gallaudet.edu/">Galludet University</a> where the bartenders know sign language. This is the environment for much of the country, and it’s certainly the environment where these web services are being constructed. If we want accessible web services built by default, we have to constantly remind those developers if they aren’t going to regularly interact with users who can’t fully see the screen or hear a video. </p>
-
-<p>And, to be honest, we’re going to have to make a case for it. Less than 3% of all Americans have some form of vision impairment that can’t be fully corrected. Of that group, most are over the age of 65 - hardly the target market for Twitter’s developers if we’re trying to convince them of a large new market out there. We must instead focus on the concept of access to information, and the importance of the information we want to convey. When Egypt’s access to many Internet services was shut down during a wave of protests, <a href="http://www.theguardian.com/technology/2011/feb/01/google-twitter-egypt">Google and Twitter stepped up</a> to provide access to Twitter via standard phone connections. Access to information is in these companies’ DNA, and that’s where we have to focus our accessibility efforts. Section 508, WCAG, etc., etc., don’t matter - what matters is that we have users who cannot access important information, and only these externally-developed services can help us get those messages out. </p>
-
-<hr />
-
-<p>Can these problems be solved? I think so. We need only break outside of our bubbles - both within Washington, DC government culture and without - and realize that there is a different way of doing business outside of our walls. </p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/04/18/a-modest-proposal-for-accessibility-driven-web-development-for-government.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
 
 <div class="row">
 	<div class="col-offset-3 col-8">
@@ -491,7 +545,7 @@ def len(s):
 			<a href="/page6" class="previous">Previous</a>
 			
 
-			<span class="page_number">Page: 7 of 8</span>
+			<span class="page_number">Page: 7 of 9</span>
 
 			
 			<a href="/page8" class="next">Next</a>

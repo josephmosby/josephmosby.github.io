@@ -54,6 +54,100 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/01/23/object-presentation-with-pprint.html"><h3>Object presentation with pprint</h3></a>
+		<div class="date">January 23, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>In my <a href="/2015/01/21/string-presentation-with-textwrap.html">last post</a>, I discovered that there are all sorts of awesome things you can do to format strings for presentation in a Python program. In this episode, I learn that it’s possible to do the same thing with all Python objects using <code>pprint</code>!</p>
+
+<p>Let’s crack it open and get to some pretty-printing!</p>
+
+<pre><code>import pprint
+
+pp = pprint.PrettyPrinter(indent=4, width=60)
+</code></pre>
+
+<p>Okay, I’ve implemented a <code>PrettyPrinter</code> object that expects to indent things at the four-space mark and each line can only be 60 characters long. Cool. </p>
+
+<pre><code>team = ['We', 'live', 'in', 'cities', 'you\'ll', 'never', 'see', 'on', 'screen', 'not', 'very', 'pretty', 'but', 'we', 'sure', 'know', 'how', 'to', 'run', 'things']
+
+# yes, that is a list of words in the chorus of Lorde's "Team"
+
+pp.pprint(team)
+</code></pre>
+
+<p>Okay, awesome. I now print everything on its own line with a slight indentation. </p>
+
+<p>What happens if I throw a custom object at it?</p>
+
+<pre><code>class Dog:
+	def __init__(self, name, owner):
+		self.name = name
+		self.owner = owner
+
+my_dog = Dog('Rufus', 'Joe')
+
+pp.pprint(my_dog) # &lt;__main__.Dog instance at 0x1007ebc20&gt;
+</code></pre>
+
+<p>Oh, that’s disappointing. I was	hoping I’d get a nifty way of doing this without having to define a custom <code>repr()</code> method on <code>Dog</code>. Ah well.</p>
+
+<p>So <code>pprint</code> does some stuff awesome, and some stuff… not as awesome. Onward!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/23/object-presentation-with-pprint.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/01/21/string-presentation-with-textwrap.html"><h3>String presentation with textwrap</h3></a>
+		<div class="date">January 21, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I haven’t written that many programs that run solely from the command line with a lot of user instructions incorporated into the program flow, so I haven’t done much Python display text processing. But if I had, <code>textwrap</code> would very likely be one of my best friends.</p>
+
+<p>The <code>textwrap</code> module is designed to wrap text, produce some formatted paragraphs, or totally strip out indentation from strings. It’s there for your convenience. Let’s take a look at what it can do:</p>
+
+<pre><code>import textwrap
+
+my_string = "The textwrap module is designed to wrap text, produce some formatted paragraphs, or totally strip out indentation from strings. It's there for your convenience. Let's take a look at what it can do:"
+
+print my_string
+
+print textwrap.wrap(my_string, 60)
+</code></pre>
+
+<p>Whoa whoa whoa there, that’s some weirdness. I’ve clearly got a cut-up string there, but it’s in list format. Let’s clean that up a bit:</p>
+
+<pre><code>print "\n".join(textwrap.wrap(my_string, 60))
+</code></pre>
+
+<p>But wait a second, that seems like writing a bunch of characters that I didn’t want to write. Let’s use <code>fill()</code>!</p>
+
+<pre><code>print textwrap.fill(my_string)
+</code></pre>
+
+<p>Okay, so <code>fill()</code> pretty much does the exact same thing as <code>wrap()</code>, but it automatically joins everything and adds some newlines in. </p>
+
+<p>Now let’s fiddle around with <code>dedent()</code>:</p>
+
+<pre><code>my_string = "\t\t" + my_string
+
+print my_string
+
+print textwrap.dedent(my_string)
+</code></pre>
+
+<p>I’ve added in some tabs here just to showcase what <code>dedent()</code> is designed to do. You can add whitespace to the beginning of your strings - such as if you wanted to include paragraphs in the source code - but then strip it out for presentation in your app.</p>
+
+<p>And that’s a <code>textwrap</code>!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/21/string-presentation-with-textwrap.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/01/20/a-short-word-on-stringio.html"><h3>A short word on StringIO</h3></a>
 		<div class="date">January 20, 2015</div>
 	</div>
@@ -402,150 +496,6 @@ print names
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html"><h3>And here I was thinking arrays were for JavaScript and lists were for Python</h3></a>
-		<div class="date">January 05, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Python has arrays. Python even has an entirely special module that lets you build arrays. Like arrays in Java and C++, arrays from the <code>arrays</code> module must all be of a certain type of data. I assume these things must be wicked fast, but I wonder how large the array would have to be before there would be a noticeable difference.</p>
-
-<p>Having nothing further to say about single-type arrays, let us proceed with the code!</p>
-
-<pre><code>import array
-
-a = array.array('c', 'check out my sick array')
-
-print "As array:", a
-</code></pre>
-
-<p>In our first little snippet here, we’re turning a string into an array to start conducting experiments. The first parameter - <code>'c'</code> - specifies that this array will be full of <em>characters</em>.</p>
-
-<pre><code>a.extend(', it has so many bytes')
-
-print a
-
-print a[10:23]
-</code></pre>
-
-<p>We continue fiddling with our array by extending it. We can also slice arrays into smaller arrays, as we see here. </p>
-
-<pre><code>output_data = open('array-ex', 'wb')
-
-a.tofile(output_data)
-
-output_data.flush()
-</code></pre>
-
-<p>Arrays built using <code>array.array()</code> have a built-in function to save the data to a file. By opening a file object, calling <code>tofile(file_name)</code> on the array, and flushing the file object, we write our array to disk.</p>
-
-<pre><code>input_data = open('array-ex', 'rb')
-
-raw_data = input_data.read()
-
-print 'Raw data:', raw_data
-</code></pre>
-
-<p>We’ve extracted our raw data from the file as binary information. To read it into a new array we’ll do the following:</p>
-
-<pre><code>input_data.seek(0)
-
-second_array = array.array('c')
-
-second_array.fromfile(input_data, len(a))
-
-print second_array
-</code></pre>
-
-<p>And that’s about it for arrays. Super easy on memory, super fast, and useful in situations where performance is critical.</p>
-
-<ul>
-  <li>special thanks to PYMOTW for <a href="http://pymotw.com/2/array/">some inspiration</a> on stuff to do with arrays as examples</li>
-</ul>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html"><h3>Saving yourself from command-line parsing hell with argparse</h3></a>
-		<div class="date">December 30, 2014</div>
-	</div>
-	<div class="col-8">
-		<p>Before <code>argparse</code>, I thought the only way to deal with command line arguments was to use <code>sys.argv</code>. You throw a series of arguments at a program, munge through them with <code>sys.argv[0]</code>, <code>sys.argv[1]</code>, etc. and hope for the best. And you hope that you always have full control over the arguments coming at your program through the command line. But what do you do if you have optional arguments, or flags? You could write your own parsers to handle all of that, but that’s where <code>argparse</code> comes in. </p>
-
-<p><code>argparse</code> provides a wrapper around <code>sys.argv</code> that… well, it parses arguments. The name is rather intuitive. </p>
-
-<p>A program utilizing <code>argparse</code> requires an <code>ArgumentParser</code> object to be much use at all. The arguments supplied to the <code>ArgumentParser</code> upon initialization provide much of the information on how we’ll use the tool. We’ll do that like so:</p>
-
-<pre><code>import argparse
-
-parser = argparse.ArgumentParser(description='A custom tool for rustling or unrustling jimmies.', usage='Use the custom tool in a manner that keeps your jimmies unrustled.')
-</code></pre>
-
-<p>The “description” and “usage” strings provide information that will be displayed when a user wants to read the manual on your program. We’ll look at that output in a bit once we add some arguments.</p>
-
-<pre><code>parser.add_argument('jimmies', type=int, nargs='+', help='Jimmies, in this instance, are a list of integers delimited by spaces.')
-</code></pre>
-
-<p>I’ve added an argument here that will be named ‘jimmies.’ By design, any argument that does not have a ‘-‘ preceding its name is a positional argument. <code>jimmies</code> expects arguments to be integers (<code>type=int</code>) and everything supplied on the command line will be cobbled together into a list (<code>nargs='+'</code>). We’ve also provided some help text here.</p>
-
-<pre><code>parser.add_argument('--rustle', dest='rustle', action='store_const', const=shuffle, default=unshuffle, help='The rustle flag determines if you would like further rustling of your jimmies. Otherwise, this program will naturally seek unrustlement.')
-</code></pre>
-
-<p>I’ve now added an optional flag here called <code>--rustle</code>. This will send everything into a function called <code>rustle</code>. <code>rustle</code> will do one of two things here: it will either make use of a function called <code>shuffle</code> if the flag is present, or it will make use of a function called unshuffle if the flag is absent. The <code>action</code> parameter indicates that we should store a constant value regardless. We’ll use a default value if the <code>--rustle</code> flag isn’t present, but we’ll use the <code>const</code> otherwise.</p>
-
-<p>Let’s assume that <code>unshuffle()</code> and <code>shuffle()</code> were defined elsewhere in the program like so.</p>
-
-<pre><code>import random 
-
-def unshuffle(parsed_items):
-	parsed_items.sort()
-	return parsed_items
-
-def shuffle(parsed_items):
-	random.shuffle(parsed_items)
-	return parsed_items
-</code></pre>
-
-<p>Then finally, we have to use the program:</p>
-
-<pre><code>if __name__ == "__main__":
-	args = parser.parse_args()
-	print args.rustle(args.jimmies)
-</code></pre>
-
-<p>The <code>args = parser.parse_args()</code> will produce a list of arguments based on what was supplied at the command-line. Now that we have some <code>args</code> in our namespace, we can <code>args.rustle()</code> our <code>args.jimmies</code>.</p>
-
-<pre><code>$ python argparse-example.py --help
-
-usage: Use the custom tool in a manner that keeps your jimmies unrustled.
-
-A custom tool for rustling or unrustling jimmies.
-
-positional arguments:
-  jimmies     Jimmies, in this instance, are a list of integers delimited by
-              spaces.
-
-optional arguments:
-  -h, --help  show this help message and exit
-  --rustle    The rustle flag determines if you would like further rustling of
-              your jimmies. Otherwise, this program will naturally seek
-              unrustlement.
-
-$ python argparse-example.py 4 8 1 2
-[1, 2, 4, 8]
-
-$ python argparse-example.py 4 8 1 2 --rustle
-[2, 8, 1, 4]
-</code></pre>
-
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
 
 <div class="row">
 	<div class="col-offset-3 col-8">
@@ -554,7 +504,7 @@ $ python argparse-example.py 4 8 1 2 --rustle
 			<a href="/page5" class="previous">Previous</a>
 			
 
-			<span class="page_number">Page: 6 of 8</span>
+			<span class="page_number">Page: 6 of 9</span>
 
 			
 			<a href="/page7" class="next">Next</a>

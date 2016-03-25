@@ -54,6 +54,136 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/08/03/pyohio-15-production-django.html"><h3>PyOhio '15 - Production Django</h3></a>
+		<div class="date">August 03, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Over the weekend, I gave a talk at PyOhio 2015 on Production Django applications. Due to the tireless efforts of the video staff, that talk is already available online less than 24 hours later.</p>
+
+<p>Talk is here: <a href="http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se">http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se</a></p>
+
+<p>And slides are here: <a href="http://josephmosby.com/presentations/pyohio2015">http://josephmosby.com/presentations/pyohio2015</a></p>
+
+<p>Special thanks to <a href="http://roberttownley.com/">Robert Townley</a> who gave pre-con feedback and <a href="http://juliangindi.com/">Julian Gindi</a> who gave an earlier talk that inspired some of the material. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/08/03/pyohio-15-production-django.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
+		<a href="/2015/07/18/trusting-python-and-the-ken-thompson-hack.html"><h3>Trusting Python&comma; and the Ken Thompson hack</h3></a>
+		<div class="date">July 18, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I have always treated Python compilation as a black box. Code goes in, web services come out, everyone is happy. Then I went through <a href="http://www.nand2tetris.org/">NAND2Tetris</a> and picked up a copy of <a href="http://www.amazon.com/Programming-Language-Brian-W-Kernighan/dp/0131103628/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1437243255&amp;sr=1-1&amp;keywords=the+c+programming+language">The C Programming Language</a>, and it’s been tough to rest as easy ever since. </p>
+
+<p>Python (in its most common derivative, CPython) is not fed straight into a computer’s processor. It’s first “interpreted” into C code, which is then compiled by a C compiler into assembly language, which is then translated into 1’s and 0’s that the computer can actually understand. Let’s take a look at this: </p>
+
+<pre><code>print('Hello, world!')
+</code></pre>
+
+<p>That’s the incredibly simple Python code for printing “Hello, world!” Here’s what that looks like in the Python source code:</p>
+
+<pre><code>static PyObject *
+builtin_print(PyObject *self, PyObject *args, PyObject *kwds)
+{
+    static char *kwlist[] = {"sep", "end", "file", "flush", 0};
+    static PyObject *dummy_args;
+    PyObject *sep = NULL, *end = NULL, *file = NULL, *flush = NULL;
+    int i, err;
+
+    if (dummy_args == NULL &amp;&amp; !(dummy_args = PyTuple_New(0)))
+        return NULL;
+    if (!PyArg_ParseTupleAndKeywords(dummy_args, kwds, "|OOOO:print",
+                                     kwlist, &amp;sep, &amp;end, &amp;file, &amp;flush))
+        return NULL;
+    if (file == NULL || file == Py_None) {
+        file = _PySys_GetObjectId(&amp;PyId_stdout);
+        if (file == NULL) {
+            PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
+            return NULL;
+        }
+
+        /* sys.stdout may be None when FILE* stdout isn't connected */
+        if (file == Py_None)
+            Py_RETURN_NONE;
+    }
+
+    if (sep == Py_None) {
+        sep = NULL;
+    }
+    else if (sep &amp;&amp; !PyUnicode_Check(sep)) {
+        PyErr_Format(PyExc_TypeError,
+                     "sep must be None or a string, not %.200s",
+                     sep-&gt;ob_type-&gt;tp_name);
+        return NULL;
+    }
+    if (end == Py_None) {
+        end = NULL;
+    }
+    else if (end &amp;&amp; !PyUnicode_Check(end)) {
+        PyErr_Format(PyExc_TypeError,
+                     "end must be None or a string, not %.200s",
+                     end-&gt;ob_type-&gt;tp_name);
+        return NULL;
+    }
+
+    for (i = 0; i &lt; PyTuple_Size(args); i++) {
+        if (i &gt; 0) {
+            if (sep == NULL)
+                err = PyFile_WriteString(" ", file);
+            else
+                err = PyFile_WriteObject(sep, file,
+                                         Py_PRINT_RAW);
+            if (err)
+                return NULL;
+        }
+        err = PyFile_WriteObject(PyTuple_GetItem(args, i), file,
+                                 Py_PRINT_RAW);
+        if (err)
+            return NULL;
+    }
+
+    if (end == NULL)
+        err = PyFile_WriteString("\n", file);
+    else
+        err = PyFile_WriteObject(end, file, Py_PRINT_RAW);
+    if (err)
+        return NULL;
+
+    if (flush != NULL) {
+        PyObject *tmp;
+        int do_flush = PyObject_IsTrue(flush);
+        if (do_flush == -1)
+            return NULL;
+        else if (do_flush) {
+            tmp = _PyObject_CallMethodId(file, &amp;PyId_flush, "");
+            if (tmp == NULL)
+                return NULL;
+            else
+                Py_DECREF(tmp);
+        }
+    }
+
+    Py_RETURN_NONE;
+}
+</code></pre>
+
+<p>I understand very little of what’s actually going on here. I do know that ultimately this code has to end up at some sort of terminal output unless I specify otherwise, and I do know that I’ll probably do that by writing to a dedicated terminal output memory location which is probably specified by a C pointer, and this is the extent of my understanding. And we haven’t even made it to assembly code yet. Or to binary instructions. </p>
+
+<p>I go on trusting the CPython interpreter because I have no choice. Perhaps the <code>PyArg_ParseTupleAndKeywords</code> function has a side effect of batching my printed output up and sending it back to a Python mailing list somewhere, for them to laugh at my coding mistakes. Maybe it’s something more nefarious. </p>
+
+<p>I can look through the CPython source code and see that <code>PyArg_ParseTupleAndKeywords</code> does exactly what it says it’s going to. But what if the <em>C compiler itself</em> is batching my printed output up and sending it off? In 1984 Ken Thompson described <a href="http://c2.com/cgi/wiki?TheKenThompsonHack">exactly that</a> with a hack that would allow a compiler to do all sorts of terrible things, including overwriting all evidence of its existence. You could detect it, of course, but you’d have to have a trusted compiler - something that most 2015 developers are not prepared to write. (myself included)</p>
+
+<p>And so I have to trust my computer. I have to trust Intel, Apple, all of the component manufacturers, the <code>gcc</code> team, the CPython team, and everybody in between, because I am not prepared to compute otherwise. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/07/18/trusting-python-and-the-ken-thompson-hack.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/07/14/the-uncomfortable-reality-of-software-engineering.html"><h3>The uncomfortable reality of software engineering</h3></a>
 		<div class="date">July 14, 2015</div>
 	</div>
@@ -531,152 +661,6 @@ class Migration(migrations.Migration):
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/04/20/kanye-west-on-the-american-dream.html"><h3>Kanye West on the American Dream</h3></a>
-		<div class="date">April 20, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>The modern Renaissance man is always <a href="http://www.papermag.com/2015/04/kanye_west.php">worth a read.</a></p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/20/kanye-west-on-the-american-dream.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/04/19/learning-closures.html"><h3>Learning closures and decorators</h3></a>
-		<div class="date">April 19, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>I don’t know why it took me such a long time to pick up closures. They seem so nifty. I have no idea what I’ll use them for [yet] but I like that they’re there.</p>
-
-<p>And now it’s time to play with them.</p>
-
-<p><img src="/images/closure.png" alt="" /></p>
-
-<p>According to StackOverflow:</p>
-
-<pre><code>The most simple way to think of a closure is a function that can be stored as a variable (referred to as a "first-class function"), that has a special ability to access other variables local to the scope it was created in.
-</code></pre>
-
-<p>According to StackOverflow (again):</p>
-
-<pre><code>A closure is a persistent local variable scope
-</code></pre>
-
-<p>According to Wikipedia:</p>
-
-<pre><code>In programming languages, closures (also lexical closures or function closures) are a technique for implementing lexically scoped name binding in languages with first-class functions. Operationally, a closure is a data structure storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or storage location the name was bound to at the time the closure was created.
-</code></pre>
-
-<p>Wikipedia’s definition sounds super fancy. </p>
-
-<p>So a closure is a way to encapsulate variables within a function definition. Then we can access the variables within that function through function calls. Rock on. Let’s make some.</p>
-
-<p>In JavaScript: </p>
-
-<pre><code>var closure = function() { 
-	var count, counter;
-	count = 1;
-	counter = function() {
-		count = count + 1; 
-		return count;
-	}
-	return counter;
-}
-
-var testClosure = closure();
-
-testClosure(); // 2
-testClosure(); // 3
-testClosure(); // 4
-</code></pre>
-
-<p>I tested this out in a Node.js evaluator on my local machine, but you can do the same in your browser console. </p>
-
-<p>In Python:</p>
-
-<pre><code>def closure():
-	count = 1
-	def counter():
-		count += 1
-		return count
-	return counter
-
-test_closure = closure()
-test_closure() # UnboundLocalError: local variable 'count' referenced before assignment
-</code></pre>
-
-<p>Wat. That didn’t go as expected. Python is giving me an <code>UnboundLocalError</code>, which indicates that I called a variable before assigning it. The detailed stack trace points me to line 4, which is <code>count += 1</code>. </p>
-
-<p>It looks like Python uses something called the “decorator” pattern to deal with this sort of work, and the syntax looks different than we would do it with JavaScript. There’s a fantastic <a href="http://thecodeship.com/patterns/guide-to-python-function-decorators/">guide to decorators here</a>. Let’s make use of one to get this code up and running.</p>
-
-<pre><code>def counter(count):
-	return count += 1
-
-def count_decorate(func):
-	def func_wrapper(count):
-		return func(count)
-	return func_wrapper
-</code></pre>
-
-<p>There’s still something wrong with this - it’s not preserving state like I’d want it to. <code>count</code> isn’t preserved across function calls. Perhaps you can’t do that in Python? </p>
-
-<p>Here’s another example of our last bit: (from <a href="http://affiliate.manning.com/idevaffiliate.php?id=1221&amp;url=33">The Quick Python Book</a>):</p>
-
-<pre><code>def makeInc(y):
-	def inc(x):
-		return y + x
-	return inc
-
-test_closure = makeInc(5)
-</code></pre>
-
-<p>And one more thing: bonus material! Since talking about decorators led me to start researching decorators in Python (thinking they’re the same thing), I decided to write a little timer that would tell me how long it took to compute a function: </p>
-
-<pre><code>import time
-
-class timer(object):
-	
-	def __init__(self, f):
-		self.f = f
-
-	def __call__(self, n):
-		self.time1 = time.time()
-		value = self.f(n) # run the function and establish a value
-		self.time2 = time.time()
-		print("it took ", self.time2-self.time1, " to execute")
-		return value # return the function's computed value after timing it
-
-@timer
-def fib(n):
-	a, b = 0, 1
-	for i in range(0, n):
-		a, b = b, a + b
-	return a
-</code></pre>
-
-<p>Our timer object, armed with its <code>__init__</code> and <code>__call__</code> methods, is ready to be a Python decorator! Just by sticking that little <code>@timer</code> in front of our function, we’ll now time its execution before allowing it to finish processing. It’s the same thing that happens with all of those <code>@login_required</code> decorators I have sprinkled throughout my Django code. </p>
-
-<p>What happens if I rewrite my Fibonacci code as a recursive algorithm?</p>
-
-<pre><code>@timer
-def fib(n):
-	if n &lt;= 2:
-		return n
-	else:
-		return fib(n-1) + fib(n-2)
-</code></pre>
-
-<p>It behaves almost exactly like we’d expect - every time our recursive algorithm calls the <code>fib(n)</code> in the recursive algorithm, we rerun the timer! Recursion doesn’t work quite as well in this scenario. Maybe if we tweaked the timer.. that’s for a later experiment.</p>
-
-<p>Have fun with these! Go write all your own decorators now!</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/19/learning-closures.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
 
 <div class="row">
 	<div class="col-offset-3 col-8">
@@ -685,7 +669,7 @@ def fib(n):
 			<a href="/page2" class="previous">Previous</a>
 			
 
-			<span class="page_number">Page: 3 of 8</span>
+			<span class="page_number">Page: 3 of 9</span>
 
 			
 			<a href="/page4" class="next">Next</a>
