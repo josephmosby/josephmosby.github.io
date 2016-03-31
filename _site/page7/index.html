@@ -54,6 +54,75 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/01/06/more-high-performance-iterable-work-with-bisect.html"><h3>More high-performance iterable work with bisect</h3></a>
+		<div class="date">January 06, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>In my <a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html">last post</a>, I explored the Python array data structure. In keeping with the vibe of iterable data structures, I’m moving on to cover the <code>bisect</code> module.</p>
+
+<p><code>bisect</code> uses a simple bisection algorithm to insert items into a list without botching the sort. The gist of the algorithm is simple: we’re going to create a midpoint using the low and high marks of the list, check if our value is greater than or less than the midpoint, then use the midpoint to slice the list into smaller and smaller lists until our item falls right at the midpoint.</p>
+
+<p>You can see this in action here:</p>
+
+<pre><code>def bisect_pseudo(a_list, my_value):
+	low = 0
+	high = len(a_list)
+
+	while low &lt; high:
+		midpoint = (low+high)//2
+
+		if my_value &lt; a_list[midpoint]:
+			high = midpoint
+		else:
+			low = midpoint + 1
+
+		print "low:", low, "high", high
+
+	return low
+
+my_list = [1, 4, 9, 16, 25]
+
+print "Value greater than midpoint: "
+bisect_pseudo(my_list, 10)
+
+print "Value less than midpoint: "
+bisect_pseudo(my_list, 2)
+</code></pre>
+
+<p>In this example, we see the algorithm sifting through our list, searching for the point in the list where our test value would naturally slide in. This is a left bisection algorithm - where we start from the left side of the list and work up - and the reverse would be a right bisection algorithm. The <code>bisect</code> module includes both.</p>
+
+<pre><code>import bisect
+
+names = ['Joe', 'Beth', 'Steve']
+
+names.sort()
+
+print names
+
+print bisect.bisect_left(names, 'David')
+
+bisect.insort_left(names, 'David')
+
+print names
+</code></pre>
+
+<p>In this example, we’re using the <code>bisect_left()</code> function, an implementation of the same algorithm described above, to find the midpoint in our sorted list. The <code>insort_left()</code> function will perform this algorithm and then insert our value exactly where it needs to be. The code using the right bisection algorithm looks similar:</p>
+
+<pre><code>print bisect.bisect_right(names, 'Shamyl')
+
+bisect.insort_right(names, 'Shamyl')
+
+print names
+</code></pre>
+
+<p>The Python <code>bisect</code> module is fairly quick, but it will use a faster C implementation if one’s available. That’s all there is to it! </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/06/more-high-performance-iterable-work-with-bisect.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html"><h3>And here I was thinking arrays were for JavaScript and lists were for Python</h3></a>
 		<div class="date">January 05, 2015</div>
 	</div>
@@ -506,34 +575,6 @@ def len(s):
 <p>I know that Drupal lets me get much more granular with my templating - down to the region, node and block level. I have no idea how to wrangle those templates yet, though, so those are next on my list. I’d also like to not have these hacky queries of the <code>$page</code> object that required me to guess how the object was structured half of the time. Till next time!</p>
 
 		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/10/30/cooking-my-first-ever-drupal-theme-from-scratch.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2014/08/26/the-magic-in-the-machine.html"><h3>The Magic in the Machine</h3></a>
-		<div class="date">August 26, 2014</div>
-	</div>
-	<div class="col-8">
-		<p>Our love affair with computers has a long, complex history. We did not fall in love with them because they allowed us to be more productive. Nor did we love them because they encouraged us to talk to our friends over the Internet. Our first love affair began a decade before the web, when the first PCs gave software developers the ability to create new and interesting art forms such as Tron, The Last Starfighter and Castle Wolfenstein. It is creative computing, the creation of art out of code, that has always resonated with us. Creative computing is what excites us about our devices and keeps drawing us in for more.</p>
-
-<p>Yet as the computer invades every aspect of our personal and professional lives, we have sacrificed that original magic for efficiency. Digital design concepts and capabilities have improved exponentially over the years, but the trends have been toward flat, functional, sterile, clean design. Hardware products have emphasized simple screen real estate while removing as much of the surrounding matter as possible. Web design is focused on maximizing “conversions” while optimizing for machines to add to search engine indexes.</p>
-
-<p>A craving for efficiency in creative computing implies that we have a host of vaguely unpleasant tasks to accomplish on the machine, so we should make it as easy as possible for users to get to what they need to do quickly and get out. Creative computing is becoming a race to find the hyper-optimized, mechanical place where users can move through their fast food assembly line of digital tasks so they can move to the next fast food assembly line of digital tasks, over and over again in perpetuity. There is no joy at the end of this tunnel.</p>
-
-<p>In the real world, the joy has always been outside the screen, and creative computing at its best is a way to augment our experiences with and memories of that world. It’s not the cold pixel representation of some meat on a plate in an Instagram feed; it’s the memory of the fantastic steak dinner date with a group of friends you’ve known since college that truly brings us joy. That silly Instagram shot is just a reminder that brings a memory to life in our minds. Even for millennials or post-millennials who grew up with the Internet and entered the working world armed with smart phones and social media accounts, our joy has never been contained inside a screen.</p>
-
-<p>Psychologists, sociologists, neuroscientists and anthropologists have spent years on soapboxes shouting about the dangers of too much screen use, evidenced by <a href="http://www.dailymail.co.uk/sciencetech/article-2175230/Too-time-online-lead-stress-sleeping-disorders-depression.html">screen-induced sleeping disorders</a> and <a href="http://www.huffingtonpost.com/2012/11/28/south-korea-internet-addicted_n_2202371.html">Internet addiction centers</a>. Yet these complaints are so often branded as a problem of the Internet itself, that there is some inherent problem with our computing-enabled society. Our computers and our Internet connections are not the problem: like the TV revolution decades before, our insistence on staring at a single glowing screen for hours on end is a problem.</p>
-
-<p>It is time for creative computing to break out of its screen. It is time for us to rekindle the magic of computing on a familiar ground we still love: the real world.</p>
-
-<p>For a long time, the wizardry of blurring the lines of the physical and the digital world was a cost-prohibitive proposition for most creative campaigns. Most technologists, creative agencies and marketing departments simply could not afford the infrastructure required to connect the two worlds. That landscape has now changed. Our audiences are equipped with cameras, GPS devices, and microphones in their mobile devices at all times. Inexpensive microcontrollers now allow software developers to play with sensors and electronic devices with ease. The ubiquity of wireless networks allows us to connect a vast array of devices over the air at any time.</p>
-
-<p>We have already begun experimenting with these tools in our own D.C. office, with a website that lets a colleague who recently moved to Seattle manipulate the lights at his old desk. The possibilities are endless; these tools allow us to build anything our minds can imagine. They grant us the ability to jump back and forth between worlds, to split our interactions between the physical and the digital in ways that science fiction could only dream of decades earlier. We no longer need to restrict ourselves to dreaming about these things – their secrets have been unlocked, and they can be built at any time.</p>
-
-<p>The next wave of creative computing and the future digital marketing and PR campaigns it spawns will not be restricted to an audience’s screens. They will touch them where they live, in the real world. They will be there for audiences to touch, feel, smell and experience without needing to reach for a portable glowing screen. They will make the machine invisible and will share an audience’s joy when magical, unexpected things begin to happen in the real world, things that creative computing will enable and inspire.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/08/26/the-magic-in-the-machine.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
 

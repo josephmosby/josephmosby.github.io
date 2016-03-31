@@ -54,6 +54,50 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/01/29/exploring-the-math-module.html"><h3>Exploring the math module</h3></a>
+		<div class="date">January 29, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>I could write code for days using the <code>math</code> module and never hit the end. <code>math</code> is huge. It’s designed to keep you from rewriting a stack of mathematical functions that someone had inevitably written before (formulas for calculating the sine, cosine, tangent, etc). </p>
+
+<p>So rather than write a stack of example code, let’s instead discuss what <code>math</code> can do for you. <code>math</code> can do any of these functions on integers only - <code>cmath</code> provides the same, but allows complex numbers.</p>
+
+<h3 id="number-theoretic-and-representation-functions">Number-theoretic and representation functions</h3>
+
+<p>These functions deal with a few basic theoretical calculations that didn’t quite fit anywhere else. Things like <code>factorial()</code>, <code>fabs()</code> (which calculates absolute value), and <code>modf()</code> which returns the fractional and integer parts of a float can all be found here. </p>
+
+<h3 id="power-and-logarithmic-functions">Power and logarithmic functions</h3>
+
+<p>As can be expected, you’ll find things with exponents and logarithms here. Need to calculate e^x? Use <code>exp(x)</code>. Need to get x^y? Use <code>pow(x, y)</code>. Logarithms use <code>log(x, [base])</code>. Easy stuff here.</p>
+
+<h3 id="trigonometric-functions">Trigonometric functions</h3>
+
+<p>This is where all of the trigonometric functions live: things like <code>sin(x)</code>, <code>cos(x)</code>, <code>tan(x)</code>. I wish I’d known about this in the eleventh grade with Mrs. May. </p>
+
+<h3 id="angular-conversion-functions">Angular conversion functions</h3>
+
+<p>Need to go from degrees to radians? Use <code>radians(x)</code>. Need to go from radians to degrees? Use <code>degrees(x)</code>.</p>
+
+<h3 id="hyperbolic-functions">Hyperbolic functions</h3>
+
+<p>I never used these in eleventh grade and am only moderately aware of what they do. If you need the hyperbolic tangent of x - <code>tanh(x)</code> - or the inverse hyperbolic cosine - <code>acosh(x)</code> - this is where to look. </p>
+
+<h3 id="error-functions">Error functions</h3>
+
+<p>Same thing for error functions. I am not proud of how much math I don’t know right now.</p>
+
+<h3 id="constants">Constants</h3>
+
+<p>These I’ve got, though! This is where <code>pi</code> and <code>e</code> live.</p>
+
+<p><code>math</code> is great, and if you’re going to using Python for statistical or scientific computing, it’s a must-know. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/29/exploring-the-math-module.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/01/23/object-presentation-with-pprint.html"><h3>Object presentation with pprint</h3></a>
 		<div class="date">January 23, 2015</div>
 	</div>
@@ -424,75 +468,6 @@ print "Veggie Three Height: ", str(veggie_three.height)
 <p>And that’s what <code>pickle</code> does, simply and well. It makes your objects into strings, light, compact and ready to be stored forever. </p>
 
 		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/01/06/more-high-performance-iterable-work-with-bisect.html"><h3>More high-performance iterable work with bisect</h3></a>
-		<div class="date">January 06, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>In my <a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html">last post</a>, I explored the Python array data structure. In keeping with the vibe of iterable data structures, I’m moving on to cover the <code>bisect</code> module.</p>
-
-<p><code>bisect</code> uses a simple bisection algorithm to insert items into a list without botching the sort. The gist of the algorithm is simple: we’re going to create a midpoint using the low and high marks of the list, check if our value is greater than or less than the midpoint, then use the midpoint to slice the list into smaller and smaller lists until our item falls right at the midpoint.</p>
-
-<p>You can see this in action here:</p>
-
-<pre><code>def bisect_pseudo(a_list, my_value):
-	low = 0
-	high = len(a_list)
-
-	while low &lt; high:
-		midpoint = (low+high)//2
-
-		if my_value &lt; a_list[midpoint]:
-			high = midpoint
-		else:
-			low = midpoint + 1
-
-		print "low:", low, "high", high
-
-	return low
-
-my_list = [1, 4, 9, 16, 25]
-
-print "Value greater than midpoint: "
-bisect_pseudo(my_list, 10)
-
-print "Value less than midpoint: "
-bisect_pseudo(my_list, 2)
-</code></pre>
-
-<p>In this example, we see the algorithm sifting through our list, searching for the point in the list where our test value would naturally slide in. This is a left bisection algorithm - where we start from the left side of the list and work up - and the reverse would be a right bisection algorithm. The <code>bisect</code> module includes both.</p>
-
-<pre><code>import bisect
-
-names = ['Joe', 'Beth', 'Steve']
-
-names.sort()
-
-print names
-
-print bisect.bisect_left(names, 'David')
-
-bisect.insort_left(names, 'David')
-
-print names
-</code></pre>
-
-<p>In this example, we’re using the <code>bisect_left()</code> function, an implementation of the same algorithm described above, to find the midpoint in our sorted list. The <code>insort_left()</code> function will perform this algorithm and then insert our value exactly where it needs to be. The code using the right bisection algorithm looks similar:</p>
-
-<pre><code>print bisect.bisect_right(names, 'Shamyl')
-
-bisect.insort_right(names, 'Shamyl')
-
-print names
-</code></pre>
-
-<p>The Python <code>bisect</code> module is fairly quick, but it will use a faster C implementation if one’s available. That’s all there is to it! </p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/06/more-high-performance-iterable-work-with-bisect.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
 

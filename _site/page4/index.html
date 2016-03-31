@@ -54,6 +54,89 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/04/21/i-dove-deep-into-migrations-so-you-dont-have-to.html"><h3>I dove deep into a Django migration so you don&#39;t have to</h3></a>
+		<div class="date">April 21, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>It is 2015. I expect to be able to forget my webapp database exists once I plug my credentials into a configuration file. From then on out it should be nothing more than feeding query terms into functions and getting lists back.</p>
+
+<p><em>AND YET.</em></p>
+
+<p>Back in the old days of Django, you had to cut all your database changes yourself. If you made schema changes to an app after you had run <code>syncdb</code>, you had to go figure out how to manage the changes with <code>ALTER TABLE</code> statements. Then Ruby on Rails came along with its cute little migrations that did all the hard work for you. <code>south</code> came along to help Django do the same, and then we finally just decided to roll <code>south</code> into Django core. If you make a change to a model, you run <code>manage.py makemigrations &amp;&amp; manage.py migrate</code> and everything’s happy. </p>
+
+<p>Well, until you’ve got crazy errors spitting out of your console because your relationships changed on three apps at once and two developers working on different portions of the project established a bunch of weird subclassing and EVERYTHING is going to pieces. </p>
+
+<p>And then we must deal with migrations. Let us begin.</p>
+
+<p>A sample migration file (for a model called <code>Post</code>) looks something like this:</p>
+
+<pre><code># -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+from django.db import models, migrations
+
+class Migration(migrations.Migration):
+
+	dependencies = []
+
+	operations = [
+		migrations.CreateModel(
+			name='Post',
+			fields=[
+				('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+				('publication_date', models.DateTimeField(blank=True, null=True)),
+				('title', models.CharField(max_length=255)),
+				('content', models.TextField()),
+			],
+			options={},
+		),
+	]
+</code></pre>
+
+<p>When <code>manage.py migrate</code> is run, Django will read this migration file, see the operations and depencies in the <code>Migration</code> class, and execute appropriate transactions against the target database. </p>
+
+<p>Now, let’s say that we had an <code>Author</code> model (to track <code>Post</code> authors) and establish a <code>ForeignKey</code> here back to the <code>Author</code>. This migration would then look something like this:</p>
+
+<pre><code> # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+from django.db import models, migrations
+
+class Migration(migrations.Migration):
+
+	dependencies = [
+		('authors', '0001_initial'),
+	]
+
+	operations = [
+		migrations.CreateModel(
+			name='Post',
+			fields=[
+				('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+				('publication_date', models.DateTimeField(blank=True, null=True)),
+				('title', models.CharField(max_length=255)),
+				('content', models.TextField()),
+				('author', models.ForeignKey(to='authors.Author'))
+			],
+			options={},
+		),
+	]
+</code></pre>
+
+<p>What’s changed? We’ve added our first dependency! We can’t have a <code>ForeignKey</code> in the database unless we have an <code>authors</code> table. <code>manage.py migrate</code> will sniff out this migration, then go check to make sure it’s run against the database <em>before</em> we run this <code>Post</code> migration. We can then make use of the <code>authors</code> foreign key in our model. </p>
+
+<p>When Django runs those migrations, it will execute the proper SQL commands against your database backend of choice (which you can see if you run <code>manage.py sqlmigrate</code>), then store a record of the migration in a special <code>django_migrations</code> table. This is how Django checks to see if a migration has been run already. If you’ve already got data and schema present in your database (but no migrations), <code>manage.py migrate --fake</code> will generate a migration file and add it to this table, but won’t do any further work to the database. </p>
+
+<p>I can think of at least one “gotcha” with all this, as it’s causing all sorts of trouble for my team at the moment. It’s possible to attach widgets to objects that include <code>ForeignKey</code> relationships. This can really, really trip migrations up. We’ve had to solve it by migrating everything <em>except</em> the field that includes the foreign key, then manually migrating things in order, but even that’s a grab bag. </p>
+
+<p>But aside from that, migrations aren’t that scary! Don’t go coding your own, though.</p>
+
+<p><em>but if you did you could do it just by running <code>manage.py makemigrations --empty yourappname</code> and go from scratch</em></p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/21/i-dove-deep-into-migrations-so-you-dont-have-to.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/04/20/kanye-west-on-the-american-dream.html"><h3>Kanye West on the American Dream</h3></a>
 		<div class="date">April 20, 2015</div>
 	</div>
@@ -542,20 +625,6 @@ urlpatterns = patterns('',
 <p>Have fun with this! I’ve created a <a href="https://github.com/josephmosby/rosascosaspublic/">Github repo</a> for the project with the full Django app in case it’s useful.</p>
 
 		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/08/rosas-cosas-building-a-twilio-app-to-match-kingsthings.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/03/30/hot-chicken.html"><h3>Hot Chicken</h3></a>
-		<div class="date">March 30, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Nashville is a wonderful weird place. The city has a native dish known only as “hot chicken” and David Ramsey has captured its essence perfectly.</p>
-
-<p><a href="http://www.oxfordamerican.org/magazine/item/190-some-like-it-extra-hot">Some Like It Extra Hot</a></p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/30/hot-chicken.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
 

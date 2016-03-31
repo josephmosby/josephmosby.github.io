@@ -54,6 +54,55 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/10/26/pipes-and-such.html"><h3>Pipes and such</h3></a>
+		<div class="date">October 26, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>In MIT’s <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-828-operating-system-engineering-fall-2012/lecture-notes-and-readings/MIT6_828F12_xv6-book-rev7.pdf">text on the xv6</a>, pipes are described as “a small kernel buffer exposed to process as a pair of file descriptors, one for reading and one for writing.” I think I understand file descriptors by now, but I don’t quite know what a buffer is. Let me dig into that first with some Googling.</p>
+
+<p>Wikipedia describes a buffer as “a region of a physical memory storage used to temporarily store data while it is being moved from one place to another.” Cross-referencing this with other things I’ve previously learned about operating systems makes me think that buffers are probably also used for things like keyboard input - where we don’t want to necessarily take the time for expensive writes to disk, so we just store in memory and wait until another program clears things out. Okay. Moving on.</p>
+
+<p>This example code was provided by the text: </p>
+
+<pre><code>int p[2];
+char *argv[2];
+
+argv[0] = "wc";
+argv[1] = 0;
+
+pipe(p);
+
+if(fork() == 0) {
+	close(0);
+	dup(p[0]);
+	close(p[0]);
+	close(p[1]);
+	exec("/bin/wc", argv);
+} else {
+	write(p[1], "hello world\n", 12);
+	close(p[0]);
+	close(p[1]);
+}
+</code></pre>
+
+<p>And this compiles nicely with some tweaks for the OSX environment - but, as it never prints, we don’t have a visual confirmation. </p>
+
+<p>Pipes and temporary files share some similarities in execution. This code would look the same way to the end user:</p>
+
+<pre><code>$ echo hello world | wc
+$ echo hello world &gt; /tmp/xyz; wc &lt;/tmp/xyz
+</code></pre>
+
+<p>But there are three key differences here. This would leave the <code>/tmp/xyz</code> file lying around, which we’d have to come back through and clean up later. It also expects there to be enough free disk space for the <code>/tmp/xyz</code> file, which could be extremely long. And finally, these processes could not easily send data back and forth with this approach, if <code>wc</code> needed to send data back to <code>echo</code>. </p>
+
+<p>And that’s it for pipes. Next, on to the filesystem!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/26/pipes-and-such.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/10/22/the-fast-inverse-square-root-algorithm.html"><h3>The fast inverse square root algorithm</h3></a>
 		<div class="date">October 22, 2015</div>
 	</div>
@@ -1338,24 +1387,6 @@ $ systemctl restart dashboard
 <p>That’s a basic configuration for getting an Flask/uWSGI/nginx app up and running on a CentOS Linode box. If you decide to do something other than CentOS, most of it should still work, but the initialization service script will probably not. You can browse the repository for all of this <a href="https://github.com/josephmosby/dashboard/tree/c776c8875f8eaf094e2c506e1c0aca91693b7323">here</a>.</p>
 
 		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/08/17/pygotham-15-building-an-alu.html"><h3>PyGotham '15 - Building an ALU</h3></a>
-		<div class="date">August 17, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Really had an awesome time at PyGotham 2015! The organization is phenomenal and really made a fellow East Coaster feel welcome. </p>
-
-<p>Talk is here: <a href="http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python">http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python</a></p>
-
-<p>And slides are here: <a href="http://josephmosby.com/presentations/pygotham2015">http://josephmosby.com/presentations/pygotham2015</a></p>
-
-<p>Example code is here: <a href="http://josephmosby.com/presentations/pygotham2015/chip_functions.py">http://josephmosby.com/presentations/pygotham2015/chip_functions.py</a></p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/08/17/pygotham-15-building-an-alu.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
 

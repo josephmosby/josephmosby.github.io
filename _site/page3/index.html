@@ -54,6 +54,24 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/08/17/pygotham-15-building-an-alu.html"><h3>PyGotham '15 - Building an ALU</h3></a>
+		<div class="date">August 17, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Really had an awesome time at PyGotham 2015! The organization is phenomenal and really made a fellow East Coaster feel welcome. </p>
+
+<p>Talk is here: <a href="http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python">http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python</a></p>
+
+<p>And slides are here: <a href="http://josephmosby.com/presentations/pygotham2015">http://josephmosby.com/presentations/pygotham2015</a></p>
+
+<p>Example code is here: <a href="http://josephmosby.com/presentations/pygotham2015/chip_functions.py">http://josephmosby.com/presentations/pygotham2015/chip_functions.py</a></p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/08/17/pygotham-15-building-an-alu.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/08/03/pyohio-15-production-django.html"><h3>PyOhio '15 - Production Django</h3></a>
 		<div class="date">August 03, 2015</div>
 	</div>
@@ -575,89 +593,6 @@ class RedirectOnSHAViolation():
 <p>Not all software engineers are created equal. Some know accounting. Some know journalism. Some know advertising. Find whatever your “one more thing” is and <em>use it.</em> Solve problems. When necessary, use code. </p>
 
 		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/02/not-all-software-engineers-are-created-equal.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/04/21/i-dove-deep-into-migrations-so-you-dont-have-to.html"><h3>I dove deep into a Django migration so you don&#39;t have to</h3></a>
-		<div class="date">April 21, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>It is 2015. I expect to be able to forget my webapp database exists once I plug my credentials into a configuration file. From then on out it should be nothing more than feeding query terms into functions and getting lists back.</p>
-
-<p><em>AND YET.</em></p>
-
-<p>Back in the old days of Django, you had to cut all your database changes yourself. If you made schema changes to an app after you had run <code>syncdb</code>, you had to go figure out how to manage the changes with <code>ALTER TABLE</code> statements. Then Ruby on Rails came along with its cute little migrations that did all the hard work for you. <code>south</code> came along to help Django do the same, and then we finally just decided to roll <code>south</code> into Django core. If you make a change to a model, you run <code>manage.py makemigrations &amp;&amp; manage.py migrate</code> and everything’s happy. </p>
-
-<p>Well, until you’ve got crazy errors spitting out of your console because your relationships changed on three apps at once and two developers working on different portions of the project established a bunch of weird subclassing and EVERYTHING is going to pieces. </p>
-
-<p>And then we must deal with migrations. Let us begin.</p>
-
-<p>A sample migration file (for a model called <code>Post</code>) looks something like this:</p>
-
-<pre><code># -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-from django.db import models, migrations
-
-class Migration(migrations.Migration):
-
-	dependencies = []
-
-	operations = [
-		migrations.CreateModel(
-			name='Post',
-			fields=[
-				('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
-				('publication_date', models.DateTimeField(blank=True, null=True)),
-				('title', models.CharField(max_length=255)),
-				('content', models.TextField()),
-			],
-			options={},
-		),
-	]
-</code></pre>
-
-<p>When <code>manage.py migrate</code> is run, Django will read this migration file, see the operations and depencies in the <code>Migration</code> class, and execute appropriate transactions against the target database. </p>
-
-<p>Now, let’s say that we had an <code>Author</code> model (to track <code>Post</code> authors) and establish a <code>ForeignKey</code> here back to the <code>Author</code>. This migration would then look something like this:</p>
-
-<pre><code> # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-from django.db import models, migrations
-
-class Migration(migrations.Migration):
-
-	dependencies = [
-		('authors', '0001_initial'),
-	]
-
-	operations = [
-		migrations.CreateModel(
-			name='Post',
-			fields=[
-				('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
-				('publication_date', models.DateTimeField(blank=True, null=True)),
-				('title', models.CharField(max_length=255)),
-				('content', models.TextField()),
-				('author', models.ForeignKey(to='authors.Author'))
-			],
-			options={},
-		),
-	]
-</code></pre>
-
-<p>What’s changed? We’ve added our first dependency! We can’t have a <code>ForeignKey</code> in the database unless we have an <code>authors</code> table. <code>manage.py migrate</code> will sniff out this migration, then go check to make sure it’s run against the database <em>before</em> we run this <code>Post</code> migration. We can then make use of the <code>authors</code> foreign key in our model. </p>
-
-<p>When Django runs those migrations, it will execute the proper SQL commands against your database backend of choice (which you can see if you run <code>manage.py sqlmigrate</code>), then store a record of the migration in a special <code>django_migrations</code> table. This is how Django checks to see if a migration has been run already. If you’ve already got data and schema present in your database (but no migrations), <code>manage.py migrate --fake</code> will generate a migration file and add it to this table, but won’t do any further work to the database. </p>
-
-<p>I can think of at least one “gotcha” with all this, as it’s causing all sorts of trouble for my team at the moment. It’s possible to attach widgets to objects that include <code>ForeignKey</code> relationships. This can really, really trip migrations up. We’ve had to solve it by migrating everything <em>except</em> the field that includes the foreign key, then manually migrating things in order, but even that’s a grab bag. </p>
-
-<p>But aside from that, migrations aren’t that scary! Don’t go coding your own, though.</p>
-
-<p><em>but if you did you could do it just by running <code>manage.py makemigrations --empty yourappname</code> and go from scratch</em></p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/21/i-dove-deep-into-migrations-so-you-dont-have-to.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
 
