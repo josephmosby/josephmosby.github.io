@@ -54,6 +54,34 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/05/02/not-all-software-engineers-are-created-equal.html"><h3>Not all software engineers are created equal</h3></a>
+		<div class="date">May 02, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>In my first ever technology job, I was the lowest-ranked member of a consulting team. Our team was hired by a federal government agency to help them figure out how to respond to an annual audit of their IT environment - specifically, a Sarbanes-Oxley Section 404 audit. An auditor would come in, tell the agency where there were problems, and we would help agency staff fix those problems. I had never worked in a government agency before. I had never programmed a financial application before. What good was I? How did I earn the title of “ERS Consultant?”</p>
+
+<p>It’s easy to get lost in job titles in technology, because we technology professionals deal in a world of tools. <code>ls</code> does the same thing every time you run it - it gives you the list of files in a directory. <code>python manage.py migrate</code> does the same thing every time you run it - it makes changes to a database based on changes to a Django project. Software engineers have a tendency to fall into a logical trap of thinking we are like the programs we run: repeatable processes that do the same thing each time, perhaps a little faster over time, but ultimately executing our assigned task whenever we’re needed. “I am a Django web programmer,” we say. “I build Django apps.”</p>
+
+<p>If that is how you think of your work, your career is going to sputter. </p>
+
+<p>When I started in my first-ever technology job, I had tangential experience that was extremely useful in the particular project. I had a master’s degree in accountancy, which meant I had gone into <em>extreme</em> detail about Sarbanes-Oxley in my coursework. I could work the technology of that government agency into that mental framework of “controls” and “materiality” and build something better out of that union. I had also interned with the consulting firm before. Though the internship was with a totally different part of the company, I was familiar with the expectations and the systems that powered the organization. And if you’ve ever taken four hours of a work day trying to find the IT help desk phone line rather than doing something that makes money for the firm, you realize that coming into corporate-world with some pre-existing knowledge is useful.</p>
+
+<p>These things have value to employers. They make you a better technologist. I was not just an “ERS Consultant.” I was a technology professional with accounting experience, and that made me disproportionately useful for a Sarbanes-Oxley project.</p>
+
+<p>I was next picked up by a PR firm to code websites for their clients. Turns out, they didn’t care about my accounting degree. What they did care about was my experience navigating large organizations and my ability to comfortably interact with clients. </p>
+
+<p>PR firms do really, really simple technology work. It’s all shiny front-end pretty stuff. You’re never going to build a machine-learning system that can analyze your client’s Twitter presence in real time, but you will learn how to sweat the spacing of letters in a headline just like a print designer. PR firms want the prettiest thing they can get in the shortest amount of time possible, and often the timeline wins out over the features of the site. That’s how the industry <em>works</em>. You can hope to spend weeks and weeks perfecting an amazing website that showcases all of the wonderful things your client is doing, and it won’t matter at all once the PR “moment” is gone. </p>
+
+<p>You can have a computer science Ph.D. from Stanford and absolutely suck as a developer in a PR firm if you can’t be a little bit like a PR pro yourself. That world isn’t about technology. It’s about words and conversation and making people like you and showing others how they can make people like them, too. And sometimes it involves talking about Sarbanes-Oxley with your client because she has to go into a meeting with a Deloitte auditor who’s asking too many questions. Karma sucks.</p>
+
+<p>Not all software engineers are created equal. Some know accounting. Some know journalism. Some know advertising. Find whatever your “one more thing” is and <em>use it.</em> Solve problems. When necessary, use code. </p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/02/not-all-software-engineers-are-created-equal.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/04/21/i-dove-deep-into-migrations-so-you-dont-have-to.html"><h3>I dove deep into a Django migration so you don&#39;t have to</h3></a>
 		<div class="date">April 21, 2015</div>
 	</div>
@@ -523,108 +551,6 @@ Time five
 <p><em>If you’re reading this and at PyCon, I’d love to see you at the journalism and media open space in room 510D at 2PM today (Friday)!</em></p>
 
 		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/10/pycon-2015-first-notes.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/04/08/rosas-cosas-building-a-twilio-app-to-match-kingsthings.html"><h3>Rosa&#39;s Cosas&#58; Building a Twilio app to match &#64;kingsthings</h3></a>
-		<div class="date">April 08, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>The Washington Post said it best: <a href="http://www.washingtonpost.com/blogs/style-blog/wp/2015/03/19/larry-king-has-a-special-way-of-tweeting-the-broadcast-legend-who-just-cant-retire-talks-about-his-new-media-way-of-life/">“Larry King has a special way of tweeting.”</a> He calls a special phone line and leaves a tweet on a voicemail, which is then transcribed by an assistant and posted to Twitter. Lacking an assistant, I decided to build something to allow <a href="https://twitter.com/lbrosa">@lbrosa</a> to call in a tweet using Twilio’s transcription functionality. </p>
-
-<p>Our workflow here is simple, but rather confusingly documented by Twilio’s stock documentation. </p>
-
-<ol>
-  <li>Call a Twilio number tied back to one of our app URLs dedicated for transcription.</li>
-  <li>Build a Twilio Response object that includes a Record verb that contains a <code>transcribeCallback</code> redirect parameter, which will be another URL in our app.</li>
-  <li>Twilio will record the call and hit our <code>transcribeCallback</code> URL with the transcription text once it’s finished.</li>
-  <li>We take our transcribed text and post it to Twitter.</li>
-</ol>
-
-<p>What does that look like in Django? What will we need?</p>
-
-<pre><code># requirements.txt
-
-Django==1.7.7
-twilio==3.7.3
-django-twilio==0.8.0
-tweepy==3.3.0
-
-# other dependencies that these libraries will install for you
-</code></pre>
-
-<p>The <code>twilio</code> library is put out by Twilio and contains some helper functions so you don’t have to build raw XML to send back to them. <code>django-twilio</code> is here to help with Django’s freakouts about POSTing data without CSRF tokens. And <code>tweepy</code> talks to Twitter. We’ll see where they all fall into place in <code>views.py</code>.</p>
-
-<pre><code># views.py 
-# part 1
-
-from django_twilio.decorators import twilio_view
-from twilio import twiml
-
-@twilio_view
-def transcribe_incoming(request):
-
-	r = twiml.Response()
-	r.say("What is your tweet?")
-	r.record(maxLength=30, transcribeCallback="/playback/")
-
-	return r
-</code></pre>
-
-<p>This view will answer an incoming call to our app. We build a TwiML Response and attach two Twilio verbs to it: <code>&lt;Say&gt;</code> and <code>&lt;Record&gt;</code>. Our <code>&lt;Say&gt;</code> verb takes in some text that Twilio’s robot voice will read back to the caller. Our <code>&lt;Record&gt;</code> verb takes in a <code>maxLength</code> in seconds for recording. It also contains a <code>transcribeCallback</code> parameter - the URL we’ll POST data to once the transcription is completed. No need to include <code>transcribe="True"</code>, as <code>transcribeCallback</code> will assume that.</p>
-
-<p>Our caller will record a tweet and then hang up, kicking off Twilio’s transcription. Note that our app doesn’t have anything to do here until Twilio finishes our transcription and then POSTs the response to <code>/playback/</code>. </p>
-
-<pre><code># views.py
-# part 2
-
-from django.http import HttpResponse
-from django_twilio.decorators import twilio_view
-from twilio.rest import TwilioRestClient
-from django.conf import settings
-import tweepy
-
-@twilio_view
-def playback(request):
-
-	transcribed = request.POST['TranscriptionText']
-	sent_from = request.POST['From']
-	body = "Tweet Sent: " + transcribed
-
-	auth = tweepy.OAuthHandler(settings.TWITTER_CONS_KEY, settings.TWITTER_CONS_SECRET)
-	auth.set_access_token(settings.TWITTER_APP_KEY, settings.TWITTER_APP_SECRET)
-
-	api = tweepy.API(auth)
-	api.update_status(status=transcribed)
-
-	client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-
-	msg = client.messages.create(to=sent_from, from_=settings.TWILIO_PHONE_NUM, body=body)
-
-	return HttpResponse("A-OK", status=200)
-</code></pre>
-
-<p>Twilio includes the transcription text in the POST data as well as the number the user called from. We’ll need both of those. We’ll also need all of the Twilio and Twitter settings that you should keep secure. This app assumes that you’ve created a corresponding Twitter app that has Read and Write access to your account. No oAuth silliness - just the direct post to your account.</p>
-
-<p>We follow the vanilla instructions for updating a status with <code>tweepy</code> using the <code>TranscriptionText</code> from the POST data. We’re then going to send that text back to the user via SMS to give them a confirmation that everything proceeded as planned. We close the loop with a 200 Response back to Twilio.</p>
-
-<p>URL patterns are up to you, but should probably look something like this: </p>
-
-<pre><code># urls.py
-
-urlpatterns = patterns('',
-    url(r'^transcribe/$', 'callme.views.transcribe_incoming', name='transcribe_incoming'),
-    url(r'^playback/$', 'callme.views.playback', name='playback'),
-)
-</code></pre>
-
-<p>No admin console needed, no database. Just two quick little views. </p>
-
-<p>Have fun with this! I’ve created a <a href="https://github.com/josephmosby/rosascosaspublic/">Github repo</a> for the project with the full Django app in case it’s useful.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/08/rosas-cosas-building-a-twilio-app-to-match-kingsthings.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
 

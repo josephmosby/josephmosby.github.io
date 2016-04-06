@@ -54,6 +54,245 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html"><h3>Up and Running with Flask on a Brand New Linode</h3></a>
+		<div class="date">October 16, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>Tonight, I’m building a minimalistic Flask app that will run on Linode. Flask is a relatively new framework for me. I’ve dealt with CentOS, nginx, and uwsgi at work, but I’ve never tried to get them installed on my own. Time to get started.</p>
+
+<h3 id="step-1-install-and-configure-nginx-round-1">Step 1: Install and configure nginx, round 1</h3>
+
+<p>I am skipping over the step where we create a CentOS 7 machine from the Linode dashboard. I can’t think of a good way to explain that one without screenshots. Let’s assume we have one, and let’s install the necessaries on it.</p>
+
+<pre><code>$ yum install epel-release
+$ yum install nginx
+</code></pre>
+
+<p>Okay! That was simple enough. Here we’ve installed nginx, which will allow us to serve up our web pages. I want to start here because I like the feedback of knowing that I’m serving up web pages from the very start.</p>
+
+<p>I know that I plan to serve multiple sites off of this one server, so I need to adjust my domain and nginx configuration accordingly. In Namecheap, I’ve created 2 A records - dashboard.mosby.io and www.mosby.io - which I’ll both point at this server’s IP address. I’ll let nginx sort out the parsing.</p>
+
+<pre><code># /etc/nginx/nginx.conf
+
+... # stuff here that you shouldn't remove
+
+http {
+
+	... # more stuff here that you shouldn't remove
+
+	server { 
+		listen	80;
+		server_name	www.mosby.io;
+		root /var/www/main;
+	}
+
+	server {
+		listen	80;
+		server_name	dashboard.mosby.io;
+		root /var/www/dashboard;
+	}
+}
+</code></pre>
+
+<p>nginx has a configuration file called <code>nginx.conf</code> that we’re going to modify to serve our sites. Here, we’ve said that any request incoming will either be for <code>www.mosby.io</code> or <code>dashboard.mosby.io</code>. If it’s for <code>www</code>, we’re going to serve content from <code>/var/www/main</code>. If it’s for <code>dashboard</code>, we’re going to serve content from <code>/var/www/dashboard</code>. We can test this out by creating two text files:</p>
+
+<pre><code># /var/www/main/index.html
+
+Hello, www.mosby.io!
+</code></pre>
+
+<p>AND</p>
+
+<pre><code># /var/www/dashboard/index.html
+
+Hello, dashboard.mosby.io!
+</code></pre>
+
+<p>Assuming that you’ve already pointed your two subdomain to your Linode’s IP address, these will each display their respective content. Success!</p>
+
+<h3 id="step-2-install-python3-flask-and-uwsgi">Step 2: Install Python3, Flask and uWSGI</h3>
+
+<p>This is the part I know least about this entire process. Let’s start by installing Python 3, pip, and a version of <code>virtualenv</code> that’s cool with all of this:</p>
+
+<pre><code>$ yum install python34
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ python3.4 get-pip.py
+</code></pre>
+
+<p>Now I’m going to move into my dashboard folder and create the application. </p>
+
+<pre><code>$ cd /var/www/dashboard
+$ virtualenv venv
+$ source venv/bin/activate
+</code></pre>
+
+<p>We’ve got a local instance of Python3 and pip now. Time to get uWSGI and Flask.</p>
+
+<pre><code>$ pip install uwsgi flask
+</code></pre>
+
+<p>Wait hold on. uWSGI just crapped out on installation. I missed something. The scary error message looks like this:</p>
+
+<pre><code>Command "/var/www/dashboard/venv/bin/python3.4 -c "import setuptools, tokenize;__file__='/tmp/pip-build-5a_chnf_/uwsgi/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-8zr4gl3_-record/install-record.txt --single-version-externally-managed --compile --install-headers /var/www/dashboard/venv/include/site/python3.4/uwsgi" failed with error code 1 in /tmp/pip-build-5a_chnf_/uwsgi
+</code></pre>
+
+<p>But that’s not the root of the problem. I’ve got to scroll up the stack trace for that.</p>
+
+<pre><code>In file included from plugins/python/python_plugin.c:1:0:
+plugins/python/uwsgi_python.h:2:20: fatal error: Python.h: No such file or directory
+ #include &lt;Python.h&gt;
+</code></pre>
+
+<p>I don’t have Python headers installed on this system! Let’s see if I can do that.</p>
+
+<pre><code>$ yum install python34-devel
+$ pip install uwsgi flask
+</code></pre>
+
+<p>Okay, that worked!</p>
+
+<p>And now, let’s convert our little test HTML from before into a Flask app. We’re then going to remove the HTML file, which will let us confirm that we’ve actually set of Flask and uWSGI correctly when we see it again. I’m going to do some work here using the <code>vi</code> editor, but if you’re not familiar with it, please replace the <code>vi</code> commands with <code>nano</code>. It’s simpler.</p>
+
+<pre><code>$ vi app.py
+
+from flask import Flask
+application = Flask(__name__)
+
+@application.route("/")
+def helloworld():
+	return "Hello, dashboard.mosby.io on Flask!"
+
+if __name__ == "__main__":
+	application.run(host='0.0.0.0')
+
+$ rm index.html
+$ python app.py
+</code></pre>
+
+<p>I can see that I’ve done it all right by going to my new homepage in my browser! Visiting dashboard.mosby.io:5000 will show me my updated page. </p>
+
+<h3 id="step-3-configure-uwsgi-serving">Step 3: Configure uWSGI Serving</h3>
+
+<p>We’ve got ourselves a basic skin of an application, so let’s hook it up to nginx through uWSGI.</p>
+
+<pre><code>$ uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi
+</code></pre>
+
+<p>It works! Exactly the same way it did when we ran the application directly. Let’s build a <code>.ini</code> file so we can do this more repeatedly.</p>
+
+<pre><code>$ vi dashboard.ini
+
+[uwsgi]
+module = wsgi
+
+master = true
+processes = 5
+
+uid = ghost
+socket = dashboard.sock
+chown-socket = ghost:nginx
+chmod-socket = 660
+vacuum = true
+
+die-on-term = true
+</code></pre>
+
+<p>This <code>ini</code> file does a few things for us. It points to the wsgi module, sets it in master mode, and spawns 5 processes of the app. It also ties to the uWSGI process to a Unix socket, and will remove (vacuum) that socket when the process stops.</p>
+
+<p>I’m also specifying that the <code>ghost</code> user will own this process. (I’ve been doing all of this work as <code>root</code>, which is not a good practice for running the application) I now need to create the ghost user and add it to the nginx group.</p>
+
+<pre><code>$ useradd ghost
+$ usermod -a -G nginx ghost
+</code></pre>
+
+<p>Verify that you did it right:</p>
+
+<pre><code>$ id ghost
+</code></pre>
+
+<p>You should see the <code>ghost</code> user attached to the nginx group. Onward!</p>
+
+<h3 id="step-4-start-on-boot">Step 4: Start on Boot</h3>
+
+<p>When our server comes online, we want our uWSGI app to be available immediately. Let’s start by creating a service file in our <code>/etc/systemd/system</code> directory.</p>
+
+<pre><code>$ vi /etc/systemd/system/dashboard.service
+
+[Unit]
+Description=uwsgi instance to serve dashboard
+After=network.target
+
+[Service]
+User=ghost
+Group=nginx
+WorkingDirectory=/var/www/dashboard
+Environment="PATH=/var/www/dashboard/venv/bin"
+ExecStart=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<p>There is black magic going on here that I need to dig into more. I don’t know <em>why</em> we do all of these things, but I do know that we’re specifying the working directory, and the environment, and what should happen when we start things up. Which we’ll do now.</p>
+
+<pre><code>$ systemctl start dashboard
+$ systemctl enable dashboard
+</code></pre>
+
+<h3 id="step-5-proxy-requests-from-nginx">Step 5: Proxy Requests from Nginx</h3>
+
+<p>Now it’s time that we return to our <code>nginx.conf</code> file. We need to modify our dashboard server block to handle the uwsgi application.</p>
+
+<pre><code># /etc/nginx/nginx.conf
+
+... # stuff here that you shouldn't remove
+
+http {
+
+	... # more stuff here that you shouldn't remove
+
+	server { 
+		listen	80;
+		server_name	www.mosby.io;
+		root /var/www/main;
+	}
+
+	server {
+		listen	80;
+		server_name	dashboard.mosby.io;
+		
+		location / {
+			include uwsgi_params;
+			uwsgi_pass unix:/var/www/dashboard/dashboard.sock;
+		}
+	}
+}
+
+$ nginx -t &lt;-- test your configuration
+$ service nginx reload
+</code></pre>
+
+<p>And now we go to our browser and punch in dashboard.mosby.io, and… crap.</p>
+
+<p>502 Bad Gateway. What did I do wrong here? That error means nginx can’t talk to our application.</p>
+
+<p>Ahh, I’ve been doing all this as root. Everything is currently owned by root, which means that neither <code>ghost</code> nor <code>nginx</code> can see my dashboard socket. Let’s change that. </p>
+
+<pre><code>$ chown ghost:nginx /var/www/dashboard
+$ service nginx reload
+$ systemctl restart dashboard
+</code></pre>
+
+<p>And, we’re back, folks!</p>
+
+<p>That’s a basic configuration for getting an Flask/uWSGI/nginx app up and running on a CentOS Linode box. If you decide to do something other than CentOS, most of it should still work, but the initialization service script will probably not. You can browse the repository for all of this <a href="https://github.com/josephmosby/dashboard/tree/c776c8875f8eaf094e2c506e1c0aca91693b7323">here</a>.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/08/17/pygotham-15-building-an-alu.html"><h3>PyGotham '15 - Building an ALU</h3></a>
 		<div class="date">August 17, 2015</div>
 	</div>
@@ -565,34 +804,6 @@ class RedirectOnSHAViolation():
 <p><em>Props to <a href="https://twitter.com/spiggy">@spiggy</a>, who had the original idea of using SHAs to look for duplicate files.</em></p>
 
 		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/13/preventing-file-dupes-in-django.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/05/02/not-all-software-engineers-are-created-equal.html"><h3>Not all software engineers are created equal</h3></a>
-		<div class="date">May 02, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>In my first ever technology job, I was the lowest-ranked member of a consulting team. Our team was hired by a federal government agency to help them figure out how to respond to an annual audit of their IT environment - specifically, a Sarbanes-Oxley Section 404 audit. An auditor would come in, tell the agency where there were problems, and we would help agency staff fix those problems. I had never worked in a government agency before. I had never programmed a financial application before. What good was I? How did I earn the title of “ERS Consultant?”</p>
-
-<p>It’s easy to get lost in job titles in technology, because we technology professionals deal in a world of tools. <code>ls</code> does the same thing every time you run it - it gives you the list of files in a directory. <code>python manage.py migrate</code> does the same thing every time you run it - it makes changes to a database based on changes to a Django project. Software engineers have a tendency to fall into a logical trap of thinking we are like the programs we run: repeatable processes that do the same thing each time, perhaps a little faster over time, but ultimately executing our assigned task whenever we’re needed. “I am a Django web programmer,” we say. “I build Django apps.”</p>
-
-<p>If that is how you think of your work, your career is going to sputter. </p>
-
-<p>When I started in my first-ever technology job, I had tangential experience that was extremely useful in the particular project. I had a master’s degree in accountancy, which meant I had gone into <em>extreme</em> detail about Sarbanes-Oxley in my coursework. I could work the technology of that government agency into that mental framework of “controls” and “materiality” and build something better out of that union. I had also interned with the consulting firm before. Though the internship was with a totally different part of the company, I was familiar with the expectations and the systems that powered the organization. And if you’ve ever taken four hours of a work day trying to find the IT help desk phone line rather than doing something that makes money for the firm, you realize that coming into corporate-world with some pre-existing knowledge is useful.</p>
-
-<p>These things have value to employers. They make you a better technologist. I was not just an “ERS Consultant.” I was a technology professional with accounting experience, and that made me disproportionately useful for a Sarbanes-Oxley project.</p>
-
-<p>I was next picked up by a PR firm to code websites for their clients. Turns out, they didn’t care about my accounting degree. What they did care about was my experience navigating large organizations and my ability to comfortably interact with clients. </p>
-
-<p>PR firms do really, really simple technology work. It’s all shiny front-end pretty stuff. You’re never going to build a machine-learning system that can analyze your client’s Twitter presence in real time, but you will learn how to sweat the spacing of letters in a headline just like a print designer. PR firms want the prettiest thing they can get in the shortest amount of time possible, and often the timeline wins out over the features of the site. That’s how the industry <em>works</em>. You can hope to spend weeks and weeks perfecting an amazing website that showcases all of the wonderful things your client is doing, and it won’t matter at all once the PR “moment” is gone. </p>
-
-<p>You can have a computer science Ph.D. from Stanford and absolutely suck as a developer in a PR firm if you can’t be a little bit like a PR pro yourself. That world isn’t about technology. It’s about words and conversation and making people like you and showing others how they can make people like them, too. And sometimes it involves talking about Sarbanes-Oxley with your client because she has to go into a meeting with a Deloitte auditor who’s asking too many questions. Karma sucks.</p>
-
-<p>Not all software engineers are created equal. Some know accounting. Some know journalism. Some know advertising. Find whatever your “one more thing” is and <em>use it.</em> Solve problems. When necessary, use code. </p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/02/not-all-software-engineers-are-created-equal.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
 

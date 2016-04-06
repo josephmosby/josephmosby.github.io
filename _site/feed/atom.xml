@@ -3,12 +3,57 @@
 	<title type="text" xml:lang="en">josephmosby.com</title>
 		<link type="application/atom+xml" href="http://josephmosby.com/feed/" rel="self"/>
 	 	<link type="text" href="http://josephmosby.com" rel="alternate"/>
-		<updated>2016-03-31T15:28:45-04:00</updated>
+		<updated>2016-04-06T15:57:12-04:00</updated>
 		<id>http://josephmosby.com</id>
 		<author>
 			<name>Joseph Mosby</name>
 		</author>
 		
+		
+		<entry>
+			<title>Python modules ranked on usage and what that says about the Python ecosystem</title>
+			<link href="http://josephmosby.com/2016/04/06/python-modules-ranked-on-usage.html"/>
+			<updated>2016-04-06T00:00:00-04:00</updated>
+			<id>http://josephmosby.com/2016/04/06/python-modules-ranked-on-usage</id>
+			<content type="html">&lt;p&gt;A few days ago, I asked myself a simple question: what are the most (and least) popular Python modules from the standard library? Or rather, I decided to ask GitHub. There are at least a dozen syntactic ways you can bring a module into a piece of Python code, but I thought it might be easiest to simply search for “import “ and see how many results came back. There will of course be some false positives and false negatives, but on average, this approach can serve as a proxy for total usage.&lt;/p&gt;
+
+&lt;p&gt;Here are the results for the most used libraries:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code&gt;os&lt;/code&gt; (3,279,697 results)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;sys&lt;/code&gt; (3,081,854 results)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;re&lt;/code&gt; (1,304,857 results)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;datetime&lt;/code&gt; (1,076,425 results)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;shutil&lt;/code&gt; (968,583 results)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;And the results for the least used:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code&gt;pathlib&lt;/code&gt; (0 results)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;fpectl&lt;/code&gt; (37 results)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;zipapp&lt;/code&gt; (48 results)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;tracemalloc&lt;/code&gt; (397 results)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;nis&lt;/code&gt; (484 results)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The full dataset can be found &lt;a href=&quot;/files/python_modules.csv&quot;&gt;here&lt;/a&gt;, for the curious.&lt;/p&gt;
+
+&lt;p&gt;What do these usage patterns say about us as Python developers? And why would the language developers keep these almost completely unused modules around?&lt;/p&gt;
+
+&lt;p&gt;I expected &lt;code&gt;os&lt;/code&gt; and &lt;code&gt;sys&lt;/code&gt; to be heavily used, though I did not expect them to blow away the #3 and #4 competitors as much as they did. Let’s think about what they do. These are big, complex libraries that operate at the most basic levels of the operating system. If you want to traverse a directory tree and pop out all of the text files, you’re using &lt;code&gt;os&lt;/code&gt;. If you have a script that’s dependent on system state - or even one that just needs to kill itself in a hurry - you’re using &lt;code&gt;sys&lt;/code&gt;. So with these modules being so heavily used, you’re looking at a lot of usage by system engineers, operations teams, and any piece of software who has to talk to a machine directly instead of just buzzing around in application space. &lt;code&gt;re&lt;/code&gt; and &lt;code&gt;datetime&lt;/code&gt; are somewhat expected to land where they are, regular expressions and date management are both cornerstones of software development. &lt;code&gt;shutil&lt;/code&gt; surprised me a little bit. I thought that &lt;code&gt;os&lt;/code&gt; and &lt;code&gt;sys&lt;/code&gt; and the standard &lt;code&gt;read()&lt;/code&gt; and &lt;code&gt;write()&lt;/code&gt; system calls would do most of the file work and something like &lt;code&gt;logging&lt;/code&gt; or &lt;code&gt;unittest&lt;/code&gt; would fill out the last of the top 5, but it looks like there’s still a lot of pushing files around left to do.&lt;/p&gt;
+
+&lt;p&gt;So if you’re a Python dev, there’s a good chance you’re doing a decent amount of work pushing files around and investigating your operating system. That makes complete sense - Python was started as a systems and automation scripting language, and that’s still at its core even if we’re now writing more complex software with it.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take a look at the bottom of the barrel.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;pathlib&lt;/code&gt; is one of the newest modules added to the standard library, and it’s currently only in there on a provisional basis. It provides a “simple hierarchy of classes to handle filesystem paths and the common operations users do over them.” The usage rationale comes from &lt;a href=&quot;https://www.python.org/dev/peps/pep-0428/&quot;&gt;PEP 428&lt;/a&gt;, citing the previous attempt to provide these features in &lt;a href=&quot;https://www.python.org/dev/peps/pep-0355/&quot;&gt;PEP 355&lt;/a&gt; and the &lt;a href=&quot;https://github.com/jaraco/path.py&quot;&gt;path.py module&lt;/a&gt; that treats filepaths like first-class players in the language. &lt;code&gt;pathlib&lt;/code&gt; clearly has not taken off yet, but it’s still new in the language.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;fpectl&lt;/code&gt; deals with floating point exceptions. The reasoning for its low usage is clear on the &lt;a href=&quot;https://docs.python.org/3/library/fpectl.html&quot;&gt;man page&lt;/a&gt;: this module is not built by default, and its usage is discouraged and dangerous. &lt;code&gt;zipapp&lt;/code&gt; does something I didn’t even know you could do in Python: run Python executables that have been zipped up into archives directly. &lt;code&gt;tracemalloc&lt;/code&gt; lets debuggers sort through memory problems in their code, and it sort of makes sense to me that this probably doesn’t make it into committed code that often. Finishing us out, &lt;code&gt;nis&lt;/code&gt; is incredibly niche: it provides a wrapper around the Sun Network Information Service.&lt;/p&gt;
+
+&lt;p&gt;It’s interesting to me that some of the least-used modules share some similarities with the most-used: they’re all about system management. They’re even experiments with new ways to approach system management. There’s a lot that can be done with Python, but when it comes to the core library - the operating system is king.&lt;/p&gt;
+</content>
+		</entry>
 		
 		<entry>
 			<title>A March recap, or an experiment in moderating moderation</title>
@@ -1581,242 +1626,6 @@ root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --syste
   &lt;li&gt;What is a software interrupt?&lt;/li&gt;
   &lt;li&gt;What is the read-copy-update mechanism?&lt;/li&gt;
 &lt;/ol&gt;
-</content>
-		</entry>
-		
-		<entry>
-			<title>Up and Running with Flask on a Brand New Linode</title>
-			<link href="http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html"/>
-			<updated>2015-10-16T00:00:00-04:00</updated>
-			<id>http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode</id>
-			<content type="html">&lt;p&gt;Tonight, I’m building a minimalistic Flask app that will run on Linode. Flask is a relatively new framework for me. I’ve dealt with CentOS, nginx, and uwsgi at work, but I’ve never tried to get them installed on my own. Time to get started.&lt;/p&gt;
-
-&lt;h3 id=&quot;step-1-install-and-configure-nginx-round-1&quot;&gt;Step 1: Install and configure nginx, round 1&lt;/h3&gt;
-
-&lt;p&gt;I am skipping over the step where we create a CentOS 7 machine from the Linode dashboard. I can’t think of a good way to explain that one without screenshots. Let’s assume we have one, and let’s install the necessaries on it.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ yum install epel-release
-$ yum install nginx
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Okay! That was simple enough. Here we’ve installed nginx, which will allow us to serve up our web pages. I want to start here because I like the feedback of knowing that I’m serving up web pages from the very start.&lt;/p&gt;
-
-&lt;p&gt;I know that I plan to serve multiple sites off of this one server, so I need to adjust my domain and nginx configuration accordingly. In Namecheap, I’ve created 2 A records - dashboard.mosby.io and www.mosby.io - which I’ll both point at this server’s IP address. I’ll let nginx sort out the parsing.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# /etc/nginx/nginx.conf
-
-... # stuff here that you shouldn&#39;t remove
-
-http {
-
-	... # more stuff here that you shouldn&#39;t remove
-
-	server { 
-		listen	80;
-		server_name	www.mosby.io;
-		root /var/www/main;
-	}
-
-	server {
-		listen	80;
-		server_name	dashboard.mosby.io;
-		root /var/www/dashboard;
-	}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;nginx has a configuration file called &lt;code&gt;nginx.conf&lt;/code&gt; that we’re going to modify to serve our sites. Here, we’ve said that any request incoming will either be for &lt;code&gt;www.mosby.io&lt;/code&gt; or &lt;code&gt;dashboard.mosby.io&lt;/code&gt;. If it’s for &lt;code&gt;www&lt;/code&gt;, we’re going to serve content from &lt;code&gt;/var/www/main&lt;/code&gt;. If it’s for &lt;code&gt;dashboard&lt;/code&gt;, we’re going to serve content from &lt;code&gt;/var/www/dashboard&lt;/code&gt;. We can test this out by creating two text files:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# /var/www/main/index.html
-
-Hello, www.mosby.io!
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;AND&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# /var/www/dashboard/index.html
-
-Hello, dashboard.mosby.io!
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Assuming that you’ve already pointed your two subdomain to your Linode’s IP address, these will each display their respective content. Success!&lt;/p&gt;
-
-&lt;h3 id=&quot;step-2-install-python3-flask-and-uwsgi&quot;&gt;Step 2: Install Python3, Flask and uWSGI&lt;/h3&gt;
-
-&lt;p&gt;This is the part I know least about this entire process. Let’s start by installing Python 3, pip, and a version of &lt;code&gt;virtualenv&lt;/code&gt; that’s cool with all of this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ yum install python34
-$ wget https://bootstrap.pypa.io/get-pip.py
-$ python3.4 get-pip.py
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now I’m going to move into my dashboard folder and create the application. &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cd /var/www/dashboard
-$ virtualenv venv
-$ source venv/bin/activate
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We’ve got a local instance of Python3 and pip now. Time to get uWSGI and Flask.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ pip install uwsgi flask
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Wait hold on. uWSGI just crapped out on installation. I missed something. The scary error message looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Command &quot;/var/www/dashboard/venv/bin/python3.4 -c &quot;import setuptools, tokenize;__file__=&#39;/tmp/pip-build-5a_chnf_/uwsgi/setup.py&#39;;exec(compile(getattr(tokenize, &#39;open&#39;, open)(__file__).read().replace(&#39;\r\n&#39;, &#39;\n&#39;), __file__, &#39;exec&#39;))&quot; install --record /tmp/pip-8zr4gl3_-record/install-record.txt --single-version-externally-managed --compile --install-headers /var/www/dashboard/venv/include/site/python3.4/uwsgi&quot; failed with error code 1 in /tmp/pip-build-5a_chnf_/uwsgi
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But that’s not the root of the problem. I’ve got to scroll up the stack trace for that.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;In file included from plugins/python/python_plugin.c:1:0:
-plugins/python/uwsgi_python.h:2:20: fatal error: Python.h: No such file or directory
- #include &amp;lt;Python.h&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I don’t have Python headers installed on this system! Let’s see if I can do that.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ yum install python34-devel
-$ pip install uwsgi flask
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Okay, that worked!&lt;/p&gt;
-
-&lt;p&gt;And now, let’s convert our little test HTML from before into a Flask app. We’re then going to remove the HTML file, which will let us confirm that we’ve actually set of Flask and uWSGI correctly when we see it again. I’m going to do some work here using the &lt;code&gt;vi&lt;/code&gt; editor, but if you’re not familiar with it, please replace the &lt;code&gt;vi&lt;/code&gt; commands with &lt;code&gt;nano&lt;/code&gt;. It’s simpler.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ vi app.py
-
-from flask import Flask
-application = Flask(__name__)
-
-@application.route(&quot;/&quot;)
-def helloworld():
-	return &quot;Hello, dashboard.mosby.io on Flask!&quot;
-
-if __name__ == &quot;__main__&quot;:
-	application.run(host=&#39;0.0.0.0&#39;)
-
-$ rm index.html
-$ python app.py
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I can see that I’ve done it all right by going to my new homepage in my browser! Visiting dashboard.mosby.io:5000 will show me my updated page. &lt;/p&gt;
-
-&lt;h3 id=&quot;step-3-configure-uwsgi-serving&quot;&gt;Step 3: Configure uWSGI Serving&lt;/h3&gt;
-
-&lt;p&gt;We’ve got ourselves a basic skin of an application, so let’s hook it up to nginx through uWSGI.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It works! Exactly the same way it did when we ran the application directly. Let’s build a &lt;code&gt;.ini&lt;/code&gt; file so we can do this more repeatedly.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ vi dashboard.ini
-
-[uwsgi]
-module = wsgi
-
-master = true
-processes = 5
-
-uid = ghost
-socket = dashboard.sock
-chown-socket = ghost:nginx
-chmod-socket = 660
-vacuum = true
-
-die-on-term = true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This &lt;code&gt;ini&lt;/code&gt; file does a few things for us. It points to the wsgi module, sets it in master mode, and spawns 5 processes of the app. It also ties to the uWSGI process to a Unix socket, and will remove (vacuum) that socket when the process stops.&lt;/p&gt;
-
-&lt;p&gt;I’m also specifying that the &lt;code&gt;ghost&lt;/code&gt; user will own this process. (I’ve been doing all of this work as &lt;code&gt;root&lt;/code&gt;, which is not a good practice for running the application) I now need to create the ghost user and add it to the nginx group.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ useradd ghost
-$ usermod -a -G nginx ghost
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Verify that you did it right:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ id ghost
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You should see the &lt;code&gt;ghost&lt;/code&gt; user attached to the nginx group. Onward!&lt;/p&gt;
-
-&lt;h3 id=&quot;step-4-start-on-boot&quot;&gt;Step 4: Start on Boot&lt;/h3&gt;
-
-&lt;p&gt;When our server comes online, we want our uWSGI app to be available immediately. Let’s start by creating a service file in our &lt;code&gt;/etc/systemd/system&lt;/code&gt; directory.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ vi /etc/systemd/system/dashboard.service
-
-[Unit]
-Description=uwsgi instance to serve dashboard
-After=network.target
-
-[Service]
-User=ghost
-Group=nginx
-WorkingDirectory=/var/www/dashboard
-Environment=&quot;PATH=/var/www/dashboard/venv/bin&quot;
-ExecStart=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
-
-[Install]
-WantedBy=multi-user.target
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There is black magic going on here that I need to dig into more. I don’t know &lt;em&gt;why&lt;/em&gt; we do all of these things, but I do know that we’re specifying the working directory, and the environment, and what should happen when we start things up. Which we’ll do now.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ systemctl start dashboard
-$ systemctl enable dashboard
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;step-5-proxy-requests-from-nginx&quot;&gt;Step 5: Proxy Requests from Nginx&lt;/h3&gt;
-
-&lt;p&gt;Now it’s time that we return to our &lt;code&gt;nginx.conf&lt;/code&gt; file. We need to modify our dashboard server block to handle the uwsgi application.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# /etc/nginx/nginx.conf
-
-... # stuff here that you shouldn&#39;t remove
-
-http {
-
-	... # more stuff here that you shouldn&#39;t remove
-
-	server { 
-		listen	80;
-		server_name	www.mosby.io;
-		root /var/www/main;
-	}
-
-	server {
-		listen	80;
-		server_name	dashboard.mosby.io;
-		
-		location / {
-			include uwsgi_params;
-			uwsgi_pass unix:/var/www/dashboard/dashboard.sock;
-		}
-	}
-}
-
-$ nginx -t &amp;lt;-- test your configuration
-$ service nginx reload
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And now we go to our browser and punch in dashboard.mosby.io, and… crap.&lt;/p&gt;
-
-&lt;p&gt;502 Bad Gateway. What did I do wrong here? That error means nginx can’t talk to our application.&lt;/p&gt;
-
-&lt;p&gt;Ahh, I’ve been doing all this as root. Everything is currently owned by root, which means that neither &lt;code&gt;ghost&lt;/code&gt; nor &lt;code&gt;nginx&lt;/code&gt; can see my dashboard socket. Let’s change that. &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ chown ghost:nginx /var/www/dashboard
-$ service nginx reload
-$ systemctl restart dashboard
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And, we’re back, folks!&lt;/p&gt;
-
-&lt;p&gt;That’s a basic configuration for getting an Flask/uWSGI/nginx app up and running on a CentOS Linode box. If you decide to do something other than CentOS, most of it should still work, but the initialization service script will probably not. You can browse the repository for all of this &lt;a href=&quot;https://github.com/josephmosby/dashboard/tree/c776c8875f8eaf094e2c506e1c0aca91693b7323&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </content>
 		</entry>
 		

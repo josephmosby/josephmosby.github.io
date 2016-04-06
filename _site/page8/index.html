@@ -54,6 +54,81 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2014/10/30/cooking-my-first-ever-drupal-theme-from-scratch.html"><h3>Cooking My First Ever Drupal Theme From Scratch</h3></a>
+		<div class="date">October 30, 2014</div>
+	</div>
+	<div class="col-8">
+		<p>About six months ago, I would have said that I was starting to figure Drupal out. I’ll assure you now wthat I have no idea. I have picked up a few tricks here and there, though, and the Drupal templating system is starting to make some sense to me.</p>
+
+<p>When I started building Drupal sites, I built them in <a href="https://www.drupal.org/project/zen">Zen</a> or one of the many subthemes built off of it. Zen’s philosophy is to anticipate much of what an experienced front-end developer would drop in to a non-Drupal site (such as Sass and Compass) and incorporate those into the base theme and subthemes from the beginning. Like most of the current popular Drupal themes, it’s responsive and mobile-first. A theme structure with that many bells and whistles was too much for my back-end developer brain at the time, and I was scared off to other options.</p>
+
+<p><a href="https://www.drupal.org/project/omega">Omega</a> is Zen’s largest competitor. Version 3 of the framework provides a shiny graphical interface for creating responsive content regions, and I loved it. It was point-and-click web design! Omega happily produces five little stylesheets for you to use at different page widths and then does the rest of the work for you. Sure, my stylesheet file sizes would blow up trying to sift through the cruft Omega produces, but I didn’t have to learn much about actual theming. Omega, <a href="https://www.drupal.org/project/delta">Delta</a> and <a href="https://www.drupal.org/project/context">Context</a> did it all for me.</p>
+
+<p>My blissful ignorance came to an end when I revisited a site built by another development shop using Zen as a base theme. The horror! So many custom tpl.php files, so many PHP if statements and variables within those files! My complacent Drupal ignorance came crashing down around me. I was forced to battle with Drupal’s theme engine, and I did not leave the fire unscathed. I arose, and now come with wisdom about battling the dragon for those who follow in my footsteps.</p>
+
+<p>Let’s talk about .info files.</p>
+
+<h3 id="what-does-a-info-file-do-anyway">What does a .info file do, anyway?</h3>
+
+<p>Drupal’s <code>.info</code> file is where all of the tools your theme will use are declared. It’s not about content - we are miles away from content right now - it’s about defining the tools we’ll use to organize that content on a page. A sample <code>.info</code> file looks something like this: </p>
+
+<script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/base.info"></script>
+
+<p>In the first blob we name our theme and specify the Drupal version (core) that it works with. In our second and third we add stylesheets and JavaScripts - our theme will pick up those files and add them into the <code>&lt;head&gt;</code> of any page with that theme. The directories are given relative to the theme’s .info file. </p>
+
+<p>Our fourth blob contains the regions of our theme. I can place content into the <code>main_menu</code> region with this theme, the <code>content</code> region, or the <code>box_one</code> region. Though your theme must contain a <code>content</code> region, you can name the rest of them anything you like. Follow your heart. You’ll be using these names later. </p>
+
+<p>Once we’ve created our <code>.info</code> file, we need to put it to use - we need to find a home for our content.</p>
+
+<h3 id="what-does-a-tpl-file-do">What does a tpl file do?</h3>
+
+<p>Drupal uses these nifty files with <code>.tpl.php</code> extensions to build its pages, and most of them hang out like pitchers in a bullpen in the <code>modules/system</code> folder waiting for you to override them. Theoretically, we really only need one to build a new theme: the <code>page.tpl.php</code> file. Here’s our example <code>page.tpl.php</code> file for this theme:</p>
+
+<script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/templates/page.tpl.php"></script>
+
+<p>Astute <a href="http://getbootstrap.com/">Bootstrap</a> users may note that we’re pulling in some Bootstrap elements here. We have <code>container</code> classes, with <code>row</code> classes within them, then some <code>col-md-6</code> classes, and then a little snippet of PHP code. This <code>&lt;?php print render($page['sm_icons_top']); ?&gt;</code> is where the magic happens. Drupal picks up anything that we’ve placed into the <code>sm_icons_top</code> region - whether it be a menu, a view, a block, etc. - and renders it into the page. You can see how that ultimately pans out in the HTML here:</p>
+
+<script src="https://gist.github.com/josephmosby/08851b82b4d14818bb75.js"></script>
+
+<p>You can see our <code>#top_menu</code>, our <code>row</code> class, and our <code>col-md-6</code> class followed by the block content Drupal popped into our page. That’s the extremely basic purpose of <code>tpl.php</code> files: they provide homes in the HTML for certain content regions, we create blocks and drop them into those content regions through the administration tools, and finally our <code>tpls</code> take care of the rendering. Fantastic.</p>
+
+<h3 id="but-drupal-variables-are-weird">But Drupal variables are weird…</h3>
+
+<p>All too true. I won’t even profess to fully understand how to actually get at a specific piece of content, and Drupal’s documentation is notoriously bad on the subject. I have figured out a few tricks though:</p>
+
+<ul>
+  <li>In <code>page.tpl.php</code>, access the content in a specific region with <code>render($page['region-name'])</code></li>
+  <li>Make sure to render your metatags with <code>render($page['content']['metatags'])</code> or else some modules and libraries will behave strangely</li>
+  <li>To access individual fields from <code>page.tpl.php</code>, use the syntax <code>print_r($node-&gt;field_fieldname['und'][0]['value'])</code>. This is not recommended behavior, but is occasionally necessary. The ‘und’ refers to the language (und is English… inexplicably), the ‘0’ to the place in the array and the ‘value’ for the actual content.</li>
+  <li>To call in a block, use <code>module_invoke('module', 'view', 'block-id')</code> where the ‘module’ is the module that produced the block (such as Webform or Views), the ‘view’ is the type of view (probably just block_view) and the ‘block-id’ is the machine name for the block</li>
+</ul>
+
+<h3 id="i-have-ie-specific-stylesheets-and-libraries-that-need-conditional-comments-where-do-those-come-in">I have IE-specific stylesheets and libraries that need conditional comments. Where do those come in?</h3>
+
+<p>I wondered this myself as Bootstrap requires some IE-specific libraries to be dropped in. The Internet yields a lot of solutions that don’t really work for this but are worth mentioning anyway:</p>
+
+<ul>
+  <li>Add them in your <code>.info</code> file. That won’t help you with conditional comments but it is a solution.</li>
+  <li>Add them with <code>drupal_add_css()</code> or <code>drupal_add_js()</code>. Same problem as above, though I suppose you could do some wizardry with detecting user agents and conditional logic.</li>
+  <li>Add an element with <code>drupal_add_html_head()</code>. I can never get this to work.</li>
+</ul>
+
+<p>The best solution I’ve found is to just add them directly into the <code>html.tpl.php</code> file. </p>
+
+<script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/templates/html.tpl.php"></script>
+
+<p>You can see toward the bottom where I’ve added in those conditional libraries. It feels ugly, but that’s the cleanest way I’ve discovered.</p>
+
+<h3 id="whats-next">What’s next?</h3>
+
+<p>I know that Drupal lets me get much more granular with my templating - down to the region, node and block level. I have no idea how to wrangle those templates yet, though, so those are next on my list. I’d also like to not have these hacky queries of the <code>$page</code> object that required me to guess how the object was structured half of the time. Till next time!</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/10/30/cooking-my-first-ever-drupal-theme-from-scratch.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2014/08/26/the-magic-in-the-machine.html"><h3>The Magic in the Machine</h3></a>
 		<div class="date">August 26, 2014</div>
 	</div>
@@ -538,48 +613,6 @@ Searching for: football
 <p>There’s a lot going on behind the scenes here with even this tiny demo app, but the basics are quite simple. Lucene has followed the exact same process for indexing and searching that we described in part 1. But what if we need to parse through an HTML or Word document rather than a simple text document? We’ll need something a little bit more robust, which is where Solr and Elasticsearch come in… in <a href="http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-3.html">part 3</a>. </p>
 
 		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-2.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2014/03/24/open-source-search-technologies-for-human-beings-part-1.html"><h3>Open Source Search Technologies for Human Beings - Part 1</h3></a>
-		<div class="date">March 24, 2014</div>
-	</div>
-	<div class="col-8">
-		<p>Search is one of those features that’s become so “baked in” to the way we experience the web that it’s often an afterthought for us as users. We peck a few well-chosen words into the Google search bar, press enter, and end up where we needed to be. It’s become a mental backup system to the point that we no longer even need to bookmark a link any more as long as we can remember the few keywords that will bring us back to the page. Though I develop websites every single day, I had never actually thought about the search technology that brings users to my page and allows them to find the content they wanted.</p>
-
-<p>I was suddenly forced to confront my ignorance of search when I learned that the General Services Administration would be changing their search software from <a href="https://lucene.apache.org/solr/">Solr</a> to <a href="http://www.elasticsearch.org/">Elasticsearch</a>. Having no idea how either of them worked, I started doing my homework immediately. </p>
-
-<h3 id="how-search-works">How Search Works</h3>
-
-<p>Though the specific implementations vary across platforms, the core of any text-based search technology is the same. The subject matter will be broken down into small components that can be stored in an index that references back to the document in question. The name is not accidental: this works in the same way as a word index that points back to pages at the back of a heavy research book. As we add more documents to the index, this process is repeated and the index size and complexity increases. </p>
-
-<p>In this example, our documents can be anything primarily composed of text. Web pages, Word documents or eBooks could all be comfortably fed into our search engine and happily indexed. Eventually, though, we’ll need to retrieve that information if we want a fully functional search engine. An index of extremely well-organized keywords and documents won’t do us any good if we never use it to retrieve the information we need. To do so, we’ll “query” the index by feeding it a keyword. The search engine will then check its index for all documents that match that keyword and return us the corresponding list of document. If we add more than one keyword, the search engine will query the index to find documents that show up for each individual keyword then compare the results to bring us documents that contain all of our keywords. </p>
-
-<p>Let’s take a quick visual walk through this process. Say we have a document (NFL.doc) that we’d like to index. Our document contains quite a bit of text about the NFL, all of which will be broken down and inserted into our index.</p>
-
-<p><img src="/images/NFLdoc.png" alt="Picture of a document that contains text about the NFL" /></p>
-
-<p>Our indexing process is going to examine the text of the document, split out the words, and point those words back to NFL.doc.</p>
-
-<p><img src="/images/index1.png" alt="Table of keywords that all correspond back to NFL.doc" /></p>
-
-<p>We’ll then add these keyword/document pairings into our main index, which contains similar pairings for other documents.</p>
-
-<p><img src="/images/index2.png" alt="Table of keyword/document pairings that contains NFL and MLS references" /></p>
-
-<p>When a user searches for a term, the search engine will check the index and return the documents that correspond to that term. In this example, our user has searched for “football.”</p>
-
-<p><img src="/images/search.png" alt="Input box prompting user to search. The user has entered &quot;football&quot; into the input box." /></p>
-
-<p>Our example index only has a single entry for the word “football” - the NFL.doc document - and so our search engine returns that document to the user.</p>
-
-<p><img src="/images/single_search_result.png" alt="Table showing a single keyword/document pairing that matches the word football with NFL.doc" /></p>
-
-<p>And that’s the core of a search engine to get us started! In <a href="http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-2.html">Part 2</a> I’ll talk a little bit about Lucene, the nuts and bolts of both Solr and Elasticsearch. In <a href="http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-3.html">Part 3</a>, I’ll compare the two pieces of software to show how they each bring search technology to life for the web. </p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/03/24/open-source-search-technologies-for-human-beings-part-1.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
 

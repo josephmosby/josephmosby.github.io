@@ -54,6 +54,108 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2015/04/08/rosas-cosas-building-a-twilio-app-to-match-kingsthings.html"><h3>Rosa&#39;s Cosas&#58; Building a Twilio app to match &#64;kingsthings</h3></a>
+		<div class="date">April 08, 2015</div>
+	</div>
+	<div class="col-8">
+		<p>The Washington Post said it best: <a href="http://www.washingtonpost.com/blogs/style-blog/wp/2015/03/19/larry-king-has-a-special-way-of-tweeting-the-broadcast-legend-who-just-cant-retire-talks-about-his-new-media-way-of-life/">“Larry King has a special way of tweeting.”</a> He calls a special phone line and leaves a tweet on a voicemail, which is then transcribed by an assistant and posted to Twitter. Lacking an assistant, I decided to build something to allow <a href="https://twitter.com/lbrosa">@lbrosa</a> to call in a tweet using Twilio’s transcription functionality. </p>
+
+<p>Our workflow here is simple, but rather confusingly documented by Twilio’s stock documentation. </p>
+
+<ol>
+  <li>Call a Twilio number tied back to one of our app URLs dedicated for transcription.</li>
+  <li>Build a Twilio Response object that includes a Record verb that contains a <code>transcribeCallback</code> redirect parameter, which will be another URL in our app.</li>
+  <li>Twilio will record the call and hit our <code>transcribeCallback</code> URL with the transcription text once it’s finished.</li>
+  <li>We take our transcribed text and post it to Twitter.</li>
+</ol>
+
+<p>What does that look like in Django? What will we need?</p>
+
+<pre><code># requirements.txt
+
+Django==1.7.7
+twilio==3.7.3
+django-twilio==0.8.0
+tweepy==3.3.0
+
+# other dependencies that these libraries will install for you
+</code></pre>
+
+<p>The <code>twilio</code> library is put out by Twilio and contains some helper functions so you don’t have to build raw XML to send back to them. <code>django-twilio</code> is here to help with Django’s freakouts about POSTing data without CSRF tokens. And <code>tweepy</code> talks to Twitter. We’ll see where they all fall into place in <code>views.py</code>.</p>
+
+<pre><code># views.py 
+# part 1
+
+from django_twilio.decorators import twilio_view
+from twilio import twiml
+
+@twilio_view
+def transcribe_incoming(request):
+
+	r = twiml.Response()
+	r.say("What is your tweet?")
+	r.record(maxLength=30, transcribeCallback="/playback/")
+
+	return r
+</code></pre>
+
+<p>This view will answer an incoming call to our app. We build a TwiML Response and attach two Twilio verbs to it: <code>&lt;Say&gt;</code> and <code>&lt;Record&gt;</code>. Our <code>&lt;Say&gt;</code> verb takes in some text that Twilio’s robot voice will read back to the caller. Our <code>&lt;Record&gt;</code> verb takes in a <code>maxLength</code> in seconds for recording. It also contains a <code>transcribeCallback</code> parameter - the URL we’ll POST data to once the transcription is completed. No need to include <code>transcribe="True"</code>, as <code>transcribeCallback</code> will assume that.</p>
+
+<p>Our caller will record a tweet and then hang up, kicking off Twilio’s transcription. Note that our app doesn’t have anything to do here until Twilio finishes our transcription and then POSTs the response to <code>/playback/</code>. </p>
+
+<pre><code># views.py
+# part 2
+
+from django.http import HttpResponse
+from django_twilio.decorators import twilio_view
+from twilio.rest import TwilioRestClient
+from django.conf import settings
+import tweepy
+
+@twilio_view
+def playback(request):
+
+	transcribed = request.POST['TranscriptionText']
+	sent_from = request.POST['From']
+	body = "Tweet Sent: " + transcribed
+
+	auth = tweepy.OAuthHandler(settings.TWITTER_CONS_KEY, settings.TWITTER_CONS_SECRET)
+	auth.set_access_token(settings.TWITTER_APP_KEY, settings.TWITTER_APP_SECRET)
+
+	api = tweepy.API(auth)
+	api.update_status(status=transcribed)
+
+	client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+
+	msg = client.messages.create(to=sent_from, from_=settings.TWILIO_PHONE_NUM, body=body)
+
+	return HttpResponse("A-OK", status=200)
+</code></pre>
+
+<p>Twilio includes the transcription text in the POST data as well as the number the user called from. We’ll need both of those. We’ll also need all of the Twilio and Twitter settings that you should keep secure. This app assumes that you’ve created a corresponding Twitter app that has Read and Write access to your account. No oAuth silliness - just the direct post to your account.</p>
+
+<p>We follow the vanilla instructions for updating a status with <code>tweepy</code> using the <code>TranscriptionText</code> from the POST data. We’re then going to send that text back to the user via SMS to give them a confirmation that everything proceeded as planned. We close the loop with a 200 Response back to Twilio.</p>
+
+<p>URL patterns are up to you, but should probably look something like this: </p>
+
+<pre><code># urls.py
+
+urlpatterns = patterns('',
+    url(r'^transcribe/$', 'callme.views.transcribe_incoming', name='transcribe_incoming'),
+    url(r'^playback/$', 'callme.views.playback', name='playback'),
+)
+</code></pre>
+
+<p>No admin console needed, no database. Just two quick little views. </p>
+
+<p>Have fun with this! I’ve created a <a href="https://github.com/josephmosby/rosascosaspublic/">Github repo</a> for the project with the full Django app in case it’s useful.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/08/rosas-cosas-building-a-twilio-app-to-match-kingsthings.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2015/03/30/hot-chicken.html"><h3>Hot Chicken</h3></a>
 		<div class="date">March 30, 2015</div>
 	</div>
@@ -702,36 +804,6 @@ authors = Author.objects.all()
 <p>I tend to favor politicians with a healthy degree of skepticism about the world around them. There is so much that people outside the Oval Office simply do not know, information that will likely circumvent much of the way candidates currently see the world. I can’t help but hope that politicians who seek that office are exceptionally guarded before they jump to beliefs. </p>
 
 		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/02/11/asking-if-someone-believes-in-evolution-is-a-dangerous-question.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/01/31/the-first-time-i-felt-like-an-engineer.html"><h3>The first time I felt like an engineer</h3></a>
-		<div class="date">January 31, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>For the first time in my life, I feel like an engineer.</p>
-
-<p>I have launched a startup and built countless production websites. I teach programming classes at a startup trade school. And I never felt like an engineer until now. </p>
-
-<p>I have no university degree declaring that I have formal training in computer science or software engineering. My degree says I know accounting. I started teaching myself how to code because I hated the idea of going to a big corporation or a small financial advisory firm and I developed a dream of having a business I could build myself. It was 2010 and THE SOCIAL NETWORK had just dropped, amplifying the dream of thousands of young entrepreneurs who were convinced that if they just learned how to code they could become the next Zuckerberg. I am amused now to say that I was one of them. </p>
-
-<p>2010 came and went. 2011 came along and I left school and became a management consultant rather than a startup entrepreneur. Nothing wrong with making some decent coin right after college, right? I enjoyed doing that for a while until the itch started to get after me again. I volunteered to help a friend get his startup off the ground and finally launched a project. I still didn’t feel like an engineer. </p>
-
-<p>I took a full-time engineering role at a public relations firm and was paid to code for the first time in my life. I was completely lost. When you’re learning how to code you stay in a happy little place playing connect the dots with tutorials and occasionally venturing out on your own experiment. When you’re building a brand new startup you’re working with zero code base at all and can make it in your own image. When you take a full-time gig with an established company, you’re suddenly thrown into the code wilderness where things aren’t perfect and you’re forced to confront systems without time for full-blown tutorials on them. And it’s scary as hell. I didn’t feel like an engineer. </p>
-
-<p>No matter what I tried, I couldn’t make myself feel like a professional coder. I thought first “if I launch a startup” then I’ll absolutely feel like an engineer. That didn’t work. I launched a product and still felt like an impostor. Then I said “if I get paid to be an engineer” then I’ll feel like an engineer. I started getting a paycheck for coding and just felt lost and confused. I kept looking for someone else or some milestone to make me feel like an engineer. I started speaking on panels and blogging and churning out pet projects, anything I could to hopefully hit that point where I’d feel like I’d made it.</p>
-
-<p>Sometime in the mix of side projects and full-time work, I had so much going on that I forgot to think about being an engineer. I was just doing the work, day in and day out. And when I finally remembered to think about it again, I realized that something had shifted. Doing the work - actual engineering work, not tech meetups or networking or speaking on panels - had turned me into an engineer. I wasn’t talking about being an engineer or thinking about being an engineer, I was just <em>doing</em> it. </p>
-
-<p>Ira Glass of This American Life has a very poignant reflection on storytelling that should resonate with would-be engineers as well. I leave it here to close this post with his words. </p>
-
-<blockquote>
-  <p>Nobody tells this to people who are beginners, I wish someone told me. All of us who do creative work, we get into it because we have good taste. But there is this gap. For the first couple years you make stuff, it’s just not that good. It’s trying to be good, it has potential, but it’s not. But your taste, the thing that got you into the game, is still killer. And your taste is why your work disappoints you. A lot of people never get past this phase, they quit. Most people I know who do interesting, creative work went through years of this. We know our work doesn’t have this special thing that we want it to have. We all go through this. And if you are just starting out or you are still in this phase, you gotta know its normal and the most important thing you can do is do a lot of work. Put yourself on a deadline so that every week you will finish one story. It is only by going through a volume of work that you will close that gap, and your work will be as good as your ambitions. And I took longer to figure out how to do this than anyone I’ve ever met. It’s gonna take awhile. It’s normal to take awhile. You’ve just gotta fight your way through.</p>
-</blockquote>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/31/the-first-time-i-felt-like-an-engineer.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
 

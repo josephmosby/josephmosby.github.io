@@ -54,6 +54,54 @@
 				
 <div class="row">
 	<div class="col-3">
+		<a href="/2016/04/06/python-modules-ranked-on-usage.html"><h3>Python modules ranked on usage and what that says about the Python ecosystem</h3></a>
+		<div class="date">April 06, 2016</div>
+	</div>
+	<div class="col-8">
+		<p>A few days ago, I asked myself a simple question: what are the most (and least) popular Python modules from the standard library? Or rather, I decided to ask GitHub. There are at least a dozen syntactic ways you can bring a module into a piece of Python code, but I thought it might be easiest to simply search for “import “ and see how many results came back. There will of course be some false positives and false negatives, but on average, this approach can serve as a proxy for total usage.</p>
+
+<p>Here are the results for the most used libraries:</p>
+
+<ol>
+  <li><code>os</code> (3,279,697 results)</li>
+  <li><code>sys</code> (3,081,854 results)</li>
+  <li><code>re</code> (1,304,857 results)</li>
+  <li><code>datetime</code> (1,076,425 results)</li>
+  <li><code>shutil</code> (968,583 results)</li>
+</ol>
+
+<p>And the results for the least used:</p>
+
+<ol>
+  <li><code>pathlib</code> (0 results)</li>
+  <li><code>fpectl</code> (37 results)</li>
+  <li><code>zipapp</code> (48 results)</li>
+  <li><code>tracemalloc</code> (397 results)</li>
+  <li><code>nis</code> (484 results)</li>
+</ol>
+
+<p>The full dataset can be found <a href="/files/python_modules.csv">here</a>, for the curious.</p>
+
+<p>What do these usage patterns say about us as Python developers? And why would the language developers keep these almost completely unused modules around?</p>
+
+<p>I expected <code>os</code> and <code>sys</code> to be heavily used, though I did not expect them to blow away the #3 and #4 competitors as much as they did. Let’s think about what they do. These are big, complex libraries that operate at the most basic levels of the operating system. If you want to traverse a directory tree and pop out all of the text files, you’re using <code>os</code>. If you have a script that’s dependent on system state - or even one that just needs to kill itself in a hurry - you’re using <code>sys</code>. So with these modules being so heavily used, you’re looking at a lot of usage by system engineers, operations teams, and any piece of software who has to talk to a machine directly instead of just buzzing around in application space. <code>re</code> and <code>datetime</code> are somewhat expected to land where they are, regular expressions and date management are both cornerstones of software development. <code>shutil</code> surprised me a little bit. I thought that <code>os</code> and <code>sys</code> and the standard <code>read()</code> and <code>write()</code> system calls would do most of the file work and something like <code>logging</code> or <code>unittest</code> would fill out the last of the top 5, but it looks like there’s still a lot of pushing files around left to do.</p>
+
+<p>So if you’re a Python dev, there’s a good chance you’re doing a decent amount of work pushing files around and investigating your operating system. That makes complete sense - Python was started as a systems and automation scripting language, and that’s still at its core even if we’re now writing more complex software with it.</p>
+
+<p>Now let’s take a look at the bottom of the barrel.</p>
+
+<p><code>pathlib</code> is one of the newest modules added to the standard library, and it’s currently only in there on a provisional basis. It provides a “simple hierarchy of classes to handle filesystem paths and the common operations users do over them.” The usage rationale comes from <a href="https://www.python.org/dev/peps/pep-0428/">PEP 428</a>, citing the previous attempt to provide these features in <a href="https://www.python.org/dev/peps/pep-0355/">PEP 355</a> and the <a href="https://github.com/jaraco/path.py">path.py module</a> that treats filepaths like first-class players in the language. <code>pathlib</code> clearly has not taken off yet, but it’s still new in the language.</p>
+
+<p><code>fpectl</code> deals with floating point exceptions. The reasoning for its low usage is clear on the <a href="https://docs.python.org/3/library/fpectl.html">man page</a>: this module is not built by default, and its usage is discouraged and dangerous. <code>zipapp</code> does something I didn’t even know you could do in Python: run Python executables that have been zipped up into archives directly. <code>tracemalloc</code> lets debuggers sort through memory problems in their code, and it sort of makes sense to me that this probably doesn’t make it into committed code that often. Finishing us out, <code>nis</code> is incredibly niche: it provides a wrapper around the Sun Network Information Service.</p>
+
+<p>It’s interesting to me that some of the least-used modules share some similarities with the most-used: they’re all about system management. They’re even experiments with new ways to approach system management. There’s a lot that can be done with Python, but when it comes to the core library - the operating system is king.</p>
+
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2016/04/06/python-modules-ranked-on-usage.html" data-via="josephmosby">Tweet</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-3">
 		<a href="/2016/03/31/a-march-recap-or-an-experiment-in-moderating-moderation.html"><h3>A March recap, or an experiment in moderating moderation</h3></a>
 		<div class="date">March 31, 2016</div>
 	</div>
@@ -538,49 +586,6 @@ def test_one_or_zero_on_link_two(self):
 <p>My tests did not need anything much more complex than that, but I’m looking forward to using this in several other contexts in future tests. PhantomJS is wicked fast compared to running the same code using Selenium’s Firefox or Chrome drivers. And being able to plug it into on-page JavaScript (maybe even tag-teaming with QUnit) makes it that much more appealing.</p>
 
 		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/29/setting-up-a-simple-testing-tool-with-selenium-and-phantomjs.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/10/27/the-xv6-filesystem.html"><h3>The xv6 filesystem</h3></a>
-		<div class="date">October 27, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>The file system of an operating system is one of those things I haven’t thought about in years, ever since I went through the painful process of reformatting USB sticks when different versions of Windows used different file systems. But I’ve never really thought about how those things have to be implemented. </p>
-
-<p>On xv6, files are either data files, which are “uninterpreted byte arrays,” and directories, which are references to data files or other directories. So a directory is nothing more than a special file that points to other files. Cool. Directories form a tree starting at the root, and a path is a set of directories going out from the root. If a path doesn’t start with a root, paths start from the current working directory of a given process. </p>
-
-<p>That means <code>chdir()</code> is a system call that changes the current working directory of a process, and <code>mkdir()</code> is the system call that creates a new directory. <code>mknod()</code> is a similar call that creates a kernel device (such as a keyboard). When a process opens the kernel device file, the kernel will redirect the <code>read()</code> and <code>write()</code> to the kernel device instead of to a specific data file.</p>
-
-<p>The <code>fstat()</code> call gives information about a specific object that a file descriptor points to. <code>fstat(fd)</code> takes in a file descriptor and returns a C <code>struct</code> called <code>stat</code>, which has an implementation that looks something like this:</p>
-
-<pre><code>#define T_DIR 1 // directory
-#define T_FILE 2 // file
-#define T_DEV 3 // device
-
-struct stat {
-	short type; // type of file
-	int dev; // file system's disk device
-	uint ino; // inode number
-	short nlink; // number of links to file
-	uint size; // size of file in bytes
-}
-</code></pre>
-
-<p>The name of the file is not included in this information table, because names are distinct from the actual file. An “inode” is the only unique identifier of a file that the kernel sees: names are just “links” back to an individual inode. Thus the following system calls will create two names for a file with the same inode:</p>
-
-<pre><code>open("a", O_CREATE|O_WRONLY);
-link("a", "b");
-</code></pre>
-
-<p>Calling <code>fstat()</code> on either of the file descriptors attached to “a” or “b” will demonstrate that they’re tied back to the same file with the same inode number. <code>unlink()</code> will do the opposite of <code>link()</code>. It deletes the name, but will not delete the file itself.</p>
-
-<p>In xv6, these types of operations are implemented as user-level programs, rather than baking the system calls into the shell itself. <code>mkdir</code> is not a direct call to the system, but a user program that calls the <code>mkdir()</code> system call. Same with <code>rm</code>. <code>cd</code> is a notable exception, because it changes the working directory of the shell itself rather than a child process of the shell.</p>
-
-<p>And that’s it for the xv6 system calls! I can treat the xv6 kernel as something abstracted away now that I have all of the system calls for interacting with it. </p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/27/the-xv6-filesystem.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
 
