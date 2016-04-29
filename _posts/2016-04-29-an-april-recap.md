@@ -21,7 +21,7 @@ In listicle form, here's what I accomplished in the month of April:
 	* [Antifragile: Things That Gain from Disorder](http://amzn.to/1VB0sDw) by Nassim Taleb
 	* [14](http://amzn.to/234F097) by Peter Clines
 	* [The Elements of Style](http://amzn.to/26sEoP4) by William Strunk and E.B. White
-* Walked X steps
+* Walked more than 320,000 steps
 * Moved in to a new home with fantastic roommates in an amazing neighborhood
 * Interviewed for and accepted a new job
 * Visited my brother in Dallas
