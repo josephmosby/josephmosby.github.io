@@ -5,15 +5,11 @@ title: WHOIS
 
 I am a software engineer who loves people. Seriously, you all are the best. 
 
-I solve problems with code at the [National Journal](http://www.nationaljournal.com). I also help people learn how to do the same at [General Assembly](https://generalassemb.ly/washington-dc).
+Currently, I'm exploring high performance computing using Python, Scala, and Apache Spark. In the past, I've built news applications that served thousands of concurrent viewers as well as smaller data analysis platforms that attacked niche problems in the media world. I've also taught courses in both Python and financial analysis.
 
-This blog contains writing on Python, the DC tech community, web development, and culture. I reserve the right to append additional topics as necessary. 
-
-If you're a journalist, PR flack or teacher who's interested in adding some more technology into their work, I'd love to chat with you. 
+In this blog, I explore deeply technical topics, psychology and productivity, and a few things about culture. I also try to do monthly recaps of personal experiments.
 
 Interested in more? I'm around the internet: 
 
 * [@josephmosby](https://twitter.com/josephmosby)
 * [github:josephmosby](https://github.com/josephmosby)
-
-If needed: my [public key](/about/me.key).
