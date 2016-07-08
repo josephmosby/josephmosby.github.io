@@ -5,12 +5,11 @@ title: NOW
 
 **I'm currently working on the following projects:**
 
-* Beginning a new position at Deloitte
-* Settling into a new home
-* Filling my room's walls with handwritten posters of ideas
-* Focusing on clarity of thought and expression
-* Adding more weight to my four big lifts: bench press, back squats, deadlifts and shoulder presses
-* Writing 
-* Reading great books (on my desk now: Marc Levinson's [The Box](http://amzn.to/1rynCy6) and Seneca's [Letters from a Stoic](http://amzn.to/1rynCy6))  
+* Learning Apache Spark
+* Summer travels
+* Steel club and steel mace training
+* Playing more basketball
+* Refreshing my CPA knowledge
+* Reading great books (on my desk now: Daniel Friedman and Matthias Felleisen's _The Little Schemer_ and Neil Gaiman's _American Gods_ 
 
-This page was inspired by Derek Sivers' [Now](http://sivers.org/now). Last updated from my desk off U Street in Washington, D.C. 
+This page was inspired by Derek Sivers' [Now](http://sivers.org/now). Last updated from Wormhole Coffee in Chicago, IL.
