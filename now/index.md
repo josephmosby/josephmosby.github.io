@@ -5,11 +5,10 @@ title: NOW
 
 **I'm currently working on the following projects:**
 
-* Learning Apache Spark
+* Learning Scala
 * Summer travels
 * Steel club and steel mace training
-* Playing more basketball
 * Refreshing my CPA knowledge
-* Reading great books (on my desk now: Daniel Friedman and Matthias Felleisen's _The Little Schemer_ and Neil Gaiman's _American Gods_ 
+* Reading great books (on my desk now: Andy Grove's _High Output Management_ and Philip Chavanne's _The Early Tales of Snow and Oakham_
 
-This page was inspired by Derek Sivers' [Now](http://sivers.org/now). Last updated from Wormhole Coffee in Chicago, IL.
+This page was inspired by Derek Sivers' [Now](http://sivers.org/now). Last updated from my desk in Washington, DC.
