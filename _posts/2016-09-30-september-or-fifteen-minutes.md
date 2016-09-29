@@ -1,6 +1,6 @@
 ---
 layout: post
-title: September&#45; or fifteen minutes
+title: September&#44; or fifteen minutes
 ---
 
 I am obsessed with time.
@@ -44,11 +44,13 @@ You keep stacking those fifteen minutes up and up and suddenly you're staring at
 These are things I wanted to accomplish, and the principles are the same for anyone out there reading this. Set your time for fifteen minutes. Crank. Move the needle forward just a little bit whenever you can. You'll be shocked at what you can get done.
 
 Books read!
+
 * [Founders at Work](http://amzn.to/2cYvrHk) by Jessica Livingston
 * [The Song Machine: Inside the Hit Factory](http://amzn.to/2cYtNWb) by John Seabrook
 * [So Good They Can't Ignore You](http://amzn.to/2dDfoP9) by Cal Newport
 
 Things eaten!
+
 * [Husk](http://huskrestaurant.com/home/)
 * [Eli's Table](http://www.elistable.com/)
 * [Taqueria El Farolito](https://www.yelp.com/biz/el-farolito-san-francisco-2)
@@ -56,12 +58,15 @@ Things eaten!
 * [Fiola Mare](https://www.fiolamaredc.com/)
 
 Apps built!
+
 * FutureSelf [non-public]
 
 TV shows watched!
+
 * [Doctor Who](http://amzn.to/2donL1c)
 
 Things bookmarked!
+
 * [Twilio - Security](https://www.twilio.com/docs/api/security)
 * [Certbot Documentation](https://certbot.eff.org/)
 * [The Road Coder's Survival Kit](https://www.twilio.com/blog/2014/03/the-road-coders-survival-kit.html)
