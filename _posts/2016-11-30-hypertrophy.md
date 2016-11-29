@@ -47,13 +47,15 @@ In addition, and at the encouragement of my girlfriend, I've taken some of this 
 
 * * *
 
-As a closing statement, I know I'm not the only one who feels like they've lost ground in something. Maybe it's your fitness like me, or maybe it's your work ethic, or maybe it's something even deeper and more personal. Just remember that point you feel like you've lost - you got there somehow, and you backslid somehow, and acting like you're somewhere that you're not isn't going to help you get to where you want to go. But it was you who got there in the first place.
+As a closing statement, I know I'm not the only one who feels like they've lost ground in something. Maybe it's your fitness like me, or maybe it's your work ethic, or maybe it's something even deeper and more personal. Just remember that point you feel like you've lost - you got there somehow, and you backslid somehow, and acting like you're somewhere that you're not isn't going to help you get to where you want to go. 
+
+This post is titled "Hypertrophy" because I am choosing to focus on the physiological principle that **human beings get stronger when their muscles are forced to hit the limit.** There is no growth without somehow getting knocked down. 
 
 P.S.....
 
 List format:
 
-* Read two books
+* Read three books
     * [Code Complete](http://amzn.to/2f51QA8) by Steve McConnell (by the way, this thing is a monster. It's good knowledge to have and I'm glad I read it as an engineer, but it is the size of the biggest Harry Potter book ever and nowhere near as easy to read)
     * [Six Easy Pieces](http://amzn.to/2f51QA8) by Richard Feynman
     * [Cracking the Coding Interview](http://amzn.to/2gAyvNX) by Gayle Laakmann McDowell (not applying for jobs, this is just one of the best refreshers on basic algorithms out there)
