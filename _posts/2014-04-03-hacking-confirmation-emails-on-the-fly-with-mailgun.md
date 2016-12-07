@@ -144,7 +144,7 @@ if __name__ == "__main__":
 	# then finally, mark those as confirmed in our database
 	
 	cq.markAsConfirmed(conn, unconfirmed.keys())
-	
+```	
 And that's it. We've built out a confirmation email system using Python - not very pretty, but it sure knows how to get the job done. Our final task is to run this puppy on a schedule using cron:
 
 `$ env EDITOR=nano crontab -e`
