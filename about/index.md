@@ -3,13 +3,12 @@ layout: subpage
 title: WHOIS
 ---
 
-I am a software engineer who loves people. Seriously, you all are the best. 
+I lead advanced analytics teams for Deloitte's strategic intelligence and investigations practice in Washington, DC.
 
-Currently, I'm exploring high performance computing using Python, Scala, and Apache Spark. In the past, I've built news applications that served thousands of concurrent viewers as well as smaller data analysis platforms that attacked niche problems in the media world. I've also taught courses in both Python and financial analysis.
+My teams consistent of software engineers, data scientists, and intelligence analysts. We build interesting things that answer questions and open doors for our clients. 
 
-In this blog, I explore deeply technical topics, psychology and productivity, and a few things about culture. I also try to do monthly recaps of personal experiments.
+In the past, I've been a practicing data engineer and data scientist in the Python, Scala, and Spark/Hadoop world; I've built news applications that served thousands of concurrent viewers; I've taught courses in applied artificial intelligence, Python engineer, and financial analysis.
 
-Interested in more? I'm around the internet: 
+In this blog, I explore organizational culture, deeply technical topics, psychology, and productivity. I have also done recaps of self-experimentation.
 
-* [@josephmosby](https://twitter.com/josephmosby)
-* [github:josephmosby](https://github.com/josephmosby)
+Interested in more? I'm around the internet: [@josephmosby](https://twitter.com/josephmosby)
