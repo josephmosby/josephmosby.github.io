@@ -7,7 +7,7 @@ I became an official manager of people in 2017. At Deloitte, my current employer
 
 But with Deloitte, there's something new added: I also picked up the title of "coach."
 
-A coach is a person a skip-level above you whose responsibilities are aimed at guiding you and championing you in your career. A coach has several responsibilities:
+A _coach_ is a person a _skip-level above you_ whose responsibilities are aimed at _guiding you and championing you in your career._ A coach has several responsibilities:
 * to mentor their coachees
 * to represent their coachees well during annual performance reviews
 * to keep their coachees in line with the strategy of the business
