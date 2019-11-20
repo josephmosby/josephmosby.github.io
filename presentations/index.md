@@ -3,6 +3,11 @@ layout: subpage
 title: TALKS
 ---
 
+* Department of Energy Cyber Conference - 05.15.19 - Cybersecurity challenges in an IT/OT world (unrecorded)
+* Harrisburg University Analytics Summit - 05.02.19 - Graphs as representations of complex human behavior - [video](https://livestream.com/HU/datasummit/videos/190759109)
+* St. Louis Venture Cafe - 03.14.19 - Edge Computing and Global Data Visibility (unrecorded)
+* FloCon 18 - 01.30.18 - Volatility Detection in Network Traffic (unrecorded)
+* BroCon 17 - 09.12.17 - Spark and Bro: When Bro-Cut Won't Cut It (unrecorded)
 * PyGotham 15 - 08.16.15 - [Modeling an Arithmetic Logic Unit in Python](/presentations/pygotham2015/) - [video](http://pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python)
 * PyOhio 15 - 08.02.15 - [Production Django: Building a Highly Scalable, Secure Django Site](/presentations/pyohio2015/) - [video](http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se)
 * General Assembly - Ongoing - [Introduction to Python Programming](/presentations/intro_to_python/deck.pdf)
