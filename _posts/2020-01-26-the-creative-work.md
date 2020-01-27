@@ -19,16 +19,16 @@ What shocked me was the sheer number of bad songs they wrote.
 
 One of these writers described her process something like this: 
 
-9:00AM: get into the office
-9:30AM: finish tuning and noodling around on guitar, proceed to first coffee
-10:00AM: get jitters out of system 
-10-12: write a verse
-12-1: lunch
-1:00-1:30: probably throw away the first verse
-1:30-2:30: try another verse
-2:30-3:00: probably throw that one away too
-3:00-5:00: try something else
-5:00PM: go home, try again tomorrow
+* 9:00AM: get into the office
+* 9:30AM: finish tuning and noodling around on guitar, proceed to first coffee
+* 10:00AM: get jitters out of system 
+* 10-12: write a verse
+* 12-1: lunch
+* 1:00-1:30: probably throw away the first verse
+* 1:30-2:30: try another verse
+* 2:30-3:00: probably throw that one away too
+* 3:00-5:00: try something else
+* 5:00PM: go home, try again tomorrow
 
 All told, she estimated she wrote between 500-1000 songs *per year* to get 3-5 good ones. That's a lot of creative product she wasn't happy with.
 
