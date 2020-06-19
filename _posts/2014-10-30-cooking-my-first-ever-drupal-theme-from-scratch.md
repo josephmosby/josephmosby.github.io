@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Cooking My First Ever Drupal Theme From Scratch
+tags: code
 ---
 
 About six months ago, I would have said that I was starting to figure Drupal out. I'll assure you now wthat I have no idea. I have picked up a few tricks here and there, though, and the Drupal templating system is starting to make some sense to me.

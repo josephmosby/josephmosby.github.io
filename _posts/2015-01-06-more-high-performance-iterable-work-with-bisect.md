@@ -1,8 +1,7 @@
 ---
-layout: pymod
+layout: post
 title: More high-performance iterable work with bisect
-tags:
-- pymod
+tags: code
 ---
 
 In my [last post](/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html), I explored the Python array data structure. In keeping with the vibe of iterable data structures, I'm moving on to cover the `bisect` module.

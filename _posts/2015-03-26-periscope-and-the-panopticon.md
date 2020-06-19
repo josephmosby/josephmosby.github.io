@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Periscope and the Panopticon
+tags: product
 ---
 
 Tonight, eleven strangers watched my friend Ouzy eat tater tots over Periscope. I was the cameraman. We didn't promote a livestream of tater tot eating or even tweet about it when the camera starting rolling. I just opened the app and people started watching a man they'd never met eat tots. 

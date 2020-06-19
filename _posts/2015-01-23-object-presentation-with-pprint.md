@@ -1,8 +1,7 @@
 ---
 layout: post
 title: Object presentation with pprint
-tags:
-- pymod
+tags: code
 ---
 
 In my [last post](/2015/01/21/string-presentation-with-textwrap.html), I discovered that there are all sorts of awesome things you can do to format strings for presentation in a Python program. In this episode, I learn that it's possible to do the same thing with all Python objects using `pprint`!

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The fast inverse square root algorithm
+tags: code
 ---
 
 Taking a break from operating systems to do some algorithm training: something I revisit about once a year. I have the Khan Academy bit on the [Towers of Hanoi](https://www.khanacademy.org/computing/computer-science/algorithms/towers-of-hanoi/a/towers-of-hanoi) up, but I want to first pause to go look at Quake's "fast inverse square root" algorithm.

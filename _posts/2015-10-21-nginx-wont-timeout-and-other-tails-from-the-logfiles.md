@@ -1,6 +1,7 @@
 ---
 layout: post
 title: nginx won't timeout, and other tails from the log files
+tags: code
 ---
 
 We had yet another instance of nginx allowing requests to spin into infinity, and now I'm starting to get a little frustrated with it. I'm going to take a different tack and see if I can sniff out the point when these requests start to blow up. To do this, I'm going to use the `awk` tool to find any and all requests that take longer than 3000 milliseconds, which is well beyond the tolerance point for my application. Most of our requests average out in the 100-150ms range, with long running requests taking 500ms. Let's dump some things out from the log files.

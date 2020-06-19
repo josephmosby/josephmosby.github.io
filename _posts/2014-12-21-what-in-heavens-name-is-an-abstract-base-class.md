@@ -1,8 +1,7 @@
 ---
-layout: pymod
+layout: post
 title: What in heaven's name is an abstract base class?
-tags:
-- pymod
+tags: code
 ---
 
 Let's talk about duck-typing for a second. Duck-typing is an object-oriented programming principle that allows an object's methods and properties to handle the semantics and behavior of an object without the need to determine what type of object it actually is. The idea is that "if it looks like a duck and quacks like a duck, it's a duck" and the programmer doesn't need to first ask the object if it's actually a duck. We can just start asking it to quack.

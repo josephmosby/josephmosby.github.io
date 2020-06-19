@@ -1,6 +1,7 @@
 ---
 layout: post
 title: How are PIDs assigned?
+tags: code
 ---
 
 I want to take a moment to step through the `ps` command and how PIDs are assigned, because I want to walk through the first 10 processes kicked off when CentOS boots. I assume that PIDs are assigned based on the order in which they're created, but I'm not 100% certain on that. Let's take a look.

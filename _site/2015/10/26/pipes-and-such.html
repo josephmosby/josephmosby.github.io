@@ -4,65 +4,48 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>26 Oct 2015</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>Pipes and such</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/10/26/pipes-and-such.html"><h3>Pipes and such</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>In MIT’s <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-828-operating-system-engineering-fall-2012/lecture-notes-and-readings/MIT6_828F12_xv6-book-rev7.pdf">text on the xv6</a>, pipes are described as “a small kernel buffer exposed to process as a pair of file descriptors, one for reading and one for writing.” I think I understand file descriptors by now, but I don’t quite know what a buffer is. Let me dig into that first with some Googling.</p>
 
 <p>Wikipedia describes a buffer as “a region of a physical memory storage used to temporarily store data while it is being moved from one place to another.” Cross-referencing this with other things I’ve previously learned about operating systems makes me think that buffers are probably also used for things like keyboard input - where we don’t want to necessarily take the time for expensive writes to disk, so we just store in memory and wait until another program clears things out. Okay. Moving on.</p>
 
-<p>This example code was provided by the text: </p>
+<p>This example code was provided by the text:</p>
 
-<pre><code>int p[2];
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int p[2];
 char *argv[2];
 
 argv[0] = "wc";
@@ -81,54 +64,27 @@ if(fork() == 0) {
 	close(p[0]);
 	close(p[1]);
 }
-</code></pre>
+</code></pre></div></div>
 
-<p>And this compiles nicely with some tweaks for the OSX environment - but, as it never prints, we don’t have a visual confirmation. </p>
+<p>And this compiles nicely with some tweaks for the OSX environment - but, as it never prints, we don’t have a visual confirmation.</p>
 
 <p>Pipes and temporary files share some similarities in execution. This code would look the same way to the end user:</p>
 
-<pre><code>$ echo hello world | wc
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo hello world | wc
 $ echo hello world &gt; /tmp/xyz; wc &lt;/tmp/xyz
-</code></pre>
+</code></pre></div></div>
 
-<p>But there are three key differences here. This would leave the <code>/tmp/xyz</code> file lying around, which we’d have to come back through and clean up later. It also expects there to be enough free disk space for the <code>/tmp/xyz</code> file, which could be extremely long. And finally, these processes could not easily send data back and forth with this approach, if <code>wc</code> needed to send data back to <code>echo</code>. </p>
+<p>But there are three key differences here. This would leave the <code class="highlighter-rouge">/tmp/xyz</code> file lying around, which we’d have to come back through and clean up later. It also expects there to be enough free disk space for the <code class="highlighter-rouge">/tmp/xyz</code> file, which could be extremely long. And finally, these processes could not easily send data back and forth with this approach, if <code class="highlighter-rouge">wc</code> needed to send data back to <code class="highlighter-rouge">echo</code>.</p>
 
 <p>And that’s it for pipes. Next, on to the filesystem!</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/26/pipes-and-such.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

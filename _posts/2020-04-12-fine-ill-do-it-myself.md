@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Fine. I'll do it myself. 
+tags: cultures
 ---
 
 Pick a topic. Any topic. There is at least one highly detailed book on it in existence somewhere. Once upon a time I read a book on [the history of shipping containers](https://www.amazon.com/Box-Shipping-Container-Smaller-Economy/dp/0691136408) and it was amazing.

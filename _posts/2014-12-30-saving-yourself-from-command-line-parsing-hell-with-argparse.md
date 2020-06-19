@@ -1,8 +1,7 @@
 ---
-layout: pymod
+layout: post
 title: Saving yourself from command-line parsing hell with argparse
-tags:
-- pymod
+tags: code
 ---
 
 Before `argparse`, I thought the only way to deal with command line arguments was to use `sys.argv`. You throw a series of arguments at a program, munge through them with `sys.argv[0]`, `sys.argv[1]`, etc. and hope for the best. And you hope that you always have full control over the arguments coming at your program through the command line. But what do you do if you have optional arguments, or flags? You could write your own parsers to handle all of that, but that's where `argparse` comes in. 

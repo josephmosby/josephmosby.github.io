@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The uncomfortable reality of software engineering
+tags: code
 ---
 
 I am haunted by the idea that someone will have to go back and make changes to certain pieces of code that I wrote in the past. The last time that actually happened was on a project that was originally set up as a demo, rife with technical debt as non-technical managers made rapid changes to requirements and promised clients they'd have something to show that same day. Enough of those types of changes and your project suddenly turns into a duck-taped train wreck. No one can read your code and understand how it works, and eventually, you can't do it either.

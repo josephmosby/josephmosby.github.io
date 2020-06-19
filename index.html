@@ -1,22 +1,26 @@
 ---
-layout: new
+layout: default
+class: home
 ---
 
 {% for post in paginator.posts %}
 <div class="row">
-	<div class="col-3">
-		<a href="{{ post.url }}"><h3>{{ post.title }}</h3></a>
-		<div class="date">{{ post.date | date: "%B %d, %Y" }}</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>{{ post.date | date: '%d %b %Y' }}</time>
+			<a href="/tags/{{ page.tags }}">{{ post.tags }}</a>
+		</div>
+		<h3>{{ post.title }}</h3>
+
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		{{ post.content }}
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com{{ post.url }}" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 {% endfor %}
 
 <div class="row">
-	<div class="col-offset-3 col-8">
+	<div class="col-md-12">
 		<div class="pagination">
 			{% if paginator.previous_page %}
 			<a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>

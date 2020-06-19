@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The xv6 filesystem
+tags: code
 ---
 
 The file system of an operating system is one of those things I haven't thought about in years, ever since I went through the painful process of reformatting USB sticks when different versions of Windows used different file systems. But I've never really thought about how those things have to be implemented. 

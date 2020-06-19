@@ -4,61 +4,44 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>12 Apr 2014</time>
+			<a href="/tags/product">product</a>
 		</div>
+		<h3>Choosing a Game Development Platform to Reach the Right Users</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2014/04/12/choosing-a-development-platform-to-reach-the-right-users.html"><h3>Choosing a Game Development Platform to Reach the Right Users</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>Last Friday, I attended the <a href="http://www.media4socialimpact.org/">Media for Social Impact</a> Summit at the United Nations headquarters in NYC. Aside from the awesomeness of attending a conference at the United Nations, the summit was a really enlightening experience crammed into a single day’s worth of sessions. Each group of panelists focused on the most effective way to run an issue-based campaign with a social change in mind on a particular type of media. Of particular interest to me was the talk by Asi Burak of <a href="http://www.gamesforchange.org/">Games for Change</a>, whose <a href="https://www.facebook.com/HalftheGame">Half the Sky</a> game was designed to raise funds to empower women and girls.</p>
 
-<p>Half the Sky is a Facebook game, a medium that I had admittedly often dismissed due to FarmVille and the like. I knew there were a ton of players on Facebook - 40 million monthly active users on Facebook for Farmville 2, <a href="http://www.polygon.com/2013/1/4/3837236/farmville-2-infographic-40-million-monthly-active-users">for example</a> - but really, why would I consider Facebook when there’s so much interesting stuff to be done on Steam or Xbox Live? Why would I tie my game to the constraints of a web browser when I could harness the entire power of a computer instead? </p>
+<p>Half the Sky is a Facebook game, a medium that I had admittedly often dismissed due to FarmVille and the like. I knew there were a ton of players on Facebook - 40 million monthly active users on Facebook for Farmville 2, <a href="http://www.polygon.com/2013/1/4/3837236/farmville-2-infographic-40-million-monthly-active-users">for example</a> - but really, why would I consider Facebook when there’s so much interesting stuff to be done on Steam or Xbox Live? Why would I tie my game to the constraints of a web browser when I could harness the entire power of a computer instead?</p>
 
 <p>I had forgotten an extremely critical thing for a game of this nature. This was not a typical game that wanted its hands on every single possible user, but a game with a specific theme that needed to target a particular type of user. This game was designed to empower women and girls, and thus it needed to be on a platform that had a lot of women and girls playing games. That platform isn’t Xbox Live, or Steam, or PS3.. it’s Facebook. This game needed to reach a target audience at the lowest possible cost, and that meant Facebook development.</p>
 
@@ -70,7 +53,7 @@
 
 <h3 id="i-want-to-target-men-between-the-ages-of-20-and-30">I Want to Target Men Between the Ages of 20 and 30</h3>
 
-<p>Let’s go back to that <a href="http://blog.apptopia.com/game-demographics-that-every-developer-should-know/">Apptopia piece</a>. You’re talking shooter games, RPGs, strategy games. If it’s an absolute requirement that you have regular return visitors, you need to put that strategy cap on.. but if you can get by with casual players, go for the shooters instead. You know that Pinterest isn’t worth your promotional efforts, but Twitter might be. And given the type of games that are popular on Steam (shooters, RPGs, and strategy), you certainly might want to take a look at launching there to promote to a heavily male audience. </p>
+<p>Let’s go back to that <a href="http://blog.apptopia.com/game-demographics-that-every-developer-should-know/">Apptopia piece</a>. You’re talking shooter games, RPGs, strategy games. If it’s an absolute requirement that you have regular return visitors, you need to put that strategy cap on.. but if you can get by with casual players, go for the shooters instead. You know that Pinterest isn’t worth your promotional efforts, but Twitter might be. And given the type of games that are popular on Steam (shooters, RPGs, and strategy), you certainly might want to take a look at launching there to promote to a heavily male audience.</p>
 
 <p>None of this is an exact science, of course. You’ve still got to make a quality game and promote it the right way for it to take off. But you’re going to start off behind if you don’t take these things into consideration, and after developing a game for months at a time - you definitely don’t want to flop because you chose the wrong place to put your game.</p>
 
@@ -78,40 +61,13 @@
 
 <p><img src="/images/badtime.jpg" alt="If you promote a first person shooter on Pinterest, you're gonna have a bad time" /></p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/04/12/choosing-a-development-platform-to-reach-the-right-users.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

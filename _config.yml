@@ -1,3 +1,4 @@
+plugins: [jekyll-paginate]
 highlighter: rouge
 paginate: 10
 title: josephmosby.com

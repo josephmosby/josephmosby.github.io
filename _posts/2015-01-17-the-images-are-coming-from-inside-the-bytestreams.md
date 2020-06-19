@@ -1,8 +1,7 @@
 ---
 layout: post
 title: The images are coming from INSIDE the bytestreams
-tags:
-- pymod
+tags: code
 ---
 
 Okay, let's first clarify that I've been working with digital images for longer than I'm comfortable with to just now learn how to do this. But that's neither here nor there. Obviously, images are streams of bytes just like every other piece of information stored on your computer. And obviously, there's got to be something inherent in the byte stream and how it's encoded that tells the computer how to open it. There's something that makes a PNG different from a TIFF, and the computer knows how the difference between the two. But how? How does a computer know when it's looking at a PNG or a TIFF when it starts to read the file? 

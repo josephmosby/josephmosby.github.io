@@ -4,100 +4,56 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>14 Jul 2015</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>The uncomfortable reality of software engineering</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/07/14/the-uncomfortable-reality-of-software-engineering.html"><h3>The uncomfortable reality of software engineering</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>I am haunted by the idea that someone will have to go back and make changes to certain pieces of code that I wrote in the past. The last time that actually happened was on a project that was originally set up as a demo, rife with technical debt as non-technical managers made rapid changes to requirements and promised clients they’d have something to show that same day. Enough of those types of changes and your project suddenly turns into a duck-taped train wreck. No one can read your code and understand how it works, and eventually, you can’t do it either.</p>
 
-<p>I chat with software engineers in all manner of disciplines and this reality is very much the same. Maybe it’s because engineers are working with a management team that doesn’t want to take the time to do things right, but sometimes it’s due to a tired engineer who didn’t sleep well the night before and just wants to find the first fix for a bug that will get him home by 5:30pm. Sometimes it’s more insidious: individually, every feature might have been put into place with proper consideration, but an edge case causes a catastrophic failure once it runs through all of the machinery. </p>
+<p>I chat with software engineers in all manner of disciplines and this reality is very much the same. Maybe it’s because engineers are working with a management team that doesn’t want to take the time to do things right, but sometimes it’s due to a tired engineer who didn’t sleep well the night before and just wants to find the first fix for a bug that will get him home by 5:30pm. Sometimes it’s more insidious: individually, every feature might have been put into place with proper consideration, but an edge case causes a catastrophic failure once it runs through all of the machinery.</p>
 
 <p>You don’t see that edge case ever properly discussed in the news. It’s too nuanced to make a good story for the general public, and companies are reticent to talk about major problems with their software. Neither <a href="http://www.wired.com/2015/07/united-airlines-flights-grounded-across-us-2nd-time/">United Airlines</a> nor <a href="http://www.wired.com/2015/07/nyse-halts-trading/">NYSE</a> have given any sort of technical reasons for their major glitches last week, but that says a whole lot in and of itself: it wasn’t some sort of concerted cyberterrorist attack, it was just an edge case that finally hit the software where it shouldn’t. Maybe it was just that <a href="http://stackoverflow.com/questions/4456438/how-do-i-correctly-pass-the-string-null-an-employees-proper-surname-to-a-so">Mr. Null</a> booked his first ever United Airlines flight.</p>
 
 <p>Maybe this is all a reality of software engineering and will be forever, but I doubt that. I think we as engineers are approaching our <a href="http://abcnews.go.com/Business/story?id=87293">Arthur Andersen</a> moment. That point where we try to hold our hands up and say that we did what was expected of us and couldn’t possibly do more, but the world will disagree with us. Maybe it’s time we started thinking about how to prevent that moment before it happens because our stakes are much, much higher than the accounting profession’s. No one died because Enron fudged some numbers. They might die if one of those software bugs hits something important: something like an airline.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/07/14/the-uncomfortable-reality-of-software-engineering.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

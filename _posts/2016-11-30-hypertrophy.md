@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Hypertrophy
+tags: joe
 ---
 
 On Thursday, November 3, I sat down on my couch with a curious tinge in my lower back. It was the sort of tinge where you think "huh, little stiff there" and try to take it easy. I told myself it would loosen up and woke up the next morning and went about my day.

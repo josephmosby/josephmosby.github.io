@@ -4,125 +4,82 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>31 Mar 2014</time>
+			<a href="/tags/product">product</a>
 		</div>
+		<h3>Creating a Mobile Content App with (Almost) Real Time Edits</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2014/03/31/creating-a-mobile-app.html"><h3>Creating a Mobile Content App with (Almost) Real Time Edits</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>It’s not too often that we’re asked to put together a native mobile app at <a href="http://www.apcoworldwide.com">APCO Worldwide</a>, but it does happen from time to time. We’re a communications firm first and an app development firm second, and that means we have to plan for regular content additions, modifications and deletions that often need to happen immediately. We can’t afford to recompile code and go through an app submission process every time someone needs to add a new story to an app, so we have to bake some flexibility into the system itself.</p>
 
-<p>We also like to give our communications teams (copywriters, speechwriters, etc.) the ability to edit their own content on the fly when they need to. It’s certainly easier for all parties concerned. Content changes don’t have to be worked into a development queue, and developers don’t need to go through the same quality control cycles over and over again if we build something flexible from the start. To this end, we’ve often opted to use Drupal for our CMS. We’ve trained our communications teams on how to use it and now have a predictable development pattern for the sites we build to deal with similar use cases. It gets hacky from time to time, but it works for a PR firm. </p>
+<p>We also like to give our communications teams (copywriters, speechwriters, etc.) the ability to edit their own content on the fly when they need to. It’s certainly easier for all parties concerned. Content changes don’t have to be worked into a development queue, and developers don’t need to go through the same quality control cycles over and over again if we build something flexible from the start. To this end, we’ve often opted to use Drupal for our CMS. We’ve trained our communications teams on how to use it and now have a predictable development pattern for the sites we build to deal with similar use cases. It gets hacky from time to time, but it works for a PR firm.</p>
 
 <p>One of our comms teams came to us in January with a content rich app idea that needed to be native on both iOS and Android. We knew it would require regular updates with a minimum amount of fuss, so we needed to find a way to feed content to the app rather than store it all locally. We also needed the application that populated that feed to have an interface that was familiar to our communications team. We knew we could solve the second problem with either Drupal or Wordpress, but what to do with the first?</p>
 
 <p>Enter one of my new favorite ways to spend taxpayer money: the Drupal <a href="https://drupal.org/project/contentapi">Content API</a> module. This project was put together jointly by the Federal Communications Commission and <a href="http://seabourneinc.com/">Seabourne Consulting</a>, and it does exactly what it sounds like: it makes a content API out of your Drupal website. There’s a nice point-and-click interface in the Drupal administrative console that allows you to select the content types you’d like to feature in your API, the endpoints you’d like to use, and the fields you’d like to include, then voilà - an XML-formatted API appears. It’s beautiful.</p>
 
-<p>So we’ve now got a nice XML feed of all of the content that’s going to populate this app happily displayed out there on the web. Our users can add, delete and modify entries and the XML feed will automatically update. </p>
+<p>So we’ve now got a nice XML feed of all of the content that’s going to populate this app happily displayed out there on the web. Our users can add, delete and modify entries and the XML feed will automatically update.</p>
 
-<p>Getting this data into the app was another story altogether. We followed these rough steps to build our system on both iOS and Android:
-1. Connect to the API 
-2. Download the main XML file, which lists all content 
-3. Parse the XML file and check the IDs against our existing data present on the phone
-4. Download any new or modified IDs
-5. Lay out app for user content viewing</p>
+<p>Getting this data into the app was another story altogether. We followed these rough steps to build our system on both iOS and Android:</p>
+<ol>
+  <li>Connect to the API</li>
+  <li>Download the main XML file, which lists all content</li>
+  <li>Parse the XML file and check the IDs against our existing data present on the phone</li>
+  <li>Download any new or modified IDs</li>
+  <li>Lay out app for user content viewing</li>
+</ol>
 
 <p>And that’s pretty much it. I won’t go into a detailed tutorial - I leaned heavily on another developer for much of the native app work - but I will share a few gotchas.</p>
 
-<p>The Content API module takes a non-configurable approach to pagination. In the standard code, you get ten items per XML page, and that’s it. I understand the rationale for why a government-sponsored content API would want to be careful on how much data it allowed out at any one time, but that wasn’t going to work for this project. Around line 500 in <code>contentapi.module</code>, one finds the following code snippet:</p>
+<p>The Content API module takes a non-configurable approach to pagination. In the standard code, you get ten items per XML page, and that’s it. I understand the rationale for why a government-sponsored content API would want to be careful on how much data it allowed out at any one time, but that wasn’t going to work for this project. Around line 500 in <code class="highlighter-rouge">contentapi.module</code>, one finds the following code snippet:</p>
 
-<p><code>php
-$limit = (isset($_GET['limit'])) ? (integer)$_GET['limit'] : 10;
-...
-$limit_cap = variable_get('contentapi_limit', 10);
-</code></p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$limit</span> <span class="o">=</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">]))</span> <span class="o">?</span> <span class="p">(</span><span class="nx">integer</span><span class="p">)</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">]</span> <span class="o">:</span> <span class="mi">10</span><span class="p">;</span>
+<span class="o">...</span>
+<span class="nv">$limit_cap</span> <span class="o">=</span> <span class="nx">variable_get</span><span class="p">(</span><span class="s1">'contentapi_limit'</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</code></pre></div></div>
 
 <p>Change those 10’s to 200’s and now we’re talking. I am ashamed of the inelegance of this hack, but it got the job done.</p>
 
-<p>Our second headache was XML parsing on Android. When we had the first working build up and running, it took five minutes to download the initial feed on a new installation. Android does a great job of background task management, but five minutes for a set of downloads that were mostly text was unacceptable. We did our homework, and it turns out that the <a href="http://steveliles.github.io/comparing_java_xml_parsing_mechanisms_for_android.html">standard approaches for XML parsing are absolute garbage on Android</a>. As <a href="http://twitter.com/steveliles">Steve Liles</a> points out in the above post, it’s far more efficient to swap in Java’s SAX parser to manage your XML downloads. We got our full download time to about a minute - and given that we were also having to deal with PDFs and images, I’ll take it. </p>
+<p>Our second headache was XML parsing on Android. When we had the first working build up and running, it took five minutes to download the initial feed on a new installation. Android does a great job of background task management, but five minutes for a set of downloads that were mostly text was unacceptable. We did our homework, and it turns out that the <a href="http://steveliles.github.io/comparing_java_xml_parsing_mechanisms_for_android.html">standard approaches for XML parsing are absolute garbage on Android</a>. As <a href="http://twitter.com/steveliles">Steve Liles</a> points out in the above post, it’s far more efficient to swap in Java’s SAX parser to manage your XML downloads. We got our full download time to about a minute - and given that we were also having to deal with PDFs and images, I’ll take it.</p>
 
 <p>We had a lot of fun building this app and thinking through how to make it play nicely on multiple devices with an easy-to-use central administration console. We’d love for you to take a look at our <a href="https://play.google.com/store/apps/details?id=com.meetingsmeanbusiness.mmb">Android handiwork</a>. I’ll share the iOS version once it finishes the Apple review cycle. Enjoy!</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/03/31/creating-a-mobile-app.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

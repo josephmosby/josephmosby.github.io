@@ -1,8 +1,7 @@
 ---
 layout: post
 title: Did you know there's a color system called YIQ?
-tags:
-- pymod
+tags: code
 ---
 
 I certainly didn't. YIQ is used if you're building software that's going to transmit over NTSC (broadcast television). YIQ contains information about the luminance and chrominance of colors. Luminance, as we might expect, can be measured on a spectrum from totally white to totally black. [Chrominance is the color information in a signal](http://wolfcrow.com/blog/understanding-luminance-and-chrominance/). These two values merge together in the YIQ data format, where Y represents luminance information, and I and Q represent chrominance information.

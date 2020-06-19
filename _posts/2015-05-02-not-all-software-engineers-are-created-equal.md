@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Not all software engineers are created equal
+tags: product
 ---
 
 In my first ever technology job, I was the lowest-ranked member of a consulting team. Our team was hired by a federal government agency to help them figure out how to respond to an annual audit of their IT environment - specifically, a Sarbanes-Oxley Section 404 audit. An auditor would come in, tell the agency where there were problems, and we would help agency staff fix those problems. I had never worked in a government agency before. I had never programmed a financial application before. What good was I? How did I earn the title of "ERS Consultant?"

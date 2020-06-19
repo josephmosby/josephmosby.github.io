@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Open Source Search Technologies for Human Beings - Part 2
+tags: product
 ---
 
 In the [first part](http://josephmosby.com/2014/03/24/open-source-search-technologies-for-human-beings-part-1.html) of this series, we investigated the basics of how a search engine theoretically works. The process we described in part 1 didn't actually require a computer at all - any person could theoretically follow those exact same steps. Indeed, writers of complex research materials did so for decades before the first computers were invented. 

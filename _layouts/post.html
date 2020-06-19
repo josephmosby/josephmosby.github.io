@@ -1,13 +1,16 @@
 ---
-layout: new
+layout: default
 ---
 
 <div class="row">
-	<div class="col-3">
-		<a href="{{ page.url }}"><h3>{{ page.title }}</h3></a>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>{{ page.date | date: '%d %b %Y' }}</time>
+			<a href="/tags/{{ page.tags }}">{{ page.tags }}</a>
+		</div>
+		<h3>{{ page.title }}</h3>
+
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		{{ content }}
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com{{ page.url }}" data-via="josephmosby">Tweet</a>
 	</div>
 </div>

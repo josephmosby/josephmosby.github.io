@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The creative work
+tags: management
 ---
 
 Did you know Ed Sheeran's song "Shape of You" wasn't supposed to be sung by him at all? Sheeran wrote it for Rihanna. That's why it has this cool club beat that is so wildly different from his typical acoustic ballad: he never intended to sing it himself. 

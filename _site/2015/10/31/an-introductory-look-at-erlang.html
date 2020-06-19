@@ -4,115 +4,71 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>31 Oct 2015</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>An introductory look at Erlang</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/10/31/an-introductory-look-at-erlang.html"><h3>An introductory look at Erlang</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>I wanted to take a step back from operating systems to consider how another programming language views the world. Operating systems in the Unix world require knowledge of C: something that expands my programming mind but often feels like the Python knowledge I already know, just at a lower level. I wanted to pick something totally new, and so I’m going with <a href="http://learnyousomeerlang.com/">Erlang</a>.</p>
 
-<p>Erlang is an <em>imperative</em> language: which means once you set a variable, it doesn’t change. That means a statement like <code>i++</code> or <code>i += 1</code> won’t work. I assume that Erlang has an elegant way of dealing with this, but I’m very early on in this book. Erlang does this to ensure that functions with the same parameters will always return the same results, regardless of the state elsewhere in the application. </p>
+<p>Erlang is an <em>imperative</em> language: which means once you set a variable, it doesn’t change. That means a statement like <code class="highlighter-rouge">i++</code> or <code class="highlighter-rouge">i += 1</code> won’t work. I assume that Erlang has an elegant way of dealing with this, but I’m very early on in this book. Erlang does this to ensure that functions with the same parameters will always return the same results, regardless of the state elsewhere in the application.</p>
 
-<p>The language makes use of something called an “actor model.” Each “actor” is a separate process in the Erlang virtual machine, calmly waiting for tasks but mostly sitting around doing nothing. Each process can do a very limited set of tasks. Each process is also totally segregated from other processes - without passing very transparent messages back and forth, processes don’t have the ability to communicate. Erlang also appears to come with a standard library that’s almost as fully featured as Python’s: debugging tools, a web server, a database, all the tools I generally rely on to get programming work done. </p>
+<p>The language makes use of something called an “actor model.” Each “actor” is a separate process in the Erlang virtual machine, calmly waiting for tasks but mostly sitting around doing nothing. Each process can do a very limited set of tasks. Each process is also totally segregated from other processes - without passing very transparent messages back and forth, processes don’t have the ability to communicate. Erlang also appears to come with a standard library that’s almost as fully featured as Python’s: debugging tools, a web server, a database, all the tools I generally rely on to get programming work done.</p>
 
-<p>The <em>Learn You Some Erlang</em> book also makes a point to call out overzealousness in the Erlang community. Erlang caught my eye because of its concurrency and scalability (or rather, people talking about Erlang’s concurrency and scalability), but this book makes a point to calm those expectations a little bit. Just because you can divide everything up into actors doesn’t mean you should. The authors point out that Erlang is fantastic for things like server-level software and is mostly terrible at things like image processing. Exceptions can be made, of course. As I’m interested in things like server-level software and not so interested in image processing, I’m excited to get under the hood. </p>
+<p>The <em>Learn You Some Erlang</em> book also makes a point to call out overzealousness in the Erlang community. Erlang caught my eye because of its concurrency and scalability (or rather, people talking about Erlang’s concurrency and scalability), but this book makes a point to calm those expectations a little bit. Just because you can divide everything up into actors doesn’t mean you should. The authors point out that Erlang is fantastic for things like server-level software and is mostly terrible at things like image processing. Exceptions can be made, of course. As I’m interested in things like server-level software and not so interested in image processing, I’m excited to get under the hood.</p>
 
 <p>And with that, let’s get started.</p>
 
-<pre><code>$ brew install erlang
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew install erlang
 $ erl
-</code></pre>
+</code></pre></div></div>
 
 <p>I continue on to the next chapter and discover this line:</p>
 
-<pre><code>The Erlang shell has a built-in line editor based on a subset of Emacs, a popular text editor that's been in use since the 70s. If you know Emacs, you should be fine. For the others, you'll do fine anyway.
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The Erlang shell has a built-in line editor based on a subset of Emacs, a popular text editor that's been in use since the 70s. If you know Emacs, you should be fine. For the others, you'll do fine anyway.
+</code></pre></div></div>
 
-<p>I am skeptical. I strongly dislike Emacs because every time I try to grok it, I trip over my feet and mostly destroy my entire program. Whatever, onward. Ctrl+A moves me to the beginning of a line, Ctrl+E to the end in Erlang-world. In the current version of Erlang compiled for OSX, it appears that Erlang opens you right into a shell. If I want to get out of it to enter some commands, I hit Ctrl+G. If I can’t remember what I’m supposed to do once I get out of the shell, I hit <code>h</code>. If I want to see a listing of all my current jobs, I hit <code>j</code>… oh, and I bet this is like doing <code>ps -ef</code>, but for the virtual machine. Okay, now I want to get back into my shell… hmm. Struggling to that with the instructions given. I’m going to have to trust that I’ll figure it out as time goes on. </p>
+<p>I am skeptical. I strongly dislike Emacs because every time I try to grok it, I trip over my feet and mostly destroy my entire program. Whatever, onward. Ctrl+A moves me to the beginning of a line, Ctrl+E to the end in Erlang-world. In the current version of Erlang compiled for OSX, it appears that Erlang opens you right into a shell. If I want to get out of it to enter some commands, I hit Ctrl+G. If I can’t remember what I’m supposed to do once I get out of the shell, I hit <code class="highlighter-rouge">h</code>. If I want to see a listing of all my current jobs, I hit <code class="highlighter-rouge">j</code>… oh, and I bet this is like doing <code class="highlighter-rouge">ps -ef</code>, but for the virtual machine. Okay, now I want to get back into my shell… hmm. Struggling to that with the instructions given. I’m going to have to trust that I’ll figure it out as time goes on.</p>
 
 <p>Calling it a day for there. I’ll come back to it in earnest after I’ve digested a few things about the language.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/31/an-introductory-look-at-erlang.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

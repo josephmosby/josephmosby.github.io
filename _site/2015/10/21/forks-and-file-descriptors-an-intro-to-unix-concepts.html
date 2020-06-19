@@ -4,92 +4,75 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>21 Oct 2015</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>Forks and file descriptors - an intro to Unix concepts</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/10/21/forks-and-file-descriptors-an-intro-to-unix-concepts.html"><h3>Forks and file descriptors - an intro to Unix concepts</h3></a>
 	</div>
-	<div class="col-8">
-		<p>I’m exploring MIT’s course on Operating System Engineering in the hopes to get a better feel for how Linux works under the hood, and it’s already answered a few questions about the things I was seeing in <code>ps</code> earlier. Though the OS course deals with a Unix variant (not Linux), the low-level architecture is similar enough that I think I can assume Linux operates the same way.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>I’m exploring MIT’s course on Operating System Engineering in the hopes to get a better feel for how Linux works under the hood, and it’s already answered a few questions about the things I was seeing in <code class="highlighter-rouge">ps</code> earlier. Though the OS course deals with a Unix variant (not Linux), the low-level architecture is similar enough that I think I can assume Linux operates the same way.</p>
 
 <p>xv6, the Unix variant used in this course, has a kernel that interfaces with hardware and user-level programs. This creates the notion of “user space” and “kernel space,” with a single process jumping back and forth between the two to complete its work. When the process needs to use one of the services from the kernel, it invokes a system call - a specific function in the kernel.</p>
 
 <p>Unix provides these services (and many more, but this appears to be all xv6 offers):</p>
 
 <ol>
-  <li><code>fork()</code>, which creates a process</li>
-  <li><code>exit()</code>, which terminates the current process</li>
-  <li><code>wait()</code>, which waits until a child process exits</li>
-  <li><code>kill(pid)</code>, which kills a process with the given PID</li>
-  <li><code>getpid()</code>, return current process’s PID</li>
-  <li><code>sleep(n)</code>, sleep for n seconds</li>
-  <li><code>exec(filename, *argv)</code>, load a file and execute it with the given arguments</li>
-  <li><code>sbrk(n)</code>, increase process memory by n bytes</li>
-  <li><code>open(filename, flags)</code>, open a file with read or write flags</li>
-  <li><code>read(fd, buf, n)</code>, read n bytes from an open file into a buffer <code>buf</code></li>
-  <li><code>write(fd, buf, n)</code>, write n bytes from a buffer <code>buf</code> into an open file</li>
-  <li><code>close(fd)</code>, release open file fd</li>
-  <li><code>dup(fd)</code>, duplicate fd</li>
-  <li><code>pipe(p)</code>, create a pipe and return fd’s in p</li>
-  <li><code>chdir(dirname)</code>, change the current directory</li>
-  <li><code>mkdir(dirname)</code>, create a new directory</li>
-  <li><code>mknod(name, major, minor)</code>, create a device file</li>
-  <li><code>fstat(fd)</code>, return info about an open file</li>
-  <li><code>link(f1, f2)</code>, create another name (f2) for the file f1</li>
-  <li><code>unlink(filename)</code>, remove a file</li>
+  <li><code class="highlighter-rouge">fork()</code>, which creates a process</li>
+  <li><code class="highlighter-rouge">exit()</code>, which terminates the current process</li>
+  <li><code class="highlighter-rouge">wait()</code>, which waits until a child process exits</li>
+  <li><code class="highlighter-rouge">kill(pid)</code>, which kills a process with the given PID</li>
+  <li><code class="highlighter-rouge">getpid()</code>, return current process’s PID</li>
+  <li><code class="highlighter-rouge">sleep(n)</code>, sleep for n seconds</li>
+  <li><code class="highlighter-rouge">exec(filename, *argv)</code>, load a file and execute it with the given arguments</li>
+  <li><code class="highlighter-rouge">sbrk(n)</code>, increase process memory by n bytes</li>
+  <li><code class="highlighter-rouge">open(filename, flags)</code>, open a file with read or write flags</li>
+  <li><code class="highlighter-rouge">read(fd, buf, n)</code>, read n bytes from an open file into a buffer <code class="highlighter-rouge">buf</code></li>
+  <li><code class="highlighter-rouge">write(fd, buf, n)</code>, write n bytes from a buffer <code class="highlighter-rouge">buf</code> into an open file</li>
+  <li><code class="highlighter-rouge">close(fd)</code>, release open file fd</li>
+  <li><code class="highlighter-rouge">dup(fd)</code>, duplicate fd</li>
+  <li><code class="highlighter-rouge">pipe(p)</code>, create a pipe and return fd’s in p</li>
+  <li><code class="highlighter-rouge">chdir(dirname)</code>, change the current directory</li>
+  <li><code class="highlighter-rouge">mkdir(dirname)</code>, create a new directory</li>
+  <li><code class="highlighter-rouge">mknod(name, major, minor)</code>, create a device file</li>
+  <li><code class="highlighter-rouge">fstat(fd)</code>, return info about an open file</li>
+  <li><code class="highlighter-rouge">link(f1, f2)</code>, create another name (f2) for the file f1</li>
+  <li><code class="highlighter-rouge">unlink(filename)</code>, remove a file</li>
 </ol>
 
-<p>The shell uses each of the system calls to do its work. It’s just a run-of-the-mill program like anything else. </p>
+<p>The shell uses each of the system calls to do its work. It’s just a run-of-the-mill program like anything else.</p>
 
 <p>The xv6 textbook provides the following mini-example of a program using fork to do its work. I want to give it a shot running on my own machine. Here’s how the proram is written in the textbook:</p>
 
-<pre><code>int pid;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int pid;
 
 pid = fork();
 
@@ -112,12 +95,12 @@ exit();
 printf("fork error\n");
 
 }
-</code></pre>
+</code></pre></div></div>
 
 <p>And here’s how I had to tweak it to get it running on my Mac:</p>
 
  	#include <stdio.h>
-</stdio.h><pre><code>#include &lt;unistd.h&gt;
+</stdio.h><div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;unistd.h&gt;
 #include &lt;stdlib.h&gt;
 
 int main(int argc, char **argv) {
@@ -137,24 +120,24 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
-</code></pre>
+</code></pre></div></div>
 
-<p>The <code>stdio.h</code> library makes sense, because that’s what contains the <code>printf()</code> functions to dump things out to the console. I received an error when I tried to use <code>fork()</code> without <code>unistd.h</code>, so I’m assuming <code>fork()</code> sits there, and I received more errors when I tried to use <code>wait()</code> and <code>exit()</code> without <code>stdlib.h</code>. <code>fork()</code> contains the same memory contents of the parent process - in the parent process, <code>fork()</code> will return the child’s PID, but in the child, it will return 0 - so we see the <code>if</code> statements trigger for the child and for the parent.</p>
+<p>The <code class="highlighter-rouge">stdio.h</code> library makes sense, because that’s what contains the <code class="highlighter-rouge">printf()</code> functions to dump things out to the console. I received an error when I tried to use <code class="highlighter-rouge">fork()</code> without <code class="highlighter-rouge">unistd.h</code>, so I’m assuming <code class="highlighter-rouge">fork()</code> sits there, and I received more errors when I tried to use <code class="highlighter-rouge">wait()</code> and <code class="highlighter-rouge">exit()</code> without <code class="highlighter-rouge">stdlib.h</code>. <code class="highlighter-rouge">fork()</code> contains the same memory contents of the parent process - in the parent process, <code class="highlighter-rouge">fork()</code> will return the child’s PID, but in the child, it will return 0 - so we see the <code class="highlighter-rouge">if</code> statements trigger for the child and for the parent.</p>
 
-<p><code>exec()</code>, by contrast, doesn’t return to the parent process. It replaces the calling process with a new process stored somewhere in the file system. Let’s take a look at the textbook’s pseudocode:</p>
+<p><code class="highlighter-rouge">exec()</code>, by contrast, doesn’t return to the parent process. It replaces the calling process with a new process stored somewhere in the file system. Let’s take a look at the textbook’s pseudocode:</p>
 
-<pre><code>char *argv[3];
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char *argv[3];
 
 argv[0] = "echo";
 argv[1] = "hello";
 argv[2] = 0;
 exec("/bin/echo", argv);
 printf("exec error\n");
-</code></pre>
+</code></pre></div></div>
 
 <p>Try as I might, I couldn’t get this program into a usable shape where it would run. After two nights banging my head against it, I decided to scrap it - mostly because I get the gist of what it’s going for. Here was where I finished up:</p>
 
-<pre><code>#include &lt;stdio.h&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;unistd.h&gt;
 
@@ -166,17 +149,17 @@ int main() {
     exec("/bin/echo", args);
     printf("exec error\n");
 }
-</code></pre>
+</code></pre></div></div>
 
-<p>I think that the probably may ultimately have something to do with the differing implementations of a Mac OS (where I’m testing this) versus a true Linux platform. At any rate, this helps me understand what my shell is doing! It’s doing a combo of these two programs to execute any program I type into the shell. It first takes my command from the command line, then <code>fork</code>s the command line process, calls my command using <code>exec</code>, waits for the command to finish, then returns control using <code>wait()</code>. And that’s why certain processes don’t immediately jump back over to shell control (things like <code>vi</code> for example), because the <code>fork</code>ed process hasn’t given control back until I close <code>vi</code>. </p>
+<p>I think that the probably may ultimately have something to do with the differing implementations of a Mac OS (where I’m testing this) versus a true Linux platform. At any rate, this helps me understand what my shell is doing! It’s doing a combo of these two programs to execute any program I type into the shell. It first takes my command from the command line, then <code class="highlighter-rouge">fork</code>s the command line process, calls my command using <code class="highlighter-rouge">exec</code>, waits for the command to finish, then returns control using <code class="highlighter-rouge">wait()</code>. And that’s why certain processes don’t immediately jump back over to shell control (things like <code class="highlighter-rouge">vi</code> for example), because the <code class="highlighter-rouge">fork</code>ed process hasn’t given control back until I close <code class="highlighter-rouge">vi</code>.</p>
 
-<p>Ooh, and this also helps <code>systemd</code> make more sense. I suspect that <code>systemd</code> takes control of PID 1 and then immediately loops through anything in the <code>/etc/systemd/system/</code> folder to start launching services based on the configuration files there, <code>fork</code>ing processes as it goes.</p>
+<p>Ooh, and this also helps <code class="highlighter-rouge">systemd</code> make more sense. I suspect that <code class="highlighter-rouge">systemd</code> takes control of PID 1 and then immediately loops through anything in the <code class="highlighter-rouge">/etc/systemd/system/</code> folder to start launching services based on the configuration files there, <code class="highlighter-rouge">fork</code>ing processes as it goes.</p>
 
-<p>Next up on our list of functionality is I/O, where we start with file descriptors. According to the text, a file descriptor is an integer tied to some kernel-managed file object. User-level programs deal with the file object through the <code>read()</code> and <code>write()</code> system calls. The <code>read(fd, buf, n)</code> call takes in a file descriptor integer and reads <code>n</code> bytes into buffer <code>buf</code>. Subsequent calls to <code>read()</code> will start where <code>n</code> stopped. If we called <code>read(12, buf, 512)</code>, we would read 512 bytes from <code>fd</code> 12 into buffer <code>buf</code> on the first read. If we called it again, we would start at byte #512 then read another 512 bytes (ending at 1024). <code>write(fd, buf, n)</code> follows a similar pattern, writing <code>n</code> bytes from buffer <code>buf</code> to file descriptor <code>fd</code>.</p>
+<p>Next up on our list of functionality is I/O, where we start with file descriptors. According to the text, a file descriptor is an integer tied to some kernel-managed file object. User-level programs deal with the file object through the <code class="highlighter-rouge">read()</code> and <code class="highlighter-rouge">write()</code> system calls. The <code class="highlighter-rouge">read(fd, buf, n)</code> call takes in a file descriptor integer and reads <code class="highlighter-rouge">n</code> bytes into buffer <code class="highlighter-rouge">buf</code>. Subsequent calls to <code class="highlighter-rouge">read()</code> will start where <code class="highlighter-rouge">n</code> stopped. If we called <code class="highlighter-rouge">read(12, buf, 512)</code>, we would read 512 bytes from <code class="highlighter-rouge">fd</code> 12 into buffer <code class="highlighter-rouge">buf</code> on the first read. If we called it again, we would start at byte #512 then read another 512 bytes (ending at 1024). <code class="highlighter-rouge">write(fd, buf, n)</code> follows a similar pattern, writing <code class="highlighter-rouge">n</code> bytes from buffer <code class="highlighter-rouge">buf</code> to file descriptor <code class="highlighter-rouge">fd</code>.</p>
 
-<p>Here is the pseudocode given for a simple <code>cat</code>-like program:</p>
+<p>Here is the pseudocode given for a simple <code class="highlighter-rouge">cat</code>-like program:</p>
 
-<pre><code>char buf[512];
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char buf[512];
 int n;
 
 for(;;) {
@@ -200,65 +183,38 @@ for(;;) {
 		exit();
 	}
 }
-</code></pre>
+</code></pre></div></div>
 
-<p>So I read from <code>fd</code> 0 to a buffer, then write from that buffer to an output object. That could be a terminal output:</p>
+<p>So I read from <code class="highlighter-rouge">fd</code> 0 to a buffer, then write from that buffer to an output object. That could be a terminal output:</p>
 
-<pre><code>cat myfile.txt
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat myfile.txt
+</code></pre></div></div>
 
 <p>or piped to a command:</p>
 
-<pre><code>cat myfile.txt | awk --something something--
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat myfile.txt | awk --something something--
+</code></pre></div></div>
 
 <p>or written to another file:</p>
 
-<pre><code>cat myfile.txt &gt; myfile2.txt
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat myfile.txt &gt; myfile2.txt
+</code></pre></div></div>
 
-<p><code>cat</code> doesn’t have to care, it’s reading and writing to any descriptor that’s given to it. </p>
+<p><code class="highlighter-rouge">cat</code> doesn’t have to care, it’s reading and writing to any descriptor that’s given to it.</p>
 
-<p>Rounding out the file descriptor system calls is <code>dup()</code>. <code>dup()</code> takes in a file descriptor integer and returns another file descriptor that points to the same file. </p>
+<p>Rounding out the file descriptor system calls is <code class="highlighter-rouge">dup()</code>. <code class="highlighter-rouge">dup()</code> takes in a file descriptor integer and returns another file descriptor that points to the same file.</p>
 
 <p>The file descriptor mechanism is way more powerful than I originally gave it credit for. It’s a simple little trick, but it’s brilliant - because things can write to a “file”, even if it’s not a file at all. The user processes can treat them all the same way.</p>
 
-<p>Okay, I’m going to put a stop to things there before moving on to pipes! </p>
+<p>Okay, I’m going to put a stop to things there before moving on to pipes!</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/21/forks-and-file-descriptors-an-intro-to-unix-concepts.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

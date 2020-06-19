@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Learning closures and decorators
+tags: code
 ---
 
 I don't know why it took me such a long time to pick up closures. They seem so nifty. I have no idea what I'll use them for [yet] but I like that they're there.

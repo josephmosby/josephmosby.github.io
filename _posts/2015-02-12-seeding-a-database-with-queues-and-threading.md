@@ -1,8 +1,7 @@
 ---
 layout: post
 title: Seeding a database with queues and threading
-tags:
-- pymod
+tags: code
 ---
 
 Don't try this at home. There is no good reason to do this.

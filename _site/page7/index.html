@@ -4,574 +4,458 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container home" role="main">
+			
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>11 Apr 2015</time>
+			<a href="/tags/">code</a>
 		</div>
+		<h3>Testing requests, wheel packages, and visual diffing</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html"><h3>Storing objects with the best-named module ever, pickle</h3></a>
-		<div class="date">January 12, 2015</div>
 	</div>
-	<div class="col-8">
-		<p>I love <code>pickle</code>. I love that Python has a module named pickle. I have never used pickle before, but I like that it’s there. Let’s take a look at what pickle does.</p>
+	<div class="col-md-8 col-sm-12">
+		<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>No matter how many unit tests you write, you'll never write a test for "is there a pony on the page?"
+- Dan Vanderkam, on an animated pony GIF appearing in Google production
+</code></pre></div></div>
 
-<p>Per the docs, <code>pickle</code> provides an algorithm for serializing and unserializing a Python object. When we pickle an object, we turn it into a stream of bytes that can be sent to another process or saved to a file to be reconstructed at a later time. You still have to define the class in the namespace of the process reading the pickle - a pickled object comes with object data but no way to tell the program about an object type that’s not already in the process namespace. <code>pickle</code> also comes with a faster <code>cPickle</code> companion that’s written in C to make it super fast. </p>
+<p>I do not consider myself to be a very good tester. I am aware that I should write tests, but I am only vaguely certain of what I am supposed to be testing, and I am even less certain about which packages I’m supposed to use to test. Should I bust out <code class="highlighter-rouge">unittest</code>? Do I use Django’s testing harness? And so Saturday became a day of testing for me.</p>
 
-<p>We can kick things off like so:</p>
+<p><a href="https://github.com/sigmavirus24">Ian Cordasco</a> opened the door with an extremely scary question: how do you test web applications that expect access to the internet? We can’t fake a web service (because then we’d have to test two separate things) and we can’t just feed it expected data (because that’s not a test). How do we isolate the two?</p>
 
-<pre><code>import pickle
-
-class Cucumber:
-
-	def __init__(self, height):
-		self.height = height
-
-	def grow(self):
-		self.height += 1
-		return "Current height is: ", str(self.height)
-
-veggie = Cucumber(2)
-veggie.grow()
-
-print pickle.dumps(veggie)
-
-veggie.grow()
-
-print pickle.dumps(veggie)
-</code></pre>
-
-<p>Here, I have created a <code>Cucumber</code> object type and given it a method <code>grow()</code>, which will increment its height. Calling the <code>pickle.dumps()</code> method on an instance of our <code>Cucumber</code> yields a short string of ASCII characters as a representation of our object. </p>
-
-<p>I can also save objects to files and reload them in perfect condition:</p>
-
-<pre><code>veggie_two = Cucumber(4)
-
-file_save = open('pickled_veggies', 'w')
-
-pickle.dump(veggie_two, file_save)
-
-file_save.close()
-
-file_read = open('pickled_veggies', 'r')
-
-veggie_three = pickle.load(file_read)
-
-print "Veggie Three Height: ", str(veggie_three.height)
-</code></pre>
-
-<p><code>pickle</code>’s <code>dump()</code> mechanism (not <code>dumps()</code> with a ‘s’) is used to save these ASCII object strings to a file, and <code>load()</code> is used to read them back from that file. <code>loads()</code> would read them from a string. </p>
-
-<p>And that’s what <code>pickle</code> does, simply and well. It makes your objects into strings, light, compact and ready to be stored forever. </p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/01/06/more-high-performance-iterable-work-with-bisect.html"><h3>More high-performance iterable work with bisect</h3></a>
-		<div class="date">January 06, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>In my <a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html">last post</a>, I explored the Python array data structure. In keeping with the vibe of iterable data structures, I’m moving on to cover the <code>bisect</code> module.</p>
-
-<p><code>bisect</code> uses a simple bisection algorithm to insert items into a list without botching the sort. The gist of the algorithm is simple: we’re going to create a midpoint using the low and high marks of the list, check if our value is greater than or less than the midpoint, then use the midpoint to slice the list into smaller and smaller lists until our item falls right at the midpoint.</p>
-
-<p>You can see this in action here:</p>
-
-<pre><code>def bisect_pseudo(a_list, my_value):
-	low = 0
-	high = len(a_list)
-
-	while low &lt; high:
-		midpoint = (low+high)//2
-
-		if my_value &lt; a_list[midpoint]:
-			high = midpoint
-		else:
-			low = midpoint + 1
-
-		print "low:", low, "high", high
-
-	return low
-
-my_list = [1, 4, 9, 16, 25]
-
-print "Value greater than midpoint: "
-bisect_pseudo(my_list, 10)
-
-print "Value less than midpoint: "
-bisect_pseudo(my_list, 2)
-</code></pre>
-
-<p>In this example, we see the algorithm sifting through our list, searching for the point in the list where our test value would naturally slide in. This is a left bisection algorithm - where we start from the left side of the list and work up - and the reverse would be a right bisection algorithm. The <code>bisect</code> module includes both.</p>
-
-<pre><code>import bisect
-
-names = ['Joe', 'Beth', 'Steve']
-
-names.sort()
-
-print names
-
-print bisect.bisect_left(names, 'David')
-
-bisect.insort_left(names, 'David')
-
-print names
-</code></pre>
-
-<p>In this example, we’re using the <code>bisect_left()</code> function, an implementation of the same algorithm described above, to find the midpoint in our sorted list. The <code>insort_left()</code> function will perform this algorithm and then insert our value exactly where it needs to be. The code using the right bisection algorithm looks similar:</p>
-
-<pre><code>print bisect.bisect_right(names, 'Shamyl')
-
-bisect.insort_right(names, 'Shamyl')
-
-print names
-</code></pre>
-
-<p>The Python <code>bisect</code> module is fairly quick, but it will use a faster C implementation if one’s available. That’s all there is to it! </p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/06/more-high-performance-iterable-work-with-bisect.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html"><h3>And here I was thinking arrays were for JavaScript and lists were for Python</h3></a>
-		<div class="date">January 05, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Python has arrays. Python even has an entirely special module that lets you build arrays. Like arrays in Java and C++, arrays from the <code>arrays</code> module must all be of a certain type of data. I assume these things must be wicked fast, but I wonder how large the array would have to be before there would be a noticeable difference.</p>
-
-<p>Having nothing further to say about single-type arrays, let us proceed with the code!</p>
-
-<pre><code>import array
-
-a = array.array('c', 'check out my sick array')
-
-print "As array:", a
-</code></pre>
-
-<p>In our first little snippet here, we’re turning a string into an array to start conducting experiments. The first parameter - <code>'c'</code> - specifies that this array will be full of <em>characters</em>.</p>
-
-<pre><code>a.extend(', it has so many bytes')
-
-print a
-
-print a[10:23]
-</code></pre>
-
-<p>We continue fiddling with our array by extending it. We can also slice arrays into smaller arrays, as we see here. </p>
-
-<pre><code>output_data = open('array-ex', 'wb')
-
-a.tofile(output_data)
-
-output_data.flush()
-</code></pre>
-
-<p>Arrays built using <code>array.array()</code> have a built-in function to save the data to a file. By opening a file object, calling <code>tofile(file_name)</code> on the array, and flushing the file object, we write our array to disk.</p>
-
-<pre><code>input_data = open('array-ex', 'rb')
-
-raw_data = input_data.read()
-
-print 'Raw data:', raw_data
-</code></pre>
-
-<p>We’ve extracted our raw data from the file as binary information. To read it into a new array we’ll do the following:</p>
-
-<pre><code>input_data.seek(0)
-
-second_array = array.array('c')
-
-second_array.fromfile(input_data, len(a))
-
-print second_array
-</code></pre>
-
-<p>And that’s about it for arrays. Super easy on memory, super fast, and useful in situations where performance is critical.</p>
-
+<p>Cordasco mentions a stack of libraries facilitate mock web services:</p>
 <ul>
-  <li>special thanks to PYMOTW for <a href="http://pymotw.com/2/array/">some inspiration</a> on stuff to do with arrays as examples</li>
+  <li><a href="https://pypi.python.org/pypi/responses/0.3.0">responses</a></li>
+  <li><a href="https://pypi.python.org/pypi/httpretty">httpretty</a></li>
+  <li><a href="https://pypi.python.org/pypi/requests-mock">requests-mock</a></li>
+  <li><a href="https://docs.python.org/3/library/unittest.mock.html">mock</a></li>
 </ul>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html" data-via="josephmosby">Tweet</a>
+<p>These do many of the same functions with varying degrees of complexity, but the core principle is the same: <em>you cannot assume access to the internet in a predictable fashion when doing unit tests.</em> I have some digging to do into these libraries.</p>
+
+<p>On a more niche use case, <a href="https://github.com/ogrisel">Olivier Grisel</a> introduced me to wheel packages this afternoon. A <a href="https://packaging.python.org/en/latest/distributing.html#wheels">wheel package</a> is a special package distribution format for Python packages that allows lightning fast installation and distribution. It’s easy enough to use <a href="https://travis-ci.org/">TravisCI</a> for deployment testing on *nix-based systems, but what about for Windows packages? Grisel and his team use <a href="http://www.appveyor.com/">AppVeyor</a> to package scikit-learn on Windows systems. The tests can be automated, and the speed can’t be beaten.</p>
+
+<p>And finally, the pony.</p>
+
+<p><a href="https://github.com/danvk">Dan Vanderkam</a>’s co-worker once accidentally shipped a pony to production. He didn’t mean to - he was testing perfectly valid code and testing CSS animations at the time. The code passed peer review and all of the unit and integration tests. It just so happened to have a pony on it. And so his colleague was compelled to write <a href="https://github.com/bslatkin/dpxdt">dpxdt</a> (pronounced “depicted”) to do automated visual diff testing of new builds. <code class="highlighter-rouge">dpxdt</code> generates and stores screenshots of releases, then compares the two pixel-by-pixel to spot changes. If something breaks, <code class="highlighter-rouge">dpxdt</code> ships with a number of ways to showcase the changes.</p>
+
+<p>There’s <em>so much</em> out there for testing. Special thanks to these presenters for bringing their slices of it to PyCon.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html"><h3>Saving yourself from command-line parsing hell with argparse</h3></a>
-		<div class="date">December 30, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>11 Apr 2015</time>
+			<a href="/tags/">culture</a>
+		</div>
+		<h3>PyCon 2015&#58; Day Two Keynote from Guido van Rossum</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Before <code>argparse</code>, I thought the only way to deal with command line arguments was to use <code>sys.argv</code>. You throw a series of arguments at a program, munge through them with <code>sys.argv[0]</code>, <code>sys.argv[1]</code>, etc. and hope for the best. And you hope that you always have full control over the arguments coming at your program through the command line. But what do you do if you have optional arguments, or flags? You could write your own parsers to handle all of that, but that’s where <code>argparse</code> comes in. </p>
+	<div class="col-md-8 col-sm-12">
+		<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You have to actually understand your code! And so we've given you five more years. 
+-- Guido van Rossum, on the difficulty of porting Python 2 code to Python 3
+</code></pre></div></div>
 
-<p><code>argparse</code> provides a wrapper around <code>sys.argv</code> that… well, it parses arguments. The name is rather intuitive. </p>
+<p>Python is exceptionally easy to use and easy to learn. If you’re using OS X or any Linux distribution, you can immediately pick Python up with minimal effort. If you’re on Windows, the installer takes one click to get up and running. Few languages offer this flexibility! Java – the old gold standard for education – doesn’t work easily on Macs any more, nor does it offer a comfortable environment to start punching commands in to experiment. Python lets the beginner learn but can handle a wide range of complexity, allowing new users to branch into data science, web applications, or desktop software without needing to immediately learn a new syntax.</p>
 
-<p>A program utilizing <code>argparse</code> requires an <code>ArgumentParser</code> object to be much use at all. The arguments supplied to the <code>ArgumentParser</code> upon initialization provide much of the information on how we’ll use the tool. We’ll do that like so:</p>
+<p>But it’s Python’s <em>opinions</em> that make it a perfect language for the beginner.</p>
 
-<pre><code>import argparse
+<p>The Python core team has always insisted that there is a proper way to write Python code. Sure, there may be another syntactically correct way to write code, but it won’t be the <em>right</em> way unless it follows certain guidelines. Those guidelines have been canonized in <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, a document that causes all manner of debate and consternation in Python developers. Still, the spirit of this approach matches with the realities of computer science. There may be a syntactically correct way to do something, but it’s often an approach that will cause an engineer or a team problems down the road.</p>
 
-parser = argparse.ArgumentParser(description='A custom tool for rustling or unrustling jimmies.', usage='Use the custom tool in a manner that keeps your jimmies unrustled.')
-</code></pre>
+<p>Guido van Rossum discussed some of these problems with software engineering today while speaking on the move from Python 2 to Python 3. Though Python has had version 3 accessible for years now, many developers have never upgraded - in many cases, because their codebases rely on dependencies that haven’t been upgraded. And that’s a huge problem! Many developers are now hamstrung because their code simply copied and pasted someone else’s code, meaning we’re using and maintaining systems that we don’t understand. That’s bad for the craft of software engineering, and bad for the systems engineers build.</p>
 
-<p>The “description” and “usage” strings provide information that will be displayed when a user wants to read the manual on your program. We’ll look at that output in a bit once we add some arguments.</p>
+<p>While Python has strong opinions and a hefty unwillingness to budge on the proper way to do things, it also makes efforts to include developers in ways that many communities do not. Guido spoke on the next iteration of Python (as expected), but he also made clear points to encourage diversity in the community. He stood on stage in a <a href="www.pyladies.com">PyLadies</a> shirt and praised the women who joined him at a Python meetup in Iraq. He lamented that women weren’t joining the Python language development process, but then took the next step: offering personal mentorship to women who wanted to become core contributors to the Python language. And finally, noting that women often don’t speak up and ask questions at tech conferences, he insisted that his first questioner be a woman, with women and men alternating on questions for the rest of the Q&amp;A session.</p>
 
-<pre><code>parser.add_argument('jimmies', type=int, nargs='+', help='Jimmies, in this instance, are a list of integers delimited by spaces.')
-</code></pre>
+<p>There’s a right way to do computer science. It’s wrong to allow flippancy and bad habits in code, even for beginners, because <a href="http://newsoffice.mit.edu/2005/habit">bad habits are aggressively difficult to break</a> and computers don’t make allowances. But it’s equally wrong to demand a certain system and not be willing to teach newcomers the details of that system. That’s where the Python community has excelled and continues to look to improve.</p>
 
-<p>I’ve added an argument here that will be named ‘jimmies.’ By design, any argument that does not have a ‘-‘ preceding its name is a positional argument. <code>jimmies</code> expects arguments to be integers (<code>type=int</code>) and everything supplied on the command line will be cobbled together into a list (<code>nargs='+'</code>). We’ve also provided some help text here.</p>
-
-<pre><code>parser.add_argument('--rustle', dest='rustle', action='store_const', const=shuffle, default=unshuffle, help='The rustle flag determines if you would like further rustling of your jimmies. Otherwise, this program will naturally seek unrustlement.')
-</code></pre>
-
-<p>I’ve now added an optional flag here called <code>--rustle</code>. This will send everything into a function called <code>rustle</code>. <code>rustle</code> will do one of two things here: it will either make use of a function called <code>shuffle</code> if the flag is present, or it will make use of a function called unshuffle if the flag is absent. The <code>action</code> parameter indicates that we should store a constant value regardless. We’ll use a default value if the <code>--rustle</code> flag isn’t present, but we’ll use the <code>const</code> otherwise.</p>
-
-<p>Let’s assume that <code>unshuffle()</code> and <code>shuffle()</code> were defined elsewhere in the program like so.</p>
-
-<pre><code>import random 
-
-def unshuffle(parsed_items):
-	parsed_items.sort()
-	return parsed_items
-
-def shuffle(parsed_items):
-	random.shuffle(parsed_items)
-	return parsed_items
-</code></pre>
-
-<p>Then finally, we have to use the program:</p>
-
-<pre><code>if __name__ == "__main__":
-	args = parser.parse_args()
-	print args.rustle(args.jimmies)
-</code></pre>
-
-<p>The <code>args = parser.parse_args()</code> will produce a list of arguments based on what was supplied at the command-line. Now that we have some <code>args</code> in our namespace, we can <code>args.rustle()</code> our <code>args.jimmies</code>.</p>
-
-<pre><code>$ python argparse-example.py --help
-
-usage: Use the custom tool in a manner that keeps your jimmies unrustled.
-
-A custom tool for rustling or unrustling jimmies.
-
-positional arguments:
-  jimmies     Jimmies, in this instance, are a list of integers delimited by
-              spaces.
-
-optional arguments:
-  -h, --help  show this help message and exit
-  --rustle    The rustle flag determines if you would like further rustling of
-              your jimmies. Otherwise, this program will naturally seek
-              unrustlement.
-
-$ python argparse-example.py 4 8 1 2
-[1, 2, 4, 8]
-
-$ python argparse-example.py 4 8 1 2 --rustle
-[2, 8, 1, 4]
-</code></pre>
-
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/30/saving-yourself-from-command-line-parsing-hell-with-argparse.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/12/22/rocking-out-with-aifc.html"><h3>Rocking out with aifc</h3></a>
-		<div class="date">December 22, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>10 Apr 2015</time>
+			<a href="/tags/">product</a>
+		</div>
+		<h3>Python at Disney Animation</h3>
+
 	</div>
-	<div class="col-8">
-		<p>In 1985, Electronic Arts (then publishing such games as <a href="http://en.wikipedia.org/wiki/The_Bard%27s_Tale_(1985_video_game)">The Bard’s Tale</a>) convened a group of engineers, software developers, and computer manufacturers to define a data interchange format for graphics, audio, and text. The aim was to create a file format with accompanying objects, data structures and interfaces that would be interchangeable across platforms for the budding gaming audience. This was a bold new time in data storage, when Apple had just invented a wonderful little tool called the “clipboard.” </p>
+	<div class="col-md-8 col-sm-12">
+		<p>I started off my technology career as a help desk support staffer at Belmont University in 2007 after being sick of working in the food industry. I learned how to code in Visual Basic for Applications by writing custom Excel functions to help me through my finance classes. I <em>finally</em> and painstakingly learned some proper computer science through <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-00-introduction-to-computer-science-and-programming-fall-2008/">MIT’s OpenCourseWare</a>, where I picked up Python as my language of choice. I’ve learned a bit more computer science as a matter of course since then, but code to me has always been more about gluing together solutions and data than anything else.</p>
 
-<p>A few years later, Apple defined a fork of the EA IFF 85 standard with the Audio Interchange File Format, which allowed for multiple channels of audio with customizable sample rates and widths. The data was stored in Motorola 68000 format, which used big-endian order (most significant bytes first). <code>.aiff</code> and its compressed brother <code>.aifc</code> were the audio standard on iTunes for decades.</p>
+<p>Turns out, that’s how Disney Animation sees it as well.</p>
 
-<p>The <code>aifc</code> <a href="https://docs.python.org/2.7/library/aifc.html#module-aifc">module</a> for Python is used to read and write <code>aiff</code> files on OS X. If you’re looking into using Python in the professional audio world, <code>aifc</code> should be in your toolkit. It’s a fairly simple module to navigate. I downloaded some sample AIFF files from <a href="http://www-mmsp.ece.mcgill.ca/documents/AudioFormats/AIFF/Samples.html">here</a> to play around with.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>No one wants to use another limited DSL. [me: Domain-Specific Language] They just want Python.
+- Paul Hildebrandt, Software Engineer, Disney Animation
+</code></pre></div></div>
 
-<pre><code>import aifc
+<p>Disney movies require a lot of software programs used by several different teams. There’s software to move characters’ faces, software that simulates lights, and software that behaves as if it was a real camera. Like many graphics artists, Disney artists script a lot of their workflows to keep themselves from doing the same thing twice – or two thousand times – in repetition. Many of the commercial tools they use shipped with their own domain-specific languages, meaning that an artist could be compelled to learn four completely different scripting languages for four completely different software packages, even if all of the scripts were designed to do roughly the same thing. With Python embedded in their tools, that pain point has gone away. They can learn one language and trust that they’ll be comfortable with its nuances regardless of how the software changes.</p>
 
-tune = aifc.open('sample1.aif')
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>We paid $50 for the [San Francisco] county assessor's street and elevation maps. * pause * It's okay, we made a lot of money off Frozen.
+</code></pre></div></div>
 
-print tune.getparams()
-</code></pre>
+<p>So much of the work required for attacking details in building worlds is similar to GIS work that thousands of Pythonistas are already doing. <a href="http://movies.disney.com/big-hero-6/">Big Hero 6</a> is set in “San Fransokyo”, a mish-mash of San Francisco with Japanese culture, and the look and feel of San Francisco needed to be preserved. There’s a reason that the movie’s city looks like the Bay Area – it’s because it is! San Fransokyo is based on the actual street map and elevation of the real San Francisco, and much of that data analysis was done with Python.</p>
 
-<p>In the sample file I’m using, this will yield a tuple with values <code>(2, 1, 8000, 23493, 'NONE', 'not compressed')</code>. That tuple indicates that we have two channels (stereo sound), one byte per sample, a framerate of 8000 frames per second, 23493 frames, and no compression.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"Oh, so you guys crowdsourced crowds."
+</code></pre></div></div>
 
-<p>Now, if I wanted to create an AIFF object with these parameters, I’d do something like the following:</p>
+<p>There’s an entire team of people strictly dedicated to crowds of things. You have a shot in the middle of a city and there are cars on the streets and people milling around on the sidewalks. That’s all crowd mechanics. Disney’s crowd team released a character creator called “Denizen” (built with Python) and started letting their animators create characters on it. Those dreamed-up characters are now automatically brought into a crowd whenever one is needed. (I hope this means that Elsa is hanging around Big Hero 6 somewhere)</p>
 
-<pre><code>import aifc
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"We don't always work in a correct world. We work in an art-directed world."
+</code></pre></div></div>
 
-tune = aifc.aiff()
+<p>Scientifically, there’s always a proper way that things are supposed to happen. Lights are supposed to behave in a certain way, as are wind and rain. That’s just fine for the real world or for scientific modeling, but that isn’t necessarily how an art director wants to capture a shot. The real world doesn’t necessarily jibe with the feel of a movie. Python allows Disney technology teams to respond accordingly, with lightning quick software builds and easy customizability.</p>
 
-tune.setnchannels(2)
-tune.setsampwidth(1)
-tune.setframerate(8000)
-tune.setnframes(23493)
-tune.setcomptype('NONE')
-</code></pre>
+<p>It’s been enlightening to have Disney Animation here at PyCon to learn about their workflow. Really, really inspiring stuff and great work coming out of it.</p>
 
-<p>And then I could write data to the file as needed with <code>aifc.writeframes(data)</code>. </p>
-
-<p>That’s all there is to it! Obviously we haven’t done much with this particular module - that needs far more libraries to support audio creation and playback. We’ll see those later on.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/22/rocking-out-with-aifc.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/12/22/dbm-non-relational-databases-before-that-was-a-thing.html"><h3>DBM - non-relational databases before that was a thing</h3></a>
-		<div class="date">December 22, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>10 Apr 2015</time>
+			<a href="/tags/">culture</a>
+		</div>
+		<h3>PyCon 2015&#58; First Notes</h3>
+
 	</div>
-	<div class="col-8">
-		<p>In 1970, databases were all the rage. Big stinkin’ associative databases, mostly sold by IBM and running on a mainframe. A gentleman by the name of Edgar Codd was starting to beat the drum on this idea called a “relational” database, but IBM had no interest in cannibalizing the sales of its IMS software in favor of this new-fangled relational thingy. Until Larry Ellison started competing with IBM with his Oracle database, everybody was using these associative databases.</p>
+	<div class="col-md-8 col-sm-12">
+		<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Snakes are deaf. And so are some Pythonistas.
+- Julia Evans introducing live captioning at PyCon 2015
+</code></pre></div></div>
 
-<p>Everybody, of course, included AT&amp;T. They commissioned their own DB engine, dubbed “DataBase Manager”, in 1979. DBM stored data in a key-value array, restricted writes to a single process at a time, and used hash tables to implement the data structure. UC Berkeley would go on to release ndbm to support concurrency, and several other groups released their own open source clones to succeed the original dbm structure. </p>
+<p>I’ve been blown away by the attention to accessibility at PyCon 2015. Every talk has been captioned in real time, with screens beside every presenter streaming their words. PyCon has childcare, gratis, for anyone at the conference. 291 individuals received $200K in financial aid to help them pay for the conference, hotel rooms, flights, etc.</p>
 
-<p>With Python, you can have your very own dbm-style database using the <code>anydbm</code> module. Throw back to the seventies with this little guy: </p>
+<p>I’ve chatted with a woman who works for the <a href="http://www.detroit.lib.mi.us/specialservice/computer-skills-instruction-classes-0">Detroit Public Library</a> system. She started teaching kids to code using Scratch (something she learned specifically to teach to others), and is now doing the same with Python. Her students thought Scratch was too elementary and quickly outgrew it - now they want more. It’s fantastic to hear about stuff like this popping up throughout the country and the community rallying around it.</p>
 
-<pre><code>import anydbm
+<p><a href="http://www.pyladies.com">PyLadies</a> and <a href="http://djangogirls.org">DjangoGirls</a> are also bringing Python to a wider community, teaching women who have never coded before how to build a Python program and/or web application from the ground up. And the Python Software Foundation is right there to support projects like those through their <a href="https://www.python.org/psf/grants/">grant program</a>.</p>
 
-db = anydbm.open('mydb', 'c')
+<p>The Foundation and the PyCon organizers have bent over backwards to provide opportunities for developers of all experience levels to jump into open source software. The OSS sprints will be led by <em>several</em> talks about introductory open source contributions, inviting any Python developers to jump in even if they’ve never contributed to open source before.</p>
 
-db['home'] = 'www.josephmosby.com'
-db['docs'] = 'docs.python.org'
+<p>As a new PyCon attendee, I can’t speak highly enough about all of the ways they’ve made this conference accessible and welcoming. More to come as the talks continue!</p>
 
-for k, v in db.iteritems():
-	print k, ': ', v
+<p><em>If you’re reading this and at PyCon, I’d love to see you at the journalism and media open space in room 510D at 2PM today (Friday)!</em></p>
 
-db.close()
-</code></pre>
-
-<p>This snippet of code will open up a dbm-style database (and create it if it doesn’t exist - note the ‘c’ flag), add some values in a key-value fashion, print those values back, and close the database. It’s like a Python dictionary but you can store it. </p>
-
-<p>The next time you’re working on a system from the 1980s that happens to know how to run Python scripts, please shoot me a note and let me know how awesome this <code>anydbm</code> module is!</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/22/dbm-non-relational-databases-before-that-was-a-thing.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/12/21/what-in-heavens-name-is-an-abstract-base-class.html"><h3>What in heaven's name is an abstract base class?</h3></a>
-		<div class="date">December 21, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>08 Apr 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Rosa&#39;s Cosas&#58; Building a Twilio app to match &#64;kingsthings</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Let’s talk about duck-typing for a second. Duck-typing is an object-oriented programming principle that allows an object’s methods and properties to handle the semantics and behavior of an object without the need to determine what type of object it actually is. The idea is that “if it looks like a duck and quacks like a duck, it’s a duck” and the programmer doesn’t need to first ask the object if it’s actually a duck. We can just start asking it to quack.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>The Washington Post said it best: <a href="http://www.washingtonpost.com/blogs/style-blog/wp/2015/03/19/larry-king-has-a-special-way-of-tweeting-the-broadcast-legend-who-just-cant-retire-talks-about-his-new-media-way-of-life/">“Larry King has a special way of tweeting.”</a> He calls a special phone line and leaves a tweet on a voicemail, which is then transcribed by an assistant and posted to Twitter. Lacking an assistant, I decided to build something to allow <a href="https://twitter.com/lbrosa">@lbrosa</a> to call in a tweet using Twilio’s transcription functionality.</p>
 
-<p>An example:</p>
+<p>Our workflow here is simple, but rather confusingly documented by Twilio’s stock documentation.</p>
 
-<pre><code>[1, 2, 3, 4, 5].len() # 5
-"hello".len()		  # 5
-</code></pre>
+<ol>
+  <li>Call a Twilio number tied back to one of our app URLs dedicated for transcription.</li>
+  <li>Build a Twilio Response object that includes a Record verb that contains a <code class="highlighter-rouge">transcribeCallback</code> redirect parameter, which will be another URL in our app.</li>
+  <li>Twilio will record the call and hit our <code class="highlighter-rouge">transcribeCallback</code> URL with the transcription text once it’s finished.</li>
+  <li>We take our transcribed text and post it to Twitter.</li>
+</ol>
 
-<p>I don’t need to ask the object if it’s a string or a list before calling <code>len()</code>. I’m trusting that the object’s <code>len()</code> method already knows what to do. </p>
+<p>What does that look like in Django? What will we need?</p>
 
-<p><em>Abstract base classes</em> complement duck-typing by providing an alternative way to define an interface when all of the possible use cases for an object might not have been anticipated by the designer. This scenario might pop up in a large development team, or if a software plugin might be written by an external team. In theory, we create an abstract base class by defining a class and marking its methods as <em>abstract</em>, then registering a concrete class with the interface or by simply subclassing the abstract class.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># requirements.txt
 
-<p>Confused yet? Don’t worry, my head’s spinning a bit too. Let’s continue.</p>
+Django==1.7.7
+twilio==3.7.3
+django-twilio==0.8.0
+tweepy==3.3.0
 
-<p>I define an abstract base class like so:</p>
+# other dependencies that these libraries will install for you
+</code></pre></div></div>
 
-<pre><code>import abc
+<p>The <code class="highlighter-rouge">twilio</code> library is put out by Twilio and contains some helper functions so you don’t have to build raw XML to send back to them. <code class="highlighter-rouge">django-twilio</code> is here to help with Django’s freakouts about POSTing data without CSRF tokens. And <code class="highlighter-rouge">tweepy</code> talks to Twitter. We’ll see where they all fall into place in <code class="highlighter-rouge">views.py</code>.</p>
 
-class Animal:
-	__metaclass__ = abc.ABCMeta
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># views.py 
+# part 1
 
-	@abc.abstractmethod
-	def greet(self):
-		return
-</code></pre>
+from django_twilio.decorators import twilio_view
+from twilio import twiml
 
-<p>With the <code>__metaclass__ = abc.ABCMeta</code> declaration, we’ve defined <code>Animal</code> as an abstract base class. We’ve also defined an abstract method, <code>greet()</code>, that doesn’t do anything but return. That’s totally okay - anything that inherits from <code>Animal</code> will need to write their own <code>greet()</code> anyway, as concrete classes can’t access those abstract methods directly. Let’s finish this out:</p>
+@twilio_view
+def transcribe_incoming(request):
 
-<pre><code>import abc
+	r = twiml.Response()
+	r.say("What is your tweet?")
+	r.record(maxLength=30, transcribeCallback="/playback/")
 
-class Animal:
-	__metaclass__ = abc.ABCMeta
+	return r
+</code></pre></div></div>
 
-	@abc.abstractmethod
-	def greet(self):
-		return
+<p>This view will answer an incoming call to our app. We build a TwiML Response and attach two Twilio verbs to it: <code class="highlighter-rouge">&lt;Say&gt;</code> and <code class="highlighter-rouge">&lt;Record&gt;</code>. Our <code class="highlighter-rouge">&lt;Say&gt;</code> verb takes in some text that Twilio’s robot voice will read back to the caller. Our <code class="highlighter-rouge">&lt;Record&gt;</code> verb takes in a <code class="highlighter-rouge">maxLength</code> in seconds for recording. It also contains a <code class="highlighter-rouge">transcribeCallback</code> parameter - the URL we’ll POST data to once the transcription is completed. No need to include <code class="highlighter-rouge">transcribe="True"</code>, as <code class="highlighter-rouge">transcribeCallback</code> will assume that.</p>
 
-class Lion:
+<p>Our caller will record a tweet and then hang up, kicking off Twilio’s transcription. Note that our app doesn’t have anything to do here until Twilio finishes our transcription and then POSTs the response to <code class="highlighter-rouge">/playback/</code>.</p>
 
-	def greet(self):
-		return "ROAR"
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># views.py
+# part 2
 
-Animal.register(Lion)
+from django.http import HttpResponse
+from django_twilio.decorators import twilio_view
+from twilio.rest import TwilioRestClient
+from django.conf import settings
+import tweepy
 
-print('Subclass:', issubclass(Lion, Animal))
-print('Instance:', isinstance(Lion(), Animal))
-</code></pre>
+@twilio_view
+def playback(request):
 
-<p>Our <code>Lion</code> implements the <code>Animal</code> API, but it’s not derived from <code>Animal</code>. </p>
+	transcribed = request.POST['TranscriptionText']
+	sent_from = request.POST['From']
+	body = "Tweet Sent: " + transcribed
 
-<p>We’ll see this approach again when we look at the <a href="https://docs.python.org/2/library/collections.html#module-collections">collections</a> module, which uses abstract base classes to test whether a collection is hashable or a mapping.</p>
+	auth = tweepy.OAuthHandler(settings.TWITTER_CONS_KEY, settings.TWITTER_CONS_SECRET)
+	auth.set_access_token(settings.TWITTER_APP_KEY, settings.TWITTER_APP_SECRET)
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/21/what-in-heavens-name-is-an-abstract-base-class.html" data-via="josephmosby">Tweet</a>
+	api = tweepy.API(auth)
+	api.update_status(status=transcribed)
+
+	client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+
+	msg = client.messages.create(to=sent_from, from_=settings.TWILIO_PHONE_NUM, body=body)
+
+	return HttpResponse("A-OK", status=200)
+</code></pre></div></div>
+
+<p>Twilio includes the transcription text in the POST data as well as the number the user called from. We’ll need both of those. We’ll also need all of the Twilio and Twitter settings that you should keep secure. This app assumes that you’ve created a corresponding Twitter app that has Read and Write access to your account. No oAuth silliness - just the direct post to your account.</p>
+
+<p>We follow the vanilla instructions for updating a status with <code class="highlighter-rouge">tweepy</code> using the <code class="highlighter-rouge">TranscriptionText</code> from the POST data. We’re then going to send that text back to the user via SMS to give them a confirmation that everything proceeded as planned. We close the loop with a 200 Response back to Twilio.</p>
+
+<p>URL patterns are up to you, but should probably look something like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># urls.py
+
+urlpatterns = patterns('',
+    url(r'^transcribe/$', 'callme.views.transcribe_incoming', name='transcribe_incoming'),
+    url(r'^playback/$', 'callme.views.playback', name='playback'),
+)
+</code></pre></div></div>
+
+<p>No admin console needed, no database. Just two quick little views.</p>
+
+<p>Have fun with this! I’ve created a <a href="https://github.com/josephmosby/rosascosaspublic/">Github repo</a> for the project with the full Django app in case it’s useful.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/12/20/exploring-the-future-module.html"><h3>Exploring the __future__ module and learning about division</h3></a>
-		<div class="date">December 20, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>30 Mar 2015</time>
+			<a href="/tags/">culture</a>
+		</div>
+		<h3>Hot Chicken</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Python adds new features to the language all the time, but occasionally those features are completely incompatible with existing features of the language. In many cases, they completely rewrite a core <a href="/2014/12/19/hacking-builtin-for-fun-no-profit.html">built-in function</a> or key operator of the language. The <code>__future__</code> <a href="https://docs.python.org/2.7/library/__future__.html#module-__future__">module</a> contains several of those new features - some of which have already made it into Python 2.7 at the time of this writing. A few of them are designed to prepare Python 2.x users for sea changes coming with Python 3.x.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>Nashville is a wonderful weird place. The city has a native dish known only as “hot chicken” and David Ramsey has captured its essence perfectly.</p>
 
-<p>The <code>print()</code> function is one of those new features. In 2.x, the <code>print</code> statement allowed developers to print to <code>stdout</code>, but it wasn’t very robust. If you wanted to print to a different output, or rewrite part of how <code>print</code> formats its output, you just couldn’t. <code>print</code> was too hard-coded into the syntax of how Python worked. By changing it into a function, though, we can change the separators, add different ends, or output to a file.</p>
+<p><a href="http://www.oxfordamerican.org/magazine/item/190-some-like-it-extra-hot">Some Like It Extra Hot</a></p>
 
-<p>The <code>print()</code> syntax looks like this, as specified in <a href="https://www.python.org/dev/peps/pep-3105/">PEP 3105</a>:</p>
-
-<p><code>def print(*args, sep=' ', end='\n', file=None)</code></p>
-
-<p>And we can experiment with it like this:</p>
-
-<pre><code>from __future__ import print_function
-
-print('Next level printing with print()')
-print('Can\'t do this any more: print "Hello World!"')
-print('Have to use print("Hello World!")')
-print("Hello", "world", sep="-", end="flipper\n")
-</code></pre>
-
-<p>Cool, no? Though syntactically it’s a big mental shift from the current <code>print</code>, it’s unquestionably much more robust.</p>
-
-<p>Python 3.x also brings in a new mechanism for handling division. Python 2.x used something called “floor division” when the <code>/</code> operator was called. It would divide and then discard the remainder and round downward to yield an integer, so “8/7” would yield “1” rather than “1.142857…”. By bringing in Python 3.x’s version of division, 8/7 will yield the float. 8//7 will bring in the old floor division.</p>
-
-<pre><code>from __future__ import division, print_function
-print('8/7:', 8/7)
-print('8//7', 8//7)
-</code></pre>
-
-<p>And finally, Python has even included an Easter egg for those developers who love and miss C’s mechanism for separating code blocks using braces instead of whitespace:</p>
-
-<pre><code>from __future__ import braces
-</code></pre>
-
-<p>:)</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/20/exploring-the-future-module.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/12/20/a-brief-word-on-main.html"><h3>A brief word on __main__</h3></a>
-		<div class="date">December 20, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>26 Mar 2015</time>
+			<a href="/tags/">product</a>
+		</div>
+		<h3>Periscope and the Panopticon</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Okay, <code>__main__</code> is technically a Python module. Technically, it’s the scope of the program that’s currently being executed.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>Tonight, eleven strangers watched my friend Ouzy eat tater tots over Periscope. I was the cameraman. We didn’t promote a livestream of tater tot eating or even tweet about it when the camera starting rolling. I just opened the app and people started watching a man they’d never met eat tots.</p>
 
-<p>I wanted to find something interesting about <code>__main__</code>, I really did. But there’s nothing out there. All you really need this for is this:</p>
+<p>I wonder how many people would watch Kim Kardashian eat tots.</p>
 
-<pre><code>if __name__ == "__main__":
-	main()
-</code></pre>
+<p>This morning I watched someone commute into work. I then watched a segment of a live interview with Jeb Bush. I streamed someone doing yo-yo tricks in our office.</p>
 
-<p>That little snippet will execute a <code>main()</code> function if your program is currently being executed (i.e., not a module of another program). And that’s it. It’s good to know it’s there, and now that we know, we can move on.</p>
+<p>A building exploded in New York City and the news was broken by someone across the street on Periscope.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/20/a-brief-word-on-main.html" data-via="josephmosby">Tweet</a>
+<p>I used to be uneasy at the thought of the Panopticon - a world where everything can be seen by everyone, anywhere in the world. Anything you say or do can be seen by millions.</p>
+
+<p>A couple was having a first or second date next to us. We didn’t flip out our phones to broadcast it to the world. We joked about their date, we mused about where it would go, but we didn’t record it.</p>
+
+<p>Every politician is looking for opportunities to get their ideas out there and they are competing for attention with my friends eating tater tots. People sign up for The Bachelor to have their dating lives blasted to viewers worldwide but there’s no cameraman out there who’s even thinking about recording a couple on their first date.</p>
+
+<p>There are different power dynamics at play in the Panopticon. The scary scenario relies on there being people in power holding the cameras and viewing the video. But those cameras can be turned around. And sometimes those cameras are just pointing at people eating tots. Sometimes they’re pointed at emergencies where every additional set of eyes helps. We’re back to the same power dynamics we had before, human beings with our same sets of eyes and narrow attention spans.</p>
+
+<p>The Panopticon is finally here. And it’s full of tots.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/12/19/hacking-builtin-for-fun-no-profit.html"><h3>Hacking __builtin__ for fun, no profit</h3></a>
-		<div class="date">December 19, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>25 Mar 2015</time>
+			<a href="/tags/">culture</a>
+		</div>
+		<h3>What Consulting Will Not Teach You</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Python’s <code>__builtin__</code> module contains all of the language’s <a href="https://docs.python.org/2.7/library/functions.html">built-in functions</a>, which should be reasonably obvious from the name. Python is really, really insistent that its built-ins are perfectly sufficient and that you shouldn’t go around messing with them. This is a large part of the reason that I almost threw up the first time I had to go <a href="http://stackoverflow.com/questions/394144/what-does-monkey-patching-exactly-mean-in-ruby">monkeypatching</a> in Ruby… it just doesn’t <em>feel</em> right. But for the sake of argument, let’s do some screwing around with the built-in functions.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>Consulting will teach you <a href="/2015/03/23/what-consulting-will-teach-you.html">quite a bit</a>. It will teach you how to deal with people of all makes and models and will teach you how to truly make things happen with your words. But for all of its positives, the consulting world promises to teach a lot that it did not teach me, and that I know many of my consulting peers still struggle with.</p>
 
-<pre><code>import __builtin__
+<p>Consulting will not teach you what you really <em>want</em> to do. Many potential consultants - myself included - come into the consulting world uncertain about what they want to do with their lives. Consulting promises exposure to a breadth of experiences that no other industry can possibly match. You’ll serve clients of all shapes and sizes, you’ll work with wonderful people who have so much to teach you, and you’ll certainly have a stack of work experience to show off on your resume. But all of this choice won’t imbue you with passion for any one particular thing. You have to find that on your own, and consulting makes it incredibly difficult to do so for many young people. If you’re struggling to make a decision about your future, consulting will not help you make that choice.</p>
 
-def hex(x):
-	'''Return the basic hex function, but with extra YOLO attached.'''
-	f = __builtin__.hex(x)
-	if f[0] == '-':
-		return f[0] + 'yol' + f[1:]
-	else:
-		return 'yol' + f
-</code></pre>
+<p>Consulting will not teach you how to build a perfect product for the perfect customers. Consultants are rarely brought on to do detailed user and market research <em>and</em> build the product that will serve those users in that market. It’s more common to see one firm brought in to do the market research, neatly packaged in a branded report, followed by a second firm that will devise an “action plan” based on the parts of the report that the client liked, followed by a third firm that will actually build the thing at the lowest cost possible. In no universe is this the most effective way to build a product that makes customers happy.</p>
 
-<p>The <a href="https://docs.python.org/2.7/library/functions.html#hex">hex function</a> is designed to return the hexadecimal representation of an integer, prefixed with 0x. I felt like this representation could be much improved with a bit of extra YOLO, and patched the function accordingly. <em><strong>Now</strong></em> I can call <code>hex(255)</code> and receive back “yol0xff”, a marked improvement over the prior implementation. </p>
+<p>Consulting will not teach you how to do things on the cheap. There are two types of contracts major consulting firms go after. The first type is driven by legal, regulatory, or compliance-based requirements that will cause giant businesses massive financial pain if they don’t follow the rules. Consulting contracts of this nature are predicated on the notion that it’s far more valuable to pay them a million dollars than risk a fifty-million dollar fine. If the final bill goes up to two million dollars for consulting services, it’s still worth it. The other type of contract comes up with the million dollars could potentially save fifty million or generate an additional fifty million dollars in sales.. and again, if the final bill creeps up an extra half million or so, no problem. This is not a recipe for learning how to do things in a lean, efficient manner. You are playing with sums of money so large that they’re beyond the ken of most mortals.</p>
 
-<pre><code>import __builtin__
+<p>Consulting will not teach you how to build a business. Consulting will have you swimming in business, to be sure, but you’ll be swimming in businesses that have already been built. They’ve already sorted through their growing pains and can afford to call you up for consulting services. (Now, I should caveat this point. Consulting <em>will</em> present you with a lot of wrong ways to do things, and this knowledge will serve you well when you confront similar situations in a new enterprise.) There is nothing that will teach you how to build a business like <em>actually building a business</em>, and there is nothing that will teach you about building a team like <em>actually building a team</em>.</p>
 
-def len(s):
-	'''Return the basic len function, but subtract one so we show what the last position number is.'''
-	l = __builtin__.len(s)
-	return l-1
-</code></pre>
+<p>Ultimately, a gig in consulting will not teach you how to actually be a software engineer or hospital manager or any of the numerous professionals you will support. You are like a grad student who started helping the basketball team and suddenly wound up as an assistant coach, but you are not on the court yourself and you are not the head coach calling the plays. Consulting is an excellent profession! But if you’re hungry to have the responsibility and the consequences of starting and growing a real business, consulting will not satisfy that itch. If you’re struggling to make your mind up about your life and hoping that consulting will help you sort through it, you are likely to be disappointed. You have to jump straight into the world and take a risk - an experience that consulting cannot give you.</p>
 
-<p>I’m lazy, and don’t always like to calculate the length of a list or string then subtract one to access the last element of a list. Why not ask <code>len()</code> to do that work for me? Now I can call <code>len('hello')</code> and receive a value of 4, allowing me to easily determine the number of the last character any time and every time.</p>
-
-<p>Okay, okay… I can think of no reason why any programmer would want to go messing around with the <code>__builtin__</code> library. It would be horribly un-Pythonic to start wrapping the core Python functions like this. But it’s good to know that we can.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/19/hacking-builtin-for-fun-no-profit.html" data-via="josephmosby">Tweet</a>
 	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>23 Mar 2015</time>
+			<a href="/tags/">culture</a>
+		</div>
+		<h3>What Consulting Will Teach You</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>It’s hiring season for most senior college students in the United States. A few things have changed since my senior year of college - the economy has improved dramatically, the technology industry is a serious draw for many who have never coded a day in their lives, Austin and Nashville are among the hottest places to be. But even with the shifts in the culture, it’s still a stressful time for college students trying to choose the next direction of their lives. If you’re in that boat, this post is for you.</p>
+
+<p>For many of you, consulting firms will provide job opportunities and rewards far beyond the wildest imaginations of any other business that wants to hire you. Their business model is simple: for each hour that you work, they will bill their clients for an hour of time. If your billable rate is $150 per hour, you will bring upwards of $300,000 in revenue to the consulting firm by the end of the year. Paying you $75,000 or so, then, is insane money for you as a young college graduate and chump change for them. Your first lesson will be that smart people know how to make money off of your sweat and make you okay with it.</p>
+
+<p>Many of them will advertise that you’ll be traveling for your job and they’ll hold up examples of their professionals in New York City, in San Francisco, in Miami. Your second lesson will be that most of the major American cities who purchase consulting services are actually in the heartland - places like Minneapolis, or West Virginia, or Peoria. There is a lot of America out there, and you will realize that it is much more diverse in culture than you could imagine.</p>
+
+<p>You will go to a client site and you will slug away on a project. You will show your work and your thought process in explicit detail. This work and thought process will be promptly torn to shreds and rebuilt anew, and you will learn that there are all sorts of new ways to be wrong in the real world. Sometimes you presented a half-baked idea. Sometimes your logic was correct based on your information, but you didn’t know that there was additional information hidden from you. And sometimes you will be wrong because of politics. All of these will end in the same result - you will rework your ideas, and you will learn to try again.</p>
+
+<p>You will encounter control freaks. Everyone around you will be a control freak, because this the type of person who is drawn to consulting. The entire client service business model, however, is based on a totally subjective thing - client acceptance of your work - and suddenly everything will be out of your control. This is difficult at best when one control freak is trying to deal with intangible and unknown requirements. This is nearly impossible when four control freaks are placed in a room with no clear leader and asked to produce some sort of report to turn in to a manager. This devolves into insanity when these four control freaks suddenly have three sets of review by control freaks and a client who might decide something differently based on whether he had a burrito for lunch. You will learn to enhance your calm, or you will explode.</p>
+
+<p>You will learn that the megacorporate world is neither fair nor unfair - it simply is. You will work extremely hard and receive the praise of your superiors only to learn that the client decided not to choose your project for the next fiscal year, and your performance review goes down the tube accordingly. You will see that the person sitting next to you also worked extremely hard, and the client <em>did</em> choose their project, and now their performance review shoots through the roof but they have to spend six months in the Sacramento suburbs. You were dropped from your existing client and placed on a new client with offices on the beach in L.A. You will learn that these things simply happen, with little to no rhyme or reason.</p>
+
+<p>Above all, you will learn how to articulate your ideas in a way that turns them into a final action. You will learn how to make things happen with your words, and you will realize how important it is to be able to do this in the business world. This is the heart of consulting: your ideas may be brilliant, your work product may be exquisite, but your words will be what brings them to life. There are few other jobs that can teach you this as quickly as consulting will.</p>
+
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>01 Mar 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>A brand new code review and integration workflow</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>I’ve been fortunate to join the <a href="http://www.nationaljournal.com/">National Journal</a> with a stack of brand new product managers and developers. As we form a new product team, we also need to address some of the operational nuances of bringing our team together. Part of that process includes defining and standardizing our workflow for code review, testing, and integration.</p>
+
+<p>Our process starts by branching master off into a specific feature branch, with the intention that we’ll push a set of changes through the review and testing process as a single set of commits that only pertain to that feature.</p>
+
+<p>We keep our feature branches local (though publishing a branch to GitHub isn’t a problem). Once we’re ready for our code to go to peer review, we execute the following commands to bring it into the review branch:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git checkout review
+$ git merge feature-branch
+$ git pull origin review
+</code></pre></div></div>
+
+<p>We’re approaching the code review process with a simple checklist, inspired by principles from Atul Gawande’s <a href="http://www.amazon.com/Checklist-Manifesto-How-Things-Right/dp/0312430000/ref=sr_1_1/185-7726352-5707960?s=books&amp;ie=UTF8&amp;qid=1424833091&amp;sr=1-1&amp;keywords=the+check+list+manifesto">The Checklist Manifesto</a> and Guido van Rossum’s <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8 guidelines</a> for Python code.</p>
+
+<ol>
+  <li>My code is indented with tabs.</li>
+  <li>Classes follow the CapWords naming convention and functions follow the lowercase_underscore convention.</li>
+  <li>Every public class and function has an associated docstring describing what the item does.</li>
+  <li>Any unusual or complex functions and algorithms have an associated comment describing the rationale for the approach. Any use of Exceptions is documented with comments.</li>
+  <li>The file does not have any code that is commented out, nor does it have any “TODOs”.</li>
+  <li>All print() functions that go to the development console have been removed.</li>
+  <li>The code has associated tests.</li>
+</ol>
+
+<p>Our checklist is only seven items long. We chose to leave off some items from PEP 8 compliance because we believe these items encompass the heart of good, readable Python code that our team can agree on as we’re developing at a rapid pace. Holding up code that deals with a priority ticket because someone’s lines have too many characters is not justifiable, but stopping a bugfix because it’s undocumented most certainly is.</p>
+
+<p>In addition to these checklist items, we talk through our logical approach to solving the problem, the necessity of certain functions or exceptions, and possible scenarios that might cause failures. If the peer reviewer is satisfied with the code, we execute the following commands to merge our changes with testing:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git checkout testing
+$ git pull origin review
+$ git pull origin testing
+</code></pre></div></div>
+
+<p>The testing branch is used by our functional testers to determine that everything’s working properly. The app should work perfectly at this stage - if it doesn’t, it’s headed back to the review pipeline. No one commits directly to testing, so any conflicts will be resolved during the commit to review. If the testers are satisfied, we prepare for the move to production with the following commands:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git checkout staging
+$ git pull origin testing
+$ git pull origin staging
+</code></pre></div></div>
+
+<p>To recap:</p>
+
+<p><img src="/images/review_workflow.svg" alt="Git workflow" /></p>
+
+<ol>
+  <li>Create local branch of master for the feature.</li>
+  <li>Complete work in branch and merge to review.</li>
+  <li>Peer review changes and pull review into testing.</li>
+  <li>Test changes and pull into master.</li>
+</ol>
+
+<p>What do we have left to do?</p>
+
+<ol>
+  <li>Proper integration into our production environment. We’re looking at something like <a href="https://travis-ci.com/">TravisCI</a> or <a href="https://circleci.com/">CircleCI</a> to manage our build process.</li>
+  <li>Write tests for all the code that was written before we standardized on a review process.</li>
+  <li>Write a PEP 8 linter to condense the style review.</li>
+  <li>Bonus: it might be nice to have a simple push-button approach to move everything between branches.</li>
+</ol>
+
+<p>This is getting us started. We’re still workshopping it, but it’s standardizing us on an approach and getting our team in line.</p>
+
+	</div>
+
 </div>
 
 
 <div class="row">
-	<div class="col-offset-3 col-8">
+	<div class="col-md-12">
 		<div class="pagination">
 			
 			<a href="/page6" class="previous">Previous</a>
 			
 
-			<span class="page_number">Page: 7 of 9</span>
+			<span class="page_number">Page: 7 of 11</span>
 
 			
 			<a href="/page8" class="next">Next</a>
@@ -579,37 +463,11 @@ def len(s):
 		</div>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

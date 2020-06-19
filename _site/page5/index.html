@@ -4,818 +4,1315 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
-		</div>
-
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/04/08/rosas-cosas-building-a-twilio-app-to-match-kingsthings.html"><h3>Rosa&#39;s Cosas&#58; Building a Twilio app to match &#64;kingsthings</h3></a>
-		<div class="date">April 08, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>The Washington Post said it best: <a href="http://www.washingtonpost.com/blogs/style-blog/wp/2015/03/19/larry-king-has-a-special-way-of-tweeting-the-broadcast-legend-who-just-cant-retire-talks-about-his-new-media-way-of-life/">“Larry King has a special way of tweeting.”</a> He calls a special phone line and leaves a tweet on a voicemail, which is then transcribed by an assistant and posted to Twitter. Lacking an assistant, I decided to build something to allow <a href="https://twitter.com/lbrosa">@lbrosa</a> to call in a tweet using Twilio’s transcription functionality. </p>
-
-<p>Our workflow here is simple, but rather confusingly documented by Twilio’s stock documentation. </p>
-
-<ol>
-  <li>Call a Twilio number tied back to one of our app URLs dedicated for transcription.</li>
-  <li>Build a Twilio Response object that includes a Record verb that contains a <code>transcribeCallback</code> redirect parameter, which will be another URL in our app.</li>
-  <li>Twilio will record the call and hit our <code>transcribeCallback</code> URL with the transcription text once it’s finished.</li>
-  <li>We take our transcribed text and post it to Twitter.</li>
-</ol>
-
-<p>What does that look like in Django? What will we need?</p>
-
-<pre><code># requirements.txt
-
-Django==1.7.7
-twilio==3.7.3
-django-twilio==0.8.0
-tweepy==3.3.0
-
-# other dependencies that these libraries will install for you
-</code></pre>
-
-<p>The <code>twilio</code> library is put out by Twilio and contains some helper functions so you don’t have to build raw XML to send back to them. <code>django-twilio</code> is here to help with Django’s freakouts about POSTing data without CSRF tokens. And <code>tweepy</code> talks to Twitter. We’ll see where they all fall into place in <code>views.py</code>.</p>
-
-<pre><code># views.py 
-# part 1
-
-from django_twilio.decorators import twilio_view
-from twilio import twiml
-
-@twilio_view
-def transcribe_incoming(request):
-
-	r = twiml.Response()
-	r.say("What is your tweet?")
-	r.record(maxLength=30, transcribeCallback="/playback/")
-
-	return r
-</code></pre>
-
-<p>This view will answer an incoming call to our app. We build a TwiML Response and attach two Twilio verbs to it: <code>&lt;Say&gt;</code> and <code>&lt;Record&gt;</code>. Our <code>&lt;Say&gt;</code> verb takes in some text that Twilio’s robot voice will read back to the caller. Our <code>&lt;Record&gt;</code> verb takes in a <code>maxLength</code> in seconds for recording. It also contains a <code>transcribeCallback</code> parameter - the URL we’ll POST data to once the transcription is completed. No need to include <code>transcribe="True"</code>, as <code>transcribeCallback</code> will assume that.</p>
-
-<p>Our caller will record a tweet and then hang up, kicking off Twilio’s transcription. Note that our app doesn’t have anything to do here until Twilio finishes our transcription and then POSTs the response to <code>/playback/</code>. </p>
-
-<pre><code># views.py
-# part 2
-
-from django.http import HttpResponse
-from django_twilio.decorators import twilio_view
-from twilio.rest import TwilioRestClient
-from django.conf import settings
-import tweepy
-
-@twilio_view
-def playback(request):
-
-	transcribed = request.POST['TranscriptionText']
-	sent_from = request.POST['From']
-	body = "Tweet Sent: " + transcribed
-
-	auth = tweepy.OAuthHandler(settings.TWITTER_CONS_KEY, settings.TWITTER_CONS_SECRET)
-	auth.set_access_token(settings.TWITTER_APP_KEY, settings.TWITTER_APP_SECRET)
-
-	api = tweepy.API(auth)
-	api.update_status(status=transcribed)
-
-	client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-
-	msg = client.messages.create(to=sent_from, from_=settings.TWILIO_PHONE_NUM, body=body)
-
-	return HttpResponse("A-OK", status=200)
-</code></pre>
-
-<p>Twilio includes the transcription text in the POST data as well as the number the user called from. We’ll need both of those. We’ll also need all of the Twilio and Twitter settings that you should keep secure. This app assumes that you’ve created a corresponding Twitter app that has Read and Write access to your account. No oAuth silliness - just the direct post to your account.</p>
-
-<p>We follow the vanilla instructions for updating a status with <code>tweepy</code> using the <code>TranscriptionText</code> from the POST data. We’re then going to send that text back to the user via SMS to give them a confirmation that everything proceeded as planned. We close the loop with a 200 Response back to Twilio.</p>
-
-<p>URL patterns are up to you, but should probably look something like this: </p>
-
-<pre><code># urls.py
-
-urlpatterns = patterns('',
-    url(r'^transcribe/$', 'callme.views.transcribe_incoming', name='transcribe_incoming'),
-    url(r'^playback/$', 'callme.views.playback', name='playback'),
-)
-</code></pre>
-
-<p>No admin console needed, no database. Just two quick little views. </p>
-
-<p>Have fun with this! I’ve created a <a href="https://github.com/josephmosby/rosascosaspublic/">Github repo</a> for the project with the full Django app in case it’s useful.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/08/rosas-cosas-building-a-twilio-app-to-match-kingsthings.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/03/30/hot-chicken.html"><h3>Hot Chicken</h3></a>
-		<div class="date">March 30, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Nashville is a wonderful weird place. The city has a native dish known only as “hot chicken” and David Ramsey has captured its essence perfectly.</p>
-
-<p><a href="http://www.oxfordamerican.org/magazine/item/190-some-like-it-extra-hot">Some Like It Extra Hot</a></p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/30/hot-chicken.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/03/26/periscope-and-the-panopticon.html"><h3>Periscope and the Panopticon</h3></a>
-		<div class="date">March 26, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Tonight, eleven strangers watched my friend Ouzy eat tater tots over Periscope. I was the cameraman. We didn’t promote a livestream of tater tot eating or even tweet about it when the camera starting rolling. I just opened the app and people started watching a man they’d never met eat tots. </p>
-
-<p>I wonder how many people would watch Kim Kardashian eat tots. </p>
-
-<p>This morning I watched someone commute into work. I then watched a segment of a live interview with Jeb Bush. I streamed someone doing yo-yo tricks in our office.</p>
-
-<p>A building exploded in New York City and the news was broken by someone across the street on Periscope. </p>
-
-<p>I used to be uneasy at the thought of the Panopticon - a world where everything can be seen by everyone, anywhere in the world. Anything you say or do can be seen by millions.</p>
-
-<p>A couple was having a first or second date next to us. We didn’t flip out our phones to broadcast it to the world. We joked about their date, we mused about where it would go, but we didn’t record it.</p>
-
-<p>Every politician is looking for opportunities to get their ideas out there and they are competing for attention with my friends eating tater tots. People sign up for The Bachelor to have their dating lives blasted to viewers worldwide but there’s no cameraman out there who’s even thinking about recording a couple on their first date.</p>
-
-<p>There are different power dynamics at play in the Panopticon. The scary scenario relies on there being people in power holding the cameras and viewing the video. But those cameras can be turned around. And sometimes those cameras are just pointing at people eating tots. Sometimes they’re pointed at emergencies where every additional set of eyes helps. We’re back to the same power dynamics we had before, human beings with our same sets of eyes and narrow attention spans. </p>
-
-<p>The Panopticon is finally here. And it’s full of tots.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/26/periscope-and-the-panopticon.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/03/25/what-consulting-will-not-teach-you.html"><h3>What Consulting Will Not Teach You</h3></a>
-		<div class="date">March 25, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Consulting will teach you <a href="/2015/03/23/what-consulting-will-teach-you.html">quite a bit</a>. It will teach you how to deal with people of all makes and models and will teach you how to truly make things happen with your words. But for all of its positives, the consulting world promises to teach a lot that it did not teach me, and that I know many of my consulting peers still struggle with. </p>
-
-<p>Consulting will not teach you what you really <em>want</em> to do. Many potential consultants - myself included - come into the consulting world uncertain about what they want to do with their lives. Consulting promises exposure to a breadth of experiences that no other industry can possibly match. You’ll serve clients of all shapes and sizes, you’ll work with wonderful people who have so much to teach you, and you’ll certainly have a stack of work experience to show off on your resume. But all of this choice won’t imbue you with passion for any one particular thing. You have to find that on your own, and consulting makes it incredibly difficult to do so for many young people. If you’re struggling to make a decision about your future, consulting will not help you make that choice.</p>
-
-<p>Consulting will not teach you how to build a perfect product for the perfect customers. Consultants are rarely brought on to do detailed user and market research <em>and</em> build the product that will serve those users in that market. It’s more common to see one firm brought in to do the market research, neatly packaged in a branded report, followed by a second firm that will devise an “action plan” based on the parts of the report that the client liked, followed by a third firm that will actually build the thing at the lowest cost possible. In no universe is this the most effective way to build a product that makes customers happy.</p>
-
-<p>Consulting will not teach you how to do things on the cheap. There are two types of contracts major consulting firms go after. The first type is driven by legal, regulatory, or compliance-based requirements that will cause giant businesses massive financial pain if they don’t follow the rules. Consulting contracts of this nature are predicated on the notion that it’s far more valuable to pay them a million dollars than risk a fifty-million dollar fine. If the final bill goes up to two million dollars for consulting services, it’s still worth it. The other type of contract comes up with the million dollars could potentially save fifty million or generate an additional fifty million dollars in sales.. and again, if the final bill creeps up an extra half million or so, no problem. This is not a recipe for learning how to do things in a lean, efficient manner. You are playing with sums of money so large that they’re beyond the ken of most mortals.</p>
-
-<p>Consulting will not teach you how to build a business. Consulting will have you swimming in business, to be sure, but you’ll be swimming in businesses that have already been built. They’ve already sorted through their growing pains and can afford to call you up for consulting services. (Now, I should caveat this point. Consulting <em>will</em> present you with a lot of wrong ways to do things, and this knowledge will serve you well when you confront similar situations in a new enterprise.) There is nothing that will teach you how to build a business like <em>actually building a business</em>, and there is nothing that will teach you about building a team like <em>actually building a team</em>. </p>
-
-<p>Ultimately, a gig in consulting will not teach you how to actually be a software engineer or hospital manager or any of the numerous professionals you will support. You are like a grad student who started helping the basketball team and suddenly wound up as an assistant coach, but you are not on the court yourself and you are not the head coach calling the plays. Consulting is an excellent profession! But if you’re hungry to have the responsibility and the consequences of starting and growing a real business, consulting will not satisfy that itch. If you’re struggling to make your mind up about your life and hoping that consulting will help you sort through it, you are likely to be disappointed. You have to jump straight into the world and take a risk - an experience that consulting cannot give you.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/25/what-consulting-will-not-teach-you.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/03/23/what-consulting-will-teach-you.html"><h3>What Consulting Will Teach You</h3></a>
-		<div class="date">March 23, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>It’s hiring season for most senior college students in the United States. A few things have changed since my senior year of college - the economy has improved dramatically, the technology industry is a serious draw for many who have never coded a day in their lives, Austin and Nashville are among the hottest places to be. But even with the shifts in the culture, it’s still a stressful time for college students trying to choose the next direction of their lives. If you’re in that boat, this post is for you.</p>
-
-<p>For many of you, consulting firms will provide job opportunities and rewards far beyond the wildest imaginations of any other business that wants to hire you. Their business model is simple: for each hour that you work, they will bill their clients for an hour of time. If your billable rate is $150 per hour, you will bring upwards of $300,000 in revenue to the consulting firm by the end of the year. Paying you $75,000 or so, then, is insane money for you as a young college graduate and chump change for them. Your first lesson will be that smart people know how to make money off of your sweat and make you okay with it.</p>
-
-<p>Many of them will advertise that you’ll be traveling for your job and they’ll hold up examples of their professionals in New York City, in San Francisco, in Miami. Your second lesson will be that most of the major American cities who purchase consulting services are actually in the heartland - places like Minneapolis, or West Virginia, or Peoria. There is a lot of America out there, and you will realize that it is much more diverse in culture than you could imagine.</p>
-
-<p>You will go to a client site and you will slug away on a project. You will show your work and your thought process in explicit detail. This work and thought process will be promptly torn to shreds and rebuilt anew, and you will learn that there are all sorts of new ways to be wrong in the real world. Sometimes you presented a half-baked idea. Sometimes your logic was correct based on your information, but you didn’t know that there was additional information hidden from you. And sometimes you will be wrong because of politics. All of these will end in the same result - you will rework your ideas, and you will learn to try again.</p>
-
-<p>You will encounter control freaks. Everyone around you will be a control freak, because this the type of person who is drawn to consulting. The entire client service business model, however, is based on a totally subjective thing - client acceptance of your work - and suddenly everything will be out of your control. This is difficult at best when one control freak is trying to deal with intangible and unknown requirements. This is nearly impossible when four control freaks are placed in a room with no clear leader and asked to produce some sort of report to turn in to a manager. This devolves into insanity when these four control freaks suddenly have three sets of review by control freaks and a client who might decide something differently based on whether he had a burrito for lunch. You will learn to enhance your calm, or you will explode.</p>
-
-<p>You will learn that the megacorporate world is neither fair nor unfair - it simply is. You will work extremely hard and receive the praise of your superiors only to learn that the client decided not to choose your project for the next fiscal year, and your performance review goes down the tube accordingly. You will see that the person sitting next to you also worked extremely hard, and the client <em>did</em> choose their project, and now their performance review shoots through the roof but they have to spend six months in the Sacramento suburbs. You were dropped from your existing client and placed on a new client with offices on the beach in L.A. You will learn that these things simply happen, with little to no rhyme or reason.</p>
-
-<p>Above all, you will learn how to articulate your ideas in a way that turns them into a final action. You will learn how to make things happen with your words, and you will realize how important it is to be able to do this in the business world. This is the heart of consulting: your ideas may be brilliant, your work product may be exquisite, but your words will be what brings them to life. There are few other jobs that can teach you this as quickly as consulting will.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/23/what-consulting-will-teach-you.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/03/01/a-brand-new-code-review-and-integration-workflow.html"><h3>A brand new code review and integration workflow</h3></a>
-		<div class="date">March 01, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>I’ve been fortunate to join the <a href="http://www.nationaljournal.com/">National Journal</a> with a stack of brand new product managers and developers. As we form a new product team, we also need to address some of the operational nuances of bringing our team together. Part of that process includes defining and standardizing our workflow for code review, testing, and integration.</p>
-
-<p>Our process starts by branching master off into a specific feature branch, with the intention that we’ll push a set of changes through the review and testing process as a single set of commits that only pertain to that feature. </p>
-
-<p>We keep our feature branches local (though publishing a branch to GitHub isn’t a problem). Once we’re ready for our code to go to peer review, we execute the following commands to bring it into the review branch:</p>
-
-<pre><code>$ git checkout review
-$ git merge feature-branch
-$ git pull origin review
-</code></pre>
-
-<p>We’re approaching the code review process with a simple checklist, inspired by principles from Atul Gawande’s <a href="http://www.amazon.com/Checklist-Manifesto-How-Things-Right/dp/0312430000/ref=sr_1_1/185-7726352-5707960?s=books&amp;ie=UTF8&amp;qid=1424833091&amp;sr=1-1&amp;keywords=the+check+list+manifesto">The Checklist Manifesto</a> and Guido van Rossum’s <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8 guidelines</a> for Python code. </p>
-
-<ol>
-  <li>My code is indented with tabs.</li>
-  <li>Classes follow the CapWords naming convention and functions follow the lowercase_underscore convention.</li>
-  <li>Every public class and function has an associated docstring describing what the item does.</li>
-  <li>Any unusual or complex functions and algorithms have an associated comment describing the rationale for the approach. Any use of Exceptions is documented with comments.</li>
-  <li>The file does not have any code that is commented out, nor does it have any “TODOs”.</li>
-  <li>All print() functions that go to the development console have been removed.</li>
-  <li>The code has associated tests.</li>
-</ol>
-
-<p>Our checklist is only seven items long. We chose to leave off some items from PEP 8 compliance because we believe these items encompass the heart of good, readable Python code that our team can agree on as we’re developing at a rapid pace. Holding up code that deals with a priority ticket because someone’s lines have too many characters is not justifiable, but stopping a bugfix because it’s undocumented most certainly is. </p>
-
-<p>In addition to these checklist items, we talk through our logical approach to solving the problem, the necessity of certain functions or exceptions, and possible scenarios that might cause failures. If the peer reviewer is satisfied with the code, we execute the following commands to merge our changes with testing:</p>
-
-<pre><code>$ git checkout testing
-$ git pull origin review
-$ git pull origin testing
-</code></pre>
-
-<p>The testing branch is used by our functional testers to determine that everything’s working properly. The app should work perfectly at this stage - if it doesn’t, it’s headed back to the review pipeline. No one commits directly to testing, so any conflicts will be resolved during the commit to review. If the testers are satisfied, we prepare for the move to production with the following commands:</p>
-
-<pre><code>$ git checkout staging
-$ git pull origin testing
-$ git pull origin staging
-</code></pre>
-
-<p>To recap: </p>
-
-<p><img src="/images/review_workflow.svg" alt="Git workflow" /></p>
-
-<ol>
-  <li>Create local branch of master for the feature.</li>
-  <li>Complete work in branch and merge to review. </li>
-  <li>Peer review changes and pull review into testing.</li>
-  <li>Test changes and pull into master.</li>
-</ol>
-
-<p>What do we have left to do? </p>
-
-<ol>
-  <li>Proper integration into our production environment. We’re looking at something like <a href="https://travis-ci.com/">TravisCI</a> or <a href="https://circleci.com/">CircleCI</a> to manage our build process. </li>
-  <li>Write tests for all the code that was written before we standardized on a review process. </li>
-  <li>Write a PEP 8 linter to condense the style review. </li>
-  <li>Bonus: it might be nice to have a simple push-button approach to move everything between branches. </li>
-</ol>
-
-<p>This is getting us started. We’re still workshopping it, but it’s standardizing us on an approach and getting our team in line.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/03/01/a-brand-new-code-review-and-integration-workflow.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/02/16/cloning-postgres-to-mongo-in-real-time-with-django.html"><h3>Cloning Postgres to Mongo in real time with Django</h3></a>
-		<div class="date">February 16, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Django comes baked with one major setback: it can’t properly support non-relational databases. A few attempts to rectify this problem have been made, but none of them can handle Django’s administration menu at the same time. So if your application simultaneously requires the speed of a non-relational database and the ease of the administration menu, you’re going to need to figure out a way to run two databases - one relational, one not - and keep the two in sync. We’re going to do that very thing with Postgres and MongoDB here.</p>
-
-<p>You will need: </p>
-
-<ul>
-  <li><a href="http://api.mongodb.org/python/current/">pymongo</a></li>
-  <li><a href="https://docs.djangoproject.com/en/1.7/topics/signals/">Django signals (part of Django core)</a></li>
-</ul>
-
-<p>PyMongo provides us a convenient API to access MongoDB, while signals will allow us to perform certain actions upon saving a model. We begin by importing all of the necessaries and creating receiver functions to handle our signals:</p>
-
-<pre><code># models.py 
-
-from django.db import models
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
-
-class MyModel(models.Model):
-	pass
-
-@receiver(post_save)
-def save_mongo_instance(sender, **kwargs):
-	pass
-
-@receiver(post_delete)
-def delete_mongo_instance(sender, **kwargs):
-	pass
-</code></pre>
-
-<p>We use the <code>@receiver</code> decorator to indicate what event should trigger the <code>save_mongo_instance()</code> and <code>delete_mongo_instance()</code>. Our functions will fire immediately after a model saves to or deletes from our Postgres database (indicated by the post_save and post_delete parameters). These functions must also take in a sender (the Model triggering the method) and a fungible number of <code>kwargs</code>. One of these <code>kwargs</code> will be the specific Model <em>instance</em> we just saved or deleted.</p>
-
-<p>These receiver methods will fire on <em>every</em> save or delete, regardless of the model that called it. If I have foreign key relationships, it won’t make sense for me to save all of those into the database as their own Documents - I should be nesting those within other Documents. I need some way to dictate which models should and should not be saved as their own Documents in a Mongo collection.</p>
-
-<pre><code># models.py 
-
-class MyModel(models.Model):
-	mongoable = True
-
-@receiver(post_save)
-def save_mongo_instance(sender, **kwargs):
-
-	if not sender.mongoable:
-		return
-
-@receiver(post_delete)
-def delete_mongo_instance(sender, **kwargs):
-
-	if not sender.mongoable:
-		return
-</code></pre>
-
-<p>I’ve added a property to <code>MyModel</code> that indicates it is “mongoable” (I made that word up). If <code>mongoable</code> is set to <code>True</code>, we’ll save it to the Mongo database - otherwise we’ll ignore the save event by returning out of the function.</p>
-
-<p>Now we need to get the instance. </p>
-
-<pre><code># models.py 
-
-@receiver(post_save)
-def save_mongo_instance(sender, **kwargs):
-
-	if not sender.mongoable:
-		return
-
-	instance = kwargs.get('instance')
-
-@receiver(post_delete)
-def delete_mongo_instance(sender, **kwargs):
-
-	if not sender.mongoable:
-		return
-
-	instance = kwargs.get('instance')
-</code></pre>
-
-<p>We extract the instance information - the specific data we just saved to Postgres - by pulling it out of the <code>kwargs</code> sent to our receiver function. Now we must parse them out! I created a helper utility to do this very thing and placed it in the <code>utils</code> directory of my Django project, so it looks something like this:</p>
-
-<pre><code>mongoproject/
-|
-|--mongoproject/
-	|
-	|--settings.py
-	|
-|--mongoapp/
-	|
-	|--__init__.py
-	|--models.py
-	|
-|--utils/
-	|
-	|--__init__.py
-	|--mongo_clone.py
-</code></pre>
-
-<p>I’ve also modified <code>settings.py</code> to add my Mongo connection info:</p>
-
-<pre><code># settings.py
-
-MONGO_DB_HOST = 'localhost'
-MONGO_DB_PORT = 27017
-</code></pre>
-
-<p>And my mongo_clone.py utility looks <a href="https://gist.github.com/josephmosby/7ac22f01ccf738e94d7a">like this</a>:</p>
-
-<pre><code># mongo_clone.py
-
-import pymongo
-from django.db.models import Model
-from django.db.models.fields.files import ImageFieldFile
-from django.conf import settings
-
-def get_mongo_db():
-	client = pymongo.MongoClient(settings.MONGO_DB_HOST, settings.MONGO_DB_PORT)
-	db = client.test
-	return db
-
-def convert_fields(model):
-	"""
-	Recursive function to iterate over all fields in a Model.
-	If the field is a ForeignKey, ManyToManyField or OneToOneField, 
-	go into the model and recursively store fields.
-	"""
-	fields = model._meta.get_all_field_names()
-	update_fields = {}
-
-	for field in fields:
-		try: 
-			field_value = getattr(model, field)
-			if getattr(field_value, 'all', None):
-				"""
-				Branch for a ManyToManyField.
-				Iterate over each Model in and append data to a list.
-				Add list to dictionary.
-				"""
-				fk_list = []
-
-				for fk_model in field_value.all():
-					fk_list.append(convert_fields(fk_model))
-
-				update_fields[field] = fk_list
-
-			elif isinstance(field_value, Model):
-				"""
-				Branch for a ForeignKey or OneToOneField.
-				Create data for the Model and add to dictionary.
-				"""
-
-				update_fields[field] = convert_fields(field_value)
-
-			elif isinstance(field_value, ImageFieldFile):
-				"""
-				Serialize an ImageField.
-				"""
-				try:
-					update_fields[field] = field_value.path
-				except ValueError:
-					"""
-					ValueError occurs if there is no actual File (i.e., is null).
-					"""
-					update_fields[field] = ""
-
-			else:
-				"""
-				Branch for a standard field.
-				Add data to the dictionary.
-				"""
-
-				if field == "id":
-					update_fields["pg_" + model._meta.verbose_name + "_id"] = field_value
-				else:
-					update_fields[field] = field_value
-
-		except AttributeError:
-			"""
-			ManyToManyFields will throw an AttributeError when trying to reference the parent.
-			"""
-			pass
+		</nav>
+		
+		<main class="container home" role="main">
 			
-			
-	return update_fields
-</code></pre>
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>19 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Debugging uWSGI dropouts</h3>
 
-<p>Let’s walk through the branches of <code>convert_fields()</code> one by one. The function is designed to turn a Model into a dictionary of key/value pairs, iterating through each field and recursively digging into ForeignKeys and ManyToManyFields to created nested dictionaries. Our first two lines of the function create the primary dictionary and find the field names of the model.</p>
-
-<p>We then begin a try/except block. Django ForeignKeys and ManyToManyFields store data in the Postgres database about their parent, but it’s not specified directly in my Model. We deal with that by passing on an <code>AttributeError</code>. Next we loop through all fields.</p>
-
-<p>It’s perhaps most useful here to skip down directly to the <code>else</code> branch of this if/else statement. This is for our standard text and date fields - anything we can easily serialize. Our recursive function will always end up here. We’ll continue to go deeper and deeper into our relationships as we’re building our nested dictionaries for ForeignKeys, but once we have an object that has no relationships, we’ll simply be serializing its fields with this branch.</p>
-
-<p>Immediately above that branch is our test for an <code>ImageField</code>, which can’t be neatly serialized. We tackle this by finding the path of the ImageFieldFile and attaching that to our dictionary.</p>
-
-<p>Our first bit of recursion comes when we hit the branch above that, when we deal with ForeignKeys. Our FK model will be attached to the original model’s ForeignKey field - but at the end of the day, it’s just a standard model with fields that we could parse out with our bottom branch. We’ll recursively call our <code>convert_fields</code> function on the model to do just that.</p>
-
-<p>Our top branch deals with ManyToManyFields, which come through as a <code>Manager</code>. Managers are tough to detect, but they do have an <code>all()</code> method that no other field should have. We’ll look for that method to find a ManyToManyField, then we’re just looping through every attached Model and appending their keys to the dictionary.</p>
-
-<p>Now we call our helper method as part of our receiver:</p>
-
-<pre><code># models.py 
-
-from utils.mongo_clone import get_mongo_db, convert_fields
-
-@receiver(post_save)
-def save_mongo_instance(sender, **kwargs):
-
-	if not sender.mongoable:
-		return
-
-	instance = kwargs.get('instance')
-
-	update_fields = convert_fields(instance)
-
-@receiver(post_delete)
-def delete_mongo_instance(sender, **kwargs):
-
-	if not sender.mongoable:
-		return
-
-	instance = kwargs.get('instance')
-</code></pre>
-
-<p>And we’ll save all this to the database by connecting to our DB and using a find_and_modify transaction:</p>
-
-<pre><code># models.py 
-
-from utils.mongo_clone import get_mongo_db, convert_fields
-
-@receiver(post_save)
-def save_mongo_instance(sender, **kwargs):
-
-	if not sender.mongoable:
-		return
-
-	instance = kwargs.get('instance')
-
-	update_fields = convert_fields(instance)
-	db = get_mongo_db()
-
-    mongo_instance = db.test.find_and_modify(query={"pg_instance_id": instance.id},
-                                            update={"$set": update_fields},
-                                            upsert=True,
-                                            full_response=True,
-                                            new=True)
-
-@receiver(post_delete)
-def delete_mongo_instance(sender, **kwargs):
-
-	if not sender.mongoable:
-		return
-
-	instance = kwargs.get('instance')
-</code></pre>
-
-<p>Deleting is far easier. All we have to do here is find the Mongo ID that corresponds to the deleted Postgres ID:</p>
-
-<pre><code># models.py 
-
-from utils.mongo_clone import get_mongo_db, convert_fields
-
-@receiver(post_save)
-def save_mongo_instance(sender, **kwargs):
-
-	if not sender.mongoable:
-		return
-
-	instance = kwargs.get('instance')
-
-	update_fields = convert_fields(instance)
-	db = get_mongo_db()
-
-    mongo_instance = db.test.find_and_modify(query={"pg_instance_id": instance.id},
-                                            update={"$set": update_fields},
-                                            upsert=True,
-                                            full_response=True,
-                                            new=True)
-
-@receiver(post_delete)
-def delete_mongo_instance(sender, **kwargs):
-
-	if not sender.mongoable:
-		return
-
-	instance = kwargs.get('instance')
-
-	db = get_mongo_db()
-
-	mongo_instance = db.test.remove( {"pg_instance_id": instance.id })
-</code></pre>
-
-<p>And we’re cooking. We’re still querying the original Postgres database - for now - but we’ll fix that soon enough.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/02/16/cloning-postgres-to-mongo-in-real-time-with-django.html" data-via="josephmosby">Tweet</a>
 	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>On Friday night, our National Journal app suddenly stopped responding to requests. Our response time went straight through the roof, but this didn’t correspond to any noticeable increase in load. In fact, our throughput (the requests per minute we respond to) had been declining up until the breakdown. We didn’t have any noticeable spike in traffic that corresponded to this outage, so I suspect our <code class="highlighter-rouge">uwsgi</code> configuration may be to blame. Here’s what the graph looked like:</p>
+
+<p><img src="/images/errors.png" alt="" /></p>
+
+<p>I’m going to tear through the <code class="highlighter-rouge">uwsgi</code> logs today to see if I can nail down the culprit. If my <code class="highlighter-rouge">uwsgi</code> threads are dying and not coming back, I’d expect to see a message like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>worker 1 killed successfully (pid: 17421)
+</code></pre></div></div>
+
+<p>that wasn’t accompanied with a message like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Respawned uWSGI worker 1 (new pid: 9438)
+</code></pre></div></div>
+
+<p>I’ve pulled the log files down from one of our application servers and will be going through it. I want to start by culling things down to only things that occurred in that 5:00-5:45 timeframe, so let’s whittle it down with some <code class="highlighter-rouge">grep</code>. I’ll use the <code class="highlighter-rouge">-m 1</code> flag to call only the first occurrence and the <code class="highlighter-rouge">-n</code> flag to show the line number.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -m 1 -n "Oct 16 17:00:00" django-www.log
+
+763413:{address space usage: 3525341184 bytes/3362MB} {rss usage: 135106560 bytes/128MB} [pid: 2449|app: 0|req: 1197/17093] [IP ADDRESS] () {42 vars in 736 bytes} [Fri Oct 16 17:00:00 2015] GET /s/54699/1-easy-way-donald-trump-could-have-been-even-richer-doing-nothing =&gt; generated 304819 bytes in 178 msecs (HTTP/1.1 200) 5 headers in 263 bytes (6 switches on core 96)
+
+$ grep -m 1 -n "Oct 16 17:45:00" django-www.log
+ 
+768139:{address space usage: 3510857728 bytes/3348MB} {rss usage: 103940096 bytes/99MB} [pid: 11399|app: 0|req: 174/680] [IP ADDRESS] () {48 vars in 919 bytes} [Fri Oct 16 17:45:00 2015] GET /energy/scientists-go-beyond-science-to-explain-their-climate-terror-20140826?ref=facebook.com =&gt; generated 0 bytes in 31 msecs (HTTP/1.1 302) 3 headers in 226 bytes (1 switches on core 143)
+</code></pre></div></div>
+
+<p>Now I’m going to use <code class="highlighter-rouge">sed</code> to create a new file of only that range of lines from 763413 to 768139, to make parsing faster and easier. I’ll drop this output into a new file called <code class="highlighter-rouge">outage.log</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sed -n 763413,768139p django-www.log &gt; outage.log
+</code></pre></div></div>
+
+<p>Okay, now that I’ve whittled things down, I want to look for things indicating my workers died:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -n "killed successfully" outage.log
+$ grep -n "Seeya" outage.log
+</code></pre></div></div>
+
+<p>Both of those didn’t yield anything. Let’s maybe instead look for signs of spawning:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -n "spawn" outage.log
+
+999:DAMN ! worker 1 (pid: 2449) died, killed by signal 9 :( trying respawn ...
+1000:Respawned uWSGI worker 1 (new pid: 8359)
+1862:Fri Oct 16 17:28:18 2015 - HARAKIRI [core 151] [IP ADDRESS] - GET /member/energy/n2k-energy-solyndra-spawns-calls-for-more-probes-dems-ask-obama-to-hold-off-on-keystone-20111027 since 1445030637
+1882:Fri Oct 16 17:28:18 2015 - HARAKIRI [core 171] [IP ADDRESS] - GET /member/energy/n2k-energy-solyndra-spawns-calls-for-more-probes-dems-ask-obama-to-hold-off-on-keystone-20111027 since 1445030802
+1972:DAMN ! worker 3 (pid: 2977) died, killed by signal 9 :( trying respawn ...
+1973:Respawned uWSGI worker 3 (new pid: 9731)
+2324:DAMN ! worker 2 (pid: 2712) died, killed by signal 9 :( trying respawn ...
+2325:Respawned uWSGI worker 2 (new pid: 10063)
+2601:DAMN ! worker 4 (pid: 3240) died, killed by signal 9 :( trying respawn ...
+2602:Respawned uWSGI worker 4 (new pid: 10065)
+3006:DAMN ! worker 1 (pid: 8359) died, killed by signal 9 :( trying respawn ...
+3007:Respawned uWSGI worker 1 (new pid: 10593)
+4025:spawned uWSGI master process (pid: 11394)
+4026:spawned uWSGI worker 1 (pid: 11397, cores: 256)
+4027:spawned uWSGI worker 2 (pid: 11398, cores: 256)
+4029:spawned uWSGI worker 3 (pid: 11399, cores: 256)
+4030:spawned uWSGI worker 4 (pid: 11400, cores: 256)
+</code></pre></div></div>
+
+<p>NOW we’re cooking. I’m going to chop things up a little bit more, since I can tell from this that we rebooted the app at line 4025.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sed -n 1,4030p outage.log &gt; outage2.log &amp;&amp; mv outage2.log outage.log
+</code></pre></div></div>
+
+<p>And now let’s look for something weird. I’m going to just dump out some of the things I’ve looked for.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -n "17:23" outage.log
+$ grep -n "HARAKIRI" outage.log
+$ grep -n "spawn" outage.log
+</code></pre></div></div>
+
+<p>Then I came back to this and scrolled back up through the files:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -n "17:23" outage.log
+
+1393:Fri Oct 16 17:23:00 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1395:Fri Oct 16 17:23:00 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1401:Fri Oct 16 17:23:08 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1404:Fri Oct 16 17:23:10 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1408:Fri Oct 16 17:23:15 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1409:Fri Oct 16 17:23:15 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1414:Fri Oct 16 17:23:16 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1417:Fri Oct 16 17:23:17 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1421:Fri Oct 16 17:23:20 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1424:Fri Oct 16 17:23:21 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1432:Fri Oct 16 17:23:32 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+1436:Fri Oct 16 17:23:38 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
+</code></pre></div></div>
+
+<p>That maps <em>exactly</em> back to the time that our application started spiking. I think I may have a breadcrumb.</p>
+
+<p>… goes to Google …</p>
+
+<p>Maybe not. <code class="highlighter-rouge">uwsgi</code> throws out those broken pipe errors in the instance of a timeout, and it would make sense that things would be timing out around that time.</p>
+
+<p>But what a second. I’m going to scroll up the log files until a few minutes <em>before</em> the crash starts acting up to see if I can pinpoint what went wrong. Here’s a sample line from that timeframe:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{address space usage: 3521130496 bytes/3358MB} {rss usage: 167030784 bytes/159MB} [pid: 2712|app: 0|req: 1548/18272] [IP ADDRESS] () {40 vars in 668 bytes} [Fri Oct 16 17:17:50 2015] GET /columns/political-connections =&gt; generated 58615 bytes in 18558 msecs (HTTP/1.1 404) 2 headers in 95 bytes (2 switches on core 16)
+</code></pre></div></div>
+
+<p>That took us 18.5 seconds to generate a 404 page for a broken link. That’s absurd. Right around the time that I read this line, one of our system administrators (who I’ve been live-updating as I worked) comes running around the corner to say:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; we didn't have uwsgi timeouts set on nginx!
+</code></pre></div></div>
+
+<p>Ahh. So <code class="highlighter-rouge">nginx</code> was timing out on sending and receiving data to and from <code class="highlighter-rouge">uwsgi</code>, but weren’t <em>actually</em> timing out. We were just letting <code class="highlighter-rouge">uwsgi</code> spin into infinity. We fix that with these lines in our <code class="highlighter-rouge">nginx.conf</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>location / {
+	... stuff ...
+	uwsgi_read_timeout 300;
+    uwsgi_send_timeout 300;
+    ... stuff ...
+}
+</code></pre></div></div>
+
+<p>We think that might be our ticket, allowing these dropped connections to actually timeout. We’ll need a few days in production before I give the all-clear, but I think that might do it!</p>
+
+	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/02/15/the-psychology-of-a-small-playlist-on-repeat.html"><h3>The psychology of a small playlist on repeat</h3></a>
-		<div class="date">February 15, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>17 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>What does systemd do?</h3>
+
 	</div>
-	<div class="col-8">
-		<p><a href="http://ma.tt">Matt Mullenweg</a> <a href="http://fourhourworkweek.com/2015/02/09/matt-mullenweg/">listens to a single song on repeat</a> when he needs to get in “the zone.” This is fascinating to me, as I am a Spotify user fueled by chaos. I have always been a little spastic about my <a href="http://open.spotify.com/user/josephmosby">Spotify playlists</a>, creating new lists for each month based on my musical whims at the moment. The idea of restricting myself to only a few songs at a time is absolutely absurd. I had to try it. I created a playlist of three songs that I’ve already been playing quite a bit: </p>
+	<div class="col-md-8 col-sm-12">
+		<p>I mentioned in an <a href="http://josephmosby.com/2015/10/17/what-does-systemctl-do.html">earlier post</a> that <code class="highlighter-rouge">systemctl</code> appeared to be tied to <code class="highlighter-rouge">systemd</code>, which looked like a much more important program. In this post, I’m going to explore <code class="highlighter-rouge">systemd</code> and see what it does.</p>
 
-<ul>
-  <li><a href="http://open.spotify.com/track/0uqMUcdMvQtNQLO4jVockW">Calvin Harris and Nicky Romero - “Iron”</a></li>
-  <li><a href="http://open.spotify.com/track/2si03bj1f2F4X0Hyy0yCPx">Chromeo - “Bonafied Lovin”</a></li>
-  <li><a href="http://open.spotify.com/track/26qDnsrrvZbylEOUMKLGRh">Oasis - “The Masterplan”</a></li>
-</ul>
+<p>Turns out, it does a LOT. And people are super unhappy about it.</p>
 
-<p>Armed with my newly crowned “Focus” playlist, I got to work late at night when my brain was starting to fall asleep. I sat down to some frustrating programming tasks, put my playlist on repeat and began my experiment.</p>
+<p>I loosely knew the Unix philosophy, which essentially states that programs should be tiny and do very little, rather than one program taking on monolithic functionality. Doug McIlroy, a former head of the Bell Labs Computing Sciences Research Center, summarized it thus:</p>
 
-<p>It worked! As I ramped up into my work, I immediately found the flow much faster than normal. I focused on the lyrics on the first pass, a bit less on the second pass, and by the third pass I was barely aware of the background noise. It was fantastic. Even the slower beats of “The Masterplan” weren’t breaking me out of an energetic flow. I cranked through everything I’d set out for myself without a second thought.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This is the Unix philosophy: Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.
+</code></pre></div></div>
 
-<p>Why does it work? Surely there’s something in the human psyche that makes this work for me just as well as it does for Matt. What is it? I needed to do some research. </p>
+<p><code class="highlighter-rouge">systemd</code> does way more than this. It does a bajillion things, and it does them well, but it still does a bajillion things rather than just one.</p>
 
-<p>Arkansas psychologist Elizabeth Hellmuth Margulis wrote book called <a href="http://www.amazon.com/Repeat-How-Music-Plays-Mind/dp/0199990824/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1424026191&amp;sr=1-1&amp;keywords=on+repeat+how+music+plays+the+mind"><em>On Repeat: How Music Plays the Mind</em></a> that tangentially delves into this question. </p>
+<p>At its core, <code class="highlighter-rouge">systemd</code> is a Linux init system. It’s designed to kick off programs - every single program that runs on a Unix system. As such, it’s the first process spawned when a system boots:</p>
 
-<blockquote>
-  <p>Musical repetition gets us mentally imagining or singing through the bit we expect to come next… A sense of shared subjectivity with the music can arise. In descriptions of their most intense experiences of music, people often talk about a sense that the boundary between the music and themselves has dissolved.</p>
-</blockquote>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ps -ef | grep "systemd"
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+root      1636     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-journald
+root      1649     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-udevd
+dbus      2488     1  0 00:40 ?        00:00:01 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+root      2490     1  0 00:40 ?        00:00:00 /usr/lib/systemd/systemd-logind
+root     15732 15713  0 16:36 pts/3    00:00:00 grep --color=auto systemd
+</code></pre></div></div>
 
-<p>Okay, that helps us out. The more we listen to music on repeat, we tend to dissolve into it. That’s extremely useful for creative work, when tuning out the monkey mind is of utmost importance. </p>
+<p>PID 1! The maker of all other services in a Unix operating system! I never knew what PID 1 would be, but there it is: <code class="highlighter-rouge">systemd</code>. This post is going to be heavy, I think. And I’ll probably leave myself asking more questions. I’m not really grokking anything in-depth from the <a href="https://en.wikipedia.org/wiki/Systemd">Wikipedia page</a> for <code class="highlighter-rouge">systemd</code>, so off I go to the <a href="http://www.freedesktop.org/software/systemd/man/systemd.html">man pages</a>.</p>
 
-<p>There’s a psychological principle at work here called the <a href="http://changingminds.org/explanations/theories/mere_exposure.htm">Mere Exposure Theory</a>. It states that we like something the more we’re exposed to it; we like the familiar. W.R. Kunst-Wilson and R.B. Zajonc demonstrated this can happen with the most mundane of objects by flashing octagons at experimental patients and finding that they liked octagons much more after the subliminal stimulus. Though we eventually get sick of songs, it’s quite easy to swap them out for others in the playlist after we hit our threshold. </p>
+<p><code class="highlighter-rouge">systemd</code> has an entire “Concepts” page devoted to it, which is extremely useful. It states that <code class="highlighter-rouge">systemd</code> has a concept of units - our services, sockets, and other objects we used earlier. <code class="highlighter-rouge">nginx</code> is a unit. <code class="highlighter-rouge">dashboard</code> is a unit. Now we get some meat about what those units can be, and I’m just going to copy and paste the list here.</p>
 
-<p>I think we have our answer. Repetition of anything makes us like the thing even more, while repetition of music specifically helps us sink into a groove. Perfect for improving our mood and ramping up our productivity at the same time.</p>
+<ol>
+  <li>
+    <p>Service units, which start and control daemons and the processes they consist of.</p>
+  </li>
+  <li>
+    <p>Socket units, which encapsulate local IPC or network sockets in the system, useful for socket-based activation.</p>
+  </li>
+  <li>
+    <p>Target units are useful to group units, or provide well-known synchronization points during boot-up.</p>
+  </li>
+  <li>
+    <p>Device units expose kernel devices in systemd and may be used to implement device-based activation.</p>
+  </li>
+  <li>
+    <p>Mount units control mount points in the file system.</p>
+  </li>
+  <li>
+    <p>Automount units provide automount capabilities, for on-demand mounting of file systems as well as parallelized boot-up.</p>
+  </li>
+  <li>
+    <p>Snapshot units can be used to temporarily save the state of the set of systemd units, which later may be restored by activating the saved snapshot unit.</p>
+  </li>
+  <li>
+    <p>Timer units are useful for triggering activation of other units based on timers.</p>
+  </li>
+  <li>
+    <p>Swap units are very similar to mount units and encapsulate memory swap partitions or files of the operating system.</p>
+  </li>
+  <li>
+    <p>Path units may be used to activate other services when file system objects change or are modified.</p>
+  </li>
+  <li>
+    <p>Slice units may be used to group units which manage system processes (such as service and scope units) in a hierarchical tree for resource management purposes.</p>
+  </li>
+  <li>
+    <p>Scope units are similar to service units, but manage foreign processes instead of starting them as well.</p>
+  </li>
+</ol>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/02/15/the-psychology-of-a-small-playlist-on-repeat.html" data-via="josephmosby">Tweet</a>
+<p>I still don’t know what a target unit is, so I’m going to move into the man page for <code class="highlighter-rouge">systemd.target</code> for a moment. This line is helpful from those pages: “They exist merely to group units via dependencies (useful as boot targets), and to establish standardized names for synchronization points used in dependencies between units.” I think I’ve got it now - if you want to smash together a bunch of units into one (like you’d need to do for a multi-user system), you use a target unit.</p>
+
+<p><code class="highlighter-rouge">systemd</code> also manages the dependencies of units, and that’s where those <code class="highlighter-rouge">Requires</code>, <code class="highlighter-rouge">Conflicts</code>, <code class="highlighter-rouge">After</code>, and <code class="highlighter-rouge">Before</code> lines came into play earlier. From my dashboard service’s <code class="highlighter-rouge">systemctl show</code> output:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Requires=basic.target
+Wants=system.slice
+WantedBy=multi-user.target
+Conflicts=shutdown.target
+Before=shutdown.target multi-user.target
+After=network.target systemd-journald.socket basic.target system.slice
+</code></pre></div></div>
+
+<p>My service Requires <code class="highlighter-rouge">basic.target</code>, Conflicts with <code class="highlighter-rouge">shutdown.target</code>, must be before <code class="highlighter-rouge">shutdown.target</code> and <code class="highlighter-rouge">multi-user.target</code>, and must come after <code class="highlighter-rouge">network.target</code>, <code class="highlighter-rouge">systemd-journald.socket</code>, <code class="highlighter-rouge">basic.target</code>, and <code class="highlighter-rouge">system.slice</code>. I’m not sure what most of these mean, but it does make sense that my web program should be loaded after the <code class="highlighter-rouge">network</code> has been loaded.</p>
+
+<p><code class="highlighter-rouge">systemd</code> states that it loads information about unit configuration from system directories and user directories, which I can find by typing the following commands in:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pkg-config systemd --variable=systemdsystemunitdir
+/usr/lib/systemd/system
+
+$ pkg-config systemd --variable=systemduserunitdir
+/usr/lib/systemd/user
+</code></pre></div></div>
+
+<p>Let’s go see what’s in those:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /usr/lib/systemd/system
+$ ls
+</code></pre></div></div>
+
+<p>Ooh, I see a bunch of files that look like the <code class="highlighter-rouge">.service</code> files I was tinkering around with last night but didn’t understand! Let’s inspect a few.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat sound.target
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Sound Card
+Documentation=man:systemd.special(7)
+StopWhenUnneeded=yes
+
+$ cat halt.target
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Halt
+Documentation=man:systemd.special(7)
+DefaultDependencies=no
+Requires=systemd-halt.service
+After=systemd-halt.service
+AllowIsolate=yes
+
+[Install]
+Alias=ctrl-alt-del.target
+
+$ cat crond.service
+[Unit]
+Description=Command Scheduler
+After=syslog.target auditd.service systemd-user-sessions.service time-sync.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/crond
+ExecStart=/usr/sbin/crond -n $CRONDARGS
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></div></div>
+
+<p>So these <code class="highlighter-rouge">.service</code> and <code class="highlighter-rouge">.target</code> files are all part of the configuration that <code class="highlighter-rouge">systemd</code> requires. The <code class="highlighter-rouge">crond.service</code> configuration isn’t <code class="highlighter-rouge">crond</code> itself, it’s a file that tells <code class="highlighter-rouge">systemd</code> how to start and manage <code class="highlighter-rouge">crond</code>. I’m getting it now!</p>
+
+<p><code class="highlighter-rouge">systemd</code> can also receive certain signals, such as <code class="highlighter-rouge">SIGTERM</code>, <code class="highlighter-rouge">SIGINT</code>, and <code class="highlighter-rouge">SIGRTMIN+15</code>, which are more black magic to me. I’m not sure how I would send those signals to <code class="highlighter-rouge">systemd</code>, but maybe those things aren’t for me in the way I think of them.</p>
+
+<p>I think that’s a good start into <code class="highlighter-rouge">systemd</code>, but I can tell I’m just scratching the surface with it. Next up: this <a href="http://0pointer.de/blog/projects/systemd.html">blog post</a> on the origins of <code class="highlighter-rouge">systemd</code> and the <code class="highlighter-rouge">systemd</code> <a href="http://www.freedesktop.org/wiki/Software/systemd/">homepage</a>.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/02/12/seeding-a-database-with-queues-and-threading.html"><h3>Seeding a database with queues and threading</h3></a>
-		<div class="date">February 12, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>17 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>What does systemctl do?</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Don’t try this at home. There is no good reason to do this.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>In my <a href="http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html">earlier post</a> on nginx and uWSGI, I used <code class="highlighter-rouge">systemctl</code> to kick off my app. I admittedly don’t know much about systemctl (or about CentOS, if we’re being totally honest), so I wanted to dig more into that.</p>
 
-<p>Moving on.</p>
+<p>My first round of looking for documentation took me to the Fedora project’s <a href="https://docs.fedoraproject.org/en-US/Fedora/15/html/Deployment_Guide/ch-Services_and_Daemons.html">documentation on services and daemons</a>. (Turns out that <a href="https://danielmiessler.com/study/fedora_redhat_centos/">CentOS is ultimately a fork of Fedora</a>) The official documentation seems like a good place to start here. It gives a nice description of how to check the status of my service, so I’m going to do that here.</p>
 
-<p>Let’s say we wanted to seed a MongoDB database with a ton of records. And let’s just say that we had a Django app connected to that Mongo database. We’d likely be using <a href="http://django-nonrel.org/">django-nonrel</a> with its MongoDB connector. And let’s again say that we have a models.py file that looks like this:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl status dashboard.service
+dashboard.service - uwsgi instance to serve dashboard
+   Loaded: loaded (/etc/systemd/system/dashboard.service; enabled)
+   Active: active (running) since Sat 2015-10-17 04:32:57 UTC; 10h ago
+ Main PID: 14914 (uwsgi)
+   CGroup: /system.slice/dashboard.service
+           ├─14914 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14916 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14917 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14918 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           ├─14919 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+           └─14920 /var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
 
-<pre><code># models.py
+Oct 17 04:32:57 [INFO ABOUT MY LINODE] uwsgi[14914]: spawned uWSGI worker 5 (pid: 14920, cores: 1)
+Oct 17 04:33:00 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 1/1] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 722 b...re 0)
+Oct 17 04:33:00 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14919|app: 0|req: 1/2] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 713 b...re 0)
+Oct 17 04:33:00 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 2/3] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 680 b...re 0)
+Oct 17 04:35:56 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 3/4] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 722 b...re 0)
+Oct 17 04:35:56 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14916|app: 0|req: 1/5] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 713 b...re 0)
+Oct 17 04:35:59 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 4/6] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 680 b...re 0)
+Oct 17 04:37:15 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14920|app: 0|req: 5/7] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 722 b...re 0)
+Oct 17 04:37:16 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14919|app: 0|req: 2/8] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 713 b...re 0)
+Oct 17 04:37:16 [INFO ABOUT MY LINODE] uwsgi[14914]: [pid: 14916|app: 0|req: 2/9] [WHAT LOOKS LIKE AN IP ADDRESS] () {42 vars in 680 b...re 0)
+Hint: Some lines were ellipsized, use -l to show in full.
+</code></pre></div></div>
 
-from django.db import models
-from djangotoolbox.fields import ListField, EmbeddedModelField
+<p>I masked out what I think would be identifying details that I don’t want out there. The first commented-out section was my Linode’s name, but the second was an IP address that I did not recognize. Maybe it’s my IPv4 address? Maybe it’s the Linode’s hypervisor IP address? I think, though, that these logs may be from uWSGI and not from <code class="highlighter-rouge">systemctl</code>. I say this because the Fedora documentation doesn’t have anything that looks like this in their <a href="https://docs.fedoraproject.org/en-US/Fedora/15/html/Deployment_Guide/s1-services-running.html">page about these logs</a>. I’m going to skip it for now. Most of the other information on Fedora’s page here is about using the tool, which I’ve already done, so I’m going to move on to the raw man pages.</p>
 
-class Author(models.Model):
-	name = models.CharField(max_length=60, blank=False)
+<p>The man page for <code class="highlighter-rouge">systemctl</code> gives the following description for its use:</p>
 
-class Tag(models.Model):
-	name = models.CharField(max_length=40, blank=False)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl — Control the systemd system and service manager
+</code></pre></div></div>
 
-class Article(models.Model):
-	title = models.CharField(max_length=60, blank=False)
-	subhead = models.CharField(max_length=140)
-	date = models.DateField(auto_now=True)
-	content = models.TextField()
-	authors = ListField(EmbeddedModelField('Author'))
-	tags = ListField(EmbeddedModelField('Tag'))
-</code></pre>
+<p>Okay, so <code class="highlighter-rouge">systemctl</code> is actually used to control the <code class="highlighter-rouge">systemd</code> tool. Maybe the documentation was a little sparse because <code class="highlighter-rouge">systemd</code> is where the money is. Still, let’s go through the <a href="http://www.freedesktop.org/software/systemd/man/systemctl.html">man page</a> to see what we can get here. I’m going to punch through the commands one by one to walk through what they can do.</p>
 
-<p>We’ve got some fairly standard models here - an Article with Tags and Authors embedded in. Now we’ll need a seed file:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl -t
+systemctl: option requires an argument -- 't'
+</code></pre></div></div>
 
-<pre><code># seed.py
-import os, sys, django
-import random
-from datetime import date, timedelta as td
-from time import sleep
-import Queue, threading
+<p>Mer, that didn’t go well. I didn’t read the documentation enough. It requires a listing of unit types, which I can find here:</p>
 
-sys.path.append('/path/to/my/project/mongotest/')
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mongotest.settings")
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl -t help
+Available unit types:
+service
+socket
+target
+device
+mount
+automount
+snapshot
+timer
+swap
+path
+slice
+scope
 
-from dbtest.models import Author, Tag, Article
-</code></pre>
+$ systemctl -t service
 
-<p>Nothing too crazy worth noting here. I need to append my project folder to <code>sys.path</code> and configure the <code>DJANGO_SETTINGS_MODULE</code> environment variable so that my app <code>dbtest</code> is registered with the system. </p>
+UNIT                               LOAD   ACTIVE SUB     DESCRIPTION
+.... stuff ...
+crond.service                      loaded active running Command Scheduler
+dashboard.service                  loaded active running uwsgi instance to serve dashboard
+dbus.service                       loaded active running D-Bus System Message Bus
+.... stuff ...
+</code></pre></div></div>
 
-<pre><code># seed.py continued
+<p>Aha! There’s my <code class="highlighter-rouge">dashboard</code> service, sandwiched right in between cron and something called <code class="highlighter-rouge">dbus</code>. It looks like it’s loaded, active, and running, which is what I would expect. <code class="highlighter-rouge">$ systemctl --state=active</code> provides the same information, just a different way to cut the data.</p>
 
-AUTHOR_FILE = 'authors.txt'
-TAG_FILE = 'tags.txt'
-CONTENT_FILES = ['text1.txt', 'text2.txt', 'text3.txt', 'text4.txt', 'text5.txt', 'text6.txt', 'text7.txt']
-TITLES = ['Numeric abstract base classes', 'The numeric tower', 'Notes for type implementors', 'Number-theoretic and representation functions', 'Decimal fixed point and floating point arithmetic', 'Rational numbers', 'Higher order functions and operations', 'Generate pseudo-random numbers', 'Functions creating iterators', 'Mapping operators to functions']
-DATE_DIFF = date(2014, 12, 31) - date(1999, 1, 1)
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl -t service --recursive
+</code></pre></div></div>
 
-<p>The contents of these files bear some explanation. I have an authors.txt file and tags.txt file that contain lists of authors and tags (presidents’ names for authors and random words from Wikipedia for tags). I have seven textN.txt files that each contain lorem ipsum text. And I have some titles yanked from Python’s <code>math</code> module. The <code>DATE_DIFF</code> is used to calculate days between January 1, 1999 and December 31, 2014. We’ll use that last bit later.</p>
+<p>This doesn’t work as expected on my machine. It may be live on Fedora, but disabled on CentOS or something like that.</p>
 
-<pre><code># seed.py continued
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl -t service --reverse
+</code></pre></div></div>
 
-def store_models(file):
-'''Initialize with tags and author names from text files.'''
-	f = open(file)
-	f_text = f.read().split('\n')
-	for item in f_text:
-		if file == 'tags.txt':
-			new_tag = Tag(name=item)
-			new_tag.save()
-		elif file == 'authors.txt':
-			new_author = Author(name=item)
-			new_author.save()
-		else:
-			print('Whoa, not a file')
-			return ""
+<p>The man page says this should do the following: “Show reverse dependencies between units with list-dependencies, i.e. follow dependencies of type WantedBy=, RequiredBy=, RequiredByOverridable=, PartOf=, BoundBy=, instead of Wants= and similar.” I remember having to type <code class="highlighter-rouge">WantedBy=</code> in my configuration earlier:</p>
 
-store_models(TAG_FILE)
-store_models(AUTHOR_FILE)
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vi /etc/systemd/system/dashboard.service
 
-<p>We continue this by creating a stack of tags and authors that we’ll need later.</p>
+[Unit]
+Description=uwsgi instance to serve dashboard
+After=network.target
 
-<pre><code># seed.py continued
+[Service]
+User=ghost
+Group=nginx
+WorkingDirectory=/var/www/dashboard
+Environment="PATH=/var/www/dashboard/venv/bin"
+ExecStart=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
 
-def prep_half_entry(q, contents, titles, dates):
-	title = random.choice(titles)
-	content = random.choice(contents)
-	subhead = random.choice(titles) + " " + random.choice(contents)[:15]
-	article_date = random.choice(dates)
-	article = Article(title=title, subhead=subhead, content=content, date=article_date)
-	article.save()
-	q.put(article)
+[Install]
+WantedBy=multi-user.target
+</code></pre></div></div>
 
-def write_full_entry_to_db(q, tags, authors):
-	sleep(0.05)
-	article = q.get()
-	authors_list = [random.choice(authors)]
-	tags_list = [random.choice(tags)]
-	article.authors.extend(authors_list)
-	article.tags.extend(tags_list)
-	article.save()
-</code></pre>
+<p>Okay, so I must have configured <code class="highlighter-rouge">dashboard.service</code> to start with some sort of a dependency: this <code class="highlighter-rouge">multi-user.target</code> thing. Let’s see if I can find that.</p>
 
-<p>Here we have two functions that we’re going to turn into lots of tiny little threads. The <code>prep_half_entry()</code> function takes four parameters: a queue and sets of contents, titles and dates. From there, it will haphazardly choose some titles, contents, subheads, and dates, and then save the article. It will then put that article on the Queue using the <code>q.put()</code> method - meaning we can access it from other threads. The <code>write_full_entry_to_db()</code> function expects to receive a Queue, a set of tags, and a set of authors. From there, it will pop the first Article it finds off the queue, then complete the entry with tags and authors. The <code>sleep(0.05)</code> is only in there to make the function stall so we can watch the queue grow.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl -t target
 
-<pre><code># seed.py continued
+UNIT                LOAD   ACTIVE SUB    DESCRIPTION
+... stuff ...
+local-fs.target     loaded active active Local File Systems
+multi-user.target   loaded active active Multi-User System
+network.target      loaded active active Network
+... stuff ...
+</code></pre></div></div>
 
-q = Queue.Queue()
-contents = [open(x).read() for x in CONTENT_FILES]
-dates = [date(1999, 1, 1)+td(days=i) for i in range(DATE_DIFF.days + 1)]
-tags = Tag.objects.all()
-authors = Author.objects.all()
-</code></pre>
+<p>It looks like these “targets” are super important. I didn’t know you could even have a Unix system without multiple users, but it looks like that’s something you have to manually turn on - and can turn off. Crazy.</p>
 
-<p>Here we build the Queue object a few other sources of data our functions need to complete their work. Remember that <code>prep_half_entry()</code> and <code>write_full_entry_to_db()</code> are just going to shuffle up entries to seed the DB.</p>
+<p>There are two commands here that I don’t want to fiddle with too much for now, because I plan to go down a <code class="highlighter-rouge">systemd</code> rabbit hole and these look like I could cause problems if I don’t know what I’m doing. I’ll circle back to them.</p>
 
-<pre><code>for i in range(0, 500):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl --job-mode= ? 
+$ systemctl --fail 
+</code></pre></div></div>
 
-	t_one = threading.Thread(target=prep_half_entry, args=(q, contents, TITLES, dates))
-	t_two = threading.Thread(target=write_full_entry_to_db, args=(q, tags, authors))
+<p>The rest of the options here look like they’re tied to actually starting and stopping services, rather than just managing them. Rather than try to imply what’s going on with these, I want to jump down to the Commands section so I can start understanding what this utility can do.</p>
 
-	t_one.daemon = True
-	t_two.daemon = True
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl list-units
+</code></pre></div></div>
 
-	t_one.start()
-	t_two.start()
+<p>This does the same thing as just typing <code class="highlighter-rouge">systemctl</code>, and it dumps out an unfiltered list of running services and sockets and things.</p>
 
-	if q.qsize() &gt;= 8:
-		print q.qsize()
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl start [SOMETHING]
+$ systemctl stop [SOMETHING]
+$ systemctl restart [SOMETHING]
+</code></pre></div></div>
 
-<p>Here’s where the magic happens. We’re now going to spin up a thousand daemon threads and set them loose on this operation. <code>t_one</code> will be 500 threads of prepping half-completed entries and placing them in the queue. <code>t_two</code> will look for entries on the queue and finish them out before saving them to the database.</p>
+<p>I used these last night, and they do exactly what I’d expect. They start, stop, and restart services. This one’s new though:</p>
 
-<p>This sort of raw approach is suboptimal - if you’d like to do something like this at scale, use <a href="http://www.celeryproject.org/">Celery</a>. But it makes a cute little proof of concept.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl reload [SOMETHING]
+</code></pre></div></div>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/02/12/seeding-a-database-with-queues-and-threading.html" data-via="josephmosby">Tweet</a>
+<p>When we type this, we can reload the configuration of a service without actually reloading the service itself. We could reload <code class="highlighter-rouge">nginx.conf</code> by typing <code class="highlighter-rouge">systemctl reload nginx</code>.</p>
+
+<p>Now for what is the unexpectedly big kahuna:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl show dashboard
+
+Id=dashboard.service
+Names=dashboard.service
+Requires=basic.target
+Wants=system.slice
+WantedBy=multi-user.target
+Conflicts=shutdown.target
+Before=shutdown.target multi-user.target
+After=network.target systemd-journald.socket basic.target system.slice
+Description=uwsgi instance to serve dashboard
+LoadState=loaded
+ActiveState=active
+SubState=running
+FragmentPath=/etc/systemd/system/dashboard.service
+UnitFileState=enabled
+InactiveExitTimestamp=Sat 2015-10-17 04:32:57 UTC
+InactiveExitTimestampMonotonic=13928551290
+ActiveEnterTimestamp=Sat 2015-10-17 04:32:57 UTC
+ActiveEnterTimestampMonotonic=13928551290
+ActiveExitTimestamp=Sat 2015-10-17 04:31:52 UTC
+ActiveExitTimestampMonotonic=13863477373
+InactiveEnterTimestamp=Sat 2015-10-17 04:31:52 UTC
+InactiveEnterTimestampMonotonic=13863477373
+CanStart=yes
+CanStop=yes
+CanReload=no
+CanIsolate=no
+StopWhenUnneeded=no
+RefuseManualStart=no
+RefuseManualStop=no
+AllowIsolate=no
+DefaultDependencies=yes
+OnFailureIsolate=no
+IgnoreOnIsolate=no
+IgnoreOnSnapshot=no
+NeedDaemonReload=no
+JobTimeoutUSec=0
+ConditionTimestamp=Sat 2015-10-17 04:32:57 UTC
+ConditionTimestampMonotonic=13928549499
+ConditionResult=yes
+Transient=no
+Slice=system.slice
+ControlGroup=/system.slice/dashboard.service
+Type=simple
+Restart=no
+NotifyAccess=none
+RestartUSec=100ms
+TimeoutStartUSec=1min 30s
+TimeoutStopUSec=1min 30s
+WatchdogUSec=0
+WatchdogTimestampMonotonic=0
+StartLimitInterval=10000000
+StartLimitBurst=5
+StartLimitAction=none
+ExecStart={ path=/var/www/dashboard/venv/bin/uwsgi ; argv[]=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini ; ignore_errors=no ; start_time=[Sat 2
+PermissionsStartOnly=no
+RootDirectoryStartOnly=no
+RemainAfterExit=no
+GuessMainPID=yes
+MainPID=14914
+ControlPID=0
+Result=success
+Environment=PATH=/var/www/dashboard/venv/bin
+UMask=0022
+LimitCPU=18446744073709551615
+LimitFSIZE=18446744073709551615
+LimitDATA=18446744073709551615
+LimitSTACK=18446744073709551615
+LimitCORE=18446744073709551615
+LimitRSS=18446744073709551615
+LimitNOFILE=4096
+LimitAS=18446744073709551615
+LimitNPROC=3934
+LimitMEMLOCK=65536
+LimitLOCKS=18446744073709551615
+LimitSIGPENDING=3934
+LimitMSGQUEUE=819200
+LimitNICE=0
+LimitRTPRIO=0
+LimitRTTIME=18446744073709551615
+WorkingDirectory=/var/www/dashboard
+OOMScoreAdjust=0
+Nice=0
+IOScheduling=0
+CPUSchedulingPolicy=0
+CPUSchedulingPriority=0
+TimerSlackNSec=50000
+CPUSchedulingResetOnFork=no
+NonBlocking=no
+StandardInput=null
+StandardOutput=journal
+StandardError=inherit
+TTYReset=no
+TTYVHangup=no
+TTYVTDisallocate=no
+SyslogPriority=30
+SyslogLevelPrefix=yes
+SecureBits=0
+CapabilityBoundingSet=18446744073709551615
+User=ghost
+Group=nginx
+MountFlags=0
+PrivateTmp=no
+PrivateNetwork=no
+SameProcessGroup=no
+IgnoreSIGPIPE=yes
+NoNewPrivileges=no
+KillMode=control-group
+KillSignal=15
+SendSIGKILL=yes
+SendSIGHUP=no
+CPUAccounting=no
+CPUShares=1024
+BlockIOAccounting=no
+BlockIOWeight=1000
+MemoryAccounting=no
+MemoryLimit=18446744073709551615
+DevicePolicy=auto
+ExecMainStartTimestamp=Sat 2015-10-17 04:32:57 UTC
+ExecMainStartTimestampMonotonic=13928551199
+ExecMainExitTimestampMonotonic=0
+ExecMainPID=14914
+ExecMainCode=0
+ExecMainStatus=0
+</code></pre></div></div>
+
+<p>I KNOW WHAT LIKE A TENTH OF THIS MEANS. THIS IS AWESOME.</p>
+
+<p>I’m going to take a break here and digest some of the information gleaned from this little exercise. More to come!</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/02/11/asking-if-someone-believes-in-evolution-is-a-dangerous-question.html"><h3>Asking if someone "believes" in evolution is a dangerous question</h3></a>
-		<div class="date">February 11, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>17 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>How are PIDs assigned?</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Recently, likely presidential candidate Scott Walker was asked if he <a href="http://www.nationaljournal.com/twenty-sixteen/scott-walker-just-got-asked-if-he-believes-in-evolution-he-punted-20150211">believed in evolution and accepted it.</a>” He punted on the question, drawing scorn from people who follow the things American politicians say at London think tanks.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>I want to take a moment to step through the <code class="highlighter-rouge">ps</code> command and how PIDs are assigned, because I want to walk through the first 10 processes kicked off when CentOS boots. I assume that PIDs are assigned based on the order in which they’re created, but I’m not 100% certain on that. Let’s take a look.</p>
 
-<p>I am uncomfortable with asking if individuals believe in evolution, or any other theories supported by scientific evidence. The theory of evolution seems to me to make sense based on the huge repository of quantifiable evidence in its favor. Scientists far more qualified than I am have tested this theory repeatedly and it explains much of how we experience the world. I find it to be far more likely than the theory that we simply popped into existence a few thousand years ago, and <a href="http://www.theatlantic.com/national/archive/2014/10/pope-francis-evolution/382143/">the pope has stated the same</a>.</p>
+<p>Wikipedia states:</p>
 
-<p>A few centuries ago, every reputable scientist looked at the visual evidence of stars moving around the earth and concluded that the earth was the center of the universe. The scientific community had ignored the heliocentric ideas of <a href="http://www.britannica.com/EBchecked/topic/34377/Aristarchus-of-Samos">Aristarchus of Samos</a> and suggested that he be hauled before the priests for blasphemy. The community also didn’t think much of <a href="http://www.britannica.com/EBchecked/topic/414150/Nicholas-Of-Cusa">Cardinal Nicholas of Cusa</a>, who suggested that the universe might not have a center at all. I suspect that people in power of the times were asked in the public square if they <em>believed</em> in the blasphemous theories proposed by Aristarchus and Nicholas. No doubt a few scholars had promising careers shot down after they were laughed at for believing such insane ideas. </p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In Unix-like operating systems, new processes are created by the fork() system call. ... Process ID 1 is usually the init process primarily responsible for starting and shutting down the system. ... Process IDs are usually allocated on a sequential basis, beginning at 0 and rising to a maximum value which varies from system to system.
+</code></pre></div></div>
 
-<p>And belief comes with its own risks. Confirmation bias dictates that we will seek out evidence that confirms our beliefs and ignore evidence that contradicts those beliefs. And <a href="http://youarenotsosmart.com/2011/06/10/the-backfire-effect/">the backfire effect</a> compounds this problem: if you’re confronted with evidence that contradicts your beliefs, those beliefs are likely to strengthen. Are these the sorts of characteristics we want our politicians to take on lightly, especially when the belief has little to no bearing on their ability to govern?</p>
+<p>So PID 1, our <code class="highlighter-rouge">systemd</code> process, is created first (though there’s a PID 0 which comes before), and all of the other processes follow sequentially. This makes things easier, as now I can (hopefully) get a listing of the first ten things CentOS does on boot. I wasn’t looking for anything more formal than this, so let’s move on.</p>
 
-<p>I tend to favor politicians with a healthy degree of skepticism about the world around them. There is so much that people outside the Oval Office simply do not know, information that will likely circumvent much of the way candidates currently see the world. I can’t help but hope that politicians who seek that office are exceptionally guarded before they jump to beliefs. </p>
+<p>I don’t quite know how to get information on a specific process by giving its ID, so let’s just try something out:</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/02/11/asking-if-someone-believes-in-evolution-is-a-dangerous-question.html" data-via="josephmosby">Tweet</a>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ps 1
+PID TTY      STAT   TIME COMMAND
+1 	?        Ss     0:04 /usr/lib/systemd/systemd --system --deserialize 21
+</code></pre></div></div>
+
+<p>That was simple enough. There’s <code class="highlighter-rouge">systemd</code>, just as I expected. Let’s look at some others.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ps 2
+PID TTY      STAT   TIME COMMAND
+2 	?        S      0:00 [kthreadd]
+
+$ ps 3
+PID TTY      STAT   TIME COMMAND
+3 	?        S      0:00 [ksoftirqd/0]
+
+$ ps 4
+# BLANK
+
+$ ps 5
+PID TTY      STAT   TIME COMMAND
+5 	?        S&lt;     0:00 [kworker/0:0H]
+
+$ ps 6
+PID TTY      STAT   TIME COMMAND
+6 	?        S      0:00 [kworker/u2:0]
+
+$ ps 7
+PID TTY      STAT   TIME COMMAND
+7 	?        S      0:00 [rcu_sched]
+
+$ ps 8
+PID TTY      STAT   TIME COMMAND
+8 	?        S      0:00 [rcu_bh]
+
+$ ps 9
+PID TTY      STAT   TIME COMMAND
+9 	?        S      0:00 [migration/0]
+
+$ ps 10
+PID TTY      STAT   TIME COMMAND
+   	10 	?        S&lt;     0:00 [khelper]
+</code></pre></div></div>
+
+<p>Well, I couldn’t get 10 commands (#4 was out), but I did get 9:</p>
+
+<ol>
+  <li><code class="highlighter-rouge">systemd</code></li>
+  <li><code class="highlighter-rouge">kthreadd</code></li>
+  <li><code class="highlighter-rouge">ksoftirqd/0</code></li>
+  <li><code class="highlighter-rouge">kworker/0:0H</code></li>
+  <li><code class="highlighter-rouge">kworker/u2:0</code></li>
+  <li><code class="highlighter-rouge">rcu_sched</code></li>
+  <li><code class="highlighter-rouge">rcu_bh</code></li>
+  <li><code class="highlighter-rouge">migration/0</code></li>
+  <li><code class="highlighter-rouge">khelper</code></li>
+</ol>
+
+<p>Let’s take a look into what they do to see if they do anything interesting. <code class="highlighter-rouge">systemd</code> we know.</p>
+
+<p><code class="highlighter-rouge">kthreadd</code> is the “kernel thread daemon,” and it’s actually not controlled by <code class="highlighter-rouge">systemd</code>. It’s controlled by the kernel itself. I’m not familiar enough with the kernel (yet) to do any interesting work with this, but I can see from a <code class="highlighter-rouge">ps -ef</code> command that the rest of our listed processes are spawned by this one.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+root         2     0  0 00:40 ?        00:00:00 [kthreadd]
+root         3     2  0 00:40 ?        00:00:00 [ksoftirqd/0]
+root         5     2  0 00:40 ?        00:00:00 [kworker/0:0H]
+root         6     2  0 00:40 ?        00:00:00 [kworker/u2:0]
+root         7     2  0 00:40 ?        00:00:00 [rcu_sched]
+root         8     2  0 00:40 ?        00:00:00 [rcu_bh]
+root         9     2  0 00:40 ?        00:00:00 [migration/0]
+root        10     2  0 00:40 ?        00:00:00 [khelper]
+</code></pre></div></div>
+
+<p>That PPID thread - right there in the middle - indicates that each of the following PIDs was spawned by <code class="highlighter-rouge">kthreadd</code>. So we’ll obviously need to come back and explore this one in more detail.</p>
+
+<p>Next on the list is <code class="highlighter-rouge">ksoftirqd</code>, which “is a per-cpu kernel thread that runs when the machine is under heavy soft-interrupt load.” <a href="http://www.ms.sapientia.ro/~lszabo/unix_linux_hejprogramozas/man_en/htmlman9/ksoftirqd.9.html">docs here</a> Again, I’m not 100% certain on how this works, but I’m bookmarking <a href="https://lwn.net/Articles/520076/">this page</a> for future reference.</p>
+
+<p>The next two are inherently related: they’re <code class="highlighter-rouge">kworker</code> kernel processes. They handle work for system calls, rather than user calls.</p>
+
+<p><code class="highlighter-rouge">rcu_sched</code> and <code class="highlighter-rouge">rcu_bh</code> are apparently a bit more arcane, given the lack of easy-to-find information about them. RCU stands for “Read-Copy-Update”, and it’s a synchronization mechanism. I’ll be digging more into this later, but I’m bookmarking <a href="http://lwn.net/Articles/262464/">this article</a> for future reference.</p>
+
+<p>The <code class="highlighter-rouge">migration</code> process is also a kernel process, and it distributes the load across processor cores.</p>
+
+<p>Finally (and perhaps fortuitously) we have <code class="highlighter-rouge">khelper</code>. This process is used to make calls to user processes from within the kernel, allowing the kernel and user processes to talk to each other.</p>
+
+<p>So we’ve got our first ten processes. What does this <code class="highlighter-rouge">ps</code> process output tell us about them? Let’s take a second look at our sample data:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 00:40 ?        00:00:04 /usr/lib/systemd/systemd --system --deserialize 21
+</code></pre></div></div>
+
+<p>The first column here is the user who kicked off the process: in this case, it’s the root user. The PID is our process ID, and the PPID is the PID of the parent that spawned the process. C is used for CPU scheduling information. STIME is the time the process started. TTY is the terminal associated with the process. TIME is the CPU time the process has used. And CMD is the command itself. There are loads more options that we could incorporate here, but this is the default configuration for CentOS machines.</p>
+
+<p>I think <code class="highlighter-rouge">ps</code> will need its own set of digging (like many other Unix utilities), so I’m going to stop here. Here are my open questions kicked off from this exercise:</p>
+
+<ol>
+  <li>What does the kernel thread daemon do?</li>
+  <li>What is a software interrupt?</li>
+  <li>What is the read-copy-update mechanism?</li>
+</ol>
+
 	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>16 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Up and Running with Flask on a Brand New Linode</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>Tonight, I’m building a minimalistic Flask app that will run on Linode. Flask is a relatively new framework for me. I’ve dealt with CentOS, nginx, and uwsgi at work, but I’ve never tried to get them installed on my own. Time to get started.</p>
+
+<h3 id="step-1-install-and-configure-nginx-round-1">Step 1: Install and configure nginx, round 1</h3>
+
+<p>I am skipping over the step where we create a CentOS 7 machine from the Linode dashboard. I can’t think of a good way to explain that one without screenshots. Let’s assume we have one, and let’s install the necessaries on it.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yum install epel-release
+$ yum install nginx
+</code></pre></div></div>
+
+<p>Okay! That was simple enough. Here we’ve installed nginx, which will allow us to serve up our web pages. I want to start here because I like the feedback of knowing that I’m serving up web pages from the very start.</p>
+
+<p>I know that I plan to serve multiple sites off of this one server, so I need to adjust my domain and nginx configuration accordingly. In Namecheap, I’ve created 2 A records - dashboard.mosby.io and www.mosby.io - which I’ll both point at this server’s IP address. I’ll let nginx sort out the parsing.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># /etc/nginx/nginx.conf
+
+... # stuff here that you shouldn't remove
+
+http {
+
+	... # more stuff here that you shouldn't remove
+
+	server { 
+		listen	80;
+		server_name	www.mosby.io;
+		root /var/www/main;
+	}
+
+	server {
+		listen	80;
+		server_name	dashboard.mosby.io;
+		root /var/www/dashboard;
+	}
+}
+</code></pre></div></div>
+
+<p>nginx has a configuration file called <code class="highlighter-rouge">nginx.conf</code> that we’re going to modify to serve our sites. Here, we’ve said that any request incoming will either be for <code class="highlighter-rouge">www.mosby.io</code> or <code class="highlighter-rouge">dashboard.mosby.io</code>. If it’s for <code class="highlighter-rouge">www</code>, we’re going to serve content from <code class="highlighter-rouge">/var/www/main</code>. If it’s for <code class="highlighter-rouge">dashboard</code>, we’re going to serve content from <code class="highlighter-rouge">/var/www/dashboard</code>. We can test this out by creating two text files:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># /var/www/main/index.html
+
+Hello, www.mosby.io!
+</code></pre></div></div>
+
+<p>AND</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># /var/www/dashboard/index.html
+
+Hello, dashboard.mosby.io!
+</code></pre></div></div>
+
+<p>Assuming that you’ve already pointed your two subdomain to your Linode’s IP address, these will each display their respective content. Success!</p>
+
+<h3 id="step-2-install-python3-flask-and-uwsgi">Step 2: Install Python3, Flask and uWSGI</h3>
+
+<p>This is the part I know least about this entire process. Let’s start by installing Python 3, pip, and a version of <code class="highlighter-rouge">virtualenv</code> that’s cool with all of this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yum install python34
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ python3.4 get-pip.py
+</code></pre></div></div>
+
+<p>Now I’m going to move into my dashboard folder and create the application.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /var/www/dashboard
+$ virtualenv venv
+$ source venv/bin/activate
+</code></pre></div></div>
+
+<p>We’ve got a local instance of Python3 and pip now. Time to get uWSGI and Flask.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install uwsgi flask
+</code></pre></div></div>
+
+<p>Wait hold on. uWSGI just crapped out on installation. I missed something. The scary error message looks like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Command "/var/www/dashboard/venv/bin/python3.4 -c "import setuptools, tokenize;__file__='/tmp/pip-build-5a_chnf_/uwsgi/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-8zr4gl3_-record/install-record.txt --single-version-externally-managed --compile --install-headers /var/www/dashboard/venv/include/site/python3.4/uwsgi" failed with error code 1 in /tmp/pip-build-5a_chnf_/uwsgi
+</code></pre></div></div>
+
+<p>But that’s not the root of the problem. I’ve got to scroll up the stack trace for that.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In file included from plugins/python/python_plugin.c:1:0:
+plugins/python/uwsgi_python.h:2:20: fatal error: Python.h: No such file or directory
+ #include &lt;Python.h&gt;
+</code></pre></div></div>
+
+<p>I don’t have Python headers installed on this system! Let’s see if I can do that.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yum install python34-devel
+$ pip install uwsgi flask
+</code></pre></div></div>
+
+<p>Okay, that worked!</p>
+
+<p>And now, let’s convert our little test HTML from before into a Flask app. We’re then going to remove the HTML file, which will let us confirm that we’ve actually set of Flask and uWSGI correctly when we see it again. I’m going to do some work here using the <code class="highlighter-rouge">vi</code> editor, but if you’re not familiar with it, please replace the <code class="highlighter-rouge">vi</code> commands with <code class="highlighter-rouge">nano</code>. It’s simpler.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vi app.py
+
+from flask import Flask
+application = Flask(__name__)
+
+@application.route("/")
+def helloworld():
+	return "Hello, dashboard.mosby.io on Flask!"
+
+if __name__ == "__main__":
+	application.run(host='0.0.0.0')
+
+$ rm index.html
+$ python app.py
+</code></pre></div></div>
+
+<p>I can see that I’ve done it all right by going to my new homepage in my browser! Visiting dashboard.mosby.io:5000 will show me my updated page.</p>
+
+<h3 id="step-3-configure-uwsgi-serving">Step 3: Configure uWSGI Serving</h3>
+
+<p>We’ve got ourselves a basic skin of an application, so let’s hook it up to nginx through uWSGI.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi
+</code></pre></div></div>
+
+<p>It works! Exactly the same way it did when we ran the application directly. Let’s build a <code class="highlighter-rouge">.ini</code> file so we can do this more repeatedly.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vi dashboard.ini
+
+[uwsgi]
+module = wsgi
+
+master = true
+processes = 5
+
+uid = ghost
+socket = dashboard.sock
+chown-socket = ghost:nginx
+chmod-socket = 660
+vacuum = true
+
+die-on-term = true
+</code></pre></div></div>
+
+<p>This <code class="highlighter-rouge">ini</code> file does a few things for us. It points to the wsgi module, sets it in master mode, and spawns 5 processes of the app. It also ties to the uWSGI process to a Unix socket, and will remove (vacuum) that socket when the process stops.</p>
+
+<p>I’m also specifying that the <code class="highlighter-rouge">ghost</code> user will own this process. (I’ve been doing all of this work as <code class="highlighter-rouge">root</code>, which is not a good practice for running the application) I now need to create the ghost user and add it to the nginx group.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ useradd ghost
+$ usermod -a -G nginx ghost
+</code></pre></div></div>
+
+<p>Verify that you did it right:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ id ghost
+</code></pre></div></div>
+
+<p>You should see the <code class="highlighter-rouge">ghost</code> user attached to the nginx group. Onward!</p>
+
+<h3 id="step-4-start-on-boot">Step 4: Start on Boot</h3>
+
+<p>When our server comes online, we want our uWSGI app to be available immediately. Let’s start by creating a service file in our <code class="highlighter-rouge">/etc/systemd/system</code> directory.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vi /etc/systemd/system/dashboard.service
+
+[Unit]
+Description=uwsgi instance to serve dashboard
+After=network.target
+
+[Service]
+User=ghost
+Group=nginx
+WorkingDirectory=/var/www/dashboard
+Environment="PATH=/var/www/dashboard/venv/bin"
+ExecStart=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></div></div>
+
+<p>There is black magic going on here that I need to dig into more. I don’t know <em>why</em> we do all of these things, but I do know that we’re specifying the working directory, and the environment, and what should happen when we start things up. Which we’ll do now.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl start dashboard
+$ systemctl enable dashboard
+</code></pre></div></div>
+
+<h3 id="step-5-proxy-requests-from-nginx">Step 5: Proxy Requests from Nginx</h3>
+
+<p>Now it’s time that we return to our <code class="highlighter-rouge">nginx.conf</code> file. We need to modify our dashboard server block to handle the uwsgi application.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># /etc/nginx/nginx.conf
+
+... # stuff here that you shouldn't remove
+
+http {
+
+	... # more stuff here that you shouldn't remove
+
+	server { 
+		listen	80;
+		server_name	www.mosby.io;
+		root /var/www/main;
+	}
+
+	server {
+		listen	80;
+		server_name	dashboard.mosby.io;
+		
+		location / {
+			include uwsgi_params;
+			uwsgi_pass unix:/var/www/dashboard/dashboard.sock;
+		}
+	}
+}
+
+$ nginx -t &lt;-- test your configuration
+$ service nginx reload
+</code></pre></div></div>
+
+<p>And now we go to our browser and punch in dashboard.mosby.io, and… crap.</p>
+
+<p>502 Bad Gateway. What did I do wrong here? That error means nginx can’t talk to our application.</p>
+
+<p>Ahh, I’ve been doing all this as root. Everything is currently owned by root, which means that neither <code class="highlighter-rouge">ghost</code> nor <code class="highlighter-rouge">nginx</code> can see my dashboard socket. Let’s change that.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ chown ghost:nginx /var/www/dashboard
+$ service nginx reload
+$ systemctl restart dashboard
+</code></pre></div></div>
+
+<p>And, we’re back, folks!</p>
+
+<p>That’s a basic configuration for getting an Flask/uWSGI/nginx app up and running on a CentOS Linode box. If you decide to do something other than CentOS, most of it should still work, but the initialization service script will probably not. You can browse the repository for all of this <a href="https://github.com/josephmosby/dashboard/tree/c776c8875f8eaf094e2c506e1c0aca91693b7323">here</a>.</p>
+
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>17 Aug 2015</time>
+			<a href="/tags/">presentations</a>
+		</div>
+		<h3>PyGotham '15 - Building an ALU</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>Really had an awesome time at PyGotham 2015! The organization is phenomenal and really made a fellow East Coaster feel welcome.</p>
+
+<p>Talk is here: <a href="http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python">http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python</a></p>
+
+<p>And slides are here: <a href="http://josephmosby.com/presentations/pygotham2015">http://josephmosby.com/presentations/pygotham2015</a></p>
+
+<p>Example code is here: <a href="http://josephmosby.com/presentations/pygotham2015/chip_functions.py">http://josephmosby.com/presentations/pygotham2015/chip_functions.py</a></p>
+
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>03 Aug 2015</time>
+			<a href="/tags/">presentations</a>
+		</div>
+		<h3>PyOhio '15 - Production Django</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>Over the weekend, I gave a talk at PyOhio 2015 on Production Django applications. Due to the tireless efforts of the video staff, that talk is already available online less than 24 hours later.</p>
+
+<p>Talk is here: <a href="http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se">http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se</a></p>
+
+<p>And slides are here: <a href="http://josephmosby.com/presentations/pyohio2015">http://josephmosby.com/presentations/pyohio2015</a></p>
+
+<p>Special thanks to <a href="http://roberttownley.com/">Robert Townley</a> who gave pre-con feedback and <a href="http://juliangindi.com/">Julian Gindi</a> who gave an earlier talk that inspired some of the material.</p>
+
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>18 Jul 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Trusting Python&comma; and the Ken Thompson hack</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>I have always treated Python compilation as a black box. Code goes in, web services come out, everyone is happy. Then I went through <a href="http://www.nand2tetris.org/">NAND2Tetris</a> and picked up a copy of <a href="http://www.amazon.com/Programming-Language-Brian-W-Kernighan/dp/0131103628/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1437243255&amp;sr=1-1&amp;keywords=the+c+programming+language">The C Programming Language</a>, and it’s been tough to rest as easy ever since.</p>
+
+<p>Python (in its most common derivative, CPython) is not fed straight into a computer’s processor. It’s first “interpreted” into C code, which is then compiled by a C compiler into assembly language, which is then translated into 1’s and 0’s that the computer can actually understand. Let’s take a look at this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print('Hello, world!')
+</code></pre></div></div>
+
+<p>That’s the incredibly simple Python code for printing “Hello, world!” Here’s what that looks like in the Python source code:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static PyObject *
+builtin_print(PyObject *self, PyObject *args, PyObject *kwds)
+{
+    static char *kwlist[] = {"sep", "end", "file", "flush", 0};
+    static PyObject *dummy_args;
+    PyObject *sep = NULL, *end = NULL, *file = NULL, *flush = NULL;
+    int i, err;
+
+    if (dummy_args == NULL &amp;&amp; !(dummy_args = PyTuple_New(0)))
+        return NULL;
+    if (!PyArg_ParseTupleAndKeywords(dummy_args, kwds, "|OOOO:print",
+                                     kwlist, &amp;sep, &amp;end, &amp;file, &amp;flush))
+        return NULL;
+    if (file == NULL || file == Py_None) {
+        file = _PySys_GetObjectId(&amp;PyId_stdout);
+        if (file == NULL) {
+            PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
+            return NULL;
+        }
+
+        /* sys.stdout may be None when FILE* stdout isn't connected */
+        if (file == Py_None)
+            Py_RETURN_NONE;
+    }
+
+    if (sep == Py_None) {
+        sep = NULL;
+    }
+    else if (sep &amp;&amp; !PyUnicode_Check(sep)) {
+        PyErr_Format(PyExc_TypeError,
+                     "sep must be None or a string, not %.200s",
+                     sep-&gt;ob_type-&gt;tp_name);
+        return NULL;
+    }
+    if (end == Py_None) {
+        end = NULL;
+    }
+    else if (end &amp;&amp; !PyUnicode_Check(end)) {
+        PyErr_Format(PyExc_TypeError,
+                     "end must be None or a string, not %.200s",
+                     end-&gt;ob_type-&gt;tp_name);
+        return NULL;
+    }
+
+    for (i = 0; i &lt; PyTuple_Size(args); i++) {
+        if (i &gt; 0) {
+            if (sep == NULL)
+                err = PyFile_WriteString(" ", file);
+            else
+                err = PyFile_WriteObject(sep, file,
+                                         Py_PRINT_RAW);
+            if (err)
+                return NULL;
+        }
+        err = PyFile_WriteObject(PyTuple_GetItem(args, i), file,
+                                 Py_PRINT_RAW);
+        if (err)
+            return NULL;
+    }
+
+    if (end == NULL)
+        err = PyFile_WriteString("\n", file);
+    else
+        err = PyFile_WriteObject(end, file, Py_PRINT_RAW);
+    if (err)
+        return NULL;
+
+    if (flush != NULL) {
+        PyObject *tmp;
+        int do_flush = PyObject_IsTrue(flush);
+        if (do_flush == -1)
+            return NULL;
+        else if (do_flush) {
+            tmp = _PyObject_CallMethodId(file, &amp;PyId_flush, "");
+            if (tmp == NULL)
+                return NULL;
+            else
+                Py_DECREF(tmp);
+        }
+    }
+
+    Py_RETURN_NONE;
+}
+</code></pre></div></div>
+
+<p>I understand very little of what’s actually going on here. I do know that ultimately this code has to end up at some sort of terminal output unless I specify otherwise, and I do know that I’ll probably do that by writing to a dedicated terminal output memory location which is probably specified by a C pointer, and this is the extent of my understanding. And we haven’t even made it to assembly code yet. Or to binary instructions.</p>
+
+<p>I go on trusting the CPython interpreter because I have no choice. Perhaps the <code class="highlighter-rouge">PyArg_ParseTupleAndKeywords</code> function has a side effect of batching my printed output up and sending it back to a Python mailing list somewhere, for them to laugh at my coding mistakes. Maybe it’s something more nefarious.</p>
+
+<p>I can look through the CPython source code and see that <code class="highlighter-rouge">PyArg_ParseTupleAndKeywords</code> does exactly what it says it’s going to. But what if the <em>C compiler itself</em> is batching my printed output up and sending it off? In 1984 Ken Thompson described <a href="http://c2.com/cgi/wiki?TheKenThompsonHack">exactly that</a> with a hack that would allow a compiler to do all sorts of terrible things, including overwriting all evidence of its existence. You could detect it, of course, but you’d have to have a trusted compiler - something that most 2015 developers are not prepared to write. (myself included)</p>
+
+<p>And so I have to trust my computer. I have to trust Intel, Apple, all of the component manufacturers, the <code class="highlighter-rouge">gcc</code> team, the CPython team, and everybody in between, because I am not prepared to compute otherwise.</p>
+
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>14 Jul 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>The uncomfortable reality of software engineering</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>I am haunted by the idea that someone will have to go back and make changes to certain pieces of code that I wrote in the past. The last time that actually happened was on a project that was originally set up as a demo, rife with technical debt as non-technical managers made rapid changes to requirements and promised clients they’d have something to show that same day. Enough of those types of changes and your project suddenly turns into a duck-taped train wreck. No one can read your code and understand how it works, and eventually, you can’t do it either.</p>
+
+<p>I chat with software engineers in all manner of disciplines and this reality is very much the same. Maybe it’s because engineers are working with a management team that doesn’t want to take the time to do things right, but sometimes it’s due to a tired engineer who didn’t sleep well the night before and just wants to find the first fix for a bug that will get him home by 5:30pm. Sometimes it’s more insidious: individually, every feature might have been put into place with proper consideration, but an edge case causes a catastrophic failure once it runs through all of the machinery.</p>
+
+<p>You don’t see that edge case ever properly discussed in the news. It’s too nuanced to make a good story for the general public, and companies are reticent to talk about major problems with their software. Neither <a href="http://www.wired.com/2015/07/united-airlines-flights-grounded-across-us-2nd-time/">United Airlines</a> nor <a href="http://www.wired.com/2015/07/nyse-halts-trading/">NYSE</a> have given any sort of technical reasons for their major glitches last week, but that says a whole lot in and of itself: it wasn’t some sort of concerted cyberterrorist attack, it was just an edge case that finally hit the software where it shouldn’t. Maybe it was just that <a href="http://stackoverflow.com/questions/4456438/how-do-i-correctly-pass-the-string-null-an-employees-proper-surname-to-a-so">Mr. Null</a> booked his first ever United Airlines flight.</p>
+
+<p>Maybe this is all a reality of software engineering and will be forever, but I doubt that. I think we as engineers are approaching our <a href="http://abcnews.go.com/Business/story?id=87293">Arthur Andersen</a> moment. That point where we try to hold our hands up and say that we did what was expected of us and couldn’t possibly do more, but the world will disagree with us. Maybe it’s time we started thinking about how to prevent that moment before it happens because our stakes are much, much higher than the accounting profession’s. No one died because Enron fudged some numbers. They might die if one of those software bugs hits something important: something like an airline.</p>
+
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>23 Jun 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>A good CS undergraduate algorithm problem</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>Okay, here’s a question for an undergraduate algorithms class to solve. In a non-relational database, we have a users collection with user preferences for breaking news alerts. In a separate collection, we have news stories with tags and searchable content. We will run a scheduled job that will pair the two and send news alerts to users if a story that matches their alert preferences has been published in the last half hour.</p>
+
+<p>Given that we have approximately 50,000 users with an average of 5 alerts each and 500,000 stories with an average of 20 topics each and ten paragraphs of searchable content, how do we build this job in a way that it won’t crash the database?</p>
+
+<p>Example tables:</p>
+
+<p>users:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+	{ 
+		email: "jane.doe@example.com",
+		alerts: [
+			{
+				type: "open-search",
+				term: "Barack Obama"
+			},
+			{
+				type: "topic",
+				term: "politics"
+			},
+			{
+				type: "topic",
+				term: "congress"
+			},
+			{
+				type: "open-search",
+				term: "natural gas"
+			},
+			{
+				type: "open-search",
+				term: "solar power"
+			}
+		]
+	},
+	{ 
+		email: "john.smith@example.com",
+		alerts: [
+			{
+				type: "open-search",
+				term: "Joe Biden"
+			},
+			{
+				type: "topic",
+				term: "politics"
+			},
+			{
+				type: "open-search",
+				term: "sunglasses"
+			},
+			{
+				type: "topic",
+				term: "house"
+			},
+			{
+				type: "topic",
+				term: "senate"
+			},
+			{
+				type: "open-search",
+				term: "solar power"
+			}
+		]
+	},
+
+	....
+]
+</code></pre></div></div>
+
+<p>stories:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+	{ 
+		headline: "The Standard Lorem Ipsum passage",
+		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.......",
+		tags: [
+			{
+				term: "Barack Obama"
+			},
+			{
+				term: "president"
+			},
+			{
+				term: "America"
+			}
+		]
+	},
+	{ 
+		headline: "More lorem ipsum passages",
+		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.......",
+		tags: [
+			{
+				term: "Joe Biden"
+			},
+			{
+				term: "vice president"
+			},
+			{
+				term: "Senate"
+			}
+		]
+	},
+]
+</code></pre></div></div>
+
+<p>The end result should look something like:</p>
+
+<p>alerts:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+	{ 
+		email: 'john.doe@example.com',
+		stories: [
+			{ 
+				headline: "More lorem ipsum passages",
+				content: "Lorem ipsum dolor..."
+			},
+			{
+				headline: "Another lorem ipsum passage",
+				content: "Lorem ipsum dolor..."
+			}
+		]
+	},
+	{ 
+		email: 'jane.smith@example.com',
+		stories: [
+			{ 
+				headline: "Another lorem ipsum passage",
+				content: "Lorem ipsum dolor..."
+			},
+			{
+				headline: "The best of lorem ipsum",
+				content: "Lorem ipsum dolor..."
+			}
+		]
+	}
+]
+</code></pre></div></div>
+
+<p>Would love to hear your questions or solutions: josephmosby@gmail.com</p>
+
+	</div>
+
 </div>
 
 
 <div class="row">
-	<div class="col-offset-3 col-8">
+	<div class="col-md-12">
 		<div class="pagination">
 			
 			<a href="/page4" class="previous">Previous</a>
 			
 
-			<span class="page_number">Page: 5 of 9</span>
+			<span class="page_number">Page: 5 of 11</span>
 
 			
 			<a href="/page6" class="next">Next</a>
@@ -823,37 +1320,11 @@ authors = Author.objects.all()
 		</div>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

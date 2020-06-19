@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Pipes and such
+tags: code
 ---
 
 In MIT's [text on the xv6](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-828-operating-system-engineering-fall-2012/lecture-notes-and-readings/MIT6_828F12_xv6-book-rev7.pdf), pipes are described as "a small kernel buffer exposed to process as a pair of file descriptors, one for reading and one for writing." I think I understand file descriptors by now, but I don't quite know what a buffer is. Let me dig into that first with some Googling.

@@ -1,6 +1,7 @@
 ---
 title: You should have a coach / you should be a coach
 layout: post
+tags: management
 ---
 
 I became an official manager of people in 2017. At Deloitte, my current employer, this comes with a substantial shift in responsibilities. I began getting included in a lot more strategic discussions with our executives. My performance metrics started to include business development metrics (sales, marketing pieces, etc.) and my corresponding expectations for time spent on client projects on a day-to-day basis went down. This is all fairly comparable for how most professional services firms work as individuals move up in rank.

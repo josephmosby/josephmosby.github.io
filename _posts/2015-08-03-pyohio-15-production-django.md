@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PyOhio '15 - Production Django
+tags: presentations
 ---
 
 Over the weekend, I gave a talk at PyOhio 2015 on Production Django applications. Due to the tireless efforts of the video staff, that talk is already available online less than 24 hours later.

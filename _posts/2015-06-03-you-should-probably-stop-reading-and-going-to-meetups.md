@@ -1,6 +1,7 @@
 ---
 layout: post
 title: You should probably stop reading and stop going to meetups
+tags: joe
 ---
 
 	When nothing is owed or deserved or expected

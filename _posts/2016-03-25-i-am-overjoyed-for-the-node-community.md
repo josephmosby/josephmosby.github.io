@@ -1,6 +1,7 @@
 ---
 layout: post
 title: I am overjoyed for the Node community
+tags: code
 ---
 
 The Node community has hit a huge moment in its growth, and I couldn't be more excited for it as an outsider looking in. It's certainly [dark times](http://uk.businessinsider.com/npm-left-pad-controversy-explained-2016-3?r=US&IR=T) for Node devs as many of them sort through the issues arising in their own applications after one prolific developer [rage-quit](https://medium.com/@azerbike/i-ve-just-liberated-my-modules-9045c06be67c#.zdmc1wypg) and pulled all of his code from the Node Package Manager after a spat with the Kik product team. Many Node developers relied on those packages being part of the NPM infrastructure, and the lack of a tested, readily available alternative that offers the same ease of use makes this abrupt change harder to bear. 

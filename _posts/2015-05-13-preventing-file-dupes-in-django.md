@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Preventing file dupes in files uploaded through Django
+tags: code
 ---
 
 Many Django applications make use of uploaded files that should never be re-uploaded again after they've been uploaded once. An example of this in action might be an image (one image embedded in a blog post might not be a big deal for a small site, but news sites often deal with licensed high-definition images used across several stories) or a large PDF with associated metadata (once the metadata is keyed in once, users shouldn't be asked to do so again). Let's talk about two design patterns to handle files, and ways we can deal with duplicates in each one. 

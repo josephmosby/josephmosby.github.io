@@ -1,6 +1,7 @@
 ---
 layout: post
 title: What Consulting Will Teach You
+tags: culture
 ---
 
 It's hiring season for most senior college students in the United States. A few things have changed since my senior year of college - the economy has improved dramatically, the technology industry is a serious draw for many who have never coded a day in their lives, Austin and Nashville are among the hottest places to be. But even with the shifts in the culture, it's still a stressful time for college students trying to choose the next direction of their lives. If you're in that boat, this post is for you.

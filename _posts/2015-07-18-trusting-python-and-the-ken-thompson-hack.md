@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Trusting Python&comma; and the Ken Thompson hack
+tags: code
 ---
 
 I have always treated Python compilation as a black box. Code goes in, web services come out, everyone is happy. Then I went through [NAND2Tetris](http://www.nand2tetris.org/) and picked up a copy of [The C Programming Language](http://www.amazon.com/Programming-Language-Brian-W-Kernighan/dp/0131103628/ref=sr_1_1?s=books&ie=UTF8&qid=1437243255&sr=1-1&keywords=the+c+programming+language), and it's been tough to rest as easy ever since. 

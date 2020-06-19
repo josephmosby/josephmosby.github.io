@@ -1,6 +1,7 @@
 ---
 layout: post
 title: July, or the things I learned without breakfast
+tags: joe
 ---
 
 What would you do with your week if you knew you wouldn't feel guilty about what you *didn't* do?

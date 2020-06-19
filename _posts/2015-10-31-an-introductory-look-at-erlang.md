@@ -1,6 +1,7 @@
 ---
 layout: post
 title: An introductory look at Erlang
+tags: code
 ---
 
 I wanted to take a step back from operating systems to consider how another programming language views the world. Operating systems in the Unix world require knowledge of C: something that expands my programming mind but often feels like the Python knowledge I already know, just at a lower level. I wanted to pick something totally new, and so I'm going with [Erlang](http://learnyousomeerlang.com/).

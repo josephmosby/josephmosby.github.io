@@ -1,6 +1,7 @@
 ---
 layout: post
 title: A brand new code review and integration workflow
+tags: code
 ---
 
 I've been fortunate to join the [National Journal](http://www.nationaljournal.com/) with a stack of brand new product managers and developers. As we form a new product team, we also need to address some of the operational nuances of bringing our team together. Part of that process includes defining and standardizing our workflow for code review, testing, and integration.

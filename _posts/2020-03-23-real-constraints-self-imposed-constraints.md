@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Real constraints / self-imposed constraints
+tags: management
 ---
 There are two worlds in which we live: [Mundia and Modia](http://www.rishon-rishon.com/archives/351860.html). In the world of Mundia, laws are physical. If you jump, you will come down. If you push something, it will fall over. In the world of Mundia, many things are possible. If you see a new shiny object that you want and it's not glued to the ground, you can pick it up and take it home with you. In Mundia, things follow physical, immutable laws. 
 

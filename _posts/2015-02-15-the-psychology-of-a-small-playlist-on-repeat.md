@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The psychology of a small playlist on repeat
+tags: culture
 ---
 
 [Matt Mullenweg](http://ma.tt) [listens to a single song on repeat](http://fourhourworkweek.com/2015/02/09/matt-mullenweg/) when he needs to get in "the zone." This is fascinating to me, as I am a Spotify user fueled by chaos. I have always been a little spastic about my [Spotify playlists](http://open.spotify.com/user/josephmosby), creating new lists for each month based on my musical whims at the moment. The idea of restricting myself to only a few songs at a time is absolutely absurd. I had to try it. I created a playlist of three songs that I've already been playing quite a bit: 

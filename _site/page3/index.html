@@ -4,818 +4,462 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
-
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html"><h3>Up and Running with Flask on a Brand New Linode</h3></a>
-		<div class="date">October 16, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>Tonight, I’m building a minimalistic Flask app that will run on Linode. Flask is a relatively new framework for me. I’ve dealt with CentOS, nginx, and uwsgi at work, but I’ve never tried to get them installed on my own. Time to get started.</p>
-
-<h3 id="step-1-install-and-configure-nginx-round-1">Step 1: Install and configure nginx, round 1</h3>
-
-<p>I am skipping over the step where we create a CentOS 7 machine from the Linode dashboard. I can’t think of a good way to explain that one without screenshots. Let’s assume we have one, and let’s install the necessaries on it.</p>
-
-<pre><code>$ yum install epel-release
-$ yum install nginx
-</code></pre>
-
-<p>Okay! That was simple enough. Here we’ve installed nginx, which will allow us to serve up our web pages. I want to start here because I like the feedback of knowing that I’m serving up web pages from the very start.</p>
-
-<p>I know that I plan to serve multiple sites off of this one server, so I need to adjust my domain and nginx configuration accordingly. In Namecheap, I’ve created 2 A records - dashboard.mosby.io and www.mosby.io - which I’ll both point at this server’s IP address. I’ll let nginx sort out the parsing.</p>
-
-<pre><code># /etc/nginx/nginx.conf
-
-... # stuff here that you shouldn't remove
-
-http {
-
-	... # more stuff here that you shouldn't remove
-
-	server { 
-		listen	80;
-		server_name	www.mosby.io;
-		root /var/www/main;
-	}
-
-	server {
-		listen	80;
-		server_name	dashboard.mosby.io;
-		root /var/www/dashboard;
-	}
-}
-</code></pre>
-
-<p>nginx has a configuration file called <code>nginx.conf</code> that we’re going to modify to serve our sites. Here, we’ve said that any request incoming will either be for <code>www.mosby.io</code> or <code>dashboard.mosby.io</code>. If it’s for <code>www</code>, we’re going to serve content from <code>/var/www/main</code>. If it’s for <code>dashboard</code>, we’re going to serve content from <code>/var/www/dashboard</code>. We can test this out by creating two text files:</p>
-
-<pre><code># /var/www/main/index.html
-
-Hello, www.mosby.io!
-</code></pre>
-
-<p>AND</p>
-
-<pre><code># /var/www/dashboard/index.html
-
-Hello, dashboard.mosby.io!
-</code></pre>
-
-<p>Assuming that you’ve already pointed your two subdomain to your Linode’s IP address, these will each display their respective content. Success!</p>
-
-<h3 id="step-2-install-python3-flask-and-uwsgi">Step 2: Install Python3, Flask and uWSGI</h3>
-
-<p>This is the part I know least about this entire process. Let’s start by installing Python 3, pip, and a version of <code>virtualenv</code> that’s cool with all of this:</p>
-
-<pre><code>$ yum install python34
-$ wget https://bootstrap.pypa.io/get-pip.py
-$ python3.4 get-pip.py
-</code></pre>
-
-<p>Now I’m going to move into my dashboard folder and create the application. </p>
-
-<pre><code>$ cd /var/www/dashboard
-$ virtualenv venv
-$ source venv/bin/activate
-</code></pre>
-
-<p>We’ve got a local instance of Python3 and pip now. Time to get uWSGI and Flask.</p>
-
-<pre><code>$ pip install uwsgi flask
-</code></pre>
-
-<p>Wait hold on. uWSGI just crapped out on installation. I missed something. The scary error message looks like this:</p>
-
-<pre><code>Command "/var/www/dashboard/venv/bin/python3.4 -c "import setuptools, tokenize;__file__='/tmp/pip-build-5a_chnf_/uwsgi/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-8zr4gl3_-record/install-record.txt --single-version-externally-managed --compile --install-headers /var/www/dashboard/venv/include/site/python3.4/uwsgi" failed with error code 1 in /tmp/pip-build-5a_chnf_/uwsgi
-</code></pre>
-
-<p>But that’s not the root of the problem. I’ve got to scroll up the stack trace for that.</p>
-
-<pre><code>In file included from plugins/python/python_plugin.c:1:0:
-plugins/python/uwsgi_python.h:2:20: fatal error: Python.h: No such file or directory
- #include &lt;Python.h&gt;
-</code></pre>
-
-<p>I don’t have Python headers installed on this system! Let’s see if I can do that.</p>
-
-<pre><code>$ yum install python34-devel
-$ pip install uwsgi flask
-</code></pre>
-
-<p>Okay, that worked!</p>
-
-<p>And now, let’s convert our little test HTML from before into a Flask app. We’re then going to remove the HTML file, which will let us confirm that we’ve actually set of Flask and uWSGI correctly when we see it again. I’m going to do some work here using the <code>vi</code> editor, but if you’re not familiar with it, please replace the <code>vi</code> commands with <code>nano</code>. It’s simpler.</p>
-
-<pre><code>$ vi app.py
-
-from flask import Flask
-application = Flask(__name__)
-
-@application.route("/")
-def helloworld():
-	return "Hello, dashboard.mosby.io on Flask!"
-
-if __name__ == "__main__":
-	application.run(host='0.0.0.0')
-
-$ rm index.html
-$ python app.py
-</code></pre>
-
-<p>I can see that I’ve done it all right by going to my new homepage in my browser! Visiting dashboard.mosby.io:5000 will show me my updated page. </p>
-
-<h3 id="step-3-configure-uwsgi-serving">Step 3: Configure uWSGI Serving</h3>
-
-<p>We’ve got ourselves a basic skin of an application, so let’s hook it up to nginx through uWSGI.</p>
-
-<pre><code>$ uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi
-</code></pre>
-
-<p>It works! Exactly the same way it did when we ran the application directly. Let’s build a <code>.ini</code> file so we can do this more repeatedly.</p>
-
-<pre><code>$ vi dashboard.ini
-
-[uwsgi]
-module = wsgi
-
-master = true
-processes = 5
-
-uid = ghost
-socket = dashboard.sock
-chown-socket = ghost:nginx
-chmod-socket = 660
-vacuum = true
-
-die-on-term = true
-</code></pre>
-
-<p>This <code>ini</code> file does a few things for us. It points to the wsgi module, sets it in master mode, and spawns 5 processes of the app. It also ties to the uWSGI process to a Unix socket, and will remove (vacuum) that socket when the process stops.</p>
-
-<p>I’m also specifying that the <code>ghost</code> user will own this process. (I’ve been doing all of this work as <code>root</code>, which is not a good practice for running the application) I now need to create the ghost user and add it to the nginx group.</p>
-
-<pre><code>$ useradd ghost
-$ usermod -a -G nginx ghost
-</code></pre>
-
-<p>Verify that you did it right:</p>
-
-<pre><code>$ id ghost
-</code></pre>
-
-<p>You should see the <code>ghost</code> user attached to the nginx group. Onward!</p>
-
-<h3 id="step-4-start-on-boot">Step 4: Start on Boot</h3>
-
-<p>When our server comes online, we want our uWSGI app to be available immediately. Let’s start by creating a service file in our <code>/etc/systemd/system</code> directory.</p>
-
-<pre><code>$ vi /etc/systemd/system/dashboard.service
-
-[Unit]
-Description=uwsgi instance to serve dashboard
-After=network.target
-
-[Service]
-User=ghost
-Group=nginx
-WorkingDirectory=/var/www/dashboard
-Environment="PATH=/var/www/dashboard/venv/bin"
-ExecStart=/var/www/dashboard/venv/bin/uwsgi --ini dashboard.ini
-
-[Install]
-WantedBy=multi-user.target
-</code></pre>
-
-<p>There is black magic going on here that I need to dig into more. I don’t know <em>why</em> we do all of these things, but I do know that we’re specifying the working directory, and the environment, and what should happen when we start things up. Which we’ll do now.</p>
-
-<pre><code>$ systemctl start dashboard
-$ systemctl enable dashboard
-</code></pre>
-
-<h3 id="step-5-proxy-requests-from-nginx">Step 5: Proxy Requests from Nginx</h3>
-
-<p>Now it’s time that we return to our <code>nginx.conf</code> file. We need to modify our dashboard server block to handle the uwsgi application.</p>
-
-<pre><code># /etc/nginx/nginx.conf
-
-... # stuff here that you shouldn't remove
-
-http {
-
-	... # more stuff here that you shouldn't remove
-
-	server { 
-		listen	80;
-		server_name	www.mosby.io;
-		root /var/www/main;
-	}
-
-	server {
-		listen	80;
-		server_name	dashboard.mosby.io;
 		
-		location / {
-			include uwsgi_params;
-			uwsgi_pass unix:/var/www/dashboard/dashboard.sock;
-		}
-	}
-}
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-$ nginx -t &lt;-- test your configuration
-$ service nginx reload
-</code></pre>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
+			</div>
+		</nav>
+		
+		<main class="container home" role="main">
+			
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>30 May 2016</time>
+			<a href="/tags/">joe</a>
+		</div>
+		<h3>A May recap, or starting from the bottom all over again</h3>
 
-<p>And now we go to our browser and punch in dashboard.mosby.io, and… crap.</p>
-
-<p>502 Bad Gateway. What did I do wrong here? That error means nginx can’t talk to our application.</p>
-
-<p>Ahh, I’ve been doing all this as root. Everything is currently owned by root, which means that neither <code>ghost</code> nor <code>nginx</code> can see my dashboard socket. Let’s change that. </p>
-
-<pre><code>$ chown ghost:nginx /var/www/dashboard
-$ service nginx reload
-$ systemctl restart dashboard
-</code></pre>
-
-<p>And, we’re back, folks!</p>
-
-<p>That’s a basic configuration for getting an Flask/uWSGI/nginx app up and running on a CentOS Linode box. If you decide to do something other than CentOS, most of it should still work, but the initialization service script will probably not. You can browse the repository for all of this <a href="https://github.com/josephmosby/dashboard/tree/c776c8875f8eaf094e2c506e1c0aca91693b7323">here</a>.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html" data-via="josephmosby">Tweet</a>
 	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>In the first week of this month, I began closing down all of the things I’d been working on at <a href="https://www.nationaljournal.com/">National Journal</a>. I started documenting the code that I’d written and training my co-workers on the things that only I had locked up in my head before taking my last lunches on that best roof in the District of Columbia. That was before D.C.’s three straight weeks of rain started, of course.</p>
+
+<p>When I started at National Journal, all of the production applications I had ever built before that time had maybe a few dozen concurrent viewers <em>and</em> they got to piggyback off of Rackspace’s <a href="https://www.rackspace.com/en-us/cloud/sites">Cloud Sites</a> architecture. That’s a wonderful environment for learning how to code stuff people will actually see. You don’t have to worry much about your site going down; you don’t have to worry about configuring a server. I tinkered with things like MongoDB and Flask, but I didn’t know <a href="http://jvns.ca/blog/2016/04/29/cdns-arent-just-for-caching/">how a CDN worked</a> or what <a href="http://josephmosby.com/2015/10/19/debugging-uwsgi-dropouts.html">uWSGI even did</a>. I had done some nifty JavaScript and front-end process hacks. No real “computer science.”</p>
+
+<p>My first task at NJ was to build a Django model interpreter that would recursively dig into foreign key relationships to create nested documents to insert into MongoDB. Then I learned how to build authentication systems. Then I learned what happens when you build those authentication systems expecting that every page will be generated fresh and suddenly a CDN just destroys your entire mental model of the world. NJ was my trial by fire. I finally became a “developer” there. It took four years of me coding and several public-facing projects before I actually felt like I was a professional software developer.</p>
+
+<p>Now I’ve started with a team that’s going to challenge me all over again. I typed four or five sentences trying to articulate my feelings about this new team before finally settling on a simple “This is the coolest thing I’ve ever done.” We’re building a Spark framework that’s going to analyze some truly huge datasets. I get to write Scala and SQL and explore graph databases and play around with computing hardware that I would normally never get to touch. I’m ecstatic.</p>
+
+<p>That’s a big thing that happened this month. What else happened?</p>
+
+<p>I read two books:</p>
+
+<ul>
+  <li><a href="http://amzn.to/1XsPsaK">Letters from a Stoic</a> by Seneca</li>
+  <li><a href="http://amzn.to/1sNxogz">Back to Blood</a> by Tom Wolfe</li>
+</ul>
+
+<p>Now, this is a marked drop from my normal book volume. I’ve started taking notes on everything I read. Those notes look something like this:</p>
+
+<p><img src="/images/notes.JPG" /></p>
+
+<p>I have pages upon pages of notes for Letters from a Stoic, one of the most thought-provoking books I’ve ever read. I’ll have a more detailed review later when I take the time to read back through my notes.</p>
+
+<p>I started training with this scary-looking gear:</p>
+
+<p><img src="/images/clubs.JPG" /></p>
+
+<p>These weights are fierce on the muscles. With both the steel club and the steel mace, the weight is all thrown off on angles that normal barbells don’t cover. They’re only fifteen pounds each, but after one of their recommended workouts, I’m shaking. The weighted vest adds ten pounds of extra umph.</p>
+
+<p>I wrote a post for a company blog that hasn’t gone live yet, but when that’s posted I’ll link it here. This will be my first post written for someone other than myself, if we ignore the post on <a href="http://josephmosby.com/2015/02/15/the-psychology-of-a-small-playlist-on-repeat.html">optimizing music for productivity</a> that got picked up by <a href="http://lifehacker.com/listing-to-a-single-song-on-repeat-when-you-want-to-get-1690818056">Lifehacker</a> and <a href="https://ma.tt/2015/03/psychology-of-a-small-playlist/">Matt Mullenweg’s blog</a>.</p>
+
+<p>Finally, I purchased a TV for $50 and hooked up my PS3 to it.</p>
+
+<p><img src="/images/ps3.JPG" /></p>
+
+<p>I bring this up because while I’ve enjoyed kicking back and relaxing with some video games, I’ve also become aware of its addictive nature. I’ve become mindful of the desire to just chill after work and veg out for hours. Now, I’m curbing back my gaming through a Pomodoro technique mix. 25 minutes of something productive, then 25 minutes of games, back, forth, back, forth, etc. It seems to be working out so far.</p>
+
+<p>What’s next in June? I have a stack of Scala and analytics material to read. I have a lot of new coding projects to explore at work. I also have jury duty.</p>
+
+<p>By the way, my friend <a href="http://joshcarroll.xyz/">Josh</a> challenged me to get back into more personal experimentation through a single text message asking what hack I was going to explore next. What suggestions should I try? Hit me up at <a href="https://twitter.com/josephmosby">@josephmosby</a>.</p>
+
+	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/08/17/pygotham-15-building-an-alu.html"><h3>PyGotham '15 - Building an ALU</h3></a>
-		<div class="date">August 17, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>29 Apr 2016</time>
+			<a href="/tags/">joe</a>
+		</div>
+		<h3>An April recap, or drowning the small things with the big ones</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Really had an awesome time at PyGotham 2015! The organization is phenomenal and really made a fellow East Coaster feel welcome. </p>
+	<div class="col-md-8 col-sm-12">
+		<p>It’s now the end of April. We’re a third of the way through 2016 already. What have I learned so far?</p>
 
-<p>Talk is here: <a href="http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python">http://www.pyvideo.org/video/3784/modeling-an-arithmetic-logic-unit-in-python</a></p>
+<p>I’ve learned that <a href="http://josephmosby.com/2016/01/29/a-january-recap-and-some-personal-experiments.html">morning workouts work</a> more effectively than anything else I’ve tried. In the month of April, I came back to a dedicated 5:30AM wake-up call combined with an early trip to the gym. I was immediately successful in what I wanted to accomplish: heavier lifts in the four majors (bench press, deadlift, back squat, and shoulder press). I believe this works for me because it allows me to focus on my workouts before anything else that day in addition to letting me hit the gym when my energy levels are highest.</p>
 
-<p>And slides are here: <a href="http://josephmosby.com/presentations/pygotham2015">http://josephmosby.com/presentations/pygotham2015</a></p>
+<p>I’ve learned that <a href="http://josephmosby.com/2016/02/29/a-february-recap-or-what-life-is-like-without-coffee.html">coffee isn’t necessary</a>. This realization has reflected on all aspects of my life, extending far beyond the physical release from caffeine addiction. My mind is clearer now. I am aware of the moments when it is drugged and when it is not. When I learned to detect a state of mind that was hyperactive on caffeine, I learned how to detect one that was overemotional or stressed or out of control in some other way. As I have learned how to detect these different states, I have learned how to respond accordingly.</p>
 
-<p>Example code is here: <a href="http://josephmosby.com/presentations/pygotham2015/chip_functions.py">http://josephmosby.com/presentations/pygotham2015/chip_functions.py</a></p>
+<p>I’ve learned that <a href="http://josephmosby.com/2016/03/31/a-march-recap-or-an-experiment-in-moderating-moderation.html">discipline has to be applied through all areas of my life or it won’t be applied at all</a>. I start my weekdays off the same way with breakfast, the gym, and a walk to the office from the gym. By starting my day off this way, <a href="http://fourhourworkweek.com/2015/09/25/jocko-willink/">I set the tone for the entire rest of the day</a>. The value of this cannot be overstated when trying to get big things done at work and after hours.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/08/17/pygotham-15-building-an-alu.html" data-via="josephmosby">Tweet</a>
+<p>I’ve learned that when you tackle big things, they often shout down some of the smaller ones. I tackled two massive tasks this month: I moved into a new house, and I went through the interview process for a new job that I’ll be starting in May (I’ll write about that later). The mental focus dedicated to both of those tasks distracted me from some of the reading and writing I intended to do, but that was all for the best. I needed to be focused on those two primary objectives this month. In future months, I intend to anticipate those primary objectives before the month heats up and focus my activities accordingly.</p>
+
+<p>In listicle form, here’s what I accomplished in the month of April:</p>
+
+<ul>
+  <li>Read 5 books
+    <ul>
+      <li><a href="http://amzn.to/1UfRni0">Darkness at Noon</a> by Arthur Koestler</li>
+      <li><a href="http://amzn.to/26sEru1">Between the World and Me</a> by Ta-Nehisi Coates</li>
+      <li><a href="http://amzn.to/1VB0sDw">Antifragile: Things That Gain from Disorder</a> by Nassim Taleb</li>
+      <li><a href="http://amzn.to/234F097">14</a> by Peter Clines</li>
+      <li><a href="http://amzn.to/26sEoP4">The Elements of Style</a> by William Strunk and E.B. White</li>
+    </ul>
+  </li>
+  <li>Walked more than 320,000 steps</li>
+  <li>Moved in to a new home with fantastic roommates in an amazing neighborhood</li>
+  <li>Interviewed for and accepted a new job</li>
+  <li>Visited my brother in Dallas</li>
+  <li>Wrote three blog posts, one on <a href="http://josephmosby.com/2016/04/06/python-modules-ranked-on-usage.html">Python modules’ frequency of use</a>, one on <a href="http://josephmosby.com/2016/04/07/how-to-develop-mental-toughness.html">mental toughness</a> and one on <a href="http://josephmosby.com/2016/04/21/prince.html">Prince</a></li>
+  <li>Played three softball games</li>
+</ul>
+
+<p>My attention in May is focused on starting off this new job with a bang. I will be writing more; there’s a lot flying around my head right now that I’m fired up to share here. I will also be paying Chicago a visit for Memorial Day weekend as my dad, brother and I go find all of their steak and trouble.</p>
+
+<p>How is your year shaping up? Let me know! <a href="https://twitter.com/josephmosby">@josephmosby</a></p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/08/03/pyohio-15-production-django.html"><h3>PyOhio '15 - Production Django</h3></a>
-		<div class="date">August 03, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>21 Apr 2016</time>
+			<a href="/tags/">culture</a>
+		</div>
+		<h3>Prince</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Over the weekend, I gave a talk at PyOhio 2015 on Production Django applications. Due to the tireless efforts of the video staff, that talk is already available online less than 24 hours later.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>My memories of Prince began in college with my suite-mate Adam, who idolized him already. Adam, born in 1988, was an ’80s music freak. We’d find him in his room rocking out to Foreigner’s <em>Jukebox Hero</em>, guitar in hand, the solos memorized. But he didn’t touch Prince. Three guitarists living in a suite together, and none of us would touch Prince. We knew we’d just disappoint ourselves.</p>
 
-<p>Talk is here: <a href="http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se">http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se</a></p>
+<p>Toward the end of my college career, I picked up Jay-Z’s <em>The Blueprint 3</em> and got curious about hip-hop and R&amp;B soon afterward. Prince was there too. My co-worker BL had me listen to <em>Sign O’ the Times</em> with new ears followed by a stack of Prince B-sides. The albums weren’t even labeled, they were CDs burned and mixed together, but I went all the way through them. No one had musical depth like that. There was good stuff, there was bad stuff. All throughout I could hear elements of crazy awesome musical ideas, and I’d point out to BL “oh that really sounds like so-and-so” and BL would remind me that Prince got there first, a few years before the rest of the industry caught up.</p>
 
-<p>And slides are here: <a href="http://josephmosby.com/presentations/pyohio2015">http://josephmosby.com/presentations/pyohio2015</a></p>
+<p>Going to a music school in Nashville, Tennessee (where everyone <em>thinks</em> a whole lot about music) and then moving to Washington, DC (where everyone <em>thinks</em> a whole lot about everything) jaded me on music for a little bit. I lost that ability to just get swept up in a musical performance instead of focusing on all of the details like the performer’s technical ability or song selection. But then Prince was there too, because Prince didn’t care what I or anyone else <em>thought</em> about the culture. He was too busy creating it. That was a big lesson.</p>
 
-<p>Special thanks to <a href="http://roberttownley.com/">Robert Townley</a> who gave pre-con feedback and <a href="http://juliangindi.com/">Julian Gindi</a> who gave an earlier talk that inspired some of the material. </p>
+<p>I missed an opportunity to see <a href="https://www.washingtonpost.com/express/wp/2015/06/15/prince-at-the-warner-theatre-4-observations-from-the-purple-ones-early-show-in-d-c/">Prince at the Warner Theatre</a> last year because I had other plans. I didn’t make the effort because Prince was always supposed to be there, ageless and unchanging. I could watch <em>Purple Rain</em> and his episode of <em>New Girl</em> in the same day, the recordings separated by 30 years, but he was the same Prince throughout. No other artist can pull that off.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/08/03/pyohio-15-production-django.html" data-via="josephmosby">Tweet</a>
+<p>And even outside of the music, Prince was a reminder to me that you don’t have to hail from New York or San Francisco or Los Angeles to have an impact on the culture. That small towns and middle America produced more than country and folk music. That when you made it, you didn’t have to move to the big city and join the “scene.” He was outside of all of that, and something about how amazing he was signaled that it was a totally okay thing if you chose to opt out as well.</p>
+
+<p>What more can I say? Who had an impact over so many lives over so many years just by virtue of his <em>being</em>?</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/07/18/trusting-python-and-the-ken-thompson-hack.html"><h3>Trusting Python&comma; and the Ken Thompson hack</h3></a>
-		<div class="date">July 18, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>07 Apr 2016</time>
+			<a href="/tags/">joe</a>
+		</div>
+		<h3>How to develop mental toughness</h3>
+
 	</div>
-	<div class="col-8">
-		<p>I have always treated Python compilation as a black box. Code goes in, web services come out, everyone is happy. Then I went through <a href="http://www.nand2tetris.org/">NAND2Tetris</a> and picked up a copy of <a href="http://www.amazon.com/Programming-Language-Brian-W-Kernighan/dp/0131103628/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1437243255&amp;sr=1-1&amp;keywords=the+c+programming+language">The C Programming Language</a>, and it’s been tough to rest as easy ever since. </p>
+	<div class="col-md-8 col-sm-12">
+		<p>This is one of those posts that I feel weird writing, because who am I to talk about mental toughness? I’m a private-school-educated guy who grew up in the suburbs of a sleepy Southern town, not a veteran, not an athlete or anything like that. But I speak to some of my friends who read <a href="http://josephmosby.com/2016/01/29/a-january-recap-and-some-personal-experiments.html">my</a> <a href="http://josephmosby.com/2016/02/29/a-february-recap-or-what-life-is-like-without-coffee.html">monthly</a> <a href="http://josephmosby.com/2016/03/31/a-march-recap-or-an-experiment-in-moderating-moderation.html">recaps</a> and they occasionally ask how I motivate myself to do any of it. I never really know how to answer that question. “I don’t know, man, I guess I just do it…”</p>
 
-<p>Python (in its most common derivative, CPython) is not fed straight into a computer’s processor. It’s first “interpreted” into C code, which is then compiled by a C compiler into assembly language, which is then translated into 1’s and 0’s that the computer can actually understand. Let’s take a look at this: </p>
+<p>I’m a growing fan of Jocko Willink’s work after listening to <a href="http://fourhourworkweek.com/2015/09/25/jocko-willink/">his interview</a> on the Tim Ferriss show and reading <em><a href="http://amzn.to/23l59lZ">Extreme Ownership</a></em>, which discusses his approach to leadership. In his first episode of the <a href="http://jockopodcast2.com/podcast-episodes/">Jocko Podcast</a>, Jocko gets asked the question I’m tackling here: “how do you develop mental toughness?” Jocko’s a Navy SEAL who fought in Iraq, a jiu-jitsu practitioner, surfer, etc., etc. The dude’s hardcore. And he doesn’t really know how to answer this question, because he’s always been mentally tough. He doesn’t think about <em>not</em> being mentally tough.</p>
 
-<pre><code>print('Hello, world!')
-</code></pre>
+<p>I am not Jocko. I try to wake up early every weekday morning, but at least one day every week I oversleep and I can’t bring myself to keep up the discipline into the weekend. I downloaded <a href="http://www.civilization5.com/">Civilization V</a> and struggle to stay away from it for more than a day or so. I get nervous about talking to new people. I really like Twitter and have a nervous tic that causes me to obsessively check it.</p>
 
-<p>That’s the incredibly simple Python code for printing “Hello, world!” Here’s what that looks like in the Python source code:</p>
+<p>Still, I think that mental toughness is more of a choice I make every day than it is something I am or am not. When I successfully wake up at 5:30 and hit the ground for the gym, I am doing a mentally tough thing. When I tell myself “one more SICP course video, no Civ5 yet,” I am doing a mentally tough thing. When I tell myself “no Twitter, write the mental toughness post,” I am doing a mentally tough thing. Conversely, when I oversleep my alarm, I am doing a mentally weak thing. When I try to say “it’s not my fault that I overslept,” it’s an even weaker thing.</p>
 
-<pre><code>static PyObject *
-builtin_print(PyObject *self, PyObject *args, PyObject *kwds)
-{
-    static char *kwlist[] = {"sep", "end", "file", "flush", 0};
-    static PyObject *dummy_args;
-    PyObject *sep = NULL, *end = NULL, *file = NULL, *flush = NULL;
-    int i, err;
+<p>But mental toughness here is something I practice, not something I am or am not. That is critical to how to tackle it. It’s not a question of something I <em>am</em> or <em>am not</em>, it’s a response to a particular choice that I get to make multiple times a day. I can wake up early in the morning, work out, bust my chops at work, and then totally break down on something that I wanted to get done that night. Or I can oversleep and eat junk food throughout the day but still toughen myself up at lunchtime and finish the day on a high note.</p>
 
-    if (dummy_args == NULL &amp;&amp; !(dummy_args = PyTuple_New(0)))
-        return NULL;
-    if (!PyArg_ParseTupleAndKeywords(dummy_args, kwds, "|OOOO:print",
-                                     kwlist, &amp;sep, &amp;end, &amp;file, &amp;flush))
-        return NULL;
-    if (file == NULL || file == Py_None) {
-        file = _PySys_GetObjectId(&amp;PyId_stdout);
-        if (file == NULL) {
-            PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
-            return NULL;
-        }
+<p>I find that there are a few things that help me maintain that mental toughness:</p>
 
-        /* sys.stdout may be None when FILE* stdout isn't connected */
-        if (file == Py_None)
-            Py_RETURN_NONE;
-    }
+<ol>
+  <li>I wake up early and go to the gym before work. If I do this, I go into the office with all the endorphin highs of working out and I leave the office without an obligation to squeeze in a workout after work. That’s an immensely helpful situation to be in. When you start your day off like this, doing something that’s important to you, you’ve set the tone for the entire day. For me, that’s working out. For you, it might be the <a href="http://goinswriter.com/my500words/">500 words challenge</a> or cooking yourself a gourmet meal to take into work that day. Just start the day off on your own terms rather than stressed out and sprinting to the office.</li>
+  <li>I meditate. This is an on and off thing for me, mostly based on available time and how I’m choosing to use it, but I always find that a ten-minute meditative practice helps with my mental toughness for the entire rest of the day afterward.</li>
+  <li>I avoid overconsumption of alcohol and caffeine. The alcohol part should be a no-brainer. Even if you’re just a little foggy from the night before, you’re having to expend mental energy just to grind through the day. The caffeine is a little counter-intuitive, but I’ve found that reducing myself to a single cup of tea does more for my mental toughness than clinging to my pot of coffee. Sure, I’m more energetic on the multiple cups of coffee, but that doesn’t mean I’m able to mentally buckle down.</li>
+</ol>
 
-    if (sep == Py_None) {
-        sep = NULL;
-    }
-    else if (sep &amp;&amp; !PyUnicode_Check(sep)) {
-        PyErr_Format(PyExc_TypeError,
-                     "sep must be None or a string, not %.200s",
-                     sep-&gt;ob_type-&gt;tp_name);
-        return NULL;
-    }
-    if (end == Py_None) {
-        end = NULL;
-    }
-    else if (end &amp;&amp; !PyUnicode_Check(end)) {
-        PyErr_Format(PyExc_TypeError,
-                     "end must be None or a string, not %.200s",
-                     end-&gt;ob_type-&gt;tp_name);
-        return NULL;
-    }
+<p>What works for you? I know there are a lot of people out there with more highly developed strategies than mine for practicing mental toughness, and <a href="https://twitter.com/josephmosby">I’d love to hear about them</a>.</p>
 
-    for (i = 0; i &lt; PyTuple_Size(args); i++) {
-        if (i &gt; 0) {
-            if (sep == NULL)
-                err = PyFile_WriteString(" ", file);
-            else
-                err = PyFile_WriteObject(sep, file,
-                                         Py_PRINT_RAW);
-            if (err)
-                return NULL;
-        }
-        err = PyFile_WriteObject(PyTuple_GetItem(args, i), file,
-                                 Py_PRINT_RAW);
-        if (err)
-            return NULL;
-    }
-
-    if (end == NULL)
-        err = PyFile_WriteString("\n", file);
-    else
-        err = PyFile_WriteObject(end, file, Py_PRINT_RAW);
-    if (err)
-        return NULL;
-
-    if (flush != NULL) {
-        PyObject *tmp;
-        int do_flush = PyObject_IsTrue(flush);
-        if (do_flush == -1)
-            return NULL;
-        else if (do_flush) {
-            tmp = _PyObject_CallMethodId(file, &amp;PyId_flush, "");
-            if (tmp == NULL)
-                return NULL;
-            else
-                Py_DECREF(tmp);
-        }
-    }
-
-    Py_RETURN_NONE;
-}
-</code></pre>
-
-<p>I understand very little of what’s actually going on here. I do know that ultimately this code has to end up at some sort of terminal output unless I specify otherwise, and I do know that I’ll probably do that by writing to a dedicated terminal output memory location which is probably specified by a C pointer, and this is the extent of my understanding. And we haven’t even made it to assembly code yet. Or to binary instructions. </p>
-
-<p>I go on trusting the CPython interpreter because I have no choice. Perhaps the <code>PyArg_ParseTupleAndKeywords</code> function has a side effect of batching my printed output up and sending it back to a Python mailing list somewhere, for them to laugh at my coding mistakes. Maybe it’s something more nefarious. </p>
-
-<p>I can look through the CPython source code and see that <code>PyArg_ParseTupleAndKeywords</code> does exactly what it says it’s going to. But what if the <em>C compiler itself</em> is batching my printed output up and sending it off? In 1984 Ken Thompson described <a href="http://c2.com/cgi/wiki?TheKenThompsonHack">exactly that</a> with a hack that would allow a compiler to do all sorts of terrible things, including overwriting all evidence of its existence. You could detect it, of course, but you’d have to have a trusted compiler - something that most 2015 developers are not prepared to write. (myself included)</p>
-
-<p>And so I have to trust my computer. I have to trust Intel, Apple, all of the component manufacturers, the <code>gcc</code> team, the CPython team, and everybody in between, because I am not prepared to compute otherwise. </p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/07/18/trusting-python-and-the-ken-thompson-hack.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/07/14/the-uncomfortable-reality-of-software-engineering.html"><h3>The uncomfortable reality of software engineering</h3></a>
-		<div class="date">July 14, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>06 Apr 2016</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Python modules ranked on usage and what that says about the Python ecosystem</h3>
+
 	</div>
-	<div class="col-8">
-		<p>I am haunted by the idea that someone will have to go back and make changes to certain pieces of code that I wrote in the past. The last time that actually happened was on a project that was originally set up as a demo, rife with technical debt as non-technical managers made rapid changes to requirements and promised clients they’d have something to show that same day. Enough of those types of changes and your project suddenly turns into a duck-taped train wreck. No one can read your code and understand how it works, and eventually, you can’t do it either.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>A few days ago, I asked myself a simple question: what are the most (and least) popular Python modules from the standard library? Or rather, I decided to ask GitHub. There are at least a dozen syntactic ways you can bring a module into a piece of Python code, but I thought it might be easiest to simply search for “import “ and see how many results came back. There will of course be some false positives and false negatives, but on average, this approach can serve as a proxy for total usage.</p>
 
-<p>I chat with software engineers in all manner of disciplines and this reality is very much the same. Maybe it’s because engineers are working with a management team that doesn’t want to take the time to do things right, but sometimes it’s due to a tired engineer who didn’t sleep well the night before and just wants to find the first fix for a bug that will get him home by 5:30pm. Sometimes it’s more insidious: individually, every feature might have been put into place with proper consideration, but an edge case causes a catastrophic failure once it runs through all of the machinery. </p>
+<p>Here are the results for the most used libraries:</p>
 
-<p>You don’t see that edge case ever properly discussed in the news. It’s too nuanced to make a good story for the general public, and companies are reticent to talk about major problems with their software. Neither <a href="http://www.wired.com/2015/07/united-airlines-flights-grounded-across-us-2nd-time/">United Airlines</a> nor <a href="http://www.wired.com/2015/07/nyse-halts-trading/">NYSE</a> have given any sort of technical reasons for their major glitches last week, but that says a whole lot in and of itself: it wasn’t some sort of concerted cyberterrorist attack, it was just an edge case that finally hit the software where it shouldn’t. Maybe it was just that <a href="http://stackoverflow.com/questions/4456438/how-do-i-correctly-pass-the-string-null-an-employees-proper-surname-to-a-so">Mr. Null</a> booked his first ever United Airlines flight.</p>
+<ol>
+  <li><code class="highlighter-rouge">os</code> (3,279,697 results)</li>
+  <li><code class="highlighter-rouge">sys</code> (3,081,854 results)</li>
+  <li><code class="highlighter-rouge">re</code> (1,304,857 results)</li>
+  <li><code class="highlighter-rouge">datetime</code> (1,076,425 results)</li>
+  <li><code class="highlighter-rouge">shutil</code> (968,583 results)</li>
+</ol>
 
-<p>Maybe this is all a reality of software engineering and will be forever, but I doubt that. I think we as engineers are approaching our <a href="http://abcnews.go.com/Business/story?id=87293">Arthur Andersen</a> moment. That point where we try to hold our hands up and say that we did what was expected of us and couldn’t possibly do more, but the world will disagree with us. Maybe it’s time we started thinking about how to prevent that moment before it happens because our stakes are much, much higher than the accounting profession’s. No one died because Enron fudged some numbers. They might die if one of those software bugs hits something important: something like an airline.</p>
+<p>And the results for the least used:</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/07/14/the-uncomfortable-reality-of-software-engineering.html" data-via="josephmosby">Tweet</a>
+<ol>
+  <li><code class="highlighter-rouge">pathlib</code> (0 results)</li>
+  <li><code class="highlighter-rouge">fpectl</code> (37 results)</li>
+  <li><code class="highlighter-rouge">zipapp</code> (48 results)</li>
+  <li><code class="highlighter-rouge">tracemalloc</code> (397 results)</li>
+  <li><code class="highlighter-rouge">nis</code> (484 results)</li>
+</ol>
+
+<p>The full dataset can be found <a href="/files/python_modules.csv">here</a>, for the curious.</p>
+
+<p>What do these usage patterns say about us as Python developers? And why would the language developers keep these almost completely unused modules around?</p>
+
+<p>I expected <code class="highlighter-rouge">os</code> and <code class="highlighter-rouge">sys</code> to be heavily used, though I did not expect them to blow away the #3 and #4 competitors as much as they did. Let’s think about what they do. These are big, complex libraries that operate at the most basic levels of the operating system. If you want to traverse a directory tree and pop out all of the text files, you’re using <code class="highlighter-rouge">os</code>. If you have a script that’s dependent on system state - or even one that just needs to kill itself in a hurry - you’re using <code class="highlighter-rouge">sys</code>. So with these modules being so heavily used, you’re looking at a lot of usage by system engineers, operations teams, and any piece of software who has to talk to a machine directly instead of just buzzing around in application space. <code class="highlighter-rouge">re</code> and <code class="highlighter-rouge">datetime</code> are somewhat expected to land where they are, regular expressions and date management are both cornerstones of software development. <code class="highlighter-rouge">shutil</code> surprised me a little bit. I thought that <code class="highlighter-rouge">os</code> and <code class="highlighter-rouge">sys</code> and the standard <code class="highlighter-rouge">read()</code> and <code class="highlighter-rouge">write()</code> system calls would do most of the file work and something like <code class="highlighter-rouge">logging</code> or <code class="highlighter-rouge">unittest</code> would fill out the last of the top 5, but it looks like there’s still a lot of pushing files around left to do.</p>
+
+<p>So if you’re a Python dev, there’s a good chance you’re doing a decent amount of work pushing files around and investigating your operating system. That makes complete sense - Python was started as a systems and automation scripting language, and that’s still at its core even if we’re now writing more complex software with it.</p>
+
+<p>Now let’s take a look at the bottom of the barrel.</p>
+
+<p><code class="highlighter-rouge">pathlib</code> is one of the newest modules added to the standard library, and it’s currently only in there on a provisional basis. It provides a “simple hierarchy of classes to handle filesystem paths and the common operations users do over them.” The usage rationale comes from <a href="https://www.python.org/dev/peps/pep-0428/">PEP 428</a>, citing the previous attempt to provide these features in <a href="https://www.python.org/dev/peps/pep-0355/">PEP 355</a> and the <a href="https://github.com/jaraco/path.py">path.py module</a> that treats filepaths like first-class players in the language. <code class="highlighter-rouge">pathlib</code> clearly has not taken off yet, but it’s still new in the language.</p>
+
+<p><code class="highlighter-rouge">fpectl</code> deals with floating point exceptions. The reasoning for its low usage is clear on the <a href="https://docs.python.org/3/library/fpectl.html">man page</a>: this module is not built by default, and its usage is discouraged and dangerous. <code class="highlighter-rouge">zipapp</code> does something I didn’t even know you could do in Python: run Python executables that have been zipped up into archives directly. <code class="highlighter-rouge">tracemalloc</code> lets debuggers sort through memory problems in their code, and it sort of makes sense to me that this probably doesn’t make it into committed code that often. Finishing us out, <code class="highlighter-rouge">nis</code> is incredibly niche: it provides a wrapper around the Sun Network Information Service.</p>
+
+<p>It’s interesting to me that some of the least-used modules share some similarities with the most-used: they’re all about system management. They’re even experiments with new ways to approach system management. There’s a lot that can be done with Python, but when it comes to the core library - the operating system is king.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/06/23/a-good-cs-undergraduate-algorithm-problem.html"><h3>A good CS undergraduate algorithm problem</h3></a>
-		<div class="date">June 23, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>31 Mar 2016</time>
+			<a href="/tags/">joe</a>
+		</div>
+		<h3>A March recap, or an experiment in moderating moderation</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Okay, here’s a question for an undergraduate algorithms class to solve. In a non-relational database, we have a users collection with user preferences for breaking news alerts. In a separate collection, we have news stories with tags and searchable content. We will run a scheduled job that will pair the two and send news alerts to users if a story that matches their alert preferences has been published in the last half hour. </p>
+	<div class="col-md-8 col-sm-12">
+		<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"How much can you really know about yourself if you've never been in a fight?"
+</code></pre></div></div>
 
-<p>Given that we have approximately 50,000 users with an average of 5 alerts each and 500,000 stories with an average of 20 topics each and ten paragraphs of searchable content, how do we build this job in a way that it won’t crash the database?</p>
+<p>This month I transitioned out of a full health and fitness mindset into a technology- and career-oriented mindset. I stopped my caffeine abstinence, stopped focusing on what I ate, stopped being concerned with working out every day. I assumed that all of this would probably take a small toll on how I felt, but that my momentum from January and February would prevent me from experiencing a major backslide in productivity.</p>
 
-<p>Example tables:</p>
+<p>That assumption was wrong.</p>
 
-<p>users:</p>
+<p>Here’s what I got done in the month of March:</p>
 
-<pre><code>[
-	{ 
-		email: "jane.doe@example.com",
-		alerts: [
-			{
-				type: "open-search",
-				term: "Barack Obama"
-			},
-			{
-				type: "topic",
-				term: "politics"
-			},
-			{
-				type: "topic",
-				term: "congress"
-			},
-			{
-				type: "open-search",
-				term: "natural gas"
-			},
-			{
-				type: "open-search",
-				term: "solar power"
-			}
-		]
-	},
-	{ 
-		email: "john.smith@example.com",
-		alerts: [
-			{
-				type: "open-search",
-				term: "Joe Biden"
-			},
-			{
-				type: "topic",
-				term: "politics"
-			},
-			{
-				type: "open-search",
-				term: "sunglasses"
-			},
-			{
-				type: "topic",
-				term: "house"
-			},
-			{
-				type: "topic",
-				term: "senate"
-			},
-			{
-				type: "open-search",
-				term: "solar power"
-			}
-		]
-	},
+<ul>
+  <li>Read 9 books
+    <ul>
+      <li><a href="http://amzn.to/22YOm7W">Zorba the Greek</a> by Nikos Kazantzakis</li>
+      <li><a href="http://amzn.to/1Th0YVr">Hold Me Tight</a> by Sue Johnson</li>
+      <li><a href="http://amzn.to/1pZ1axm">Foundation and Empire</a> by Isaac Asimov</li>
+      <li><a href="http://amzn.to/1pZ1eNF">Extreme Ownership</a> by Jocko Willink</li>
+      <li><a href="http://amzn.to/22YOBAa">MaddAddam</a> by Margaret Atwood</li>
+      <li><a href="http://amzn.to/1MQGufG">Batman: The Dark Knight Returns</a> by Frank Miller</li>
+      <li><a href="http://amzn.to/22YOJzn">Batman: The Long Halloween</a> by Jeph Loeb</li>
+      <li><a href="http://amzn.to/1LXLAf9">The Wisdom of Crowds</a> by James Surowiecki</li>
+      <li><a href="http://amzn.to/1V1U0DI">Network Security Through Data Analysis</a> by Michael S. Collins</li>
+    </ul>
+  </li>
+  <li>Wrote two blog posts on <a href="http://josephmosby.com/2016/03/07/how-to-read-all-of-the-books-you-want-in-a-month.html">reading a whole lot of books in a month</a> and <a href="http://josephmosby.com/2016/03/25/i-am-overjoyed-for-the-node-community.html">the Node.js community</a></li>
+  <li>Participated in my <a href="https://www.instagram.com/p/BDQaAnBr0CR/?taken-by=joseph_mosby">first trapeze class</a></li>
+  <li>Attended judo classes every week, learning how to properly fall and throw</li>
+  <li>Found a new place to live</li>
+  <li>Started waking up at 5:30, inspired by <a href="http://baugues.com/430">this post</a> from Greg Baugues</li>
+  <li>Worked through half of <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/">MIT’s 6.001: Structure and Interpretation of Computer Programs</a></li>
+</ul>
 
-	....
-]
-</code></pre>
+<p>Ultimately, I could have done better in this month. I could have finished more. My head wasn’t in the game, and I think I know why. I allowed myself to become undisciplined in my food intake, my workout routines, and my caffeine intake, thinking that if I allowed my willpower to weaken in those areas of my life I would have more to apply to other areas of my life. It doesn’t work that way, at least not for me. When I allowed my discipline to weaken, it changed my entire mindset away from a regular meditation on getting things done to an unstructured mentality that struggled to focus on any particular task. I could drag myself to the gym or to judo class, but once I needed to keep myself focused at home, I regularly broke down.</p>
 
-<p>stories:</p>
+<p>Anyway, I’ve gone back to a low-caffeine state. I’m currently experimenting with a concoction known as “<a href="http://fourhourworkweek.com/2015/05/25/morning-tea-thats-better-than-coffee/">Titanium Tea</a>”, a hybrid of multiple varieties of tea combined with butter and coconut oil. Not even kidding, I drop melted butter in my tea every morning to start the day. So far, it’s been working out exceptionally well. I need only a single mug of tea in the morning to power me through the rest of the day and let me calm down at night to finally hit the bed - and I don’t have any of the ups and downs and crashes that are typically associated with my coffee drinking. Here’s <a href="http://www.nateliason.com/bulletproof-tea-recipe/">one recipe</a> to follow for making your own. Here’s my simpler version:</p>
 
-<pre><code>[
-	{ 
-		headline: "The Standard Lorem Ipsum passage",
-		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.......",
-		tags: [
-			{
-				term: "Barack Obama"
-			},
-			{
-				term: "president"
-			},
-			{
-				term: "America"
-			}
-		]
-	},
-	{ 
-		headline: "More lorem ipsum passages",
-		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.......",
-		tags: [
-			{
-				term: "Joe Biden"
-			},
-			{
-				term: "vice president"
-			},
-			{
-				term: "Senate"
-			}
-		]
-	},
-]
-</code></pre>
+<ol>
+  <li>Get some <a href="http://amzn.to/1MQJGI7">Irish Breakfast</a> and <a href="http://amzn.to/1SuHjyZ">green</a> tea bags. Honestly, you can use whatever black and green tea combo you like, just make sure to grab one of each.</li>
+  <li>Boil your water.</li>
+  <li>Add water to mug. Throw in a tablespoon of butter (I use <a href="http://amzn.to/22LPAXH">Kerrygold unsalted</a>, which you can find at the grocery store) and a tablespoon of coconut oil.</li>
+  <li>Steep one black and one green tea bag in your buttery mug, together, for four minutes.</li>
+  <li>Remove tea bags, stir everything around, and enjoy.</li>
+</ol>
 
-<p>The end result should look something like:</p>
+<p>That concoction right there keeps me going throughout the day without needing any more coffee.</p>
 
-<p>alerts:</p>
+<p>Next month, it’s all about more technology, visiting my brother in Dallas, checking out the <a href="http://www.kingmanislandbluegrass.com/">Kingman Island Bluegrass Festival</a>, and hopefully doing some more restaurant exploration now that the weather has turned around in DC. Stay tuned!</p>
 
-<pre><code>[
-	{ 
-		email: 'john.doe@example.com',
-		stories: [
-			{ 
-				headline: "More lorem ipsum passages",
-				content: "Lorem ipsum dolor..."
-			},
-			{
-				headline: "Another lorem ipsum passage",
-				content: "Lorem ipsum dolor..."
-			}
-		]
-	},
-	{ 
-		email: 'jane.smith@example.com',
-		stories: [
-			{ 
-				headline: "Another lorem ipsum passage",
-				content: "Lorem ipsum dolor..."
-			},
-			{
-				headline: "The best of lorem ipsum",
-				content: "Lorem ipsum dolor..."
-			}
-		]
-	}
-]
-</code></pre>
-
-<p>Would love to hear your questions or solutions: josephmosby@gmail.com</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/06/23/a-good-cs-undergraduate-algorithm-problem.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/06/09/einstein-blinked.html"><h3>Einstein blinked</h3></a>
-		<div class="date">June 09, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>25 Mar 2016</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>I am overjoyed for the Node community</h3>
+
 	</div>
-	<div class="col-8">
-		<p>It’s the mid-1920s, and a patent clerk from Bern, Switzerland has just rocked the entire physics world with a proof sent to the German Academy of Sciences claiming that our notion of time is relative to the person observing it, and changes if you’re going really, really fast. Not satisfied with this absolutely insane discovery, this very same amateur physicist has the audacity to prove that if you’re in the presence of something huge, your notion of time will change as well. And then just for kicks he proves that light bends around super-huge objects like the time-warping ones. </p>
+	<div class="col-md-8 col-sm-12">
+		<p>The Node community has hit a huge moment in its growth, and I couldn’t be more excited for it as an outsider looking in. It’s certainly <a href="http://uk.businessinsider.com/npm-left-pad-controversy-explained-2016-3?r=US&amp;IR=T">dark times</a> for Node devs as many of them sort through the issues arising in their own applications after one prolific developer <a href="https://medium.com/@azerbike/i-ve-just-liberated-my-modules-9045c06be67c#.zdmc1wypg">rage-quit</a> and pulled all of his code from the Node Package Manager after a spat with the Kik product team. Many Node developers relied on those packages being part of the NPM infrastructure, and the lack of a tested, readily available alternative that offers the same ease of use makes this abrupt change harder to bear.</p>
 
-<p>In short, 1920s Albert Einstein was basically the physics-addicted love child of Elon Musk and Steve Jobs and Drake, with Richard Branson’s hair. He’s crazy talented and he is on every paper imaginable, because it’s the 1920s and no one has anything but dubious investments and bootleg liquor and science in their minds. It’s a brave new world out there.</p>
+<p>Developer pundits, of which I am sometimes one, have jumped on the question: <a href="http://www.haneycodes.net/npm-left-pad-have-we-forgotten-how-to-program/">have we forgotten how to program</a>? David Haney writes:</p>
 
-<p>Einstein’s cooking on the next big thing at this point. He’s proven what happens to Newton’s laws of physics when you’re in the presence of extraordinarily massive objects, but he’s only worked out the details by studying the effects of a single large object at a time. He’s decided it’s time to develop the equations to extrapolate all of this on a universal scale. He’s humming along, approving patents and mathematical equations and just being a general and special relative physical badass, when suddenly he hits an equation that he wasn’t expecting. He realizes that if all of his math checks out, then it implies that the universe must be either expanding or shrinking, but it cannot be a constant size. And he stares, and he ponders, and he thinks some more.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I can’t help but be amazed by the fact that developers are taking on dependencies for single line functions that they should be able to write with their eyes closed. In my opinion, if you cannot write a left-pad, is-positive-integer, or isArray function in 5 minutes flat (including the time you spend Googling), then you don’t actually know how to code. Hell, any of these would make a great code screening interview question to determine whether or not a candidate can code.
+</code></pre></div></div>
 
-<p>And Einstein blinks.</p>
+<p>It’s a totally valid question, and it got me thinking about the growth of the JavaScript community in the years I’ve been coding.</p>
 
-<p>The idea of a non-constant universe overloads his mind and offends his conception of the world around him. He can’t handle it. He checks the math again and again and realizes that it always checks out, so he <em>changes the equations.</em> He adds the notion of a “cosmological constant,” which is supposed to represent the constant size of the universe or something. It’s total nonsense, naturally, and it takes twelve years for Edwin Hubble to finally have sensitive enough instruments to test the theory that the universe might be expanding after all. Hubble’s discoveries humble Einstein, and he deems the lost years to be the biggest blunder of his life. </p>
+<p>Most of the young engineers I know who have started coding in the past five years or so started with JavaScript. <a href="https://www.codecademy.com/">Codecademy</a> opened the door for folks who wanted to take a crack at code without much experience, <a href="https://www.khanacademy.org/computing/hour-of-code/hour-of-drawing-code/v/welcome-hour-of-code">Khan Academy</a> offers its basic algorithm classes in JavaScript, and <a href="http://www.fastcodesign.com/1672655/designers-learn-to-code-heres-how-to-start">designers everywhere have begun dabbling in JavaScript</a> to start adding basic functionality into their prototypes. For the longest time, though, JavaScript was just a weird language of dubious syntactic choices that lived in everyone’s browsers but nowhere else. Then <a href="https://nodejs.org/en/">Node.js</a> changed the game. You could start your career tinkering in the browser with JavaScript, but once someone told you that you needed to do something “on the server,” Node was right there! And there was even a <a href="http://expressjs.com/">helper library</a> to do all of the server-side web work for you! The world of JavaScript began to take over the Internet, and <a href="http://blog.codinghorror.com/the-principle-of-least-power/">laws were even coined</a> that indicated that everything would one day be written in this quirky browser language.</p>
 
-<p>Einstein recovers and goes on to make still more contributions to science, and few remember that he once had a totally wrong notion of a constant size to the universe. We remember his ideas on light, and gravity, and time, and still credit him with opening the door to the idea that the universe is expanding. Not with being wrong for twelve straight years.</p>
+<p>When a technology becomes that huge that quickly without a lot of experienced oversight, it’s tough to figure out what the best practices are supposed to be. It’s not a JavaScript developer problem; this same heavy reliance on a set of core dependencies hit the <a href="http://www.kalzumeus.com/2013/01/31/what-the-rails-security-issue-means-for-your-startup/">Ruby startup community</a> a few years back. Thousands of sites were suddenly exposed and vulnerable and patched almost instantaneously. How did the Rails community know how to develop a patch and roll it out as quickly as they did? It wasn’t something innate that they were born with. The Rails community had many of the same youthful problems that the JavaScript community is now struggling through. But they had learned how to sustain and endure after <a href="http://www.pcworld.com/article/251259/user_hacks_github_to_showcase_vulnerability_after_rails_developers_dismiss_his_report.html">suffering through another embarrassing bug</a> when Egor Homakov hacked GitHub the year before. They had learned that things could go horribly wrong, and they had learned how to respond when they did.</p>
 
+<p>I look at the history of the Rails community and see so many parallels to the Node community. I look at the response to the Azer/NPM mess and think that the community is taking the right kind of look at its own problems and quickly devising ways to solve them. That’s got me all sorts of excited because there truly is nothing like the JavaScript pipeline for introducing new engineers to code on both sides of the client/server divide. These war stories will help new developers learn best practices that are rarely codified - things like dependency management, over-reliance on dependencies for simple tasks, and that a single failure point can ruin your entire application even when you did nothing wrong but follow instructions.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/06/09/einstein-blinked.html" data-via="josephmosby">Tweet</a>
+<p><em>Thanks to <a href="https://twitter.com/andrewmcgill">Andrew McGill</a> for reading this and providing feedback.</em></p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/06/03/you-should-probably-stop-reading-and-going-to-meetups.html"><h3>You should probably stop reading and stop going to meetups</h3></a>
-		<div class="date">June 03, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>07 Mar 2016</time>
+			<a href="/tags/">joe</a>
+		</div>
+		<h3>How to Read All of the Books You Want in a Month</h3>
+
 	</div>
-	<div class="col-8">
-		<pre><code>When nothing is owed or deserved or expected
-And your life doesn't change by the man that's elected
-If you're loved by someone, you're never rejected
-Decide what to be and go be it
-- The Avett Brothers, "Head Full of Doubt/Road Full of Promise"
-</code></pre>
+	<div class="col-md-8 col-sm-12">
+		<p>In the past two months, I’ve drastically scaled up the number of books I read on a per month basis. On average, I take out two books a week, a far cry from <a href="https://www.youtube.com/watch?v=7bB_fVDlvhc">a book every single day</a>. Sometimes, it’s enjoyable and relaxing reading, sometimes it’s tiring work. The end result, though, is always worthwhile.</p>
 
-<p>In November-ish of last year, I was lost. Not the sad sort of lost where you’re wandering around in a daze, but a sort of musingly confused lost. I had experienced a spurt of crazy personal growth while moonlighting for <a href="http://routeam.com">Routeam</a> that had propelled me forward as an engineer, then experienced another spurt when I took my first full-time front-end engineering role, but I hadn’t had anything after that for almost eight months. I no longer felt like I was producing excellent work that was pushing me forward. </p>
+<p>I’ve employed a few different strategies in these two months to churn through my booklist. I don’t have a particular order or anything, so I’m just going to list them out here:</p>
 
-<p>Around that time, I asked a mentor (name changed to Dave to protect the innocent) for help. I cannot be thankful enough to Dave for this - he did not know me very well but was still willing to take some time out of his day to talk career advice with a budding engineer. I’m paraphrasing our conversation below to get to the good parts:</p>
+<ul>
+  <li><em>Read fiction in audiobook format.</em> My colleagues at National Journal got me started on the audiobook kick. A lot of them walk or bike to work, popping in their headphones for the commute and cranking away at one novel after another. Best part: a lot of the audiobooks are available on <a href="https://www.overdrive.com/">Overdrive</a> (i.e., for free!), but anything else can likely be found on <a href="http://www.audible.com/">Audible</a>.</li>
+  <li><em>Maintain a Goodreads list along with a queue of books at my house.</em> What I want to read oscillates from week to week. I can’t say at the beginning of month what I’m going to want to read the next week. So, I don’t try. I throw every book I want to read into <a href="http://www.goodreads.com/">Goodreads</a> to save it for later. And I try my hardest, through a combination of Amazon and the DC Public Library, to make sure there are four unread books at my house at all times: two nonfiction and two fiction. If you don’t have a library card yet, perhaps <a href="http://booksfordc.org/">BooksForDC</a> will finally persuade you by showing when a book you want on Amazon could be had for free by reserving it at the library.</li>
+  <li><em>Stop reading and watching other stuff that I don’t really care about.</em> I don’t watch much television, online or otherwise, half because I don’t own a television and half because there’s nothing much I care to watch. I don’t think I have the attention span for long-running shows, with <em>Game of Thrones</em> and <em>House of Cards</em> being the only exception. I even dropped <em>Breaking Bad</em> after three seasons. I just couldn’t keep up. By avoiding most video content and doing my best to stay away from the dopamine hits of regular social media usage, I free up more time to focus on my reading.</li>
+  <li><em>Read only two books at a time, one nonfiction during the day and one fiction before bed.</em> I don’t stick to this rhythm wholesale any more, as it doesn’t mesh well with my audiobooks. However, it seems that this rhythm may have made it easier to focus on tasks <em>other</em> that reading, such as social media abstinence or regular experimental code writing.</li>
+  <li><em>Move the needle a little bit every day.</em> I have a line item in my <a href="http://wayoflifeapp.com/">Way of Life</a> app that just says “Read.” Nothing more than that, just a gentle reminder to get a few pages done every day.</li>
+</ul>
 
-<pre><code>Joe: Dave, I built a v1 of a startup product about a year ago, I've built some reasonably complex Python projects since then, I'm not a bad front-end engineer, but I'm stuck. How do I get to the next level as an engineer? What do I need to read or study to move forward? 
+<p>There’s probably a lot more I could try to get even more reading done, so if anything is working for you I want to hear about it! <a href="https://twitter.com/josephmosby">@josephmosby</a></p>
 
-Dave: Stop going to meetups, and stop reading a bunch of stuff on the Internet. Go talk to people, and go build things. 
-</code></pre>
-
-<p>The dichotomy between where I was mentally and where I needed to be could not be more stark. At the time, I was lost because I wanted there to be some how-to guide, some magic blog post that I’d read on the Internet that could tell me where to go. I think those things are amazing for engineers as they’re starting out in their careers, but eventually you have to graduate past them. You have to pick something <em>you</em> love doing, and you have to go do it. </p>
-
-<p>Meetups get in your way here. You start going to meetups with the purest of intentions. You want to learn about new technical topics (good) and you want to meet new people in the technology scene (good). But eventually they turn on you. You start to realize that you’ve accumulated enough expertise in a meetup’s subject matter that you’re not learning anything new, and you start to realize that the same people are showing up to the same meetups. <em>You do not have time for this.</em> You need to be building things.</p>
-
-<p>Reading gets in your way here too. When you’re in this mental state of limbo, your reading choices start to represent that mental state. You slowly shift away from “I’m going to hunt for this bit on cybersecurity in Django that would help me with a project RIGHT NOW” to “I should read about Clojure. I don’t know how to program in Clojure and I don’t have any serious plans to learn, but I should read about it.” Your reading becomes a way to dodge taking real action. </p>
-
-<p>To advance past this mental state, you have to make a choice. You have to choose something that you’re going to invest in, and you need to double down. It might be learning a brand new language, or a new framework, or a new use case for a language you already know. Whatever you choose, it’s going to require a lot of dedicated cognitive resources. And meetups and scatterbrained reading will suck up those cognitive resources. </p>
-
-<p>So if you’re in that mental place, I urge you - pick up a hard problem. Turn off the distractions to solve it. That’s the only way to break through.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/06/03/you-should-probably-stop-reading-and-going-to-meetups.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/05/29/chip-economics.html"><h3>Chip Economics</h3></a>
-		<div class="date">May 29, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>29 Feb 2016</time>
+			<a href="/tags/">joe</a>
+		</div>
+		<h3>A February Recap or What Life is Like Without Coffee</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Over the past few weeks, I’ve been working through <a href="http://nand2tetris.org">NAND2Tetris</a> after the recommendation of <a href="http://juliangindi.com/">Julian Gindi</a>. The NAND2Tetris course takes a single NAND electronic gate, which returns 0 if both inputs are 1 and returns 1 otherwise, and uses this as a building block for a whole host of electronic gates. It’s possible to make a NOT gate out of NAND chips. It’s also possible to build a multiplexer (which picks between inputs based on a control input). And most impressively, we can build an arithmetic logic unit - the core part of a CPU responsible for addition and subtraction - solely out of a stack of NAND chips. When all is said and done, I’ll have built a working computer emulator solely out of these single atomic pieces.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>In February, I decided to enter life’s “Hard Mode.” I gave up caffeine completely.</p>
 
-<p>Now, at this point in computer development, I’ve never even <em>seen</em> a real NAND hardware chip, and it’s likely impossible I could see one even if you held it up. They’ve now been shrunk down to a few nanometers wide. Engineers at Intel and AMD obsess over ALU design (I expect, maybe even they don’t any more), but it’s so far abstracted away from my day-to-day work that I could get away with never knowing how one worked for my entire career. But once upon a time, that wasn’t the case. Chips were things you could actually touch, and solder onto a breadboard, and make arcade games out of them. </p>
+<p><img src="/images/coffee-cup-working-happy.jpg" /></p>
 
-<p>This exercise has made me look at some of the feats of early computer engineers in a totally different light. In the 1970s, Steve Wozniak was building Pong and <a href="http://thedoteaters.com/?bitstory=breakout">Breakout!</a> arcade games out of hardware chips, soldering together [more sophisticated] logic gates to build games. Atari was willing to pay $5000 ($22K in today’s dollars) for a Breakout chip design that only used 44 chips because chips actually cost enough for that to matter. Logic gates weren’t just vague ideas embedded into processor designs - they were things you could touch, and they cost money. </p>
+<p>I had no idea how this experiment would work and what it would do for my productivity. Here is what I was able to accomplish in the month of February, in similar <a href="http://josephmosby.com/2016/01/29/a-january-recap-and-some-personal-experiments.html">format to my January recap</a>:</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/29/chip-economics.html" data-via="josephmosby">Tweet</a>
+<ul>
+  <li>Read 9 books
+    <ul>
+      <li><a href="http://amzn.to/1KQp7Ad">Mastery</a> by Robert Greene</li>
+      <li><a href="http://amzn.to/1KQpj2o">Radical Acceptance</a> by Tara Brach</li>
+      <li><a href="http://amzn.to/1LJZDiO">Foundation</a> by Isaac Asimov</li>
+      <li><a href="http://amzn.to/1LJZHPr">A Farewell to Arms</a> by Ernest Hemingway</li>
+      <li><a href="http://amzn.to/1QKSZA8">Oryx and Crake</a> by Margaret Atwood (<a href="http://josephmosby.com/2016/02/14/oryx-and-crake.html">semi-recap here</a>)</li>
+      <li><a href="http://amzn.to/1Q8cnE3">Influence: The Psychology of Persuasion</a> by Robert Cialdini</li>
+      <li><a href="http://amzn.to/1Q8cvDp">A Million Miles in a Thousand Years</a> by Donald Miller</li>
+      <li><a href="http://amzn.to/1QKTsm0">Trigger Warning: Short Fictions and Disturbances</a> by Neil Gaiman</li>
+      <li><a href="http://amzn.to/1LK0f7T">Vagabonding: An Uncommon Guide to the Art of Long-Term World Travel</a> by Rolf Potts</li>
+    </ul>
+  </li>
+  <li>Executed 50 pullups and 100 pushups in the same workout, and executed 30/60 with an additional 25 lb. weight attached to me</li>
+  <li>Squatted 245 lb. for 5 repetitions</li>
+  <li>Leg pressed 500 lb. for 5 repetitions</li>
+  <li>Lost one or two inches off my waistline (this is an estimate, I just know my pants don’t fit)</li>
+  <li>Attended my first two judo lessons</li>
+  <li>Completed the first draft of my e-book on uWSGI</li>
+  <li>Watched 20+ TED talks</li>
+  <li>Wrote daily journal entries</li>
+  <li>Got a tan and a sunburn in Rio de Janeiro while riding the waves on Copacabana Beach</li>
+</ul>
+
+<p>I again followed the practice of <a href="https://blog.bufferapp.com/why-having-no-goals-in-our-lives-might-make-us-happier-and-more-successful">not setting goals</a> in this month and focused on systems instead. I believe that this pushed me through the fog of an uncaffeinated mind, and perhaps ultimately strengthened my willpower.</p>
+
+<h3 id="no-coffee">No Coffee</h3>
+
+<p>I decided to go cold turkey off of coffee just before January wrapped up. I knew that many highly successful people had gotten off of caffeine over the course of their lives, and I thought it was a worthwhile experiment to try for myself. It turned out to be wildly different than my expectations.</p>
+
+<p>The last time I tried to give up caffeine cold turkey, I was crippled with raging headaches and nausea that made me think I had the flu. I cracked after two days. This time, I gradually reduced my caffeine intake over the course of several months, ultimately consuming only the equivalent of half of a cup of coffee per day. When I went off, I had a headache the first night, then did not have any pain afterward.</p>
+
+<p>What I did not account for was “the fog.” The fog is a state of mind that exists somewhere between tired and fully awake, and I went through this state in varying degrees over the course of my experiment. My brain didn’t feel like it was moving as quickly while it was in the fog, nor was I nearly as motivated to get things done. After the first few days, I was completely functional at my day job, but at nighttime I would grind to get anything done. Though I read more books, lifted heavier weights, and finished my e-book’s first draft during this time period, I felt I had to mentally fight to do any of that.</p>
+
+<p>I believe that it was the fight that made this entire experiment worthwhile. It’s one thing to knock out a bunch of tasks when hopped up on caffeine - it’s another thing to need to consciously decide what absolutely must be done when you know your caffeineless willpower can only handle so much. That willpower training is invaluable. I look forward to having it when I allow myself caffeine once more.</p>
+
+<h3 id="judo">Judo</h3>
+
+<p>Judo is the first martial art I’ve practiced since I was a first grader. It is so much fun and I wish I had tried it earlier. It’s an intense workout. The warmups alone will make your core hurt, to say nothing of the part where you start tossing people around. It’s almost like an extremely physical chess match, with grip position and balance being the dominant factors that win or lose matches rather than total strength. There’s no rush quite like it. I’m hooked already after only a few classes and will definitely be hungry for more in 2016.</p>
+
+<h3 id="recycling">Recycling</h3>
+
+<p>I dropped use of the <a href="https://lifesum.com">Lifesum</a> and <a href="https://www.thinkpacifica.com/">Pacifica</a> apps in the month of February. Lifesum was part of an experiment to clean up my eating habits by tracking my daily protein, carbohydrate, and fat intake. I instead focused on cooking more at home and not allowing myself some standard fast food cheats, and it’s far too difficult to track home-cooked meals easily in Lifesum. I scrapped Pacifica for similar reasons. When I dropped caffeine and began sleeping more, I noticed that my stress levels and mental well-being improved as well. I still have a lot that I want to do on the mindfulness front, but I don’t think this particular app will help me toward those goals. In addition, I took two bags of used clothing in for donation, gradually reducing the mental paces I put myself through to pick out what to wear.</p>
+
+<h3 id="whats-next">What’s Next?</h3>
+
+<p>In the first parts of the year, I focused on physical well-being. I’ve developed systems to help me maintain my health, some of which I may recycle or augment as I move into the next phase of the year: technical skills acquisition. For the next three months, I plan to focus on practicing and mastering some of the skills that make up my world as an engineer. I will allow myself caffeine again, but it still won’t be a daily thing. It will be an intentional dose to achieve specific tasks.</p>
+
+<p>What are you working on in March? I want to hear about it! Let me know: <a href="https://twitter.com/josephmosby">@josephmosby</a></p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/05/13/preventing-file-dupes-in-django.html"><h3>Preventing file dupes in files uploaded through Django</h3></a>
-		<div class="date">May 13, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>14 Feb 2016</time>
+			<a href="/tags/">culture</a>
+		</div>
+		<h3>Oryx and Crake</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Many Django applications make use of uploaded files that should never be re-uploaded again after they’ve been uploaded once. An example of this in action might be an image (one image embedded in a blog post might not be a big deal for a small site, but news sites often deal with licensed high-definition images used across several stories) or a large PDF with associated metadata (once the metadata is keyed in once, users shouldn’t be asked to do so again). Let’s talk about two design patterns to handle files, and ways we can deal with duplicates in each one. </p>
+	<div class="col-md-8 col-sm-12">
+		<p><em>Oryx and Crake</em> has haunted me for a longer period of time than any book I’ve read in years. Naturally, I think everyone should read it.</p>
 
-<h3 id="the-attachment">The Attachment</h3>
+<p>It isn’t the story that gets to you. Margaret Atwood does good work with the story-telling and writes a compelling tale with beautiful, complex characters. But it would be a standard enjoyable sciencey-fiction story in the vibe of many of the modern writers in that genre if it weren’t for the <em>implications.</em></p>
 
-<p>With the Attachment design pattern, a file is part of the model as a Django <a href="https://docs.djangoproject.com/en/1.8/ref/models/fields/#django.db.models.FileField">FileField</a>. This is useful if the file to be attached is known ahead of time and will be of a semi-predictable type (for example, a press release for a scheduled report that will be in PDF format). Two or three additional users may be writing blog posts on the report, and each of them plan to attach the report as well. We don’t want to store a stack of extra copies of the file on the server - so how can we de-dupe them?</p>
+<p>You know something horrible is going to happen from the beginning. When the book opens, the horribleness has already happened, and the reader is waiting for it to unfold in the ensuing flashback chapters. But as the crescendo builds to a frightening pitch, you realize that what you expected in chapter one is nowhere near as menacing and uncomfortably plausible as the apocalypse that Atwood has concocted for the reader. Eight months after the first read and I’m still thinking about it.</p>
 
-<p>Our post is set up like so:</p>
+<p>Go check it out. You won’t be disappointed.</p>
 
-<pre><code>from django.db import models
+<p><a href="http://amzn.to/1ThRCI6">Oryx and Crake</a></p>
 
-class ReportPost(models.Model):
-	file = models.FileField()
-	file_sha1 = models.CharField(max_length=40)
-	post_text = models.TextField()
-
-	... etc ...
-</code></pre>
-
-<p>Our <code>ReportPost</code> has space for an uploaded file. We also have a <code>sha1</code> field here. Django can’t automatically detect a duplicate file (<code>unique</code> is not supported for <code>FileFields</code> or any derivatives), so we need to take the SHA-1 text hash of the file in order to check if it’s been uploaded already. We’ll take care of that in the <code>ModelAdmin</code> for this model.</p>
-
-<pre><code>from django.contrib import admin
-import hashlib
-
-def generate_sha(file):
-	sha = hashlib.sha1()
-	file.seek(0)
-	while True:
-		buf = file.read(104857600)
-		if not buf:
-			break
-		sha.update(buf)
-	sha1 = sha.hexdigest()
-	file.seek(0)
-
-	return sha1
-
-class ReportPostAdmin(admin.ModelAdmin):
-	... stuff ...
-
-	def save_model(self, request, obj, form, change):
-		sha = generate_sha(obj.file)
-		obj.file_sha1 = sha
-		match_qs = ReportPost.objects.filter(file_sha1=sha)
-		if match_qs.count() &gt; 0:
-			obj.file = match_qs[0].file
-
-		obj.save()
-</code></pre>
-
-<p>We derive a SHA-1 hash for this file by reading in the first 100 megabytes of data and hashing it. In our <code>ModelAdmin.save_model</code> method, we store that SHA-1 with our model instance. We also run a query against the database for any model instances with that exact same SHA-1 (indicating a match), and replace our instance of the file with the previously uploaded file. </p>
-
-<h3 id="the-file-as-object">The File as Object</h3>
-
-<p>With this design pattern, files are part of a larger object that gives them relevance. Images in a newsroom app, for example, come with credits, licensing information, and various data about how often the image is used. In order to store that metadata about that image, we need a file object.</p>
-
-<pre><code># models.py
-
-class ImageObject(models.Model):
-	caption = models.CharField(max_length=140)
-	credits = models.CharField(max_length=140)
-	image_file = models.ImageField()
-	file_sha1 = models.CharField(max_length=40, unique=True)
-
-# admin.py
-
-class ImageObjectAdmin(admin.ModelAdmin):
-	... stuff ...
-
-	def save_model(self, request, obj, form, change):
-		sha = generate_sha(obj.file)
-		obj.file_sha1 = sha
-		obj.save()
-</code></pre>
-
-<p>With this example, we add some uniqueness to our model, which gives us the ability to easily enforce that each image file will only have one set of metadata. Our app will throw an <code>IntegrityError</code> if a user tries to save a duplicate SHA-1 hash. We’ll need to handle that <code>IntegrityError</code> and redirect our user to the previously uploaded image. We can do that using a new middleware object.</p>
-
-<p>Middleware objects in Django quietly do their thing 99.9% of the time, and you’ll never think twice about them. They’re there for session authentication or CSRF enforcement - things that most of us take for granted. But you can easily add your own middleware with ease by adding a <code>middleware.py</code> file to your application and registering it with <code>settings.py</code>:</p>
-
-<pre><code># settings.py
-
-MIDDLEWARE_CLASSES = (
-	'django.contrib.sessions.middleware.SessionMiddleware',
-	... stuff ...
-	'our_image_app.middleware.RedirectOnSHAViolation',
-)
-</code></pre>
-
-<p>And then in <code>our_image_app/middleware.py</code>:</p>
-
-<pre><code># middleware.py
-
-from django.db import IntegrityError
-from django.http import HttpResponseRedirect
-from utils import generate_sha # same func as before
-from our_image_app.models import ImageObject
-
-class RedirectOnSHAViolation():
-	def process_exception(self, request, exception):
-		if type(exception) == IntegrityError:
-			if "our_image_app/imageobject" in request.path:
-				sha1 = generate_sha1(request.FILES['image_file'])
-				img = ImageObject.objects.get(file_sha1=sha1)
-				return HttpResponseRedirect('/admin/our_image_app/imageobject/') + str(img.id))
-</code></pre>
-
-<p>I never said it was pretty.</p>
-
-<p>Django’s middleware system expects to see a class with a <code>process_exception</code> method that’s really, really stupid. The middleware knows it has a request that caused an error, but that’s about all that it knows. We have to do two checks to make sure that we’re handling the right error here. First, we check that the <code>type</code> of error is <code>IntegrityError</code>. We have to run this check first because every single error in our app could potentially hit this method, so we need to filter for only certain types. Once I’ve confirmed that, I check to see if the <code>IntegrityError</code> came from the <code>ImageObject</code> model within <code>our_image_app</code> - and since <code>ImageObject</code> only has one unique field, I know an <code>IntegrityError</code> here must be a duplicate file. Once I’ve ascertained all of that, then I need to find the file I should have used and redirect the user there instead.</p>
-
-<h3 id="conclusions">Conclusions</h3>
-
-<p>SHA-1 hashes provide an easy way to compensate for Django FileFields’ inability to enforce uniqueness by default. Handling those errors can be a bit messy, but we can create some custom middleware to handle any problems or extend our admin’s built-in methods to help us out.</p>
-
-<p><em>Props to <a href="https://twitter.com/spiggy">@spiggy</a>, who had the original idea of using SHAs to look for duplicate files.</em></p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/13/preventing-file-dupes-in-django.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 
 <div class="row">
-	<div class="col-offset-3 col-8">
+	<div class="col-md-12">
 		<div class="pagination">
 			
 			<a href="/page2" class="previous">Previous</a>
 			
 
-			<span class="page_number">Page: 3 of 9</span>
+			<span class="page_number">Page: 3 of 11</span>
 
 			
 			<a href="/page4" class="next">Next</a>
@@ -823,37 +467,11 @@ class RedirectOnSHAViolation():
 		</div>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

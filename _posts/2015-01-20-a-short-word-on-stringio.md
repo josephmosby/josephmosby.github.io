@@ -1,8 +1,7 @@
 ---
 layout: post
 title: A short word on StringIO
-tags:
-- pymod
+tags: code
 ---
 
 The `StringIO` library has a nifty purpose. It provides you with a buffer in memory that allows you to read and write strings without saving a file to disk. 

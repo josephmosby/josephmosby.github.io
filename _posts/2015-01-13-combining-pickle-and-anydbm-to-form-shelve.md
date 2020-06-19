@@ -1,8 +1,7 @@
 ---
 layout: post
 title: Combining pickle and anydbm to form shelve
-tags:
-- pymod
+tags: code
 ---
 
 Now that we've talked about both [pickle](http://josephmosby.com/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html) and [anydbm](http://josephmosby.com/2014/12/22/dbm-non-relational-databases-before-that-was-a-thing.html), we can now talk about marrying the two with `shelve`. The `shelve` module brings `pickle` functionality to dbm-style databases, allowing us to store massive data entries in dictionary form without the expected performance hit. It's the middle option between a full-on database implementation and simple flat file storage. 

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Jacob Kaplan-Moss PyCon Keynote on the Talent Myth
+tags: culture
 ---
 
 	I am a mediocre programmer and I invite you to join me. And together, we can do our jobs perfectly adequately. 

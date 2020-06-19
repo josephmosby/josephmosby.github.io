@@ -4,627 +4,788 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container home" role="main">
+			
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>16 Feb 2015</time>
+			<a href="/tags/">code</a>
 		</div>
+		<h3>Cloning Postgres to Mongo in real time with Django</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				
-<div class="row">
-	<div class="col-3">
-		<a href="/2014/10/30/cooking-my-first-ever-drupal-theme-from-scratch.html"><h3>Cooking My First Ever Drupal Theme From Scratch</h3></a>
-		<div class="date">October 30, 2014</div>
 	</div>
-	<div class="col-8">
-		<p>About six months ago, I would have said that I was starting to figure Drupal out. I’ll assure you now wthat I have no idea. I have picked up a few tricks here and there, though, and the Drupal templating system is starting to make some sense to me.</p>
-
-<p>When I started building Drupal sites, I built them in <a href="https://www.drupal.org/project/zen">Zen</a> or one of the many subthemes built off of it. Zen’s philosophy is to anticipate much of what an experienced front-end developer would drop in to a non-Drupal site (such as Sass and Compass) and incorporate those into the base theme and subthemes from the beginning. Like most of the current popular Drupal themes, it’s responsive and mobile-first. A theme structure with that many bells and whistles was too much for my back-end developer brain at the time, and I was scared off to other options.</p>
-
-<p><a href="https://www.drupal.org/project/omega">Omega</a> is Zen’s largest competitor. Version 3 of the framework provides a shiny graphical interface for creating responsive content regions, and I loved it. It was point-and-click web design! Omega happily produces five little stylesheets for you to use at different page widths and then does the rest of the work for you. Sure, my stylesheet file sizes would blow up trying to sift through the cruft Omega produces, but I didn’t have to learn much about actual theming. Omega, <a href="https://www.drupal.org/project/delta">Delta</a> and <a href="https://www.drupal.org/project/context">Context</a> did it all for me.</p>
-
-<p>My blissful ignorance came to an end when I revisited a site built by another development shop using Zen as a base theme. The horror! So many custom tpl.php files, so many PHP if statements and variables within those files! My complacent Drupal ignorance came crashing down around me. I was forced to battle with Drupal’s theme engine, and I did not leave the fire unscathed. I arose, and now come with wisdom about battling the dragon for those who follow in my footsteps.</p>
-
-<p>Let’s talk about .info files.</p>
-
-<h3 id="what-does-a-info-file-do-anyway">What does a .info file do, anyway?</h3>
-
-<p>Drupal’s <code>.info</code> file is where all of the tools your theme will use are declared. It’s not about content - we are miles away from content right now - it’s about defining the tools we’ll use to organize that content on a page. A sample <code>.info</code> file looks something like this: </p>
-
-<script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/base.info"></script>
-
-<p>In the first blob we name our theme and specify the Drupal version (core) that it works with. In our second and third we add stylesheets and JavaScripts - our theme will pick up those files and add them into the <code>&lt;head&gt;</code> of any page with that theme. The directories are given relative to the theme’s .info file. </p>
-
-<p>Our fourth blob contains the regions of our theme. I can place content into the <code>main_menu</code> region with this theme, the <code>content</code> region, or the <code>box_one</code> region. Though your theme must contain a <code>content</code> region, you can name the rest of them anything you like. Follow your heart. You’ll be using these names later. </p>
-
-<p>Once we’ve created our <code>.info</code> file, we need to put it to use - we need to find a home for our content.</p>
-
-<h3 id="what-does-a-tpl-file-do">What does a tpl file do?</h3>
-
-<p>Drupal uses these nifty files with <code>.tpl.php</code> extensions to build its pages, and most of them hang out like pitchers in a bullpen in the <code>modules/system</code> folder waiting for you to override them. Theoretically, we really only need one to build a new theme: the <code>page.tpl.php</code> file. Here’s our example <code>page.tpl.php</code> file for this theme:</p>
-
-<script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/templates/page.tpl.php"></script>
-
-<p>Astute <a href="http://getbootstrap.com/">Bootstrap</a> users may note that we’re pulling in some Bootstrap elements here. We have <code>container</code> classes, with <code>row</code> classes within them, then some <code>col-md-6</code> classes, and then a little snippet of PHP code. This <code>&lt;?php print render($page['sm_icons_top']); ?&gt;</code> is where the magic happens. Drupal picks up anything that we’ve placed into the <code>sm_icons_top</code> region - whether it be a menu, a view, a block, etc. - and renders it into the page. You can see how that ultimately pans out in the HTML here:</p>
-
-<script src="https://gist.github.com/josephmosby/08851b82b4d14818bb75.js"></script>
-
-<p>You can see our <code>#top_menu</code>, our <code>row</code> class, and our <code>col-md-6</code> class followed by the block content Drupal popped into our page. That’s the extremely basic purpose of <code>tpl.php</code> files: they provide homes in the HTML for certain content regions, we create blocks and drop them into those content regions through the administration tools, and finally our <code>tpls</code> take care of the rendering. Fantastic.</p>
-
-<h3 id="but-drupal-variables-are-weird">But Drupal variables are weird…</h3>
-
-<p>All too true. I won’t even profess to fully understand how to actually get at a specific piece of content, and Drupal’s documentation is notoriously bad on the subject. I have figured out a few tricks though:</p>
-
-<ul>
-  <li>In <code>page.tpl.php</code>, access the content in a specific region with <code>render($page['region-name'])</code></li>
-  <li>Make sure to render your metatags with <code>render($page['content']['metatags'])</code> or else some modules and libraries will behave strangely</li>
-  <li>To access individual fields from <code>page.tpl.php</code>, use the syntax <code>print_r($node-&gt;field_fieldname['und'][0]['value'])</code>. This is not recommended behavior, but is occasionally necessary. The ‘und’ refers to the language (und is English… inexplicably), the ‘0’ to the place in the array and the ‘value’ for the actual content.</li>
-  <li>To call in a block, use <code>module_invoke('module', 'view', 'block-id')</code> where the ‘module’ is the module that produced the block (such as Webform or Views), the ‘view’ is the type of view (probably just block_view) and the ‘block-id’ is the machine name for the block</li>
-</ul>
-
-<h3 id="i-have-ie-specific-stylesheets-and-libraries-that-need-conditional-comments-where-do-those-come-in">I have IE-specific stylesheets and libraries that need conditional comments. Where do those come in?</h3>
-
-<p>I wondered this myself as Bootstrap requires some IE-specific libraries to be dropped in. The Internet yields a lot of solutions that don’t really work for this but are worth mentioning anyway:</p>
-
-<ul>
-  <li>Add them in your <code>.info</code> file. That won’t help you with conditional comments but it is a solution.</li>
-  <li>Add them with <code>drupal_add_css()</code> or <code>drupal_add_js()</code>. Same problem as above, though I suppose you could do some wizardry with detecting user agents and conditional logic.</li>
-  <li>Add an element with <code>drupal_add_html_head()</code>. I can never get this to work.</li>
-</ul>
-
-<p>The best solution I’ve found is to just add them directly into the <code>html.tpl.php</code> file. </p>
-
-<script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/templates/html.tpl.php"></script>
-
-<p>You can see toward the bottom where I’ve added in those conditional libraries. It feels ugly, but that’s the cleanest way I’ve discovered.</p>
-
-<h3 id="whats-next">What’s next?</h3>
-
-<p>I know that Drupal lets me get much more granular with my templating - down to the region, node and block level. I have no idea how to wrangle those templates yet, though, so those are next on my list. I’d also like to not have these hacky queries of the <code>$page</code> object that required me to guess how the object was structured half of the time. Till next time!</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/10/30/cooking-my-first-ever-drupal-theme-from-scratch.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2014/08/26/the-magic-in-the-machine.html"><h3>The Magic in the Machine</h3></a>
-		<div class="date">August 26, 2014</div>
-	</div>
-	<div class="col-8">
-		<p>Our love affair with computers has a long, complex history. We did not fall in love with them because they allowed us to be more productive. Nor did we love them because they encouraged us to talk to our friends over the Internet. Our first love affair began a decade before the web, when the first PCs gave software developers the ability to create new and interesting art forms such as Tron, The Last Starfighter and Castle Wolfenstein. It is creative computing, the creation of art out of code, that has always resonated with us. Creative computing is what excites us about our devices and keeps drawing us in for more.</p>
-
-<p>Yet as the computer invades every aspect of our personal and professional lives, we have sacrificed that original magic for efficiency. Digital design concepts and capabilities have improved exponentially over the years, but the trends have been toward flat, functional, sterile, clean design. Hardware products have emphasized simple screen real estate while removing as much of the surrounding matter as possible. Web design is focused on maximizing “conversions” while optimizing for machines to add to search engine indexes.</p>
-
-<p>A craving for efficiency in creative computing implies that we have a host of vaguely unpleasant tasks to accomplish on the machine, so we should make it as easy as possible for users to get to what they need to do quickly and get out. Creative computing is becoming a race to find the hyper-optimized, mechanical place where users can move through their fast food assembly line of digital tasks so they can move to the next fast food assembly line of digital tasks, over and over again in perpetuity. There is no joy at the end of this tunnel.</p>
-
-<p>In the real world, the joy has always been outside the screen, and creative computing at its best is a way to augment our experiences with and memories of that world. It’s not the cold pixel representation of some meat on a plate in an Instagram feed; it’s the memory of the fantastic steak dinner date with a group of friends you’ve known since college that truly brings us joy. That silly Instagram shot is just a reminder that brings a memory to life in our minds. Even for millennials or post-millennials who grew up with the Internet and entered the working world armed with smart phones and social media accounts, our joy has never been contained inside a screen.</p>
-
-<p>Psychologists, sociologists, neuroscientists and anthropologists have spent years on soapboxes shouting about the dangers of too much screen use, evidenced by <a href="http://www.dailymail.co.uk/sciencetech/article-2175230/Too-time-online-lead-stress-sleeping-disorders-depression.html">screen-induced sleeping disorders</a> and <a href="http://www.huffingtonpost.com/2012/11/28/south-korea-internet-addicted_n_2202371.html">Internet addiction centers</a>. Yet these complaints are so often branded as a problem of the Internet itself, that there is some inherent problem with our computing-enabled society. Our computers and our Internet connections are not the problem: like the TV revolution decades before, our insistence on staring at a single glowing screen for hours on end is a problem.</p>
-
-<p>It is time for creative computing to break out of its screen. It is time for us to rekindle the magic of computing on a familiar ground we still love: the real world.</p>
-
-<p>For a long time, the wizardry of blurring the lines of the physical and the digital world was a cost-prohibitive proposition for most creative campaigns. Most technologists, creative agencies and marketing departments simply could not afford the infrastructure required to connect the two worlds. That landscape has now changed. Our audiences are equipped with cameras, GPS devices, and microphones in their mobile devices at all times. Inexpensive microcontrollers now allow software developers to play with sensors and electronic devices with ease. The ubiquity of wireless networks allows us to connect a vast array of devices over the air at any time.</p>
-
-<p>We have already begun experimenting with these tools in our own D.C. office, with a website that lets a colleague who recently moved to Seattle manipulate the lights at his old desk. The possibilities are endless; these tools allow us to build anything our minds can imagine. They grant us the ability to jump back and forth between worlds, to split our interactions between the physical and the digital in ways that science fiction could only dream of decades earlier. We no longer need to restrict ourselves to dreaming about these things – their secrets have been unlocked, and they can be built at any time.</p>
-
-<p>The next wave of creative computing and the future digital marketing and PR campaigns it spawns will not be restricted to an audience’s screens. They will touch them where they live, in the real world. They will be there for audiences to touch, feel, smell and experience without needing to reach for a portable glowing screen. They will make the machine invisible and will share an audience’s joy when magical, unexpected things begin to happen in the real world, things that creative computing will enable and inspire.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/08/26/the-magic-in-the-machine.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2014/05/28/ford-mosbys-amazing-burger-recipe.html"><h3>Ford Mosby's Amazing Burger Recipe</h3></a>
-		<div class="date">May 28, 2014</div>
-	</div>
-	<div class="col-8">
-		<p>I like to think that the parts of my brain that like programming and the parts of my brain that like cooking are somehow intricately linked. I have a tendency to start out with a stack of recipes as “inspiration” and then improvise the rest on the spot, and that certainly reveals itself in my coding style as well. And now that I’m improving as a programmer and investigating rules and frameworks, I’m following recipes far more closely. This might all be coincidence, and it might just be a sign that I’m maturing as a <strong>human being</strong> rather than as a programmer or cook, but I’m going to say it’s all linked until proven otherwise.</p>
-
-<p>My mom cooks far more than my dad. I inherited quite a bit from her and still consult her on techniques and ideas all the time. She would never admit that she was a great cook, but I was spoiled so much on home-cooked meals from her over the years that I simply had to start doing the same when I moved into my own apartment. Dad was the grillmaster, though, and this is the simple recipe he’s most known for. Good food is meant to be shared. </p>
-
-<h3 id="dads-burgers">Dad’s Burgers</h3>
+	<div class="col-md-8 col-sm-12">
+		<p>Django comes baked with one major setback: it can’t properly support non-relational databases. A few attempts to rectify this problem have been made, but none of them can handle Django’s administration menu at the same time. So if your application simultaneously requires the speed of a non-relational database and the ease of the administration menu, you’re going to need to figure out a way to run two databases - one relational, one not - and keep the two in sync. We’re going to do that very thing with Postgres and MongoDB here.</p>
 
 <p>You will need:</p>
 
 <ul>
-  <li>ground beef, 80% lean, poundage based on how many people you’re feeding (I like to go around 1/2 lb per person, leftovers aren’t a bad thing)</li>
-  <li>eggs</li>
-  <li>worcestershire sauce</li>
-  <li>salt</li>
-  <li>pepper</li>
-  <li>garlic powder</li>
+  <li><a href="http://api.mongodb.org/python/current/">pymongo</a></li>
+  <li><a href="https://docs.djangoproject.com/en/1.7/topics/signals/">Django signals (part of Django core)</a></li>
 </ul>
 
-<p>Prepare the patties:</p>
+<p>PyMongo provides us a convenient API to access MongoDB, while signals will allow us to perform certain actions upon saving a model. We begin by importing all of the necessaries and creating receiver functions to handle our signals:</p>
 
-<ol>
-  <li>Start your grill to crank it to about 400°.</li>
-  <li>Dump all of your burger meat into a big bowl. </li>
-  <li>For each pound of meat, crack a whole egg into the bowl. </li>
-  <li>Add a tablespoon and a half of worcestershire, a teaspoon of salt, a teaspoon of pepper and a teaspoon of garlic powder per pound of meat.</li>
-  <li>Get your hands into that meat and start massaging those eggs into it. Don’t be shy about it. Get it all mixed in there.</li>
-  <li>With your hands, scoop out a handful of meat about the size of a baseball. Turn it around in your hands to compress it into a round ball.</li>
-  <li>Press the ball of meat into a cookie sheet. Flatten it until it’s about 2/3 of an inch thick.</li>
-  <li>Repeat until all of your meat is formed into burgers. Don’t leave leftover raw meat.</li>
-  <li>Slap each of those burgers on the grill and shut the top quickly. <em>Don’t leave your grill top open.</em></li>
-  <li>Wait four minutes, then flip them. Shut the top again.</li>
-  <li>Wait four minutes, then check them. When you poke the burgers, they should be a bit springy, not soggy. </li>
-  <li>If not springy yet, flip them once more, give them two minutes, then pull them out. </li>
-</ol>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
 
-<p>Voilà. With your own two hands and fire, you have produced burgers. Maybe melt some cheese on top of them next time or toast the buns. The summer is yours to conquer.</p>
+from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/05/28/ford-mosbys-amazing-burger-recipe.html" data-via="josephmosby">Tweet</a>
+class MyModel(models.Model):
+	pass
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+	pass
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+	pass
+</code></pre></div></div>
+
+<p>We use the <code class="highlighter-rouge">@receiver</code> decorator to indicate what event should trigger the <code class="highlighter-rouge">save_mongo_instance()</code> and <code class="highlighter-rouge">delete_mongo_instance()</code>. Our functions will fire immediately after a model saves to or deletes from our Postgres database (indicated by the post_save and post_delete parameters). These functions must also take in a sender (the Model triggering the method) and a fungible number of <code class="highlighter-rouge">kwargs</code>. One of these <code class="highlighter-rouge">kwargs</code> will be the specific Model <em>instance</em> we just saved or deleted.</p>
+
+<p>These receiver methods will fire on <em>every</em> save or delete, regardless of the model that called it. If I have foreign key relationships, it won’t make sense for me to save all of those into the database as their own Documents - I should be nesting those within other Documents. I need some way to dictate which models should and should not be saved as their own Documents in a Mongo collection.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
+
+class MyModel(models.Model):
+	mongoable = True
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+</code></pre></div></div>
+
+<p>I’ve added a property to <code class="highlighter-rouge">MyModel</code> that indicates it is “mongoable” (I made that word up). If <code class="highlighter-rouge">mongoable</code> is set to <code class="highlighter-rouge">True</code>, we’ll save it to the Mongo database - otherwise we’ll ignore the save event by returning out of the function.</p>
+
+<p>Now we need to get the instance.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+</code></pre></div></div>
+
+<p>We extract the instance information - the specific data we just saved to Postgres - by pulling it out of the <code class="highlighter-rouge">kwargs</code> sent to our receiver function. Now we must parse them out! I created a helper utility to do this very thing and placed it in the <code class="highlighter-rouge">utils</code> directory of my Django project, so it looks something like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mongoproject/
+|
+|--mongoproject/
+	|
+	|--settings.py
+	|
+|--mongoapp/
+	|
+	|--__init__.py
+	|--models.py
+	|
+|--utils/
+	|
+	|--__init__.py
+	|--mongo_clone.py
+</code></pre></div></div>
+
+<p>I’ve also modified <code class="highlighter-rouge">settings.py</code> to add my Mongo connection info:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># settings.py
+
+MONGO_DB_HOST = 'localhost'
+MONGO_DB_PORT = 27017
+</code></pre></div></div>
+
+<p>And my mongo_clone.py utility looks <a href="https://gist.github.com/josephmosby/7ac22f01ccf738e94d7a">like this</a>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mongo_clone.py
+
+import pymongo
+from django.db.models import Model
+from django.db.models.fields.files import ImageFieldFile
+from django.conf import settings
+
+def get_mongo_db():
+	client = pymongo.MongoClient(settings.MONGO_DB_HOST, settings.MONGO_DB_PORT)
+	db = client.test
+	return db
+
+def convert_fields(model):
+	"""
+	Recursive function to iterate over all fields in a Model.
+	If the field is a ForeignKey, ManyToManyField or OneToOneField, 
+	go into the model and recursively store fields.
+	"""
+	fields = model._meta.get_all_field_names()
+	update_fields = {}
+
+	for field in fields:
+		try: 
+			field_value = getattr(model, field)
+			if getattr(field_value, 'all', None):
+				"""
+				Branch for a ManyToManyField.
+				Iterate over each Model in and append data to a list.
+				Add list to dictionary.
+				"""
+				fk_list = []
+
+				for fk_model in field_value.all():
+					fk_list.append(convert_fields(fk_model))
+
+				update_fields[field] = fk_list
+
+			elif isinstance(field_value, Model):
+				"""
+				Branch for a ForeignKey or OneToOneField.
+				Create data for the Model and add to dictionary.
+				"""
+
+				update_fields[field] = convert_fields(field_value)
+
+			elif isinstance(field_value, ImageFieldFile):
+				"""
+				Serialize an ImageField.
+				"""
+				try:
+					update_fields[field] = field_value.path
+				except ValueError:
+					"""
+					ValueError occurs if there is no actual File (i.e., is null).
+					"""
+					update_fields[field] = ""
+
+			else:
+				"""
+				Branch for a standard field.
+				Add data to the dictionary.
+				"""
+
+				if field == "id":
+					update_fields["pg_" + model._meta.verbose_name + "_id"] = field_value
+				else:
+					update_fields[field] = field_value
+
+		except AttributeError:
+			"""
+			ManyToManyFields will throw an AttributeError when trying to reference the parent.
+			"""
+			pass
+			
+			
+	return update_fields
+</code></pre></div></div>
+
+<p>Let’s walk through the branches of <code class="highlighter-rouge">convert_fields()</code> one by one. The function is designed to turn a Model into a dictionary of key/value pairs, iterating through each field and recursively digging into ForeignKeys and ManyToManyFields to created nested dictionaries. Our first two lines of the function create the primary dictionary and find the field names of the model.</p>
+
+<p>We then begin a try/except block. Django ForeignKeys and ManyToManyFields store data in the Postgres database about their parent, but it’s not specified directly in my Model. We deal with that by passing on an <code class="highlighter-rouge">AttributeError</code>. Next we loop through all fields.</p>
+
+<p>It’s perhaps most useful here to skip down directly to the <code class="highlighter-rouge">else</code> branch of this if/else statement. This is for our standard text and date fields - anything we can easily serialize. Our recursive function will always end up here. We’ll continue to go deeper and deeper into our relationships as we’re building our nested dictionaries for ForeignKeys, but once we have an object that has no relationships, we’ll simply be serializing its fields with this branch.</p>
+
+<p>Immediately above that branch is our test for an <code class="highlighter-rouge">ImageField</code>, which can’t be neatly serialized. We tackle this by finding the path of the ImageFieldFile and attaching that to our dictionary.</p>
+
+<p>Our first bit of recursion comes when we hit the branch above that, when we deal with ForeignKeys. Our FK model will be attached to the original model’s ForeignKey field - but at the end of the day, it’s just a standard model with fields that we could parse out with our bottom branch. We’ll recursively call our <code class="highlighter-rouge">convert_fields</code> function on the model to do just that.</p>
+
+<p>Our top branch deals with ManyToManyFields, which come through as a <code class="highlighter-rouge">Manager</code>. Managers are tough to detect, but they do have an <code class="highlighter-rouge">all()</code> method that no other field should have. We’ll look for that method to find a ManyToManyField, then we’re just looping through every attached Model and appending their keys to the dictionary.</p>
+
+<p>Now we call our helper method as part of our receiver:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
+
+from utils.mongo_clone import get_mongo_db, convert_fields
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+
+	update_fields = convert_fields(instance)
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+</code></pre></div></div>
+
+<p>And we’ll save all this to the database by connecting to our DB and using a find_and_modify transaction:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
+
+from utils.mongo_clone import get_mongo_db, convert_fields
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+
+	update_fields = convert_fields(instance)
+	db = get_mongo_db()
+
+    mongo_instance = db.test.find_and_modify(query={"pg_instance_id": instance.id},
+                                            update={"$set": update_fields},
+                                            upsert=True,
+                                            full_response=True,
+                                            new=True)
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+</code></pre></div></div>
+
+<p>Deleting is far easier. All we have to do here is find the Mongo ID that corresponds to the deleted Postgres ID:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
+
+from utils.mongo_clone import get_mongo_db, convert_fields
+
+@receiver(post_save)
+def save_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+
+	update_fields = convert_fields(instance)
+	db = get_mongo_db()
+
+    mongo_instance = db.test.find_and_modify(query={"pg_instance_id": instance.id},
+                                            update={"$set": update_fields},
+                                            upsert=True,
+                                            full_response=True,
+                                            new=True)
+
+@receiver(post_delete)
+def delete_mongo_instance(sender, **kwargs):
+
+	if not sender.mongoable:
+		return
+
+	instance = kwargs.get('instance')
+
+	db = get_mongo_db()
+
+	mongo_instance = db.test.remove( {"pg_instance_id": instance.id })
+</code></pre></div></div>
+
+<p>And we’re cooking. We’re still querying the original Postgres database - for now - but we’ll fix that soon enough.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/04/18/a-modest-proposal-for-accessibility-driven-web-development-for-government.html"><h3>A Modest Proposal for Accessibility-Driven Web Development within Government</h3></a>
-		<div class="date">April 18, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>15 Feb 2015</time>
+			<a href="/tags/">culture</a>
+		</div>
+		<h3>The psychology of a small playlist on repeat</h3>
+
 	</div>
-	<div class="col-8">
-		<p>I have never been a developer specifically tasked with making web applications accessible to users with disabilities, but I still find myself engaged in conversations about web accessibility with my friends employed by government agencies here in Washington, D.C. There is always some new service or technology or design that government employees would love to bring in, but they’re not legally allowed to because it’s not “Section 508-compliant.” This inevitably sparks a conversation about making technology accessible, and it’s all too often sparked by non-developers who can’t understand why developers just can’t make their products accessible. It’s one of the most misunderstood problems facing the accessibility community, and it shows no signs of being resolved any time soon. </p>
+	<div class="col-md-8 col-sm-12">
+		<p><a href="http://ma.tt">Matt Mullenweg</a> <a href="http://fourhourworkweek.com/2015/02/09/matt-mullenweg/">listens to a single song on repeat</a> when he needs to get in “the zone.” This is fascinating to me, as I am a Spotify user fueled by chaos. I have always been a little spastic about my <a href="http://open.spotify.com/user/josephmosby">Spotify playlists</a>, creating new lists for each month based on my musical whims at the moment. The idea of restricting myself to only a few songs at a time is absolutely absurd. I had to try it. I created a playlist of three songs that I’ve already been playing quite a bit:</p>
 
-<p>I would be remiss if I tried to solve the entire web accessibility problem in a blog post, but I can hopefully shed some light on how the problems start - now that I’ve had the opportunity to fix a few of my own.</p>
+<ul>
+  <li><a href="http://open.spotify.com/track/0uqMUcdMvQtNQLO4jVockW">Calvin Harris and Nicky Romero - “Iron”</a></li>
+  <li><a href="http://open.spotify.com/track/2si03bj1f2F4X0Hyy0yCPx">Chromeo - “Bonafied Lovin”</a></li>
+  <li><a href="http://open.spotify.com/track/26qDnsrrvZbylEOUMKLGRh">Oasis - “The Masterplan”</a></li>
+</ul>
 
-<p>Recently, my team was tasked to make some changes to a web site with a map that showed text content when a user hovered over it. I can’t show the site itself, but <a href="https://www.mapbox.com/mapbox.js/example/v1.0.0/show-tooltips-on-hover/">this page</a> gives a decent representation of what we added. It’s a red-flag accessibility problem because it implies that sight is required to operate the web application, and not every possible user can see the screen. Some are navigating it through screen readers. I’ve had some training in how to spot these sorts of things, though, and I realized that we could easily just head off the user by placing <code>aria</code> tags within the map when a user stumbled upon it, and we could also place the tooltips in the HTML document such that a user could still read them. This was about five minutes worth of extra work, and all I needed to do was organize my HTML in such a way that a screen reader could figure it out. </p>
+<p>Armed with my newly crowned “Focus” playlist, I got to work late at night when my brain was starting to fall asleep. I sat down to some frustrating programming tasks, put my playlist on repeat and began my experiment.</p>
 
-<p>I can do this because I’m not just thinking about accessibility (which would have caused me to forego the map idea altogether), and I’m not just trying to hammer out a task in a hurry (which would have caused me to skip the HTML rearrangement). I’ve got time and training to notice the problem and creatively solve it. That happens at every level with our team at <a href="http://www.apcoworldwide.com">APCO Worldwide</a>. Our team members developing wireframes and user interfaces have accessibility in the back of their mind, our designers are thinking about color contrasts and font choices, and our developers are sorting through their HTML to make sure we don’t make some sort of confusing error in our code. We’re not accessibility professionals, we’re creative professionals who happen to know that not every user has the same experience with a computer that we do.</p>
+<p>It worked! As I ramped up into my work, I immediately found the flow much faster than normal. I focused on the lyrics on the first pass, a bit less on the second pass, and by the third pass I was barely aware of the background noise. It was fantastic. Even the slower beats of “The Masterplan” weren’t breaking me out of an energetic flow. I cranked through everything I’d set out for myself without a second thought.</p>
 
-<p>We also plan our designs and our development in a holistic manner, and we iterate through multiple rounds of feedback to get it right. We decide who gets to have feedback and who doesn’t. And we don’t just say “yes” to any change that comes down the pipe: we weigh changes through our creative expertise before we implement them, and we push back on our clients if they make changes that will be problematic. If a client requests something that’s going to impact the accessibility of the site (such as a color contrast issue or a font change), we discuss it internally and propose alternatives before we just start coding. </p>
+<p>Why does it work? Surely there’s something in the human psyche that makes this work for me just as well as it does for Matt. What is it? I needed to do some research.</p>
 
-<h3 id="what-government-gets-wrong">What Government Gets Wrong</h3>
+<p>Arkansas psychologist Elizabeth Hellmuth Margulis wrote book called <a href="http://www.amazon.com/Repeat-How-Music-Plays-Mind/dp/0199990824/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1424026191&amp;sr=1-1&amp;keywords=on+repeat+how+music+plays+the+mind"><em>On Repeat: How Music Plays the Mind</em></a> that tangentially delves into this question.</p>
 
-<p>Government has recently taken an interest in good design, which is all for the best. But it has focused heavily on simply hiring individual designers rather than <em>focusing on a creative process that emphasizes excellent, accessible design throughout.</em> This requires a commitment to a management style that is inherently at odds with how government develops and deals with IT solutions. </p>
+<blockquote>
+  <p>Musical repetition gets us mentally imagining or singing through the bit we expect to come next… A sense of shared subjectivity with the music can arise. In descriptions of their most intense experiences of music, people often talk about a sense that the boundary between the music and themselves has dissolved.</p>
+</blockquote>
 
-<p>Government tends to want to shift all the blame for bad, inaccessible design on contractors, but I don’t think that’s the whole of the problem. We pull off accessible design well and we’re a contract-based shop. Our team is fortunate enough to be trusted to do our jobs and left to work, relatively uninterrupted, for decent blocks of time. Despite my contractor nature, my clients trust me to get my job done and don’t particularly care where or how I do it, so long as the end product is exactly what they asked for. Any government contractor will testify that this is typically not the case in the government.</p>
+<p>Okay, that helps us out. The more we listen to music on repeat, we tend to dissolve into it. That’s extremely useful for creative work, when tuning out the monkey mind is of utmost importance.</p>
 
-<p>Rather, you’re in an environment where the agency’s security office has insisted that you must work in their office on their machines at the time of day that they specify, you’re confronted with at least six half-hour to one-hour meetings per day from every project manager trying to use the same contractors for their own projects, and your design sensibilities will be whittled away by the occasional SES manager who just loves the color orange and really can’t understand why you can’t incorporate some orange into the design. Trust me, government project managers, I know that none of you is individually that bad. Collectively, however, there is a management culture within government that does not tolerate the daily structure required to consistently execute excellent, accessible design. </p>
+<p>There’s a psychological principle at work here called the <a href="http://changingminds.org/explanations/theories/mere_exposure.htm">Mere Exposure Theory</a>. It states that we like something the more we’re exposed to it; we like the familiar. W.R. Kunst-Wilson and R.B. Zajonc demonstrated this can happen with the most mundane of objects by flashing octagons at experimental patients and finding that they liked octagons much more after the subliminal stimulus. Though we eventually get sick of songs, it’s quite easy to swap them out for others in the playlist after we hit our threshold.</p>
 
-<p>I know how we address this issue within our firm, and I imagine that the government solution to this problem is quite similar. We employ a “traffic manager” whose job is strictly to keep the designers on task and away from distractions by handling all of the overhead and scheduling that tries to plague them. Invoices, client meetings, rush projects - the traffic manager handles it all, and gives the designers direction on where to go each day. If a designer needs time to finish a deliverable, they tell the traffic manager about it before going offline - and if you happen to have some rush project that absolutely needs doing that day, you go through the traffic manager first. </p>
+<p>I think we have our answer. Repetition of anything makes us like the thing even more, while repetition of music specifically helps us sink into a groove. Perfect for improving our mood and ramping up our productivity at the same time.</p>
 
-<p>The traffic manager is there to put a halt to one of the most basic problems with organizational culture: individually, no one is really a problem in the way of creative work. It’s when we all individually have problems at the same time that we become a collective, pervasive problem. The traffic manager is there to put a bottleneck to that collective problem. Can government bring in that sort of management style to fix its accessible design issues? Absolutely.</p>
-
-<h3 id="what-about-externally-developed-products">What About Externally-Developed Products?</h3>
-
-<p>Government agencies make use of Facebook, Twitter, and a host of other services that were not put together by contractors. Those services are all too often inaccessible to their detriment. But after thinking on <em>where</em> these products are developed, it doesn’t surprise me. Washington, D.C. confronts accessibility issues every day while other tech capitals rarely face it.</p>
-
-<p>Growing up in the Southeast, I went my entire life never regularly interacting with vision- or hearing-impaired individuals. The city has almost no public transportation, which makes it difficult for the vision-impaired to independently get around. It’s a little bit easier on the hearing-impaired - but nothing compared to living near <a href="https://www.gallaudet.edu/">Galludet University</a> where the bartenders know sign language. This is the environment for much of the country, and it’s certainly the environment where these web services are being constructed. If we want accessible web services built by default, we have to constantly remind those developers if they aren’t going to regularly interact with users who can’t fully see the screen or hear a video. </p>
-
-<p>And, to be honest, we’re going to have to make a case for it. Less than 3% of all Americans have some form of vision impairment that can’t be fully corrected. Of that group, most are over the age of 65 - hardly the target market for Twitter’s developers if we’re trying to convince them of a large new market out there. We must instead focus on the concept of access to information, and the importance of the information we want to convey. When Egypt’s access to many Internet services was shut down during a wave of protests, <a href="http://www.theguardian.com/technology/2011/feb/01/google-twitter-egypt">Google and Twitter stepped up</a> to provide access to Twitter via standard phone connections. Access to information is in these companies’ DNA, and that’s where we have to focus our accessibility efforts. Section 508, WCAG, etc., etc., don’t matter - what matters is that we have users who cannot access important information, and only these externally-developed services can help us get those messages out. </p>
-
-<hr />
-
-<p>Can these problems be solved? I think so. We need only break outside of our bubbles - both within Washington, DC government culture and without - and realize that there is a different way of doing business outside of our walls. </p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/04/18/a-modest-proposal-for-accessibility-driven-web-development-for-government.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/04/12/choosing-a-development-platform-to-reach-the-right-users.html"><h3>Choosing a Game Development Platform to Reach the Right Users</h3></a>
-		<div class="date">April 12, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>12 Feb 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Seeding a database with queues and threading</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Last Friday, I attended the <a href="http://www.media4socialimpact.org/">Media for Social Impact</a> Summit at the United Nations headquarters in NYC. Aside from the awesomeness of attending a conference at the United Nations, the summit was a really enlightening experience crammed into a single day’s worth of sessions. Each group of panelists focused on the most effective way to run an issue-based campaign with a social change in mind on a particular type of media. Of particular interest to me was the talk by Asi Burak of <a href="http://www.gamesforchange.org/">Games for Change</a>, whose <a href="https://www.facebook.com/HalftheGame">Half the Sky</a> game was designed to raise funds to empower women and girls.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>Don’t try this at home. There is no good reason to do this.</p>
 
-<p>Half the Sky is a Facebook game, a medium that I had admittedly often dismissed due to FarmVille and the like. I knew there were a ton of players on Facebook - 40 million monthly active users on Facebook for Farmville 2, <a href="http://www.polygon.com/2013/1/4/3837236/farmville-2-infographic-40-million-monthly-active-users">for example</a> - but really, why would I consider Facebook when there’s so much interesting stuff to be done on Steam or Xbox Live? Why would I tie my game to the constraints of a web browser when I could harness the entire power of a computer instead? </p>
+<p>Moving on.</p>
 
-<p>I had forgotten an extremely critical thing for a game of this nature. This was not a typical game that wanted its hands on every single possible user, but a game with a specific theme that needed to target a particular type of user. This game was designed to empower women and girls, and thus it needed to be on a platform that had a lot of women and girls playing games. That platform isn’t Xbox Live, or Steam, or PS3.. it’s Facebook. This game needed to reach a target audience at the lowest possible cost, and that meant Facebook development.</p>
+<p>Let’s say we wanted to seed a MongoDB database with a ton of records. And let’s just say that we had a Django app connected to that Mongo database. We’d likely be using <a href="http://django-nonrel.org/">django-nonrel</a> with its MongoDB connector. And let’s again say that we have a models.py file that looks like this:</p>
 
-<p>This was jaw-dropping for me as a developer who had never considered aligning the users I thought would be most interested in my game with the platform where those users hung out. And I’d also forgotten that the type of game (whether it’s strategy, turn-based, shooter, etc., etc.) is also going to be important to attract a certain type of audience. Let’s take a look at some examples:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py
 
-<h3 id="i-want-to-target-women-between-the-ages-of-35-and-50">I Want to Target Women Between the Ages of 35 and 50</h3>
+from django.db import models
+from djangotoolbox.fields import ListField, EmbeddedModelField
 
-<p>According to research by <a href="http://blog.apptopia.com/game-demographics-that-every-developer-should-know/">Apptopia and Flurry Analytics</a>, you need to take a look at slot machines or a “social turn-based” game (think FarmVille) if you want a game that’s going to appeal to women between the ages of 35 and 50. Think back to every time you’ve walked through a casino and wondered who actually played all of those slot machines - if you saw customers, they were likely right in that demographic. And you might consider a Facebook game - <a href="https://www.mediabistro.com/alltwitter/social-media-user-demographics_b38095">72% of female U.S. Internet users are on Facebook</a> - and you’re likely going to want to promote it on Pinterest as well. Go after ad partners who are targeting this demographic and show them the numbers.</p>
+class Author(models.Model):
+	name = models.CharField(max_length=60, blank=False)
 
-<h3 id="i-want-to-target-men-between-the-ages-of-20-and-30">I Want to Target Men Between the Ages of 20 and 30</h3>
+class Tag(models.Model):
+	name = models.CharField(max_length=40, blank=False)
 
-<p>Let’s go back to that <a href="http://blog.apptopia.com/game-demographics-that-every-developer-should-know/">Apptopia piece</a>. You’re talking shooter games, RPGs, strategy games. If it’s an absolute requirement that you have regular return visitors, you need to put that strategy cap on.. but if you can get by with casual players, go for the shooters instead. You know that Pinterest isn’t worth your promotional efforts, but Twitter might be. And given the type of games that are popular on Steam (shooters, RPGs, and strategy), you certainly might want to take a look at launching there to promote to a heavily male audience. </p>
+class Article(models.Model):
+	title = models.CharField(max_length=60, blank=False)
+	subhead = models.CharField(max_length=140)
+	date = models.DateField(auto_now=True)
+	content = models.TextField()
+	authors = ListField(EmbeddedModelField('Author'))
+	tags = ListField(EmbeddedModelField('Tag'))
+</code></pre></div></div>
 
-<p>None of this is an exact science, of course. You’ve still got to make a quality game and promote it the right way for it to take off. But you’re going to start off behind if you don’t take these things into consideration, and after developing a game for months at a time - you definitely don’t want to flop because you chose the wrong place to put your game.</p>
+<p>We’ve got some fairly standard models here - an Article with Tags and Authors embedded in. Now we’ll need a seed file:</p>
 
-<p>TL;DR:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># seed.py
+import os, sys, django
+import random
+from datetime import date, timedelta as td
+from time import sleep
+import Queue, threading
 
-<p><img src="/images/badtime.jpg" alt="If you promote a first person shooter on Pinterest, you're gonna have a bad time" /></p>
+sys.path.append('/path/to/my/project/mongotest/')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mongotest.settings")
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/04/12/choosing-a-development-platform-to-reach-the-right-users.html" data-via="josephmosby">Tweet</a>
+from dbtest.models import Author, Tag, Article
+</code></pre></div></div>
+
+<p>Nothing too crazy worth noting here. I need to append my project folder to <code class="highlighter-rouge">sys.path</code> and configure the <code class="highlighter-rouge">DJANGO_SETTINGS_MODULE</code> environment variable so that my app <code class="highlighter-rouge">dbtest</code> is registered with the system.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># seed.py continued
+
+AUTHOR_FILE = 'authors.txt'
+TAG_FILE = 'tags.txt'
+CONTENT_FILES = ['text1.txt', 'text2.txt', 'text3.txt', 'text4.txt', 'text5.txt', 'text6.txt', 'text7.txt']
+TITLES = ['Numeric abstract base classes', 'The numeric tower', 'Notes for type implementors', 'Number-theoretic and representation functions', 'Decimal fixed point and floating point arithmetic', 'Rational numbers', 'Higher order functions and operations', 'Generate pseudo-random numbers', 'Functions creating iterators', 'Mapping operators to functions']
+DATE_DIFF = date(2014, 12, 31) - date(1999, 1, 1)
+</code></pre></div></div>
+
+<p>The contents of these files bear some explanation. I have an authors.txt file and tags.txt file that contain lists of authors and tags (presidents’ names for authors and random words from Wikipedia for tags). I have seven textN.txt files that each contain lorem ipsum text. And I have some titles yanked from Python’s <code class="highlighter-rouge">math</code> module. The <code class="highlighter-rouge">DATE_DIFF</code> is used to calculate days between January 1, 1999 and December 31, 2014. We’ll use that last bit later.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># seed.py continued
+
+def store_models(file):
+'''Initialize with tags and author names from text files.'''
+	f = open(file)
+	f_text = f.read().split('\n')
+	for item in f_text:
+		if file == 'tags.txt':
+			new_tag = Tag(name=item)
+			new_tag.save()
+		elif file == 'authors.txt':
+			new_author = Author(name=item)
+			new_author.save()
+		else:
+			print('Whoa, not a file')
+			return ""
+
+store_models(TAG_FILE)
+store_models(AUTHOR_FILE)
+</code></pre></div></div>
+
+<p>We continue this by creating a stack of tags and authors that we’ll need later.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># seed.py continued
+
+def prep_half_entry(q, contents, titles, dates):
+	title = random.choice(titles)
+	content = random.choice(contents)
+	subhead = random.choice(titles) + " " + random.choice(contents)[:15]
+	article_date = random.choice(dates)
+	article = Article(title=title, subhead=subhead, content=content, date=article_date)
+	article.save()
+	q.put(article)
+
+def write_full_entry_to_db(q, tags, authors):
+	sleep(0.05)
+	article = q.get()
+	authors_list = [random.choice(authors)]
+	tags_list = [random.choice(tags)]
+	article.authors.extend(authors_list)
+	article.tags.extend(tags_list)
+	article.save()
+</code></pre></div></div>
+
+<p>Here we have two functions that we’re going to turn into lots of tiny little threads. The <code class="highlighter-rouge">prep_half_entry()</code> function takes four parameters: a queue and sets of contents, titles and dates. From there, it will haphazardly choose some titles, contents, subheads, and dates, and then save the article. It will then put that article on the Queue using the <code class="highlighter-rouge">q.put()</code> method - meaning we can access it from other threads. The <code class="highlighter-rouge">write_full_entry_to_db()</code> function expects to receive a Queue, a set of tags, and a set of authors. From there, it will pop the first Article it finds off the queue, then complete the entry with tags and authors. The <code class="highlighter-rouge">sleep(0.05)</code> is only in there to make the function stall so we can watch the queue grow.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># seed.py continued
+
+q = Queue.Queue()
+contents = [open(x).read() for x in CONTENT_FILES]
+dates = [date(1999, 1, 1)+td(days=i) for i in range(DATE_DIFF.days + 1)]
+tags = Tag.objects.all()
+authors = Author.objects.all()
+</code></pre></div></div>
+
+<p>Here we build the Queue object a few other sources of data our functions need to complete their work. Remember that <code class="highlighter-rouge">prep_half_entry()</code> and <code class="highlighter-rouge">write_full_entry_to_db()</code> are just going to shuffle up entries to seed the DB.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for i in range(0, 500):
+
+	t_one = threading.Thread(target=prep_half_entry, args=(q, contents, TITLES, dates))
+	t_two = threading.Thread(target=write_full_entry_to_db, args=(q, tags, authors))
+
+	t_one.daemon = True
+	t_two.daemon = True
+
+	t_one.start()
+	t_two.start()
+
+	if q.qsize() &gt;= 8:
+		print q.qsize()
+</code></pre></div></div>
+
+<p>Here’s where the magic happens. We’re now going to spin up a thousand daemon threads and set them loose on this operation. <code class="highlighter-rouge">t_one</code> will be 500 threads of prepping half-completed entries and placing them in the queue. <code class="highlighter-rouge">t_two</code> will look for entries on the queue and finish them out before saving them to the database.</p>
+
+<p>This sort of raw approach is suboptimal - if you’d like to do something like this at scale, use <a href="http://www.celeryproject.org/">Celery</a>. But it makes a cute little proof of concept.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/04/03/playlist-choices-for-the-month-of-april.html"><h3>Playlist Choices for the Month of April</h3></a>
-		<div class="date">April 03, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>11 Feb 2015</time>
+			<a href="/tags/">culture</a>
+		</div>
+		<h3>Asking if someone "believes" in evolution is a dangerous question</h3>
+
 	</div>
-	<div class="col-8">
-		<p>Every month, I start a brand new playlist that I fill with music over the course of the month. By the end of the first week, I share out what I’ve got so far. I’ve currently got Avicii’s “Hey Brother” stuck in my head and my playlist starts with that in mind. You’ll see some of both the EDM and old country/blues influences in this mix. </p>
+	<div class="col-md-8 col-sm-12">
+		<p>Recently, likely presidential candidate Scott Walker was asked if he <a href="http://www.nationaljournal.com/twenty-sixteen/scott-walker-just-got-asked-if-he-believes-in-evolution-he-punted-20150211">believed in evolution and accepted it.</a>” He punted on the question, drawing scorn from people who follow the things American politicians say at London think tanks.</p>
 
-<ol>
-  <li>Lyle Lovett - “I Will Rise Up / Ain’t No More Cane”</li>
-  <li>Avicii - “Hey Brother”</li>
-  <li>Robert Randolph &amp; the Family Band - “Going in the Right Direction”</li>
-  <li>The Delta Saints - “Company of Thieves”</li>
-  <li>Eric Clapton and B.B. King - “Riding with the King”</li>
-  <li>Pharrell Williams - “Happy”</li>
-  <li>Cage the Elephant - “Ain’t No Rest for the Wicked”</li>
-  <li>Eisley - “Marvelous Things”</li>
-  <li>The 1975 - “Chocolate”</li>
-  <li>Bastille - “Pompeii (Audien Remix)”</li>
-  <li>Gorillaz - “Feel Good Inc.”</li>
-  <li>Calvin Harris - “Summer”</li>
-  <li>Gareth Emery &amp; Krewella - “Lights &amp; Thunder”</li>
-</ol>
+<p>I am uncomfortable with asking if individuals believe in evolution, or any other theories supported by scientific evidence. The theory of evolution seems to me to make sense based on the huge repository of quantifiable evidence in its favor. Scientists far more qualified than I am have tested this theory repeatedly and it explains much of how we experience the world. I find it to be far more likely than the theory that we simply popped into existence a few thousand years ago, and <a href="http://www.theatlantic.com/national/archive/2014/10/pope-francis-evolution/382143/">the pope has stated the same</a>.</p>
 
-<p><a href="http://open.spotify.com/user/josephmosby/playlist/3CkL8xxAW7n7SYmOHg61jc">April 2014 - Spotify playlist</a></p>
+<p>A few centuries ago, every reputable scientist looked at the visual evidence of stars moving around the earth and concluded that the earth was the center of the universe. The scientific community had ignored the heliocentric ideas of <a href="http://www.britannica.com/EBchecked/topic/34377/Aristarchus-of-Samos">Aristarchus of Samos</a> and suggested that he be hauled before the priests for blasphemy. The community also didn’t think much of <a href="http://www.britannica.com/EBchecked/topic/414150/Nicholas-Of-Cusa">Cardinal Nicholas of Cusa</a>, who suggested that the universe might not have a center at all. I suspect that people in power of the times were asked in the public square if they <em>believed</em> in the blasphemous theories proposed by Aristarchus and Nicholas. No doubt a few scholars had promising careers shot down after they were laughed at for believing such insane ideas.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/04/03/playlist-choices-for-the-month-of-april.html" data-via="josephmosby">Tweet</a>
+<p>And belief comes with its own risks. Confirmation bias dictates that we will seek out evidence that confirms our beliefs and ignore evidence that contradicts those beliefs. And <a href="http://youarenotsosmart.com/2011/06/10/the-backfire-effect/">the backfire effect</a> compounds this problem: if you’re confronted with evidence that contradicts your beliefs, those beliefs are likely to strengthen. Are these the sorts of characteristics we want our politicians to take on lightly, especially when the belief has little to no bearing on their ability to govern?</p>
+
+<p>I tend to favor politicians with a healthy degree of skepticism about the world around them. There is so much that people outside the Oval Office simply do not know, information that will likely circumvent much of the way candidates currently see the world. I can’t help but hope that politicians who seek that office are exceptionally guarded before they jump to beliefs.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/04/03/hacking-confirmation-emails-on-the-fly-with-mailgun.html"><h3>Hacking Confirmation Emails on the Fly with Mailgun</h3></a>
-		<div class="date">April 03, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>31 Jan 2015</time>
+			<a href="/tags/">joe</a>
+		</div>
+		<h3>The first time I felt like an engineer</h3>
+
 	</div>
-	<div class="col-8">
-		<p>I just finished slinging together some code for a confirmation email system for an email advocacy campaign using <a href="http://corporate.cqrollcall.com/cqrcengage">CQRC Engage</a>. Engage has a fairly simple set of tricks: it provides you with a Javascript-based widget to write a letter to your legislators, then submits that letter through whichever digital channel the legislator uses. As part of its process, it runs a check to find your particular legislator based on street address and postal code, then tailors the messages for that particular person. Engage doesn’t have an email confirmation sent to you as part of your advocacy, so I built one.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>For the first time in my life, I feel like an engineer.</p>
 
-<p>Engage accepts letter submissions via that Javascript widget, then stores data about that advocate, the target, and the message itself in a database accessible via an API. This is all we need to begin constructing our confirmation email system. We’re going to use <a href="http://www.mailgun.com">Mailgun</a> for this task, which is an API-based system that accepts HTTP POST requests and turns them into emails at your command. Without further ado, let’s start building.</p>
+<p>I have launched a startup and built countless production websites. I teach programming classes at a startup trade school. And I never felt like an engineer until now.</p>
 
-<p>I’m first going to build out a series of tiny classes that I’ll use to power my app. In this case, we’ll need four: one for the Advocate who sent a message, one for the Target, one for the Sent Message, and one for the Confirmation Email. They look something like this:</p>
+<p>I have no university degree declaring that I have formal training in computer science or software engineering. My degree says I know accounting. I started teaching myself how to code because I hated the idea of going to a big corporation or a small financial advisory firm and I developed a dream of having a business I could build myself. It was 2010 and THE SOCIAL NETWORK had just dropped, amplifying the dream of thousands of young entrepreneurs who were convinced that if they just learned how to code they could become the next Zuckerberg. I am amused now to say that I was one of them.</p>
 
-<p>```python
-class Advocate:
-	def <strong>init</strong>(self, first_name, last_name, email):
-		self.first_name = first_name
-		self.last_name = last_name
-		self.email = email</p>
+<p>2010 came and went. 2011 came along and I left school and became a management consultant rather than a startup entrepreneur. Nothing wrong with making some decent coin right after college, right? I enjoyed doing that for a while until the itch started to get after me again. I volunteered to help a friend get his startup off the ground and finally launched a project. I still didn’t feel like an engineer.</p>
 
-<p>class Target:
-	def <strong>init</strong>(self, first_name, last_name, title):
-		self.first_name = first_name
-		self.last_name = last_name
-		self.title = title</p>
+<p>I took a full-time engineering role at a public relations firm and was paid to code for the first time in my life. I was completely lost. When you’re learning how to code you stay in a happy little place playing connect the dots with tutorials and occasionally venturing out on your own experiment. When you’re building a brand new startup you’re working with zero code base at all and can make it in your own image. When you take a full-time gig with an established company, you’re suddenly thrown into the code wilderness where things aren’t perfect and you’re forced to confront systems without time for full-blown tutorials on them. And it’s scary as hell. I didn’t feel like an engineer.</p>
 
-<p>class SentMessage:
-	def <strong>init</strong>(self, sender, recipients, message_subject, message_text):
-		self.sender = sender # who should be an Advocate
-		self.recipients = recipients # a list of Targets
-		self.message_subject = message_subject
-		self.message_text = message_text</p>
+<p>No matter what I tried, I couldn’t make myself feel like a professional coder. I thought first “if I launch a startup” then I’ll absolutely feel like an engineer. That didn’t work. I launched a product and still felt like an impostor. Then I said “if I get paid to be an engineer” then I’ll feel like an engineer. I started getting a paycheck for coding and just felt lost and confused. I kept looking for someone else or some milestone to make me feel like an engineer. I started speaking on panels and blogging and churning out pet projects, anything I could to hopefully hit that point where I’d feel like I’d made it.</p>
 
-<p>class ConfirmationEmail:
-	def <strong>init</strong>(self, sent_message):
-		self.message_sent = sent_message
-```</p>
+<p>Sometime in the mix of side projects and full-time work, I had so much going on that I forgot to think about being an engineer. I was just doing the work, day in and day out. And when I finally remembered to think about it again, I realized that something had shifted. Doing the work - actual engineering work, not tech meetups or networking or speaking on panels - had turned me into an engineer. I wasn’t talking about being an engineer or thinking about being an engineer, I was just <em>doing</em> it.</p>
 
-<p>This is all stuff I’m going to extract from Engage without any further processing. I’m also going to go ahead and construct my confirmation email template using Jinja’s syntax, which will accept data from these classes you see above.</p>
+<p>Ira Glass of This American Life has a very poignant reflection on storytelling that should resonate with would-be engineers as well. I leave it here to close this post with his words.</p>
 
-<p>```</p>
-<html>
-	<head>
-		<meta charset="UTF-8" />
-	</head>
-	<body>
-		<p>Dear {{ first_name }} {{ last_name }}:</p>
-		
-		<p>{{ confirmation_leadin }}</p>
-		
-		{% for recipient in recipients  %}
-			{{ recipient.first_name }} {{ recipient.last_name }}, {{ recipient.title }}
-			<br />
-		{% endfor %}
-		
-		<br />
-		
-		<p>SUBJECT: {{ message_subject }}</p>
-		
-		{{ message_text }}
-	</body>
-</html>
-<p>```</p>
+<blockquote>
+  <p>Nobody tells this to people who are beginners, I wish someone told me. All of us who do creative work, we get into it because we have good taste. But there is this gap. For the first couple years you make stuff, it’s just not that good. It’s trying to be good, it has potential, but it’s not. But your taste, the thing that got you into the game, is still killer. And your taste is why your work disappoints you. A lot of people never get past this phase, they quit. Most people I know who do interesting, creative work went through years of this. We know our work doesn’t have this special thing that we want it to have. We all go through this. And if you are just starting out or you are still in this phase, you gotta know its normal and the most important thing you can do is do a lot of work. Put yourself on a deadline so that every week you will finish one story. It is only by going through a volume of work that you will close that gap, and your work will be as good as your ambitions. And I took longer to figure out how to do this than anyone I’ve ever met. It’s gonna take awhile. It’s normal to take awhile. You’ve just gotta fight your way through.</p>
+</blockquote>
 
-<p>So far so good. You can see here that we’ve got a “confirmation_leadin” variable that doesn’t seem to line up with any of our other tags. We added some introductory text into our emails as a “thank you” before including the text of the message and the list of targets it was sent to. Next step is to add on some basic work to begin converting the plain text messages out of Engage into HTML-based messages using <a href="https://pythonhosted.org/Markdown/reference.html">Markdown</a>. Then we’ll use that, along with some of the data from our classes, to populate our Jinja template.</p>
-
-<p>```python
-# other lines truncated for brevity
-class ConfirmationEmail: 
-	def <strong>init</strong>(self, sent_message):
-		self.message_sent = sent_message
-		self.sanitized_message = markdown.markdown(sent_message.message_text, safe_mode=’replace’)</p>
-
-<pre><code>def create_confirmation_text(self):
-	self.confirmation_message = template.render( 
-								{"first_name" : self.message_sent.sender.first_name,
-							   	"last_name" : self.message_sent.sender.last_name, 
-							   	"targets" : self.message_sent.recipients,
-							   	"confirmation_leadin" : CONFIRMATION_LEADIN,
-							   	"message_subject" : self.message_sent.message_subject,
-							   	"message_text" : self.sanitized_message}) ```
-</code></pre>
-
-<p>We’re almost there! But now we just need to actually fire off that email, which requires a simple HTTP request using the <a href="http://docs.python-requests.org/en/latest/">requests</a> library.</p>
-
-<p>```python
-# other lines truncated for brevity
-class ConfirmationEmail: 
-	def <strong>init</strong>(self, sent_message):
-		self.message_sent = sent_message
-		self.sanitized_message = markdown.markdown(sent_message.message_text, safe_mode=’replace’)</p>
-
-<pre><code>def create_confirmation_text(self):
-	self.confirmation_message = template.render( 
-								{"first_name" : self.message_sent.sender.first_name,
-							   	"last_name" : self.message_sent.sender.last_name, 
-							   	"targets" : self.message_sent.recipients,
-							   	"confirmation_leadin" : CONFIRMATION_LEADIN,
-							   	"message_subject" : self.message_sent.message_subject,
-							   	"message_text" : self.sanitized_message})
-
-def send_confirmation_message(self):
-	return requests.post(MAILGUN_DOMAIN, auth=("api",API_KEY), 
-							data={"from": DEFAULT_SENDER,
-								  "to": [self.message_sent.sender.email],
-								  "subject": CONFIRMATION_SUBJECT,
-								  "html": self.confirmation_message}) ```
-</code></pre>
-
-<p>We need one final bit to tie it all together - our script that checks the Engage system for new messages, downloads the data and then generates email templates out of it. I’m using pseudocode for some of the Engage API calls, but you’ll get the general idea.</p>
-
-<p>```python
-if <strong>name</strong> == “<strong>main</strong>”:
-	token = cq.login(‘user’,’password’)
-	actions = getActions(token)</p>
-
-<pre><code># store Actions to our owned database
-# the StoreActions formula was all written to check for anything already in the database and filter out those results
-
-conn = db.connect('db-location')	
-storeActions(conn, actions)
-
-# now we retrieve unconfirmed actions
-# this returns me a dictionary in the format { advocateId: {messageId: X, targets: [Y, Z, ...]}}  
-
-unconfirmed = cq.retrieveAllUnconfirmed(conn)
-
-for advocateId in unconfirmed.keys():
-	advocate = cq.getAdvocate(token, advocateId)
-	sender = Advocate(first_name = advocate["first_name"], last_name = advocate["last_name"], email = advocate["email"])
-	recipients = []
-	for targetId in unconfirmed[advocateId]["targets"]:
-		target = cq.getTarget(token, targetId)
-		recipients.append(Target(first_name = target["first_name"], last_name = target["last_name"], title = target["title"]))
-	
-	message_delivered = cq.getMessage(token, unconfirmed[advocateId]["messageId"])
-	sent_message = SentMessage(sender = sender, recipients = recipients, message_subject = message_delivered["message_subject"], message_text = message_delivered["message_body"])
-	
-	confirmation_email = ConfirmationEmail(sent_message)
-	confirmation_email.create_confirmation_text()
-	
-	confirmation_email.send_confirmation_email()
- 
-# then finally, mark those as confirmed in our database
-
-cq.markAsConfirmed(conn, unconfirmed.keys())
-</code></pre>
-
-<p>And that’s it. We’ve built out a confirmation email system using Python - not very pretty, but it sure knows how to get the job done. Our final task is to run this puppy on a schedule using cron:</p>
-
-<p><code>$ env EDITOR=nano crontab -e</code></p>
-
-<p><code>
-*/3 * * * * /path/to/your/script
-</code></p>
-
-<p>That will set up a cron job that runs every 3 minutes and executes our confirmation email script. We’re ready to run this live, and – barring anything catastrophic like a server crash – it’s relatively error proof. The script is designed to just fail silently and re-open every session if a script can’t finish execution, so if a script misfires we’ll just pick up those confirmation emails in the next batch three minutes later.</p>
-
-<p>I’m a Mailgun convert after this. It’s perfect for setting up simple email messages and automating them. The fact that I hacked this together in a few hours with most of that time dedicated to parsing through Engage’s API documentation shows the ease of Mailgun’s system. I’m all for it.</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/04/03/hacking-confirmation-emails-on-the-fly-with-mailgun.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/03/31/creating-a-mobile-app.html"><h3>Creating a Mobile Content App with (Almost) Real Time Edits</h3></a>
-		<div class="date">March 31, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>29 Jan 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Exploring the math module</h3>
+
 	</div>
-	<div class="col-8">
-		<p>It’s not too often that we’re asked to put together a native mobile app at <a href="http://www.apcoworldwide.com">APCO Worldwide</a>, but it does happen from time to time. We’re a communications firm first and an app development firm second, and that means we have to plan for regular content additions, modifications and deletions that often need to happen immediately. We can’t afford to recompile code and go through an app submission process every time someone needs to add a new story to an app, so we have to bake some flexibility into the system itself.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>I could write code for days using the <code class="highlighter-rouge">math</code> module and never hit the end. <code class="highlighter-rouge">math</code> is huge. It’s designed to keep you from rewriting a stack of mathematical functions that someone had inevitably written before (formulas for calculating the sine, cosine, tangent, etc).</p>
 
-<p>We also like to give our communications teams (copywriters, speechwriters, etc.) the ability to edit their own content on the fly when they need to. It’s certainly easier for all parties concerned. Content changes don’t have to be worked into a development queue, and developers don’t need to go through the same quality control cycles over and over again if we build something flexible from the start. To this end, we’ve often opted to use Drupal for our CMS. We’ve trained our communications teams on how to use it and now have a predictable development pattern for the sites we build to deal with similar use cases. It gets hacky from time to time, but it works for a PR firm. </p>
+<p>So rather than write a stack of example code, let’s instead discuss what <code class="highlighter-rouge">math</code> can do for you. <code class="highlighter-rouge">math</code> can do any of these functions on integers only - <code class="highlighter-rouge">cmath</code> provides the same, but allows complex numbers.</p>
 
-<p>One of our comms teams came to us in January with a content rich app idea that needed to be native on both iOS and Android. We knew it would require regular updates with a minimum amount of fuss, so we needed to find a way to feed content to the app rather than store it all locally. We also needed the application that populated that feed to have an interface that was familiar to our communications team. We knew we could solve the second problem with either Drupal or Wordpress, but what to do with the first?</p>
+<h3 id="number-theoretic-and-representation-functions">Number-theoretic and representation functions</h3>
 
-<p>Enter one of my new favorite ways to spend taxpayer money: the Drupal <a href="https://drupal.org/project/contentapi">Content API</a> module. This project was put together jointly by the Federal Communications Commission and <a href="http://seabourneinc.com/">Seabourne Consulting</a>, and it does exactly what it sounds like: it makes a content API out of your Drupal website. There’s a nice point-and-click interface in the Drupal administrative console that allows you to select the content types you’d like to feature in your API, the endpoints you’d like to use, and the fields you’d like to include, then voilà - an XML-formatted API appears. It’s beautiful.</p>
+<p>These functions deal with a few basic theoretical calculations that didn’t quite fit anywhere else. Things like <code class="highlighter-rouge">factorial()</code>, <code class="highlighter-rouge">fabs()</code> (which calculates absolute value), and <code class="highlighter-rouge">modf()</code> which returns the fractional and integer parts of a float can all be found here.</p>
 
-<p>So we’ve now got a nice XML feed of all of the content that’s going to populate this app happily displayed out there on the web. Our users can add, delete and modify entries and the XML feed will automatically update. </p>
+<h3 id="power-and-logarithmic-functions">Power and logarithmic functions</h3>
 
-<p>Getting this data into the app was another story altogether. We followed these rough steps to build our system on both iOS and Android:
-1. Connect to the API 
-2. Download the main XML file, which lists all content 
-3. Parse the XML file and check the IDs against our existing data present on the phone
-4. Download any new or modified IDs
-5. Lay out app for user content viewing</p>
+<p>As can be expected, you’ll find things with exponents and logarithms here. Need to calculate e^x? Use <code class="highlighter-rouge">exp(x)</code>. Need to get x^y? Use <code class="highlighter-rouge">pow(x, y)</code>. Logarithms use <code class="highlighter-rouge">log(x, [base])</code>. Easy stuff here.</p>
 
-<p>And that’s pretty much it. I won’t go into a detailed tutorial - I leaned heavily on another developer for much of the native app work - but I will share a few gotchas.</p>
+<h3 id="trigonometric-functions">Trigonometric functions</h3>
 
-<p>The Content API module takes a non-configurable approach to pagination. In the standard code, you get ten items per XML page, and that’s it. I understand the rationale for why a government-sponsored content API would want to be careful on how much data it allowed out at any one time, but that wasn’t going to work for this project. Around line 500 in <code>contentapi.module</code>, one finds the following code snippet:</p>
+<p>This is where all of the trigonometric functions live: things like <code class="highlighter-rouge">sin(x)</code>, <code class="highlighter-rouge">cos(x)</code>, <code class="highlighter-rouge">tan(x)</code>. I wish I’d known about this in the eleventh grade with Mrs. May.</p>
 
-<p><code>php
-$limit = (isset($_GET['limit'])) ? (integer)$_GET['limit'] : 10;
-...
-$limit_cap = variable_get('contentapi_limit', 10);
-</code></p>
+<h3 id="angular-conversion-functions">Angular conversion functions</h3>
 
-<p>Change those 10’s to 200’s and now we’re talking. I am ashamed of the inelegance of this hack, but it got the job done.</p>
+<p>Need to go from degrees to radians? Use <code class="highlighter-rouge">radians(x)</code>. Need to go from radians to degrees? Use <code class="highlighter-rouge">degrees(x)</code>.</p>
 
-<p>Our second headache was XML parsing on Android. When we had the first working build up and running, it took five minutes to download the initial feed on a new installation. Android does a great job of background task management, but five minutes for a set of downloads that were mostly text was unacceptable. We did our homework, and it turns out that the <a href="http://steveliles.github.io/comparing_java_xml_parsing_mechanisms_for_android.html">standard approaches for XML parsing are absolute garbage on Android</a>. As <a href="http://twitter.com/steveliles">Steve Liles</a> points out in the above post, it’s far more efficient to swap in Java’s SAX parser to manage your XML downloads. We got our full download time to about a minute - and given that we were also having to deal with PDFs and images, I’ll take it. </p>
+<h3 id="hyperbolic-functions">Hyperbolic functions</h3>
 
-<p>We had a lot of fun building this app and thinking through how to make it play nicely on multiple devices with an easy-to-use central administration console. We’d love for you to take a look at our <a href="https://play.google.com/store/apps/details?id=com.meetingsmeanbusiness.mmb">Android handiwork</a>. I’ll share the iOS version once it finishes the Apple review cycle. Enjoy!</p>
+<p>I never used these in eleventh grade and am only moderately aware of what they do. If you need the hyperbolic tangent of x - <code class="highlighter-rouge">tanh(x)</code> - or the inverse hyperbolic cosine - <code class="highlighter-rouge">acosh(x)</code> - this is where to look.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/03/31/creating-a-mobile-app.html" data-via="josephmosby">Tweet</a>
+<h3 id="error-functions">Error functions</h3>
+
+<p>Same thing for error functions. I am not proud of how much math I don’t know right now.</p>
+
+<h3 id="constants">Constants</h3>
+
+<p>These I’ve got, though! This is where <code class="highlighter-rouge">pi</code> and <code class="highlighter-rouge">e</code> live.</p>
+
+<p><code class="highlighter-rouge">math</code> is great, and if you’re going to using Python for statistical or scientific computing, it’s a must-know.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/03/26/open-source-search-technologies-for-human-beings-part-3.html"><h3>Open Source Search Technologies for Human Beings - Part 3</h3></a>
-		<div class="date">March 26, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>23 Jan 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Object presentation with pprint</h3>
+
 	</div>
-	<div class="col-8">
-		<p>In the <a href="http://josephmosby.com/2014/03/24/open-source-search-technologies-for-human-beings-part-1.html">first part</a> of this series, we talked about the nuts and bolts of search engines: how they create a nicely organized index of keywords and documents and use that index to find documents containing keywords. <a href="http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-2.html">Part 2</a> walked us through Lucene, an open source search engine written in Java that turns our Part 1 idea of a search engine into a computer program. With Part 3, we’re going to build upon Lucene with Solr and Elasticsearch, two programs that use Lucene to create a fully-featured web search engine.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>In my <a href="/2015/01/21/string-presentation-with-textwrap.html">last post</a>, I discovered that there are all sorts of awesome things you can do to format strings for presentation in a Python program. In this episode, I learn that it’s possible to do the same thing with all Python objects using <code class="highlighter-rouge">pprint</code>!</p>
 
-<p>We saw that Lucene can do some basic indexing and searching, but it’s fairly limited. It can only handle plain text documents well, it doesn’t have any ability to connect to the web, and even the tiny little command-line application we used to “talk” to Lucene had to be built as a demonstration. Needless to say, Lucene just doesn’t have what we need to serve as a web search engine. That’s where Solr and Elasticsearch come in. They use Lucene as their core, but they tack on additional features in different ways to meet the needs of their customers. We’ll take a first look at Solr, the federal government’s legacy search engine, then follow it by showing the future with Elasticsearch.</p>
+<p>Let’s crack it open and get to some pretty-printing!</p>
 
-<h3 id="solr">Solr</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pprint
 
-<p><a href="https://lucene.apache.org/solr/">Solr</a> began as an enterprise search engine in 2004, and was designed for websites from the beginning. It was initially part of the closed source code owned by CNET, but was released as open source software when CNET donated the code to the Apache Software Foundation a a few years later. Solr has since become an integral part of the Lucene ecosystem to the point that the two programs are now maintained by the same development team. </p>
+pp = pprint.PrettyPrinter(indent=4, width=60)
+</code></pre></div></div>
 
-<p>Solr runs as an application server. Any program making use of a Solr server must make some sort of request to the server (such as adding documents to be indexed or querying for documents with “football” in the text). Solr will then respond to that request with search results, which the program can then display to the user, load into a web page or incorporate into a larger application. </p>
+<p>Okay, I’ve implemented a <code class="highlighter-rouge">PrettyPrinter</code> object that expects to indent things at the four-space mark and each line can only be 60 characters long. Cool.</p>
 
-<p><img src="/images/solr_doc_1.png" alt="Diagram of a program adding a file to the Solr index" /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>team = ['We', 'live', 'in', 'cities', 'you\'ll', 'never', 'see', 'on', 'screen', 'not', 'very', 'pretty', 'but', 'we', 'sure', 'know', 'how', 'to', 'run', 'things']
 
-<p>The popularity of Solr for years brought it a lot of support from developer communities across many different languages and platforms. Solr proudly boasts support for PHP, Ruby, Python, Drupal, Wordpress, and a stack of other platforms that make adoption easy for users regardless of their existing technology stack. It’s fast to set up, fast to run, and easy for an administrator to maintain through a web-based administrative interface.</p>
+# yes, that is a list of words in the chorus of Lorde's "Team"
 
-<p>That being said, Solr has a stack of limitations. It began as a centralized Java application, and it still requires a lot of familiarity with Java to run effectively. And all the Java in the world can’t make up for the fact that Solr was built to be run from a central location. Elasticsearch took a different approach.</p>
+pp.pprint(team)
+</code></pre></div></div>
 
-<h3 id="elasticsearch">Elasticsearch</h3>
+<p>Okay, awesome. I now print everything on its own line with a slight indentation.</p>
 
-<p><a href="http://www.elasticsearch.org/">Elasticsearch</a> is the new kid on the block of open source search engines. <a href="https://twitter.com/kimchy">Shay Baron</a> started writing the roots of Elasticsearch in 2004 with the Compass project, but soon realized that he would have to rewrite Compass to build it into a fully “scalable” system that could handle a substantial amount of search traffic at once without crashing. In 2010, Compass was rolled into the Elasticsearch project with all of the features needed to challenge Solr’s dominance.</p>
+<p>What happens if I throw a custom object at it?</p>
 
-<p>Elasticsearch (which I’ll just abbreviate as ES from now on) was built from the ground up to be a distributed search platform rather than a centralized system like Solr. Whereas Solr has to handle each search request from a central hub, ES can split the workload over a cluster of search servers to speed up processing. Search starting to run slowly? Add more servers, no problem.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Dog:
+	def __init__(self, name, owner):
+		self.name = name
+		self.owner = owner
 
-<p><img src="/images/es_doc_1.png" alt="Diagram of a program adding a file to the Elasticsearch index, which consists of many servers" /></p>
+my_dog = Dog('Rufus', 'Joe')
 
-<p>To be fair, Solr is now technically a distributed system as well through the addition of <a href="http://zookeeper.apache.org/">Zookeeper</a>. Zookeeper is a program designed to keep multiple servers in synchronization as a single Solr instance. It’s an afterthought, though, and Solr still is not capable of handling many of the advanced distribution features that ES boasts by default. </p>
+pp.pprint(my_dog) # &lt;__main__.Dog instance at 0x1007ebc20&gt;
+</code></pre></div></div>
 
-<p>Elasticsearch also allows programmers to interact with a single RESTful API when they want to update and query the search engine. This is incredibly attractive to the average web developer who often did not study Java programming in school but interacts with RESTful APIs on a daily basis. With a single tailored request sent to ES’ API, developers have search results ready to go without the need for a full-featured Java application.</p>
+<p>Oh, that’s disappointing. I was	hoping I’d get a nifty way of doing this without having to define a custom <code class="highlighter-rouge">repr()</code> method on <code class="highlighter-rouge">Dog</code>. Ah well.</p>
 
-<p>Modern search engines also have a specific syntax for creating complex queries (for example, typing “site:apache.org Solr” will return any results for Solr on the Apache website only), and Elasticsearch is no different. The search engine also comes with a stack of plugins available and programming libraries written for many of the more esoteric languages to complement the common options available to both ES and Solr developers.</p>
+<p>So <code class="highlighter-rouge">pprint</code> does some stuff awesome, and some stuff… not as awesome. Onward!</p>
 
-<h3 id="conclusion">Conclusion</h3>
-
-<p>Elasticsearch offers a number of benefits to web developers, and it’s easy to see why the federal government is making moves to convert Solr instances into Elasticsearch ones. RESTful APIs and distributed clusters simply make perfect sense in a web environment. I’ll be looking forward to seeing continued improvements in the federal government’s search capabilities as they work through the upgrade.</p>
-
-<p>– special thanks to Kelvin Tan’s great side-by-side breakdown of the technical differences between Solr and Elasticsearch here: <a href="http://solr-vs-elasticsearch.com/">http://solr-vs-elasticsearch.com/</a></p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/03/26/open-source-search-technologies-for-human-beings-part-3.html" data-via="josephmosby">Tweet</a>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2014/03/25/open-source-search-technologies-for-human-beings-part-2.html"><h3>Open Source Search Technologies for Human Beings - Part 2</h3></a>
-		<div class="date">March 25, 2014</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>21 Jan 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>String presentation with textwrap</h3>
+
 	</div>
-	<div class="col-8">
-		<p>In the <a href="http://josephmosby.com/2014/03/24/open-source-search-technologies-for-human-beings-part-1.html">first part</a> of this series, we investigated the basics of how a search engine theoretically works. The process we described in part 1 didn’t actually require a computer at all - any person could theoretically follow those exact same steps. Indeed, writers of complex research materials did so for decades before the first computers were invented. </p>
+	<div class="col-md-8 col-sm-12">
+		<p>I haven’t written that many programs that run solely from the command line with a lot of user instructions incorporated into the program flow, so I haven’t done much Python display text processing. But if I had, <code class="highlighter-rouge">textwrap</code> would very likely be one of my best friends.</p>
 
-<p>Though there is an entire profession based strictly around organizing and categorizing information and retrieving it at a later time (librarians), the average person doesn’t want to be doing that on a daily basis. We’ve got computers for that, but that means we have to write a program to perform all of those steps we don’t want to do ourselves. This brings us to <a href="https://lucene.apache.org/core/">Lucene</a>.</p>
+<p>The <code class="highlighter-rouge">textwrap</code> module is designed to wrap text, produce some formatted paragraphs, or totally strip out indentation from strings. It’s there for your convenience. Let’s take a look at what it can do:</p>
 
-<h3 id="lucene">Lucene</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import textwrap
 
-<p>To quote exactly from the official manual: “Lucene is a high-performance, full-featured text search engine library written entirely in Java.” Lucene performs all of the search engine features we described in part 1: it reads text-based documents, creates an index of those documents, and retrieves the documents based on search keywords. It does this quickly and efficiently with many features that make it appealing to computer programmers who wish to incorporate it into their applications. </p>
+my_string = "The textwrap module is designed to wrap text, produce some formatted paragraphs, or totally strip out indentation from strings. It's there for your convenience. Let's take a look at what it can do:"
 
-<p>Let’s take a quick tour of Lucene by playing around with its demo directly. </p>
+print my_string
 
-<pre><code>java org.apache.lucene.demo.IndexFiles /{path}/lucene-4.7.0/licenses
-</code></pre>
+print textwrap.wrap(my_string, 60)
+</code></pre></div></div>
 
-<p>With this command, we first call the Java available on most of our personal computers. Lucene is written entirely in Java, a programming language popular with the federal government and many large commercial enterprises. We then call a Java-specific Lucene command - IndexFiles - and ask Lucene to index all the files in the “licenses” directory. This will produce an index of all of the legal software license documents that apply to the use of Lucene. When we do this, Lucene will happily print out a stack of messages letting us know that it’s indexing:</p>
+<p>Whoa whoa whoa there, that’s some weirdness. I’ve clearly got a cut-up string there, but it’s in list format. Let’s clean that up a bit:</p>
 
-<p><code>
-Indexing to directory 'index'...
-adding /{path}/lucene-4.7.0/licenses/ant-1.8.2.jar.sha1
-adding /{path}/lucene-4.7.0/licenses/ant-LICENSE-ASL.txt
-adding /{path}/lucene-4.7.0/licenses/ant-NOTICE.txt
-... so on and so forth...
-</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print "\n".join(textwrap.wrap(my_string, 60))
+</code></pre></div></div>
 
-<p>And now we have an index! Let’s query it for a search term:</p>
+<p>But wait a second, that seems like writing a bunch of characters that I didn’t want to write. Let’s use <code class="highlighter-rouge">fill()</code>!</p>
 
-<p><code>
-java org.apache.lucene.demo.SearchFiles
-Enter query: 
-GNU
-Searching for: gnu
-2 total matching documents
-1. /{path}/lucene-4.7.0/licenses/javax.servlet-LICENSE-CDDL.txt
-2. /{path}/lucene-4.7.0/licenses/servlet-api-LICENSE-CDDL.txt
-</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print textwrap.fill(my_string)
+</code></pre></div></div>
 
-<p>I entered the SearchFiles command, and Lucene immediately prompted me for a search term. Thinking that I might find some reference to the <a href="https://www.gnu.org/copyleft/gpl.html">GNU Public License</a> in a piece of open source software, I typed in “GNU” as my search term. Lucene found two files that contain the word “GNU” and returned them to me here. But if I try another term, it finds nothing at all:</p>
+<p>Okay, so <code class="highlighter-rouge">fill()</code> pretty much does the exact same thing as <code class="highlighter-rouge">wrap()</code>, but it automatically joins everything and adds some newlines in.</p>
 
-<p><code>
-java org.apache.lucene.demo.SearchFiles
-Enter query: 
-football
-Searching for: football
-0 total matching documents
-</code></p>
+<p>Now let’s fiddle around with <code class="highlighter-rouge">dedent()</code>:</p>
 
-<p>There’s a lot going on behind the scenes here with even this tiny demo app, but the basics are quite simple. Lucene has followed the exact same process for indexing and searching that we described in part 1. But what if we need to parse through an HTML or Word document rather than a simple text document? We’ll need something a little bit more robust, which is where Solr and Elasticsearch come in… in <a href="http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-3.html">part 3</a>. </p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my_string = "\t\t" + my_string
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-2.html" data-via="josephmosby">Tweet</a>
+print my_string
+
+print textwrap.dedent(my_string)
+</code></pre></div></div>
+
+<p>I’ve added in some tabs here just to showcase what <code class="highlighter-rouge">dedent()</code> is designed to do. You can add whitespace to the beginning of your strings - such as if you wanted to include paragraphs in the source code - but then strip it out for presentation in your app.</p>
+
+<p>And that’s a <code class="highlighter-rouge">textwrap</code>!</p>
+
 	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>20 Jan 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>A short word on StringIO</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>The <code class="highlighter-rouge">StringIO</code> library has a nifty purpose. It provides you with a buffer in memory that allows you to read and write strings without saving a file to disk.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import StringIO
+
+output = StringIO.StringIO()
+
+output.write('This is a string!\n')
+output.write('This is a second line string!')
+</code></pre></div></div>
+
+<p>Okay, so we’ve got ourselves a string buffer with some strings. Now what can we do?</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print output.read()
+</code></pre></div></div>
+
+<p>Wait… that didn’t really do anything. Ah yes! Because it’s a file-like object, we have to return to the beginning of the object to read it again.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>output.seek(0)
+print output.read()
+</code></pre></div></div>
+
+<p>Anything you can do with a file, you can do with this string buffer. It’s quite useful for capturing output or dealing with test cases like these. And in the event that you need a much faster cousin, <code class="highlighter-rouge">StringIO</code> comes with a <code class="highlighter-rouge">cStringIO</code> <a href="/2015/01/12/storing-objects-with-the-best-named-module-ever-pickle.html">just like our</a> <code class="highlighter-rouge">pickle</code> module came with its <code class="highlighter-rouge">cPickle</code>. We’ll see this again in future test applications.</p>
+
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>18 Jan 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Examining audio files with sndhdr</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>In our <a href="/2015/01/17/the-images-are-coming-from-inside-the-bytestreams.html">last installment</a>, we cracked open some image files and looked at the raw bytestreams to assess what type of image file we were looking at. Python’s <code class="highlighter-rouge">imghdr</code> module is designed to automate all of that at need. Python provides a companion library, <code class="highlighter-rouge">sndhdr</code>, to do the exact same thing for sound files.</p>
+
+<p>Did you know, for example, that all .aif files start with “FO RM,” followed by characters indicating the file size, followed by “AIFF?” I didn’t know that. MP3 files start with characters to synchronize the frames, followed by the MPEG version. Python is here to automatically check all of this for you.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import sndhdr
+
+print sndhdr.what('snowman.mp3') # 'mp3'
+</code></pre></div></div>
+
+<p>Go forth and examine audio files, my friends.</p>
+
+	</div>
+
 </div>
 
 
 <div class="row">
-	<div class="col-offset-3 col-8">
+	<div class="col-md-12">
 		<div class="pagination">
 			
 			<a href="/page7" class="previous">Previous</a>
 			
 
-			<span class="page_number">Page: 8 of 9</span>
+			<span class="page_number">Page: 8 of 11</span>
 
 			
 			<a href="/page9" class="next">Next</a>
@@ -632,37 +793,11 @@ Searching for: football
 		</div>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

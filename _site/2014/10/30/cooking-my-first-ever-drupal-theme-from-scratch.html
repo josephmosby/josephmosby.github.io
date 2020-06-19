@@ -4,58 +4,41 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>30 Oct 2014</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>Cooking My First Ever Drupal Theme From Scratch</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2014/10/30/cooking-my-first-ever-drupal-theme-from-scratch.html"><h3>Cooking My First Ever Drupal Theme From Scratch</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>About six months ago, I would have said that I was starting to figure Drupal out. I’ll assure you now wthat I have no idea. I have picked up a few tricks here and there, though, and the Drupal templating system is starting to make some sense to me.</p>
 
 <p>When I started building Drupal sites, I built them in <a href="https://www.drupal.org/project/zen">Zen</a> or one of the many subthemes built off of it. Zen’s philosophy is to anticipate much of what an experienced front-end developer would drop in to a non-Drupal site (such as Sass and Compass) and incorporate those into the base theme and subthemes from the beginning. Like most of the current popular Drupal themes, it’s responsive and mobile-first. A theme structure with that many bells and whistles was too much for my back-end developer brain at the time, and I was scared off to other options.</p>
@@ -68,37 +51,37 @@
 
 <h3 id="what-does-a-info-file-do-anyway">What does a .info file do, anyway?</h3>
 
-<p>Drupal’s <code>.info</code> file is where all of the tools your theme will use are declared. It’s not about content - we are miles away from content right now - it’s about defining the tools we’ll use to organize that content on a page. A sample <code>.info</code> file looks something like this: </p>
+<p>Drupal’s <code class="highlighter-rouge">.info</code> file is where all of the tools your theme will use are declared. It’s not about content - we are miles away from content right now - it’s about defining the tools we’ll use to organize that content on a page. A sample <code class="highlighter-rouge">.info</code> file looks something like this:</p>
 
 <script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/base.info"></script>
 
-<p>In the first blob we name our theme and specify the Drupal version (core) that it works with. In our second and third we add stylesheets and JavaScripts - our theme will pick up those files and add them into the <code>&lt;head&gt;</code> of any page with that theme. The directories are given relative to the theme’s .info file. </p>
+<p>In the first blob we name our theme and specify the Drupal version (core) that it works with. In our second and third we add stylesheets and JavaScripts - our theme will pick up those files and add them into the <code class="highlighter-rouge">&lt;head&gt;</code> of any page with that theme. The directories are given relative to the theme’s .info file.</p>
 
-<p>Our fourth blob contains the regions of our theme. I can place content into the <code>main_menu</code> region with this theme, the <code>content</code> region, or the <code>box_one</code> region. Though your theme must contain a <code>content</code> region, you can name the rest of them anything you like. Follow your heart. You’ll be using these names later. </p>
+<p>Our fourth blob contains the regions of our theme. I can place content into the <code class="highlighter-rouge">main_menu</code> region with this theme, the <code class="highlighter-rouge">content</code> region, or the <code class="highlighter-rouge">box_one</code> region. Though your theme must contain a <code class="highlighter-rouge">content</code> region, you can name the rest of them anything you like. Follow your heart. You’ll be using these names later.</p>
 
-<p>Once we’ve created our <code>.info</code> file, we need to put it to use - we need to find a home for our content.</p>
+<p>Once we’ve created our <code class="highlighter-rouge">.info</code> file, we need to put it to use - we need to find a home for our content.</p>
 
 <h3 id="what-does-a-tpl-file-do">What does a tpl file do?</h3>
 
-<p>Drupal uses these nifty files with <code>.tpl.php</code> extensions to build its pages, and most of them hang out like pitchers in a bullpen in the <code>modules/system</code> folder waiting for you to override them. Theoretically, we really only need one to build a new theme: the <code>page.tpl.php</code> file. Here’s our example <code>page.tpl.php</code> file for this theme:</p>
+<p>Drupal uses these nifty files with <code class="highlighter-rouge">.tpl.php</code> extensions to build its pages, and most of them hang out like pitchers in a bullpen in the <code class="highlighter-rouge">modules/system</code> folder waiting for you to override them. Theoretically, we really only need one to build a new theme: the <code class="highlighter-rouge">page.tpl.php</code> file. Here’s our example <code class="highlighter-rouge">page.tpl.php</code> file for this theme:</p>
 
 <script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/templates/page.tpl.php"></script>
 
-<p>Astute <a href="http://getbootstrap.com/">Bootstrap</a> users may note that we’re pulling in some Bootstrap elements here. We have <code>container</code> classes, with <code>row</code> classes within them, then some <code>col-md-6</code> classes, and then a little snippet of PHP code. This <code>&lt;?php print render($page['sm_icons_top']); ?&gt;</code> is where the magic happens. Drupal picks up anything that we’ve placed into the <code>sm_icons_top</code> region - whether it be a menu, a view, a block, etc. - and renders it into the page. You can see how that ultimately pans out in the HTML here:</p>
+<p>Astute <a href="http://getbootstrap.com/">Bootstrap</a> users may note that we’re pulling in some Bootstrap elements here. We have <code class="highlighter-rouge">container</code> classes, with <code class="highlighter-rouge">row</code> classes within them, then some <code class="highlighter-rouge">col-md-6</code> classes, and then a little snippet of PHP code. This <code class="highlighter-rouge"><span class="cp">&lt;?php</span> <span class="k">print</span> <span class="nx">render</span><span class="p">(</span><span class="nv">$page</span><span class="p">[</span><span class="s1">'sm_icons_top'</span><span class="p">]);</span> <span class="cp">?&gt;</span></code> is where the magic happens. Drupal picks up anything that we’ve placed into the <code class="highlighter-rouge">sm_icons_top</code> region - whether it be a menu, a view, a block, etc. - and renders it into the page. You can see how that ultimately pans out in the HTML here:</p>
 
 <script src="https://gist.github.com/josephmosby/08851b82b4d14818bb75.js"></script>
 
-<p>You can see our <code>#top_menu</code>, our <code>row</code> class, and our <code>col-md-6</code> class followed by the block content Drupal popped into our page. That’s the extremely basic purpose of <code>tpl.php</code> files: they provide homes in the HTML for certain content regions, we create blocks and drop them into those content regions through the administration tools, and finally our <code>tpls</code> take care of the rendering. Fantastic.</p>
+<p>You can see our <code class="highlighter-rouge">#top_menu</code>, our <code class="highlighter-rouge">row</code> class, and our <code class="highlighter-rouge">col-md-6</code> class followed by the block content Drupal popped into our page. That’s the extremely basic purpose of <code class="highlighter-rouge">tpl.php</code> files: they provide homes in the HTML for certain content regions, we create blocks and drop them into those content regions through the administration tools, and finally our <code class="highlighter-rouge">tpls</code> take care of the rendering. Fantastic.</p>
 
 <h3 id="but-drupal-variables-are-weird">But Drupal variables are weird…</h3>
 
 <p>All too true. I won’t even profess to fully understand how to actually get at a specific piece of content, and Drupal’s documentation is notoriously bad on the subject. I have figured out a few tricks though:</p>
 
 <ul>
-  <li>In <code>page.tpl.php</code>, access the content in a specific region with <code>render($page['region-name'])</code></li>
-  <li>Make sure to render your metatags with <code>render($page['content']['metatags'])</code> or else some modules and libraries will behave strangely</li>
-  <li>To access individual fields from <code>page.tpl.php</code>, use the syntax <code>print_r($node-&gt;field_fieldname['und'][0]['value'])</code>. This is not recommended behavior, but is occasionally necessary. The ‘und’ refers to the language (und is English… inexplicably), the ‘0’ to the place in the array and the ‘value’ for the actual content.</li>
-  <li>To call in a block, use <code>module_invoke('module', 'view', 'block-id')</code> where the ‘module’ is the module that produced the block (such as Webform or Views), the ‘view’ is the type of view (probably just block_view) and the ‘block-id’ is the machine name for the block</li>
+  <li>In <code class="highlighter-rouge">page.tpl.php</code>, access the content in a specific region with <code class="highlighter-rouge">render($page['region-name'])</code></li>
+  <li>Make sure to render your metatags with <code class="highlighter-rouge">render($page['content']['metatags'])</code> or else some modules and libraries will behave strangely</li>
+  <li>To access individual fields from <code class="highlighter-rouge">page.tpl.php</code>, use the syntax <code class="highlighter-rouge">print_r($node-&gt;field_fieldname['und'][0]['value'])</code>. This is not recommended behavior, but is occasionally necessary. The ‘und’ refers to the language (und is English… inexplicably), the ‘0’ to the place in the array and the ‘value’ for the actual content.</li>
+  <li>To call in a block, use <code class="highlighter-rouge">module_invoke('module', 'view', 'block-id')</code> where the ‘module’ is the module that produced the block (such as Webform or Views), the ‘view’ is the type of view (probably just block_view) and the ‘block-id’ is the machine name for the block</li>
 </ul>
 
 <h3 id="i-have-ie-specific-stylesheets-and-libraries-that-need-conditional-comments-where-do-those-come-in">I have IE-specific stylesheets and libraries that need conditional comments. Where do those come in?</h3>
@@ -106,12 +89,12 @@
 <p>I wondered this myself as Bootstrap requires some IE-specific libraries to be dropped in. The Internet yields a lot of solutions that don’t really work for this but are worth mentioning anyway:</p>
 
 <ul>
-  <li>Add them in your <code>.info</code> file. That won’t help you with conditional comments but it is a solution.</li>
-  <li>Add them with <code>drupal_add_css()</code> or <code>drupal_add_js()</code>. Same problem as above, though I suppose you could do some wizardry with detecting user agents and conditional logic.</li>
-  <li>Add an element with <code>drupal_add_html_head()</code>. I can never get this to work.</li>
+  <li>Add them in your <code class="highlighter-rouge">.info</code> file. That won’t help you with conditional comments but it is a solution.</li>
+  <li>Add them with <code class="highlighter-rouge">drupal_add_css()</code> or <code class="highlighter-rouge">drupal_add_js()</code>. Same problem as above, though I suppose you could do some wizardry with detecting user agents and conditional logic.</li>
+  <li>Add an element with <code class="highlighter-rouge">drupal_add_html_head()</code>. I can never get this to work.</li>
 </ul>
 
-<p>The best solution I’ve found is to just add them directly into the <code>html.tpl.php</code> file. </p>
+<p>The best solution I’ve found is to just add them directly into the <code class="highlighter-rouge">html.tpl.php</code> file.</p>
 
 <script src="http://gist-it.appspot.com/github/josephmosby/base/blob/master/templates/html.tpl.php"></script>
 
@@ -119,42 +102,15 @@
 
 <h3 id="whats-next">What’s next?</h3>
 
-<p>I know that Drupal lets me get much more granular with my templating - down to the region, node and block level. I have no idea how to wrangle those templates yet, though, so those are next on my list. I’d also like to not have these hacky queries of the <code>$page</code> object that required me to guess how the object was structured half of the time. Till next time!</p>
+<p>I know that Drupal lets me get much more granular with my templating - down to the region, node and block level. I have no idea how to wrangle those templates yet, though, so those are next on my list. I’d also like to not have these hacky queries of the <code class="highlighter-rouge">$page</code> object that required me to guess how the object was structured half of the time. Till next time!</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/10/30/cooking-my-first-ever-drupal-theme-from-scratch.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

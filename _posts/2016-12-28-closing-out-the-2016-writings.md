@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Closing out the 2016 writings
+tags: joe
 ---
 
 Any and all writings submitted around this time of the year should have something to say about the year as a whole, and I have therefore struggled to start writing anything. I felt like I had something poignant to say at the end of last year, and I [put it out there](http://josephmosby.com/2015/12/26/2015-a-year-on-the-road-in-2015.html). It was about traveling a lot and being really excited to explore new territory, and it was written with a sense of gratitude that I was finally getting to hop around the country and the world like I'd always wanted to.

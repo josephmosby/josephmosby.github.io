@@ -4,69 +4,50 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>21 Dec 2014</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>What in heaven's name is an abstract base class?</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2014/12/21/what-in-heavens-name-is-an-abstract-base-class.html"><h3>What in heaven's name is an abstract base class?</h3></a>
 	</div>
-	<div class="col-8">
-		<p><em>I've been writing a series of blog posts to eventually cover every single module in the Python Standard Library. Check them all out <a href="/blog/pymods">here</a>.</em></p>
-
-<p>Let’s talk about duck-typing for a second. Duck-typing is an object-oriented programming principle that allows an object’s methods and properties to handle the semantics and behavior of an object without the need to determine what type of object it actually is. The idea is that “if it looks like a duck and quacks like a duck, it’s a duck” and the programmer doesn’t need to first ask the object if it’s actually a duck. We can just start asking it to quack.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>Let’s talk about duck-typing for a second. Duck-typing is an object-oriented programming principle that allows an object’s methods and properties to handle the semantics and behavior of an object without the need to determine what type of object it actually is. The idea is that “if it looks like a duck and quacks like a duck, it’s a duck” and the programmer doesn’t need to first ask the object if it’s actually a duck. We can just start asking it to quack.</p>
 
 <p>An example:</p>
 
-<pre><code>[1, 2, 3, 4, 5].len() # 5
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1, 2, 3, 4, 5].len() # 5
 "hello".len()		  # 5
-</code></pre>
+</code></pre></div></div>
 
-<p>I don’t need to ask the object if it’s a string or a list before calling <code>len()</code>. I’m trusting that the object’s <code>len()</code> method already knows what to do. </p>
+<p>I don’t need to ask the object if it’s a string or a list before calling <code class="highlighter-rouge">len()</code>. I’m trusting that the object’s <code class="highlighter-rouge">len()</code> method already knows what to do.</p>
 
 <p><em>Abstract base classes</em> complement duck-typing by providing an alternative way to define an interface when all of the possible use cases for an object might not have been anticipated by the designer. This scenario might pop up in a large development team, or if a software plugin might be written by an external team. In theory, we create an abstract base class by defining a class and marking its methods as <em>abstract</em>, then registering a concrete class with the interface or by simply subclassing the abstract class.</p>
 
@@ -74,7 +55,7 @@
 
 <p>I define an abstract base class like so:</p>
 
-<pre><code>import abc
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import abc
 
 class Animal:
 	__metaclass__ = abc.ABCMeta
@@ -82,11 +63,11 @@ class Animal:
 	@abc.abstractmethod
 	def greet(self):
 		return
-</code></pre>
+</code></pre></div></div>
 
-<p>With the <code>__metaclass__ = abc.ABCMeta</code> declaration, we’ve defined <code>Animal</code> as an abstract base class. We’ve also defined an abstract method, <code>greet()</code>, that doesn’t do anything but return. That’s totally okay - anything that inherits from <code>Animal</code> will need to write their own <code>greet()</code> anyway, as concrete classes can’t access those abstract methods directly. Let’s finish this out:</p>
+<p>With the <code class="highlighter-rouge">__metaclass__ = abc.ABCMeta</code> declaration, we’ve defined <code class="highlighter-rouge">Animal</code> as an abstract base class. We’ve also defined an abstract method, <code class="highlighter-rouge">greet()</code>, that doesn’t do anything but return. That’s totally okay - anything that inherits from <code class="highlighter-rouge">Animal</code> will need to write their own <code class="highlighter-rouge">greet()</code> anyway, as concrete classes can’t access those abstract methods directly. Let’s finish this out:</p>
 
-<pre><code>import abc
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import abc
 
 class Animal:
 	__metaclass__ = abc.ABCMeta
@@ -104,46 +85,19 @@ Animal.register(Lion)
 
 print('Subclass:', issubclass(Lion, Animal))
 print('Instance:', isinstance(Lion(), Animal))
-</code></pre>
+</code></pre></div></div>
 
-<p>Our <code>Lion</code> implements the <code>Animal</code> API, but it’s not derived from <code>Animal</code>. </p>
+<p>Our <code class="highlighter-rouge">Lion</code> implements the <code class="highlighter-rouge">Animal</code> API, but it’s not derived from <code class="highlighter-rouge">Animal</code>.</p>
 
 <p>We’ll see this approach again when we look at the <a href="https://docs.python.org/2/library/collections.html#module-collections">collections</a> module, which uses abstract base classes to test whether a collection is hashable or a mapping.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/12/21/what-in-heavens-name-is-an-abstract-base-class.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

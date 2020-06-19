@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Type experiments with mypy
+tags: code
 ---
 
 At PyCon 2015, much hullabaloo was made over [PEP 484](https://www.python.org/dev/peps/pep-0484/) and the notion that "types" would be coming to Python. As I only vaguely understood the meat behind these protests, I decided to take a look at the PEP and the science behind it. 

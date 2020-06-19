@@ -1,6 +1,7 @@
 ---
 layout: post
 title: What Consulting Will Not Teach You
+tags: culture
 ---
 
 Consulting will teach you [quite a bit](/2015/03/23/what-consulting-will-teach-you.html). It will teach you how to deal with people of all makes and models and will teach you how to truly make things happen with your words. But for all of its positives, the consulting world promises to teach a lot that it did not teach me, and that I know many of my consulting peers still struggle with. 

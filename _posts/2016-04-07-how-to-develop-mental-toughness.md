@@ -1,6 +1,7 @@
 ---
 layout: post
 title: How to develop mental toughness
+tags: joe
 ---
 
 This is one of those posts that I feel weird writing, because who am I to talk about mental toughness? I'm a private-school-educated guy who grew up in the suburbs of a sleepy Southern town, not a veteran, not an athlete or anything like that. But I speak to some of my friends who read [my](http://josephmosby.com/2016/01/29/a-january-recap-and-some-personal-experiments.html) [monthly](http://josephmosby.com/2016/02/29/a-february-recap-or-what-life-is-like-without-coffee.html) [recaps](http://josephmosby.com/2016/03/31/a-march-recap-or-an-experiment-in-moderating-moderation.html) and they occasionally ask how I motivate myself to do any of it. I never really know how to answer that question. "I don't know, man, I guess I just do it..."

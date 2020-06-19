@@ -4,59 +4,42 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>13 May 2015</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>Preventing file dupes in files uploaded through Django</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/05/13/preventing-file-dupes-in-django.html"><h3>Preventing file dupes in files uploaded through Django</h3></a>
 	</div>
-	<div class="col-8">
-		<p>Many Django applications make use of uploaded files that should never be re-uploaded again after they’ve been uploaded once. An example of this in action might be an image (one image embedded in a blog post might not be a big deal for a small site, but news sites often deal with licensed high-definition images used across several stories) or a large PDF with associated metadata (once the metadata is keyed in once, users shouldn’t be asked to do so again). Let’s talk about two design patterns to handle files, and ways we can deal with duplicates in each one. </p>
+	<div class="col-md-8 col-sm-12">
+		<p>Many Django applications make use of uploaded files that should never be re-uploaded again after they’ve been uploaded once. An example of this in action might be an image (one image embedded in a blog post might not be a big deal for a small site, but news sites often deal with licensed high-definition images used across several stories) or a large PDF with associated metadata (once the metadata is keyed in once, users shouldn’t be asked to do so again). Let’s talk about two design patterns to handle files, and ways we can deal with duplicates in each one.</p>
 
 <h3 id="the-attachment">The Attachment</h3>
 
@@ -64,7 +47,7 @@
 
 <p>Our post is set up like so:</p>
 
-<pre><code>from django.db import models
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.db import models
 
 class ReportPost(models.Model):
 	file = models.FileField()
@@ -72,11 +55,11 @@ class ReportPost(models.Model):
 	post_text = models.TextField()
 
 	... etc ...
-</code></pre>
+</code></pre></div></div>
 
-<p>Our <code>ReportPost</code> has space for an uploaded file. We also have a <code>sha1</code> field here. Django can’t automatically detect a duplicate file (<code>unique</code> is not supported for <code>FileFields</code> or any derivatives), so we need to take the SHA-1 text hash of the file in order to check if it’s been uploaded already. We’ll take care of that in the <code>ModelAdmin</code> for this model.</p>
+<p>Our <code class="highlighter-rouge">ReportPost</code> has space for an uploaded file. We also have a <code class="highlighter-rouge">sha1</code> field here. Django can’t automatically detect a duplicate file (<code class="highlighter-rouge">unique</code> is not supported for <code class="highlighter-rouge">FileFields</code> or any derivatives), so we need to take the SHA-1 text hash of the file in order to check if it’s been uploaded already. We’ll take care of that in the <code class="highlighter-rouge">ModelAdmin</code> for this model.</p>
 
-<pre><code>from django.contrib import admin
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.contrib import admin
 import hashlib
 
 def generate_sha(file):
@@ -103,15 +86,15 @@ class ReportPostAdmin(admin.ModelAdmin):
 			obj.file = match_qs[0].file
 
 		obj.save()
-</code></pre>
+</code></pre></div></div>
 
-<p>We derive a SHA-1 hash for this file by reading in the first 100 megabytes of data and hashing it. In our <code>ModelAdmin.save_model</code> method, we store that SHA-1 with our model instance. We also run a query against the database for any model instances with that exact same SHA-1 (indicating a match), and replace our instance of the file with the previously uploaded file. </p>
+<p>We derive a SHA-1 hash for this file by reading in the first 100 megabytes of data and hashing it. In our <code class="highlighter-rouge">ModelAdmin.save_model</code> method, we store that SHA-1 with our model instance. We also run a query against the database for any model instances with that exact same SHA-1 (indicating a match), and replace our instance of the file with the previously uploaded file.</p>
 
 <h3 id="the-file-as-object">The File as Object</h3>
 
 <p>With this design pattern, files are part of a larger object that gives them relevance. Images in a newsroom app, for example, come with credits, licensing information, and various data about how often the image is used. In order to store that metadata about that image, we need a file object.</p>
 
-<pre><code># models.py
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py
 
 class ImageObject(models.Model):
 	caption = models.CharField(max_length=140)
@@ -128,24 +111,24 @@ class ImageObjectAdmin(admin.ModelAdmin):
 		sha = generate_sha(obj.file)
 		obj.file_sha1 = sha
 		obj.save()
-</code></pre>
+</code></pre></div></div>
 
-<p>With this example, we add some uniqueness to our model, which gives us the ability to easily enforce that each image file will only have one set of metadata. Our app will throw an <code>IntegrityError</code> if a user tries to save a duplicate SHA-1 hash. We’ll need to handle that <code>IntegrityError</code> and redirect our user to the previously uploaded image. We can do that using a new middleware object.</p>
+<p>With this example, we add some uniqueness to our model, which gives us the ability to easily enforce that each image file will only have one set of metadata. Our app will throw an <code class="highlighter-rouge">IntegrityError</code> if a user tries to save a duplicate SHA-1 hash. We’ll need to handle that <code class="highlighter-rouge">IntegrityError</code> and redirect our user to the previously uploaded image. We can do that using a new middleware object.</p>
 
-<p>Middleware objects in Django quietly do their thing 99.9% of the time, and you’ll never think twice about them. They’re there for session authentication or CSRF enforcement - things that most of us take for granted. But you can easily add your own middleware with ease by adding a <code>middleware.py</code> file to your application and registering it with <code>settings.py</code>:</p>
+<p>Middleware objects in Django quietly do their thing 99.9% of the time, and you’ll never think twice about them. They’re there for session authentication or CSRF enforcement - things that most of us take for granted. But you can easily add your own middleware with ease by adding a <code class="highlighter-rouge">middleware.py</code> file to your application and registering it with <code class="highlighter-rouge">settings.py</code>:</p>
 
-<pre><code># settings.py
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># settings.py
 
 MIDDLEWARE_CLASSES = (
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	... stuff ...
 	'our_image_app.middleware.RedirectOnSHAViolation',
 )
-</code></pre>
+</code></pre></div></div>
 
-<p>And then in <code>our_image_app/middleware.py</code>:</p>
+<p>And then in <code class="highlighter-rouge">our_image_app/middleware.py</code>:</p>
 
-<pre><code># middleware.py
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># middleware.py
 
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
@@ -159,11 +142,11 @@ class RedirectOnSHAViolation():
 				sha1 = generate_sha1(request.FILES['image_file'])
 				img = ImageObject.objects.get(file_sha1=sha1)
 				return HttpResponseRedirect('/admin/our_image_app/imageobject/') + str(img.id))
-</code></pre>
+</code></pre></div></div>
 
 <p>I never said it was pretty.</p>
 
-<p>Django’s middleware system expects to see a class with a <code>process_exception</code> method that’s really, really stupid. The middleware knows it has a request that caused an error, but that’s about all that it knows. We have to do two checks to make sure that we’re handling the right error here. First, we check that the <code>type</code> of error is <code>IntegrityError</code>. We have to run this check first because every single error in our app could potentially hit this method, so we need to filter for only certain types. Once I’ve confirmed that, I check to see if the <code>IntegrityError</code> came from the <code>ImageObject</code> model within <code>our_image_app</code> - and since <code>ImageObject</code> only has one unique field, I know an <code>IntegrityError</code> here must be a duplicate file. Once I’ve ascertained all of that, then I need to find the file I should have used and redirect the user there instead.</p>
+<p>Django’s middleware system expects to see a class with a <code class="highlighter-rouge">process_exception</code> method that’s really, really stupid. The middleware knows it has a request that caused an error, but that’s about all that it knows. We have to do two checks to make sure that we’re handling the right error here. First, we check that the <code class="highlighter-rouge">type</code> of error is <code class="highlighter-rouge">IntegrityError</code>. We have to run this check first because every single error in our app could potentially hit this method, so we need to filter for only certain types. Once I’ve confirmed that, I check to see if the <code class="highlighter-rouge">IntegrityError</code> came from the <code class="highlighter-rouge">ImageObject</code> model within <code class="highlighter-rouge">our_image_app</code> - and since <code class="highlighter-rouge">ImageObject</code> only has one unique field, I know an <code class="highlighter-rouge">IntegrityError</code> here must be a duplicate file. Once I’ve ascertained all of that, then I need to find the file I should have used and redirect the user there instead.</p>
 
 <h3 id="conclusions">Conclusions</h3>
 
@@ -171,40 +154,13 @@ class RedirectOnSHAViolation():
 
 <p><em>Props to <a href="https://twitter.com/spiggy">@spiggy</a>, who had the original idea of using SHAs to look for duplicate files.</em></p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/13/preventing-file-dupes-in-django.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

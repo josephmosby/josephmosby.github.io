@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Choosing a Game Development Platform to Reach the Right Users
+tags: product
 ---
 
 Last Friday, I attended the [Media for Social Impact](http://www.media4socialimpact.org/) Summit at the United Nations headquarters in NYC. Aside from the awesomeness of attending a conference at the United Nations, the summit was a really enlightening experience crammed into a single day's worth of sessions. Each group of panelists focused on the most effective way to run an issue-based campaign with a social change in mind on a particular type of media. Of particular interest to me was the talk by Asi Burak of [Games for Change](http://www.gamesforchange.org/), whose [Half the Sky](https://www.facebook.com/HalftheGame) game was designed to raise funds to empower women and girls.

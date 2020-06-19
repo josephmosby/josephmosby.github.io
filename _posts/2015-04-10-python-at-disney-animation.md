@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Python at Disney Animation
+tags: product
 ---
 
 I started off my technology career as a help desk support staffer at Belmont University in 2007 after being sick of working in the food industry. I learned how to code in Visual Basic for Applications by writing custom Excel functions to help me through my finance classes. I _finally_ and painstakingly learned some proper computer science through [MIT's OpenCourseWare](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-00-introduction-to-computer-science-and-programming-fall-2008/), where I picked up Python as my language of choice. I've learned a bit more computer science as a matter of course since then, but code to me has always been more about gluing together solutions and data than anything else.

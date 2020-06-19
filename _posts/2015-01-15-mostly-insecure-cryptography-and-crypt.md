@@ -1,8 +1,7 @@
 ---
 layout: post
 title: Mostly insecure cryptography and crypt()
-tags:
-- pymod
+tags: code
 ---
 
 In the 1970s, DES was all the rage. The Data Encryption Standard was the standard for encryption of federal government data and everything unclassified was expected to use it. The algorithm uses a 56-bit key size and some NSA-suggested substitution boxes to encrypt and decrypt data. It was great for the 1970s, but we knew it was susceptible to brute-force attacks then - and in the 1990s, DES was finally cracked. It's since been replaced by more robust cryptographic algorithms, but it remains a part of the legacy Unix codebase via the `crypt(3)` tool. 

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Buzztale&#58; An Enterprise Story-Sharing Platform
+tags: product
 ---
 
 Innovative corporate communications are difficult things to pull off well. If the company's large enough, it probably comes saddled with a restrictive Microsoft suite of applications, including SharePoint, Outlook, and perhaps Yammer. Communicating to your employees is often done in the form of an email template with mostly text and a few pictures that's brittle enough to restrict modification based on the type of event. Yammer freed things up enough to have a conversation, but you're still locked into the Yammer style that looks like an ugly version of Twitter. Not fun at all.

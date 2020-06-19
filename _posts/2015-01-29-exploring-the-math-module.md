@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Exploring the math module
+tags: code
 ---
 
 I could write code for days using the `math` module and never hit the end. `math` is huge. It's designed to keep you from rewriting a stack of mathematical functions that someone had inevitably written before (formulas for calculating the sine, cosine, tangent, etc). 

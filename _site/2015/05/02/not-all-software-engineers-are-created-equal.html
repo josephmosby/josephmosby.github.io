@@ -4,110 +4,66 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>02 May 2015</time>
+			<a href="/tags/product">product</a>
 		</div>
+		<h3>Not all software engineers are created equal</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/05/02/not-all-software-engineers-are-created-equal.html"><h3>Not all software engineers are created equal</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>In my first ever technology job, I was the lowest-ranked member of a consulting team. Our team was hired by a federal government agency to help them figure out how to respond to an annual audit of their IT environment - specifically, a Sarbanes-Oxley Section 404 audit. An auditor would come in, tell the agency where there were problems, and we would help agency staff fix those problems. I had never worked in a government agency before. I had never programmed a financial application before. What good was I? How did I earn the title of “ERS Consultant?”</p>
 
-<p>It’s easy to get lost in job titles in technology, because we technology professionals deal in a world of tools. <code>ls</code> does the same thing every time you run it - it gives you the list of files in a directory. <code>python manage.py migrate</code> does the same thing every time you run it - it makes changes to a database based on changes to a Django project. Software engineers have a tendency to fall into a logical trap of thinking we are like the programs we run: repeatable processes that do the same thing each time, perhaps a little faster over time, but ultimately executing our assigned task whenever we’re needed. “I am a Django web programmer,” we say. “I build Django apps.”</p>
+<p>It’s easy to get lost in job titles in technology, because we technology professionals deal in a world of tools. <code class="highlighter-rouge">ls</code> does the same thing every time you run it - it gives you the list of files in a directory. <code class="highlighter-rouge">python manage.py migrate</code> does the same thing every time you run it - it makes changes to a database based on changes to a Django project. Software engineers have a tendency to fall into a logical trap of thinking we are like the programs we run: repeatable processes that do the same thing each time, perhaps a little faster over time, but ultimately executing our assigned task whenever we’re needed. “I am a Django web programmer,” we say. “I build Django apps.”</p>
 
-<p>If that is how you think of your work, your career is going to sputter. </p>
+<p>If that is how you think of your work, your career is going to sputter.</p>
 
 <p>When I started in my first-ever technology job, I had tangential experience that was extremely useful in the particular project. I had a master’s degree in accountancy, which meant I had gone into <em>extreme</em> detail about Sarbanes-Oxley in my coursework. I could work the technology of that government agency into that mental framework of “controls” and “materiality” and build something better out of that union. I had also interned with the consulting firm before. Though the internship was with a totally different part of the company, I was familiar with the expectations and the systems that powered the organization. And if you’ve ever taken four hours of a work day trying to find the IT help desk phone line rather than doing something that makes money for the firm, you realize that coming into corporate-world with some pre-existing knowledge is useful.</p>
 
 <p>These things have value to employers. They make you a better technologist. I was not just an “ERS Consultant.” I was a technology professional with accounting experience, and that made me disproportionately useful for a Sarbanes-Oxley project.</p>
 
-<p>I was next picked up by a PR firm to code websites for their clients. Turns out, they didn’t care about my accounting degree. What they did care about was my experience navigating large organizations and my ability to comfortably interact with clients. </p>
+<p>I was next picked up by a PR firm to code websites for their clients. Turns out, they didn’t care about my accounting degree. What they did care about was my experience navigating large organizations and my ability to comfortably interact with clients.</p>
 
-<p>PR firms do really, really simple technology work. It’s all shiny front-end pretty stuff. You’re never going to build a machine-learning system that can analyze your client’s Twitter presence in real time, but you will learn how to sweat the spacing of letters in a headline just like a print designer. PR firms want the prettiest thing they can get in the shortest amount of time possible, and often the timeline wins out over the features of the site. That’s how the industry <em>works</em>. You can hope to spend weeks and weeks perfecting an amazing website that showcases all of the wonderful things your client is doing, and it won’t matter at all once the PR “moment” is gone. </p>
+<p>PR firms do really, really simple technology work. It’s all shiny front-end pretty stuff. You’re never going to build a machine-learning system that can analyze your client’s Twitter presence in real time, but you will learn how to sweat the spacing of letters in a headline just like a print designer. PR firms want the prettiest thing they can get in the shortest amount of time possible, and often the timeline wins out over the features of the site. That’s how the industry <em>works</em>. You can hope to spend weeks and weeks perfecting an amazing website that showcases all of the wonderful things your client is doing, and it won’t matter at all once the PR “moment” is gone.</p>
 
 <p>You can have a computer science Ph.D. from Stanford and absolutely suck as a developer in a PR firm if you can’t be a little bit like a PR pro yourself. That world isn’t about technology. It’s about words and conversation and making people like you and showing others how they can make people like them, too. And sometimes it involves talking about Sarbanes-Oxley with your client because she has to go into a meeting with a Deloitte auditor who’s asking too many questions. Karma sucks.</p>
 
-<p>Not all software engineers are created equal. Some know accounting. Some know journalism. Some know advertising. Find whatever your “one more thing” is and <em>use it.</em> Solve problems. When necessary, use code. </p>
+<p>Not all software engineers are created equal. Some know accounting. Some know journalism. Some know advertising. Find whatever your “one more thing” is and <em>use it.</em> Solve problems. When necessary, use code.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/02/not-all-software-engineers-are-created-equal.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

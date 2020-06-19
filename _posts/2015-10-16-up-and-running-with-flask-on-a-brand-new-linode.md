@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Up and Running with Flask on a Brand New Linode
+tags: code
 ---
 
 Tonight, I'm building a minimalistic Flask app that will run on Linode. Flask is a relatively new framework for me. I've dealt with CentOS, nginx, and uwsgi at work, but I've never tried to get them installed on my own. Time to get started.

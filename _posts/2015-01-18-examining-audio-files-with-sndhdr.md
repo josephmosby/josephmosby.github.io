@@ -1,8 +1,7 @@
 ---
 layout: post
 title: Examining audio files with sndhdr
-tags:
-- pymod
+tags: code
 ---
 
 In our [last installment](/2015/01/17/the-images-are-coming-from-inside-the-bytestreams.html), we cracked open some image files and looked at the raw bytestreams to assess what type of image file we were looking at. Python's `imghdr` module is designed to automate all of that at need. Python provides a companion library, `sndhdr`, to do the exact same thing for sound files. 

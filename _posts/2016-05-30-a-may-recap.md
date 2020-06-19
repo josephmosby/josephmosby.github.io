@@ -1,6 +1,7 @@
 ---
 layout: post
 title: A May recap, or starting from the bottom all over again
+tags: joe
 ---
 
 In the first week of this month, I began closing down all of the things I'd been working on at [National Journal](https://www.nationaljournal.com/). I started documenting the code that I'd written and training my co-workers on the things that only I had locked up in my head before taking my last lunches on that best roof in the District of Columbia. That was before D.C.'s three straight weeks of rain started, of course.

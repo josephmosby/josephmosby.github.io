@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Einstein blinked
+tags: culture
 ---
 
 It's the mid-1920s, and a patent clerk from Bern, Switzerland has just rocked the entire physics world with a proof sent to the German Academy of Sciences claiming that our notion of time is relative to the person observing it, and changes if you're going really, really fast. Not satisfied with this absolutely insane discovery, this very same amateur physicist has the audacity to prove that if you're in the presence of something huge, your notion of time will change as well. And then just for kicks he proves that light bends around super-huge objects like the time-warping ones. 

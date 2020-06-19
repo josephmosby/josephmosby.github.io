@@ -1,6 +1,7 @@
 ---
 layout: post
 title: What does systemd do?
+tags: code
 ---
 
 I mentioned in an [earlier post](http://josephmosby.com/2015/10/17/what-does-systemctl-do.html) that `systemctl` appeared to be tied to `systemd`, which looked like a much more important program. In this post, I'm going to explore `systemd` and see what it does.

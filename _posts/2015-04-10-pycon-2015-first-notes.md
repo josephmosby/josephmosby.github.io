@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PyCon 2015&#58; First Notes 
+tags: culture
 ---
 
 	Snakes are deaf. And so are some Pythonistas.

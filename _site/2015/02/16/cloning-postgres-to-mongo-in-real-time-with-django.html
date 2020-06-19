@@ -4,61 +4,44 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>16 Feb 2015</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>Cloning Postgres to Mongo in real time with Django</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/02/16/cloning-postgres-to-mongo-in-real-time-with-django.html"><h3>Cloning Postgres to Mongo in real time with Django</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>Django comes baked with one major setback: it can’t properly support non-relational databases. A few attempts to rectify this problem have been made, but none of them can handle Django’s administration menu at the same time. So if your application simultaneously requires the speed of a non-relational database and the ease of the administration menu, you’re going to need to figure out a way to run two databases - one relational, one not - and keep the two in sync. We’re going to do that very thing with Postgres and MongoDB here.</p>
 
-<p>You will need: </p>
+<p>You will need:</p>
 
 <ul>
   <li><a href="http://api.mongodb.org/python/current/">pymongo</a></li>
@@ -67,7 +50,7 @@
 
 <p>PyMongo provides us a convenient API to access MongoDB, while signals will allow us to perform certain actions upon saving a model. We begin by importing all of the necessaries and creating receiver functions to handle our signals:</p>
 
-<pre><code># models.py 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
 
 from django.db import models
 from django.db.models.signals import post_save, post_delete
@@ -83,13 +66,13 @@ def save_mongo_instance(sender, **kwargs):
 @receiver(post_delete)
 def delete_mongo_instance(sender, **kwargs):
 	pass
-</code></pre>
+</code></pre></div></div>
 
-<p>We use the <code>@receiver</code> decorator to indicate what event should trigger the <code>save_mongo_instance()</code> and <code>delete_mongo_instance()</code>. Our functions will fire immediately after a model saves to or deletes from our Postgres database (indicated by the post_save and post_delete parameters). These functions must also take in a sender (the Model triggering the method) and a fungible number of <code>kwargs</code>. One of these <code>kwargs</code> will be the specific Model <em>instance</em> we just saved or deleted.</p>
+<p>We use the <code class="highlighter-rouge">@receiver</code> decorator to indicate what event should trigger the <code class="highlighter-rouge">save_mongo_instance()</code> and <code class="highlighter-rouge">delete_mongo_instance()</code>. Our functions will fire immediately after a model saves to or deletes from our Postgres database (indicated by the post_save and post_delete parameters). These functions must also take in a sender (the Model triggering the method) and a fungible number of <code class="highlighter-rouge">kwargs</code>. One of these <code class="highlighter-rouge">kwargs</code> will be the specific Model <em>instance</em> we just saved or deleted.</p>
 
 <p>These receiver methods will fire on <em>every</em> save or delete, regardless of the model that called it. If I have foreign key relationships, it won’t make sense for me to save all of those into the database as their own Documents - I should be nesting those within other Documents. I need some way to dictate which models should and should not be saved as their own Documents in a Mongo collection.</p>
 
-<pre><code># models.py 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
 
 class MyModel(models.Model):
 	mongoable = True
@@ -105,13 +88,13 @@ def delete_mongo_instance(sender, **kwargs):
 
 	if not sender.mongoable:
 		return
-</code></pre>
+</code></pre></div></div>
 
-<p>I’ve added a property to <code>MyModel</code> that indicates it is “mongoable” (I made that word up). If <code>mongoable</code> is set to <code>True</code>, we’ll save it to the Mongo database - otherwise we’ll ignore the save event by returning out of the function.</p>
+<p>I’ve added a property to <code class="highlighter-rouge">MyModel</code> that indicates it is “mongoable” (I made that word up). If <code class="highlighter-rouge">mongoable</code> is set to <code class="highlighter-rouge">True</code>, we’ll save it to the Mongo database - otherwise we’ll ignore the save event by returning out of the function.</p>
 
-<p>Now we need to get the instance. </p>
+<p>Now we need to get the instance.</p>
 
-<pre><code># models.py 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
 
 @receiver(post_save)
 def save_mongo_instance(sender, **kwargs):
@@ -128,11 +111,11 @@ def delete_mongo_instance(sender, **kwargs):
 		return
 
 	instance = kwargs.get('instance')
-</code></pre>
+</code></pre></div></div>
 
-<p>We extract the instance information - the specific data we just saved to Postgres - by pulling it out of the <code>kwargs</code> sent to our receiver function. Now we must parse them out! I created a helper utility to do this very thing and placed it in the <code>utils</code> directory of my Django project, so it looks something like this:</p>
+<p>We extract the instance information - the specific data we just saved to Postgres - by pulling it out of the <code class="highlighter-rouge">kwargs</code> sent to our receiver function. Now we must parse them out! I created a helper utility to do this very thing and placed it in the <code class="highlighter-rouge">utils</code> directory of my Django project, so it looks something like this:</p>
 
-<pre><code>mongoproject/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mongoproject/
 |
 |--mongoproject/
 	|
@@ -147,19 +130,19 @@ def delete_mongo_instance(sender, **kwargs):
 	|
 	|--__init__.py
 	|--mongo_clone.py
-</code></pre>
+</code></pre></div></div>
 
-<p>I’ve also modified <code>settings.py</code> to add my Mongo connection info:</p>
+<p>I’ve also modified <code class="highlighter-rouge">settings.py</code> to add my Mongo connection info:</p>
 
-<pre><code># settings.py
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># settings.py
 
 MONGO_DB_HOST = 'localhost'
 MONGO_DB_PORT = 27017
-</code></pre>
+</code></pre></div></div>
 
 <p>And my mongo_clone.py utility looks <a href="https://gist.github.com/josephmosby/7ac22f01ccf738e94d7a">like this</a>:</p>
 
-<pre><code># mongo_clone.py
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mongo_clone.py
 
 import pymongo
 from django.db.models import Model
@@ -235,23 +218,23 @@ def convert_fields(model):
 			
 			
 	return update_fields
-</code></pre>
+</code></pre></div></div>
 
-<p>Let’s walk through the branches of <code>convert_fields()</code> one by one. The function is designed to turn a Model into a dictionary of key/value pairs, iterating through each field and recursively digging into ForeignKeys and ManyToManyFields to created nested dictionaries. Our first two lines of the function create the primary dictionary and find the field names of the model.</p>
+<p>Let’s walk through the branches of <code class="highlighter-rouge">convert_fields()</code> one by one. The function is designed to turn a Model into a dictionary of key/value pairs, iterating through each field and recursively digging into ForeignKeys and ManyToManyFields to created nested dictionaries. Our first two lines of the function create the primary dictionary and find the field names of the model.</p>
 
-<p>We then begin a try/except block. Django ForeignKeys and ManyToManyFields store data in the Postgres database about their parent, but it’s not specified directly in my Model. We deal with that by passing on an <code>AttributeError</code>. Next we loop through all fields.</p>
+<p>We then begin a try/except block. Django ForeignKeys and ManyToManyFields store data in the Postgres database about their parent, but it’s not specified directly in my Model. We deal with that by passing on an <code class="highlighter-rouge">AttributeError</code>. Next we loop through all fields.</p>
 
-<p>It’s perhaps most useful here to skip down directly to the <code>else</code> branch of this if/else statement. This is for our standard text and date fields - anything we can easily serialize. Our recursive function will always end up here. We’ll continue to go deeper and deeper into our relationships as we’re building our nested dictionaries for ForeignKeys, but once we have an object that has no relationships, we’ll simply be serializing its fields with this branch.</p>
+<p>It’s perhaps most useful here to skip down directly to the <code class="highlighter-rouge">else</code> branch of this if/else statement. This is for our standard text and date fields - anything we can easily serialize. Our recursive function will always end up here. We’ll continue to go deeper and deeper into our relationships as we’re building our nested dictionaries for ForeignKeys, but once we have an object that has no relationships, we’ll simply be serializing its fields with this branch.</p>
 
-<p>Immediately above that branch is our test for an <code>ImageField</code>, which can’t be neatly serialized. We tackle this by finding the path of the ImageFieldFile and attaching that to our dictionary.</p>
+<p>Immediately above that branch is our test for an <code class="highlighter-rouge">ImageField</code>, which can’t be neatly serialized. We tackle this by finding the path of the ImageFieldFile and attaching that to our dictionary.</p>
 
-<p>Our first bit of recursion comes when we hit the branch above that, when we deal with ForeignKeys. Our FK model will be attached to the original model’s ForeignKey field - but at the end of the day, it’s just a standard model with fields that we could parse out with our bottom branch. We’ll recursively call our <code>convert_fields</code> function on the model to do just that.</p>
+<p>Our first bit of recursion comes when we hit the branch above that, when we deal with ForeignKeys. Our FK model will be attached to the original model’s ForeignKey field - but at the end of the day, it’s just a standard model with fields that we could parse out with our bottom branch. We’ll recursively call our <code class="highlighter-rouge">convert_fields</code> function on the model to do just that.</p>
 
-<p>Our top branch deals with ManyToManyFields, which come through as a <code>Manager</code>. Managers are tough to detect, but they do have an <code>all()</code> method that no other field should have. We’ll look for that method to find a ManyToManyField, then we’re just looping through every attached Model and appending their keys to the dictionary.</p>
+<p>Our top branch deals with ManyToManyFields, which come through as a <code class="highlighter-rouge">Manager</code>. Managers are tough to detect, but they do have an <code class="highlighter-rouge">all()</code> method that no other field should have. We’ll look for that method to find a ManyToManyField, then we’re just looping through every attached Model and appending their keys to the dictionary.</p>
 
 <p>Now we call our helper method as part of our receiver:</p>
 
-<pre><code># models.py 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
 
 from utils.mongo_clone import get_mongo_db, convert_fields
 
@@ -272,11 +255,11 @@ def delete_mongo_instance(sender, **kwargs):
 		return
 
 	instance = kwargs.get('instance')
-</code></pre>
+</code></pre></div></div>
 
 <p>And we’ll save all this to the database by connecting to our DB and using a find_and_modify transaction:</p>
 
-<pre><code># models.py 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
 
 from utils.mongo_clone import get_mongo_db, convert_fields
 
@@ -304,11 +287,11 @@ def delete_mongo_instance(sender, **kwargs):
 		return
 
 	instance = kwargs.get('instance')
-</code></pre>
+</code></pre></div></div>
 
 <p>Deleting is far easier. All we have to do here is find the Mongo ID that corresponds to the deleted Postgres ID:</p>
 
-<pre><code># models.py 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># models.py 
 
 from utils.mongo_clone import get_mongo_db, convert_fields
 
@@ -340,44 +323,17 @@ def delete_mongo_instance(sender, **kwargs):
 	db = get_mongo_db()
 
 	mongo_instance = db.test.remove( {"pg_instance_id": instance.id })
-</code></pre>
+</code></pre></div></div>
 
 <p>And we’re cooking. We’re still querying the original Postgres database - for now - but we’ll fix that soon enough.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/02/16/cloning-postgres-to-mongo-in-real-time-with-django.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

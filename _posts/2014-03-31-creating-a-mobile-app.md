@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Creating a Mobile Content App with (Almost) Real Time Edits
+tags: product
 --- 
 
 It's not too often that we're asked to put together a native mobile app at [APCO Worldwide](http://www.apcoworldwide.com), but it does happen from time to time. We're a communications firm first and an app development firm second, and that means we have to plan for regular content additions, modifications and deletions that often need to happen immediately. We can't afford to recompile code and go through an app submission process every time someone needs to add a new story to an app, so we have to bake some flexibility into the system itself.

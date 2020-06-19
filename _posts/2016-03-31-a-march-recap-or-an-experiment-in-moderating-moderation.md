@@ -1,6 +1,7 @@
 ---
 layout: post
 title: A March recap, or an experiment in moderating moderation
+tags: joe
 ---
 
 	"How much can you really know about yourself if you've never been in a fight?"

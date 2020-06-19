@@ -1,6 +1,7 @@
 ---
 layout: post
 title: September&#44; or fifteen minutes
+tags: joe
 ---
 
 I am obsessed with time.

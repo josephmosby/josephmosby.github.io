@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Chip Economics
+tags: code
 ---
 
 Over the past few weeks, I've been working through [NAND2Tetris](http://nand2tetris.org) after the recommendation of [Julian Gindi](http://juliangindi.com/). The NAND2Tetris course takes a single NAND electronic gate, which returns 0 if both inputs are 1 and returns 1 otherwise, and uses this as a building block for a whole host of electronic gates. It's possible to make a NOT gate out of NAND chips. It's also possible to build a multiplexer (which picks between inputs based on a control input). And most impressively, we can build an arithmetic logic unit - the core part of a CPU responsible for addition and subtraction - solely out of a stack of NAND chips. When all is said and done, I'll have built a working computer emulator solely out of these single atomic pieces.

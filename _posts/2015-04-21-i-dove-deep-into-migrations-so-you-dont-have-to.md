@@ -1,6 +1,7 @@
 ---
 layout: post
 title: I dove deep into a Django migration so you don&#39;t have to
+tags: culture
 ---
 
 It is 2015. I expect to be able to forget my webapp database exists once I plug my credentials into a configuration file. From then on out it should be nothing more than feeding query terms into functions and getting lists back.

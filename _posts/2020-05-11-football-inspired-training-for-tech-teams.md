@@ -1,6 +1,7 @@
 ---
 layout: post 
 title: A football-inspired training program for tech teams
+tags: management
 ---
 
 Football Manager is a sports simulation game where the player doesn't control the footballer (soccer player); the player is the coach. The gamer controls starting lineups, tactics, transfer policy, financial decisions, team morale, and the other factors of being a manager. When it comes to match time, though, the player has to watch their simulation play out from the sideline, just like a real manager. Sure, they can bark tactical changes or make substitutions, but they mostly have to watch. Millions of people own the game with several hundred thousand playing every day.

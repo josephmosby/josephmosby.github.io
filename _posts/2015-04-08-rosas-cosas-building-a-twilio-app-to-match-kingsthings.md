@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Rosa&#39;s Cosas&#58; Building a Twilio app to match &#64;kingsthings
+tags: code
 ---
 
 The Washington Post said it best: ["Larry King has a special way of tweeting."](http://www.washingtonpost.com/blogs/style-blog/wp/2015/03/19/larry-king-has-a-special-way-of-tweeting-the-broadcast-legend-who-just-cant-retire-talks-about-his-new-media-way-of-life/) He calls a special phone line and leaves a tweet on a voicemail, which is then transcribed by an assistant and posted to Twitter. Lacking an assistant, I decided to build something to allow [@lbrosa](https://twitter.com/lbrosa) to call in a tweet using Twilio's transcription functionality. 

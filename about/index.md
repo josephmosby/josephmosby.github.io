@@ -1,6 +1,6 @@
 ---
-layout: subpage
-title: WHOIS
+layout: post
+title: about
 ---
 
 I lead advanced analytics teams for Deloitte's strategic intelligence and investigations practice in Washington, DC.

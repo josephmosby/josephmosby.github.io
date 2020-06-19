@@ -1,6 +1,7 @@
 ---
 layout: post
 title: A good CS undergraduate algorithm problem
+tags: code
 ---
 
 Okay, here's a question for an undergraduate algorithms class to solve. In a non-relational database, we have a users collection with user preferences for breaking news alerts. In a separate collection, we have news stories with tags and searchable content. We will run a scheduled job that will pair the two and send news alerts to users if a story that matches their alert preferences has been published in the last half hour. 

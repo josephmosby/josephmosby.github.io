@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Open Source Search Technologies for Human Beings - Part 1
+tags: product
 ---
 
 Search is one of those features that's become so "baked in" to the way we experience the web that it's often an afterthought for us as users. We peck a few well-chosen words into the Google search bar, press enter, and end up where we needed to be. It's become a mental backup system to the point that we no longer even need to bookmark a link any more as long as we can remember the few keywords that will bring us back to the page. Though I develop websites every single day, I had never actually thought about the search technology that brings users to my page and allows them to find the content they wanted.

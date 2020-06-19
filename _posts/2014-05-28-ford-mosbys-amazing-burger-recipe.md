@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Ford Mosby's Amazing Burger Recipe
+tags: joe
 ---
 
 I like to think that the parts of my brain that like programming and the parts of my brain that like cooking are somehow intricately linked. I have a tendency to start out with a stack of recipes as "inspiration" and then improvise the rest on the spot, and that certainly reveals itself in my coding style as well. And now that I'm improving as a programmer and investigating rules and frameworks, I'm following recipes far more closely. This might all be coincidence, and it might just be a sign that I'm maturing as a **human being** rather than as a programmer or cook, but I'm going to say it's all linked until proven otherwise.

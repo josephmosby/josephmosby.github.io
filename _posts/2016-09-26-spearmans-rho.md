@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Spearman&apos;s rank-order correlation
+tags: code
 ---
 
 This is a mini-post: something I learned about today at work that I thought was awesome in and of itself. It's called "Spearman's rank-order correlation," and it tells you if two data sets move in the same direction.

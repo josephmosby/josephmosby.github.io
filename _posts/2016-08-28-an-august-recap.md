@@ -1,6 +1,7 @@
 ---
 layout: post
 title: An August recap on the road again
+tags: joe
 ---
 
 The first words of this post started where they so often do: on the road. Specifically, they started at Ling and Louie's Asian Bar and Grill at Terminal A of DFW Airport, where Robbie has just poured me a Deschutes Obsidian Stout to help get my ideas flowing. This beer lives up to its name. It's black as can be - impenetrably so. If I'm not actively moving the glass, it settles into a solid mass that makes the outside look painted. It doesn't have the bitter bite of a Guinness, though. It's creamy, almost buttery. Robbie's a dutiful airport bartender. Aside from checking in once to see if I wanted something to eat, he's left me alone. He knows his guests that want to talk. We all travel in our own way, you never know what kind of mood you'll be in when you're on the road.

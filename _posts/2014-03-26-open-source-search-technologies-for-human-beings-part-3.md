@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Open Source Search Technologies for Human Beings - Part 3
+tags: product
 ---
 
 In the [first part](http://josephmosby.com/2014/03/24/open-source-search-technologies-for-human-beings-part-1.html) of this series, we talked about the nuts and bolts of search engines: how they create a nicely organized index of keywords and documents and use that index to find documents containing keywords. [Part 2](http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-2.html) walked us through Lucene, an open source search engine written in Java that turns our Part 1 idea of a search engine into a computer program. With Part 3, we're going to build upon Lucene with Solr and Elasticsearch, two programs that use Lucene to create a fully-featured web search engine.

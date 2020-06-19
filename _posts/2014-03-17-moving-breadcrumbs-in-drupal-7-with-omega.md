@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Moving Breadcrumbs in Drupal 7 with Omega
+tags: code
 ---
 
 I recently had a client site that required me to move my Drupal breadcrumbs from one Omega zone to another, and I was absolutely stumped on how to do it. After much hacking around with template files with no success, I finally stumbled upon [this post](http://www.webbykat.com/2012/09/moving-breadcrumbs-zone-content-region-content-omega-drupal-7) by Katharine Ruhl (who I learned was a DC resident while writing this post, awesome) where she described moving her breadcrumbs from the content zone to the content region. I adapted her approach to move my breadcrumbs to a new zone entirely. 

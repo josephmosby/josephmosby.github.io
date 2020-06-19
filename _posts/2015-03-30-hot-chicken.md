@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Hot Chicken
+tags: culture
 ---
 
 Nashville is a wonderful weird place. The city has a native dish known only as "hot chicken" and David Ramsey has captured its essence perfectly.

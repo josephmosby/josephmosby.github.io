@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Python modules ranked on usage and what that says about the Python ecosystem
+tags: code
 ---
 
 A few days ago, I asked myself a simple question: what are the most (and least) popular Python modules from the standard library? Or rather, I decided to ask GitHub. There are at least a dozen syntactic ways you can bring a module into a piece of Python code, but I thought it might be easiest to simply search for "import {{module}}" and see how many results came back. There will of course be some false positives and false negatives, but on average, this approach can serve as a proxy for total usage.

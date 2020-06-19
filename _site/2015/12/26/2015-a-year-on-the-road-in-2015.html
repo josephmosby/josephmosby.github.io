@@ -4,58 +4,41 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>26 Dec 2015</time>
+			<a href="/tags/joe">joe</a>
 		</div>
+		<h3>A year on the road in 2015</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/12/26/2015-a-year-on-the-road-in-2015.html"><h3>A year on the road in 2015</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>It’s 2015. I wake up on a couch in San Francisco after a ridiculous circus party to close out the year before.</p>
 
 <p>I enjoy waking up on couches in San Francisco more than the best bed anywhere else. The sun is different in California, it seems brighter somehow. San Francisco is a foggy grey color half of the time, but when the sun comes out, it makes it so easy to forget the fog ever existed. Take a look for yourself:</p>
@@ -72,11 +55,11 @@
 
 <p><img src="/images/2015_retro/camel.JPG" alt="Picture of me on a camel" /></p>
 
-<p>The spring ramps up. I get to work and kick my engineering education into high gear. I had learned how to skin up a Drupal site on the quick at APCO, but that is nothing compared to what building out National Journal has to teach me about the web. I learn proper recursion while building out an ORM-to-MongoDB-document converter. I learn about all of the ins and outs of the Django administrative console. I learn how to build Python code for production. </p>
+<p>The spring ramps up. I get to work and kick my engineering education into high gear. I had learned how to skin up a Drupal site on the quick at APCO, but that is nothing compared to what building out National Journal has to teach me about the web. I learn proper recursion while building out an ORM-to-MongoDB-document converter. I learn about all of the ins and outs of the Django administrative console. I learn how to build Python code for production.</p>
 
 <p><img src="/images/2015_retro/pycon.png" alt="Picture of PyCon 2015 attendees" /></p>
 
-<p>I’m at PyCon in April. There is nothing quite like the feeling of recognizing that you’re in the middle of your tribe. In Montreal, I suddenly find myself in the middle of a huge group of engineers who wanted what I wanted - to produce great and technologically interesting things using Python. And they want it for everyone! And I am in Montreal, using my middling French to chat with the locals, exploring a city that is simultaneously European and North American all in one. </p>
+<p>I’m at PyCon in April. There is nothing quite like the feeling of recognizing that you’re in the middle of your tribe. In Montreal, I suddenly find myself in the middle of a huge group of engineers who wanted what I wanted - to produce great and technologically interesting things using Python. And they want it for everyone! And I am in Montreal, using my middling French to chat with the locals, exploring a city that is simultaneously European and North American all in one.</p>
 
 <p>Now I’m back in DC, and the weather is warm. I’m getting to know my journalist co-workers as we play softball together. Every Saturday I haul out to the middle of the Maryland suburbs to wildly miss pitches. Baseball was never my strong suit, but Matt, Alex, Zach, Paloma, Randy, Drew, and the rest of the Atlantic Media crew made it worthwhile every weekend.</p>
 
@@ -88,10 +71,10 @@
 
 <p>July comes and it’s time to hit the road again for an aggressively long roadtrip. DC to Nashville. Nashville to Asheville. Asheville back to DC. Over a thousand miles of open road covered in the Civic. In Nashville, my massive extended family gathers for our almost-triannual family reunion, bringing together some 60-odd Mosbys, Harwoods, and Grimes together for hot chicken contests and beer drinking in cheap honky tonks. I have the good fortune of knowing so many of my family members through a variety of different channels, being the only one to have lived in our three central hubs of Jackson, Nashville, and DC. I consider myself blessed to have had the opportunity to get to know so many of them.</p>
 
-<pre><code>No man ever steps in the same river twice, for it is not the same river and he is not the same man.
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>No man ever steps in the same river twice, for it is not the same river and he is not the same man.
+</code></pre></div></div>
 
-<p>My visit to Nashville kicks off a series of meditations that I consider while on the road. I visit my old college campus and realize that the entire center of gravity of the school has shifted, and there are at least five new buildings I don’t recognize. The run down area where I used to buy beer out of a warehouse has sprouted condo buildings. I am no longer an active musician. At some point Nashville moved on after I left, and I moved on too. We are not the same. </p>
+<p>My visit to Nashville kicks off a series of meditations that I consider while on the road. I visit my old college campus and realize that the entire center of gravity of the school has shifted, and there are at least five new buildings I don’t recognize. The run down area where I used to buy beer out of a warehouse has sprouted condo buildings. I am no longer an active musician. At some point Nashville moved on after I left, and I moved on too. We are not the same.</p>
 
 <p><img src="/images/2015_retro/boltons.png" alt="Picture of Bolton's spicy chicken and fish" /></p>
 
@@ -99,7 +82,7 @@
 
 <p><img src="/images/2015_retro/chicago.png" alt="Picture of Chicago skyline" /></p>
 
-<p>Chicago holds a special place in my heart that is perhaps rivaled only by San Francisco. I have never lived in either place. I know Chicago’s winters are dreadful and that I am supposed to feel differently if I had to spend January there with the wind whipping off the lake. But there is something special about the city. There is a union there between the parts of my heart that will always be from a small town and the parts that crave the excitement of the city. </p>
+<p>Chicago holds a special place in my heart that is perhaps rivaled only by San Francisco. I have never lived in either place. I know Chicago’s winters are dreadful and that I am supposed to feel differently if I had to spend January there with the wind whipping off the lake. But there is something special about the city. There is a union there between the parts of my heart that will always be from a small town and the parts that crave the excitement of the city.</p>
 
 <p><img src="/images/2015_retro/oh_200ok.png" alt="Picture of the Ohio 200 OK license plate" /></p>
 
@@ -109,29 +92,29 @@
 
 <p>I lived with the same group of guys for most of my college and grad school experience. We shared dorm suites together, then an apartment, then a house on Belmont Boulevard, then a two bedroom apartment in Brentwood, Tennessee. Two of these guys are now married, with children either in house or on the way. One of them is a Ph.D. We get together and it’s just like we’re undergraduates again, with the same conversations and nerd humor that propelled us through our time at Belmont. We spend a long weekend in Charleston, South Carolina, hanging on the beach, eating tacos, drinking good wine (thanks, Adam!).</p>
 
-<pre><code>I've been in the crib with the phones off, I've been in the house taking no calls...
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I've been in the crib with the phones off, I've been in the house taking no calls...
 Drapes closed, I don't know what time it is, I'm still awake, I gotta shine this year
-</code></pre>
+</code></pre></div></div>
 
 <p>August continues to roll on. When I’m not on the road speaking at conferences or at the beach, I’m in the office pulling 12-15 hour days to ship NationalJournal.com on time. I gain weight after eating nothing but trash for a month and rarely working out. I’m fueled by caffeine only, because I can’t sleep once I get home. We’re doing nightly builds, shipping emergency bug fixes day in and day out, none of the team leaving until the day’s tickets are done. Finally, on August 31, we turn the switch on. NationalJournal.com goes live. Brian, Robert, Paivi, Julia, Ivy, Kim, Lindsey, Jeremy and I finally get a good night’s sleep.</p>
 
 <p><img src="/images/2015_retro/nj.png" alt="Picture of NationalJournal.com" /></p>
 
-<p>After shoring up the codebase from the many shortcuts we took to launch on time, I head to Colorado for Jeff and Kendra’s wedding. It’s my first-ever visit to Colorado. I arrive in Denver late Thursday night and pick up a giant 15-passenger van dubbed “The Mystery Machine.” In the morning I pick up the Scooby Squad: MariaElena, Prather, Kyra, Hannah, Clarissa, Levi, Ryan, Juliana and Dalesio. We meet Jeff, Kendra, Sam, Pam, Ethan, and Ellen in what must be God’s country - Cuchara, Colorado. They serve Pueblo green chili with every meal and the entire landscape is flashes of bright yellow, desert green, and a piercing blue hanging in the sky. We hike to the top of the nearest mountain before descending to celebrate the happy couple. </p>
+<p>After shoring up the codebase from the many shortcuts we took to launch on time, I head to Colorado for Jeff and Kendra’s wedding. It’s my first-ever visit to Colorado. I arrive in Denver late Thursday night and pick up a giant 15-passenger van dubbed “The Mystery Machine.” In the morning I pick up the Scooby Squad: MariaElena, Prather, Kyra, Hannah, Clarissa, Levi, Ryan, Juliana and Dalesio. We meet Jeff, Kendra, Sam, Pam, Ethan, and Ellen in what must be God’s country - Cuchara, Colorado. They serve Pueblo green chili with every meal and the entire landscape is flashes of bright yellow, desert green, and a piercing blue hanging in the sky. We hike to the top of the nearest mountain before descending to celebrate the happy couple.</p>
 
 <p><img src="/images/2015_retro/cuchara.png" alt="Picture of Dalesio, me, MariaElena and Sam on our hike" /></p>
 
-<p>October turns the tables at the office again. Only a few short weeks after we relaunched NationalJournal.com, our owner has decided that the news business at a whole needed a shakeup. No more public-facing news and no more ads. Everything will be for the service of our paid members. Many of my friends in the office leave to take jobs at competing news organizations, landing at <em>The New York Times</em>, <em>Vox</em>, <em>The Washington Post</em>, and others. We prepare for the shift to an ad-free world, and I begin to reimagine parts of our code. </p>
+<p>October turns the tables at the office again. Only a few short weeks after we relaunched NationalJournal.com, our owner has decided that the news business at a whole needed a shakeup. No more public-facing news and no more ads. Everything will be for the service of our paid members. Many of my friends in the office leave to take jobs at competing news organizations, landing at <em>The New York Times</em>, <em>Vox</em>, <em>The Washington Post</em>, and others. We prepare for the shift to an ad-free world, and I begin to reimagine parts of our code.</p>
 
 <p>For the first time I get to have my entire family with me in Washington. Dad is coming up to run the Marine Corps Marathon and we’re all ready to cheer him on. He’s been working on this for months and has lost a ton of weight. I get to spend the days preceding the marathon showing the city (and its excellent restaurants) off to my family. On Sunday, it’s race day, and Dad knocks out the 26.2 miles like a champion!</p>
 
 <p><img src="/images/2015_retro/mcm.png" alt="Picture of Dad's marathon stats" /></p>
 
-<p>The downward mental slide that started in September continues in November. The site has a resiliency problem that resists debugging, and I struggle to fight off anger against the thing I’ve made. I turn into a packaged ball of stress, worrying at any moment that the site is going to crash and I’ll need to manually bring it back up. The constantly changing weather brings with it a sickness I can’t shake. The combination of the above brings on a spat of panic attacks that convince me I’m about to stop breathing. I hit a low, hard. I drag myself to work every day feeling like my creativity and my ambition have both fallen through the floor. All I want is out. </p>
+<p>The downward mental slide that started in September continues in November. The site has a resiliency problem that resists debugging, and I struggle to fight off anger against the thing I’ve made. I turn into a packaged ball of stress, worrying at any moment that the site is going to crash and I’ll need to manually bring it back up. The constantly changing weather brings with it a sickness I can’t shake. The combination of the above brings on a spat of panic attacks that convince me I’m about to stop breathing. I hit a low, hard. I drag myself to work every day feeling like my creativity and my ambition have both fallen through the floor. All I want is out.</p>
 
 <p>And then something happens.</p>
 
-<p>I grow up. </p>
+<p>I grow up.</p>
 
 <p><img src="/images/2015_retro/magic.png" alt="Picture of the magic cup of awesome" /></p>
 
@@ -139,7 +122,7 @@ Drapes closed, I don't know what time it is, I'm still awake, I gotta shine this
 
 <p><img src="/images/2015_retro/monument.png" alt="Picture of the Washington monument in December" /></p>
 
-<p>The weather in DC still can’t make its mind up, even in December. We enjoy 70 degree days. We endure 30 degree days. These happen within the same week. The work continues. I pack the bags up to hit the road again, homeward bound. I stop over in Nashville for the night, spending the evening with Daniel, Helen, Monroe, Adam, Ian, Mary, and Roger. </p>
+<p>The weather in DC still can’t make its mind up, even in December. We enjoy 70 degree days. We endure 30 degree days. These happen within the same week. The work continues. I pack the bags up to hit the road again, homeward bound. I stop over in Nashville for the night, spending the evening with Daniel, Helen, Monroe, Adam, Ian, Mary, and Roger.</p>
 
 <p>Monroe is Daniel and Helen’s first son. Roger will be Ian and Mary’s. Adam has a little daughter, but she wasn’t around for our hot chicken fiesta that night. When I left Nashville to move to DC, those couples were starting on a journey of married life. Now they are exploring life with children. They have wonderful lives together and homes in one of America’s great cities, a city which is itself growing by leaps and bounds. I imagine Nashville in 2015 is an exciting place to start a family.</p>
 
@@ -147,51 +130,24 @@ Drapes closed, I don't know what time it is, I'm still awake, I gotta shine this
 
 <p><img src="/images/2015_retro/puzzle.png" alt="Picture of a puzzle" /></p>
 
-<p>It’s December 23rd. My brother arrives in Jackson, MS tonight, and we’ll have the entire family together again. For Christmas Eve, we’ll continue a tradition started last year: Lou Malnati’s pizza for dinner, shipped frozen from Chicago and baked here at home. Linda arrives on the 26th for her first visit to the Magnolia State. While planning for her few days here in town, I reimagined the city as a first-time traveler would. What does downtown Jackson look like? What is Fondren? What do the Christmas lights look like in Canton? </p>
+<p>It’s December 23rd. My brother arrives in Jackson, MS tonight, and we’ll have the entire family together again. For Christmas Eve, we’ll continue a tradition started last year: Lou Malnati’s pizza for dinner, shipped frozen from Chicago and baked here at home. Linda arrives on the 26th for her first visit to the Magnolia State. While planning for her few days here in town, I reimagined the city as a first-time traveler would. What does downtown Jackson look like? What is Fondren? What do the Christmas lights look like in Canton?</p>
 
-<pre><code>Nothing behind me, everything ahead of me, as is ever so on the road. 
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nothing behind me, everything ahead of me, as is ever so on the road. 
+</code></pre></div></div>
 
-<p>I woke up in 2015 running from something. I thought there must be this entire world out there that I was missing out on, and I needed to run to Nashville or San Francisco or DC or New York or London or Paris or Amsterdam or Istanbul to find it. Whatever it was, it was always just beyond my reach. In 2015, somewhere out there on the road, I found it. An optimism, perhaps, or just a calm belief that I’ll find and achieve whatever it is that I’m meant to. </p>
+<p>I woke up in 2015 running from something. I thought there must be this entire world out there that I was missing out on, and I needed to run to Nashville or San Francisco or DC or New York or London or Paris or Amsterdam or Istanbul to find it. Whatever it was, it was always just beyond my reach. In 2015, somewhere out there on the road, I found it. An optimism, perhaps, or just a calm belief that I’ll find and achieve whatever it is that I’m meant to.</p>
 
 <p>I will wake up in 2016 on a couch in the Florida Keys, closer to Havana or Cancun than my apartment in Washington. Then I’ll start a 1,200 mile dash back to Washington, retracing the same steps I took to return from Charleston. I’ll wave at Jacksonville and Savannah as I go straight up I-95, which stretches on up to Philadelphia, New York, Boston, up, up, up until it crosses into Canada near Houlton, Maine. You split into Canada Highway 2 at that point, which will take you north before changing into Autoroute 20 O, whipping past Quebec City (where there are ice hotels) and into Montreal. From there you can catch a flight to Dublin for $500 or south to Punta Cana if there’s a deal going on. Or just keep driving, on into the west, crossing back over into the United States at Detroit, catching the California Zephyr in Chicago and on to San Francisco. And then a quick flight back to DC to do it all over again.</p>
 
 <iframe class="desktop_map_embed" src="https://mapsengine.google.com/map/u/0/embed?mid=zwj5ygdqFNoo.k0PeQHjzWkU0" width="780" height="480"></iframe>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/12/26/2015-a-year-on-the-road-in-2015.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

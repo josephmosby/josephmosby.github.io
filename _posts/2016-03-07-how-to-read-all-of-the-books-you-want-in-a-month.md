@@ -1,6 +1,7 @@
 ---
 layout: post
 title: How to Read All of the Books You Want in a Month
+tags: joe
 ---
 
 In the past two months, I've drastically scaled up the number of books I read on a per month basis. On average, I take out two books a week, a far cry from [a book every single day](https://www.youtube.com/watch?v=7bB_fVDlvhc). Sometimes, it's enjoyable and relaxing reading, sometimes it's tiring work. The end result, though, is always worthwhile. 

@@ -1,8 +1,7 @@
 ---
 layout: post
 title: String presentation with textwrap
-tags:
-- pymod
+tags: code
 ---
 
 I haven't written that many programs that run solely from the command line with a lot of user instructions incorporated into the program flow, so I haven't done much Python display text processing. But if I had, `textwrap` would very likely be one of my best friends.

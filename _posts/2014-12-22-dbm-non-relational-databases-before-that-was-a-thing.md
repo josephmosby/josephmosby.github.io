@@ -1,8 +1,7 @@
 ---
-layout: pymod
+layout: post
 title: DBM - non-relational databases before that was a thing
-tags:
-- pymod
+tags: code
 ---
 
 In 1970, databases were all the rage. Big stinkin' associative databases, mostly sold by IBM and running on a mainframe. A gentleman by the name of Edgar Codd was starting to beat the drum on this idea called a "relational" database, but IBM had no interest in cannibalizing the sales of its IMS software in favor of this new-fangled relational thingy. Until Larry Ellison started competing with IBM with his Oracle database, everybody was using these associative databases.

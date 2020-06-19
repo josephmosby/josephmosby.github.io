@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Self-mastery
+tags: joe
 ---
 
 Back in [January of 2016](http://josephmosby.com/2016/01/29/a-january-recap-and-some-personal-experiments.html), I began a series of monthly blog posts cataloging self-experimentation and meditations that I had experienced over the course of the month. I was capping a three-month binge on [Tim Ferriss's podcasts](http://tim.blog/podcast/) followed by a thorough reading of *The Four-Hour Workweek* and a stack of Tim's blog posts. Something deep in my brain told me that I should begin a similar series of experiments along with associated documentation, and I jumped in. I [gave up coffee](http://josephmosby.com/2016/02/29/a-february-recap-or-what-life-is-like-without-coffee.html) for the first time. I [started waking up at 5:30](http://josephmosby.com/2016/03/31/a-march-recap-or-an-experiment-in-moderating-moderation.html) for workouts. In my final post ([January 2017](http://josephmosby.com/2017/01/27/fast.html)), I just straight ditched food for a bit, inspired by the work of [Dom D'Agostino](http://www.ketonutrition.org/). 

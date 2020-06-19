@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Where did my application go? and other tails from the log files
+tags: code
 ---
 
 I woke up this morning to yet another fun little situation from my application. As opposed to the prior set of errors, where response times were creeping up into the uncomfortably high range, this is exactly the opposite: the application stops responding to anything. Here's what that graph looks like in New Relic:

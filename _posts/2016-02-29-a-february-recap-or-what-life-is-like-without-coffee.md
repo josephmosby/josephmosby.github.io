@@ -1,6 +1,7 @@
 ---
 layout: post
 title: A February Recap or What Life is Like Without Coffee
+tags: joe
 ---
 
 In February, I decided to enter life's "Hard Mode." I gave up caffeine completely.

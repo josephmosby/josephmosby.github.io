@@ -4,93 +4,76 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>12 Apr 2015</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>Type experiments with mypy</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/04/12/type-experiments-with-mypy.html"><h3>Type experiments with mypy</h3></a>
 	</div>
-	<div class="col-8">
-		<p>At PyCon 2015, much hullabaloo was made over <a href="https://www.python.org/dev/peps/pep-0484/">PEP 484</a> and the notion that “types” would be coming to Python. As I only vaguely understood the meat behind these protests, I decided to take a look at the PEP and the science behind it. </p>
+	<div class="col-md-8 col-sm-12">
+		<p>At PyCon 2015, much hullabaloo was made over <a href="https://www.python.org/dev/peps/pep-0484/">PEP 484</a> and the notion that “types” would be coming to Python. As I only vaguely understood the meat behind these protests, I decided to take a look at the PEP and the science behind it.</p>
 
-<p>A “type” in computer programming is pretty much exactly what it sounds like: it’s a type of data. One commonly sees integers, strings, floating-point numbers (simplistically, just numbers with decimals), Booleans (true/false), and lists in any language that uses types. Programming languages that use types allow the computer to predict and organize data at the machine level in the optimal way for the type. </p>
+<p>A “type” in computer programming is pretty much exactly what it sounds like: it’s a type of data. One commonly sees integers, strings, floating-point numbers (simplistically, just numbers with decimals), Booleans (true/false), and lists in any language that uses types. Programming languages that use types allow the computer to predict and organize data at the machine level in the optimal way for the type.</p>
 
 <p>I had no trouble understanding types, but I had to think on “static” versus “dynamic” typing for a while. Static typing means that data types are declared when writing the program, and a type checker will protest if data is of the “wrong” type. This can be illustrated with an example from C:</p>
 
-<pre><code>static int numOne, numTwo, sum;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static int numOne, numTwo, sum;
 numOne = 5;
 numTwo = 8;
 sum = numOne + numTwo;
-</code></pre>
+</code></pre></div></div>
 
-<p>In this example, <code>numOne</code> and <code>numTwo</code> are declared as integers, and can only be integers. If later on in the program, you want to do something like this:</p>
+<p>In this example, <code class="highlighter-rouge">numOne</code> and <code class="highlighter-rouge">numTwo</code> are declared as integers, and can only be integers. If later on in the program, you want to do something like this:</p>
 
-<pre><code>numOne = "hello";
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>numOne = "hello";
+</code></pre></div></div>
 
-<p>the compiler will throw a Type Error, and you won’t be able to compile your code. It’s not an execution problem – the program hasn’t even run yet – it’s the compiler checking up on you and letting you know that you said two conflicting things. You tried to say <code>numOne</code> was an integer, then later on tried to say it was a string, and that is <em>NOT OK.</em></p>
+<p>the compiler will throw a Type Error, and you won’t be able to compile your code. It’s not an execution problem – the program hasn’t even run yet – it’s the compiler checking up on you and letting you know that you said two conflicting things. You tried to say <code class="highlighter-rouge">numOne</code> was an integer, then later on tried to say it was a string, and that is <em>NOT OK.</em></p>
 
 <p>Dynamic typing, by contrast, takes a more YOLO approach to typing. Variable types don’t need to be explicitly spelled out in the program, and variables can change types over the life cycle of the program. This is all totally okay in Python’s lack-of-type system:</p>
 
-<pre><code>num_one = 5
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>num_one = 5
 num_two = 8
 sum = num_one + num_two
 
 &lt; moar code &gt;
 
 num_one = "hello"
-</code></pre>
+</code></pre></div></div>
 
-<p>Python’s totally cool with all of this in its dynamically typed world. </p>
+<p>Python’s totally cool with all of this in its dynamically typed world.</p>
 
-<p>In 2012, Jukka Lehtosalo announced he was working on a statically typed Python derivative called <a href="http://mypy-lang.org/index.html">mypy</a>. <code>mypy</code> allows programmers to declare types in their Python programs and realize the performance benefits of static typing while maintaining the dynamic typing that’s part of the Python core. <code>mypy</code> puts this example on their homepage: </p>
+<p>In 2012, Jukka Lehtosalo announced he was working on a statically typed Python derivative called <a href="http://mypy-lang.org/index.html">mypy</a>. <code class="highlighter-rouge">mypy</code> allows programmers to declare types in their Python programs and realize the performance benefits of static typing while maintaining the dynamic typing that’s part of the Python core. <code class="highlighter-rouge">mypy</code> puts this example on their homepage:</p>
 
-<pre><code># regular Python
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># regular Python
 
 def fibonacci(n):
 	a, b = 0, 1
@@ -105,13 +88,13 @@ def fibonacci(n: int) -&gt; Iterator[int]:
 	while a &lt; n:
 		yield a
 		a, b = b, a+b
-</code></pre>
+</code></pre></div></div>
 
 <p>I’m skeptical. Let’s do some timing comparisons.</p>
 
-<p>I pulled these scripts off of the <a href="http://mypy-lang.org/examples.html">mypy examples page</a>, just to make sure I wasn’t messing with any data by writing a bad program. We have a test with <a href="https://gist.github.com/josephmosby/deed574acae4012c6f5e">dynamic types</a> and one with <a href="https://gist.github.com/josephmosby/7677272079fd9ccfb761">static types</a>. There are two tweaks in each program to adjust for differences between Python 2 and Python 3 (on line 13, <code>numbers.next()</code> was changed to <code>next(numbers)</code> and on line 18, <code>itertools.ifilter()</code> was changed to <code>filter()</code>). </p>
+<p>I pulled these scripts off of the <a href="http://mypy-lang.org/examples.html">mypy examples page</a>, just to make sure I wasn’t messing with any data by writing a bad program. We have a test with <a href="https://gist.github.com/josephmosby/deed574acae4012c6f5e">dynamic types</a> and one with <a href="https://gist.github.com/josephmosby/7677272079fd9ccfb761">static types</a>. There are two tweaks in each program to adjust for differences between Python 2 and Python 3 (on line 13, <code class="highlighter-rouge">numbers.next()</code> was changed to <code class="highlighter-rouge">next(numbers)</code> and on line 18, <code class="highlighter-rouge">itertools.ifilter()</code> was changed to <code class="highlighter-rouge">filter()</code>).</p>
 
-<pre><code>$ python dyn_test.py
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python dyn_test.py
 dyn_test.py
 100003
 Time one
@@ -146,46 +129,19 @@ Time four
 100003
 Time five
 7.929549932479858
-</code></pre>
+</code></pre></div></div>
 
 <p>Well… I can’t detect any statistically significant differences here. I remain skeptical.</p>
 
-<p>Now, where I <em>can</em> call out some perks: the <code>mypy</code> type checker is super awesome. It does a lot of pre-compile lint work on the code and helped me detect the two errors I noted above. I could also see this being useful in a codebase that’s touched by a lot of enterprise developers. But does it offer significant performance benefits? *shrug* I’m not sure. Perhaps in a more complex world.</p>
+<p>Now, where I <em>can</em> call out some perks: the <code class="highlighter-rouge">mypy</code> type checker is super awesome. It does a lot of pre-compile lint work on the code and helped me detect the two errors I noted above. I could also see this being useful in a codebase that’s touched by a lot of enterprise developers. But does it offer significant performance benefits? *shrug* I’m not sure. Perhaps in a more complex world.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/12/type-experiments-with-mypy.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

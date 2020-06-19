@@ -1,0 +1,12 @@
+---
+layout: default
+class: "post-list archives"
+---
+<div class="row">
+	<div class="col-md-12">
+		{% for post in site.posts %}
+		{% include postlist.html %}
+		{% endfor %}
+	</ul>
+	</div>
+</div>

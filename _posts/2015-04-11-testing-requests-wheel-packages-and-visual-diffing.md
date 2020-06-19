@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Testing requests, wheel packages, and visual diffing
+tags: code
 ---
 
 	No matter how many unit tests you write, you'll never write a test for "is there a pony on the page?"

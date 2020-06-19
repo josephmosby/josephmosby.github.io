@@ -4,245 +4,194 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>03 Apr 2014</time>
+			<a href="/tags/"></a>
 		</div>
+		<h3>Hacking Confirmation Emails on the Fly with Mailgun</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2014/04/03/hacking-confirmation-emails-on-the-fly-with-mailgun.html"><h3>Hacking Confirmation Emails on the Fly with Mailgun</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>I just finished slinging together some code for a confirmation email system for an email advocacy campaign using <a href="http://corporate.cqrollcall.com/cqrcengage">CQRC Engage</a>. Engage has a fairly simple set of tricks: it provides you with a Javascript-based widget to write a letter to your legislators, then submits that letter through whichever digital channel the legislator uses. As part of its process, it runs a check to find your particular legislator based on street address and postal code, then tailors the messages for that particular person. Engage doesn’t have an email confirmation sent to you as part of your advocacy, so I built one.</p>
 
 <p>Engage accepts letter submissions via that Javascript widget, then stores data about that advocate, the target, and the message itself in a database accessible via an API. This is all we need to begin constructing our confirmation email system. We’re going to use <a href="http://www.mailgun.com">Mailgun</a> for this task, which is an API-based system that accepts HTTP POST requests and turns them into emails at your command. Without further ado, let’s start building.</p>
 
 <p>I’m first going to build out a series of tiny classes that I’ll use to power my app. In this case, we’ll need four: one for the Advocate who sent a message, one for the Target, one for the Sent Message, and one for the Confirmation Email. They look something like this:</p>
 
-<p>```python
-class Advocate:
-	def <strong>init</strong>(self, first_name, last_name, email):
-		self.first_name = first_name
-		self.last_name = last_name
-		self.email = email</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Advocate</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">email</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">=</span> <span class="n">first_name</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">last_name</span> <span class="o">=</span> <span class="n">last_name</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">email</span>
+		
+<span class="k">class</span> <span class="nc">Target</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">=</span> <span class="n">first_name</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">last_name</span> <span class="o">=</span> <span class="n">last_name</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+		
+<span class="k">class</span> <span class="nc">SentMessage</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">recipients</span><span class="p">,</span> <span class="n">message_subject</span><span class="p">,</span> <span class="n">message_text</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">sender</span> <span class="c1"># who should be an Advocate
+</span>		<span class="bp">self</span><span class="p">.</span><span class="n">recipients</span> <span class="o">=</span> <span class="n">recipients</span> <span class="c1"># a list of Targets
+</span>		<span class="bp">self</span><span class="p">.</span><span class="n">message_subject</span> <span class="o">=</span> <span class="n">message_subject</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">message_text</span> <span class="o">=</span> <span class="n">message_text</span>
 
-<p>class Target:
-	def <strong>init</strong>(self, first_name, last_name, title):
-		self.first_name = first_name
-		self.last_name = last_name
-		self.title = title</p>
-
-<p>class SentMessage:
-	def <strong>init</strong>(self, sender, recipients, message_subject, message_text):
-		self.sender = sender # who should be an Advocate
-		self.recipients = recipients # a list of Targets
-		self.message_subject = message_subject
-		self.message_text = message_text</p>
-
-<p>class ConfirmationEmail:
-	def <strong>init</strong>(self, sent_message):
-		self.message_sent = sent_message
-```</p>
+<span class="k">class</span> <span class="nc">ConfirmationEmail</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sent_message</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span> <span class="o">=</span> <span class="n">sent_message</span>
+</code></pre></div></div>
 
 <p>This is all stuff I’m going to extract from Engage without any further processing. I’m also going to go ahead and construct my confirmation email template using Jinja’s syntax, which will accept data from these classes you see above.</p>
 
-<p>```</p>
-<html>
-	<head>
-		<meta charset="UTF-8" />
-	</head>
-	<body>
-		<p>Dear {{ first_name }} {{ last_name }}:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+	<span class="nt">&lt;head&gt;</span>
+		<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;/head&gt;</span>
+	<span class="nt">&lt;body&gt;</span>
+		<span class="nt">&lt;p&gt;</span>Dear {{ first_name }} {{ last_name }}:<span class="nt">&lt;/p&gt;</span>
 		
-		<p>{{ confirmation_leadin }}</p>
+		<span class="nt">&lt;p&gt;</span>{{ confirmation_leadin }}<span class="nt">&lt;/p&gt;</span>
 		
 		{% for recipient in recipients  %}
 			{{ recipient.first_name }} {{ recipient.last_name }}, {{ recipient.title }}
-			<br />
+			<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
 		{% endfor %}
 		
-		<br />
+		<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
 		
-		<p>SUBJECT: {{ message_subject }}</p>
+		<span class="nt">&lt;p&gt;</span>SUBJECT: {{ message_subject }}<span class="nt">&lt;/p&gt;</span>
 		
 		{{ message_text }}
-	</body>
-</html>
-<p>```</p>
+	<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
 
 <p>So far so good. You can see here that we’ve got a “confirmation_leadin” variable that doesn’t seem to line up with any of our other tags. We added some introductory text into our emails as a “thank you” before including the text of the message and the list of targets it was sent to. Next step is to add on some basic work to begin converting the plain text messages out of Engage into HTML-based messages using <a href="https://pythonhosted.org/Markdown/reference.html">Markdown</a>. Then we’ll use that, along with some of the data from our classes, to populate our Jinja template.</p>
 
-<p>```python
-# other lines truncated for brevity
-class ConfirmationEmail: 
-	def <strong>init</strong>(self, sent_message):
-		self.message_sent = sent_message
-		self.sanitized_message = markdown.markdown(sent_message.message_text, safe_mode=’replace’)</p>
-
-<pre><code>def create_confirmation_text(self):
-	self.confirmation_message = template.render( 
-								{"first_name" : self.message_sent.sender.first_name,
-							   	"last_name" : self.message_sent.sender.last_name, 
-							   	"targets" : self.message_sent.recipients,
-							   	"confirmation_leadin" : CONFIRMATION_LEADIN,
-							   	"message_subject" : self.message_sent.message_subject,
-							   	"message_text" : self.sanitized_message}) ```
-</code></pre>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># other lines truncated for brevity
+</span><span class="k">class</span> <span class="nc">ConfirmationEmail</span><span class="p">:</span> 
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sent_message</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span> <span class="o">=</span> <span class="n">sent_message</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">sanitized_message</span> <span class="o">=</span> <span class="n">markdown</span><span class="p">.</span><span class="n">markdown</span><span class="p">(</span><span class="n">sent_message</span><span class="p">.</span><span class="n">message_text</span><span class="p">,</span> <span class="n">safe_mode</span><span class="o">=</span><span class="s">'replace'</span><span class="p">)</span>
+	
+	<span class="k">def</span> <span class="nf">create_confirmation_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">confirmation_message</span> <span class="o">=</span> <span class="n">template</span><span class="p">.</span><span class="n">render</span><span class="p">(</span> 
+									<span class="p">{</span><span class="s">"first_name"</span> <span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span>
+								   	<span class="s">"last_name"</span> <span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="n">last_name</span><span class="p">,</span> 
+								   	<span class="s">"targets"</span> <span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span><span class="p">.</span><span class="n">recipients</span><span class="p">,</span>
+								   	<span class="s">"confirmation_leadin"</span> <span class="p">:</span> <span class="n">CONFIRMATION_LEADIN</span><span class="p">,</span>
+								   	<span class="s">"message_subject"</span> <span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span><span class="p">.</span><span class="n">message_subject</span><span class="p">,</span>
+								   	<span class="s">"message_text"</span> <span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">sanitized_message</span><span class="p">})</span>
+</code></pre></div></div>
 
 <p>We’re almost there! But now we just need to actually fire off that email, which requires a simple HTTP request using the <a href="http://docs.python-requests.org/en/latest/">requests</a> library.</p>
 
-<p>```python
-# other lines truncated for brevity
-class ConfirmationEmail: 
-	def <strong>init</strong>(self, sent_message):
-		self.message_sent = sent_message
-		self.sanitized_message = markdown.markdown(sent_message.message_text, safe_mode=’replace’)</p>
-
-<pre><code>def create_confirmation_text(self):
-	self.confirmation_message = template.render( 
-								{"first_name" : self.message_sent.sender.first_name,
-							   	"last_name" : self.message_sent.sender.last_name, 
-							   	"targets" : self.message_sent.recipients,
-							   	"confirmation_leadin" : CONFIRMATION_LEADIN,
-							   	"message_subject" : self.message_sent.message_subject,
-							   	"message_text" : self.sanitized_message})
-
-def send_confirmation_message(self):
-	return requests.post(MAILGUN_DOMAIN, auth=("api",API_KEY), 
-							data={"from": DEFAULT_SENDER,
-								  "to": [self.message_sent.sender.email],
-								  "subject": CONFIRMATION_SUBJECT,
-								  "html": self.confirmation_message}) ```
-</code></pre>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># other lines truncated for brevity
+</span><span class="k">class</span> <span class="nc">ConfirmationEmail</span><span class="p">:</span> 
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sent_message</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span> <span class="o">=</span> <span class="n">sent_message</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">sanitized_message</span> <span class="o">=</span> <span class="n">markdown</span><span class="p">.</span><span class="n">markdown</span><span class="p">(</span><span class="n">sent_message</span><span class="p">.</span><span class="n">message_text</span><span class="p">,</span> <span class="n">safe_mode</span><span class="o">=</span><span class="s">'replace'</span><span class="p">)</span>
+	
+	<span class="k">def</span> <span class="nf">create_confirmation_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">confirmation_message</span> <span class="o">=</span> <span class="n">template</span><span class="p">.</span><span class="n">render</span><span class="p">(</span> 
+									<span class="p">{</span><span class="s">"first_name"</span> <span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span>
+								   	<span class="s">"last_name"</span> <span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="n">last_name</span><span class="p">,</span> 
+								   	<span class="s">"targets"</span> <span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span><span class="p">.</span><span class="n">recipients</span><span class="p">,</span>
+								   	<span class="s">"confirmation_leadin"</span> <span class="p">:</span> <span class="n">CONFIRMATION_LEADIN</span><span class="p">,</span>
+								   	<span class="s">"message_subject"</span> <span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span><span class="p">.</span><span class="n">message_subject</span><span class="p">,</span>
+								   	<span class="s">"message_text"</span> <span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">sanitized_message</span><span class="p">})</span>
+	
+	<span class="k">def</span> <span class="nf">send_confirmation_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">MAILGUN_DOMAIN</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s">"api"</span><span class="p">,</span><span class="n">API_KEY</span><span class="p">),</span> 
+								<span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s">"from"</span><span class="p">:</span> <span class="n">DEFAULT_SENDER</span><span class="p">,</span>
+									  <span class="s">"to"</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">message_sent</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="n">email</span><span class="p">],</span>
+									  <span class="s">"subject"</span><span class="p">:</span> <span class="n">CONFIRMATION_SUBJECT</span><span class="p">,</span>
+									  <span class="s">"html"</span><span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">confirmation_message</span><span class="p">})</span>
+</code></pre></div></div>
 
 <p>We need one final bit to tie it all together - our script that checks the Engage system for new messages, downloads the data and then generates email templates out of it. I’m using pseudocode for some of the Engage API calls, but you’ll get the general idea.</p>
 
-<p>```python
-if <strong>name</strong> == “<strong>main</strong>”:
-	token = cq.login(‘user’,’password’)
-	actions = getActions(token)</p>
-
-<pre><code># store Actions to our owned database
-# the StoreActions formula was all written to check for anything already in the database and filter out those results
-
-conn = db.connect('db-location')	
-storeActions(conn, actions)
-
-# now we retrieve unconfirmed actions
-# this returns me a dictionary in the format { advocateId: {messageId: X, targets: [Y, Z, ...]}}  
-
-unconfirmed = cq.retrieveAllUnconfirmed(conn)
-
-for advocateId in unconfirmed.keys():
-	advocate = cq.getAdvocate(token, advocateId)
-	sender = Advocate(first_name = advocate["first_name"], last_name = advocate["last_name"], email = advocate["email"])
-	recipients = []
-	for targetId in unconfirmed[advocateId]["targets"]:
-		target = cq.getTarget(token, targetId)
-		recipients.append(Target(first_name = target["first_name"], last_name = target["last_name"], title = target["title"]))
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+	<span class="n">token</span> <span class="o">=</span> <span class="n">cq</span><span class="p">.</span><span class="n">login</span><span class="p">(</span><span class="s">'user'</span><span class="p">,</span><span class="s">'password'</span><span class="p">)</span>
+	<span class="n">actions</span> <span class="o">=</span> <span class="n">getActions</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
 	
-	message_delivered = cq.getMessage(token, unconfirmed[advocateId]["messageId"])
-	sent_message = SentMessage(sender = sender, recipients = recipients, message_subject = message_delivered["message_subject"], message_text = message_delivered["message_body"])
+	<span class="c1"># store Actions to our owned database
+</span>	<span class="c1"># the StoreActions formula was all written to check for anything already in the database and filter out those results
+</span>	
+	<span class="n">conn</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'db-location'</span><span class="p">)</span>	
+	<span class="n">storeActions</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">actions</span><span class="p">)</span>
 	
-	confirmation_email = ConfirmationEmail(sent_message)
-	confirmation_email.create_confirmation_text()
+	<span class="c1"># now we retrieve unconfirmed actions
+</span>	<span class="c1"># this returns me a dictionary in the format { advocateId: {messageId: X, targets: [Y, Z, ...]}}  
+</span>	
+	<span class="n">unconfirmed</span> <span class="o">=</span> <span class="n">cq</span><span class="p">.</span><span class="n">retrieveAllUnconfirmed</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
 	
-	confirmation_email.send_confirmation_email()
- 
-# then finally, mark those as confirmed in our database
-
-cq.markAsConfirmed(conn, unconfirmed.keys())
-</code></pre>
-
+	<span class="k">for</span> <span class="n">advocateId</span> <span class="ow">in</span> <span class="n">unconfirmed</span><span class="p">.</span><span class="n">keys</span><span class="p">():</span>
+		<span class="n">advocate</span> <span class="o">=</span> <span class="n">cq</span><span class="p">.</span><span class="n">getAdvocate</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">advocateId</span><span class="p">)</span>
+		<span class="n">sender</span> <span class="o">=</span> <span class="n">Advocate</span><span class="p">(</span><span class="n">first_name</span> <span class="o">=</span> <span class="n">advocate</span><span class="p">[</span><span class="s">"first_name"</span><span class="p">],</span> <span class="n">last_name</span> <span class="o">=</span> <span class="n">advocate</span><span class="p">[</span><span class="s">"last_name"</span><span class="p">],</span> <span class="n">email</span> <span class="o">=</span> <span class="n">advocate</span><span class="p">[</span><span class="s">"email"</span><span class="p">])</span>
+		<span class="n">recipients</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="k">for</span> <span class="n">targetId</span> <span class="ow">in</span> <span class="n">unconfirmed</span><span class="p">[</span><span class="n">advocateId</span><span class="p">][</span><span class="s">"targets"</span><span class="p">]:</span>
+			<span class="n">target</span> <span class="o">=</span> <span class="n">cq</span><span class="p">.</span><span class="n">getTarget</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">targetId</span><span class="p">)</span>
+			<span class="n">recipients</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">Target</span><span class="p">(</span><span class="n">first_name</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="s">"first_name"</span><span class="p">],</span> <span class="n">last_name</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="s">"last_name"</span><span class="p">],</span> <span class="n">title</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="s">"title"</span><span class="p">]))</span>
+		
+		<span class="n">message_delivered</span> <span class="o">=</span> <span class="n">cq</span><span class="p">.</span><span class="n">getMessage</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">unconfirmed</span><span class="p">[</span><span class="n">advocateId</span><span class="p">][</span><span class="s">"messageId"</span><span class="p">])</span>
+		<span class="n">sent_message</span> <span class="o">=</span> <span class="n">SentMessage</span><span class="p">(</span><span class="n">sender</span> <span class="o">=</span> <span class="n">sender</span><span class="p">,</span> <span class="n">recipients</span> <span class="o">=</span> <span class="n">recipients</span><span class="p">,</span> <span class="n">message_subject</span> <span class="o">=</span> <span class="n">message_delivered</span><span class="p">[</span><span class="s">"message_subject"</span><span class="p">],</span> <span class="n">message_text</span> <span class="o">=</span> <span class="n">message_delivered</span><span class="p">[</span><span class="s">"message_body"</span><span class="p">])</span>
+		
+		<span class="n">confirmation_email</span> <span class="o">=</span> <span class="n">ConfirmationEmail</span><span class="p">(</span><span class="n">sent_message</span><span class="p">)</span>
+		<span class="n">confirmation_email</span><span class="p">.</span><span class="n">create_confirmation_text</span><span class="p">()</span>
+		
+		<span class="n">confirmation_email</span><span class="p">.</span><span class="n">send_confirmation_email</span><span class="p">()</span>
+	 
+	<span class="c1"># then finally, mark those as confirmed in our database
+</span>	
+	<span class="n">cq</span><span class="p">.</span><span class="n">markAsConfirmed</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">unconfirmed</span><span class="p">.</span><span class="n">keys</span><span class="p">())</span>
+</code></pre></div></div>
 <p>And that’s it. We’ve built out a confirmation email system using Python - not very pretty, but it sure knows how to get the job done. Our final task is to run this puppy on a schedule using cron:</p>
 
-<p><code>$ env EDITOR=nano crontab -e</code></p>
+<p><code class="highlighter-rouge">$ env EDITOR=nano crontab -e</code></p>
 
-<p><code>
-*/3 * * * * /path/to/your/script
-</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*/3 * * * * /path/to/your/script
+</code></pre></div></div>
 
 <p>That will set up a cron job that runs every 3 minutes and executes our confirmation email script. We’re ready to run this live, and – barring anything catastrophic like a server crash – it’s relatively error proof. The script is designed to just fail silently and re-open every session if a script can’t finish execution, so if a script misfires we’ll just pick up those confirmation emails in the next batch three minutes later.</p>
 
 <p>I’m a Mailgun convert after this. It’s perfect for setting up simple email messages and automating them. The fact that I hacked this together in a few hours with most of that time dedicated to parsing through Engage’s API documentation shows the ease of Mailgun’s system. I’m all for it.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/04/03/hacking-confirmation-emails-on-the-fly-with-mailgun.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

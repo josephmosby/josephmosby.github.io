@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Debugging uWSGI dropouts
+tags: code
 ---
 
 On Friday night, our National Journal app suddenly stopped responding to requests. Our response time went straight through the roof, but this didn't correspond to any noticeable increase in load. In fact, our throughput (the requests per minute we respond to) had been declining up until the breakdown. We didn't have any noticeable spike in traffic that corresponded to this outage, so I suspect our `uwsgi` configuration may be to blame. Here's what the graph looked like:

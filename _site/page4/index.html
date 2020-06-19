@@ -4,565 +4,820 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
-	<body>
-
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/05/02/not-all-software-engineers-are-created-equal.html"><h3>Not all software engineers are created equal</h3></a>
-		<div class="date">May 02, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>In my first ever technology job, I was the lowest-ranked member of a consulting team. Our team was hired by a federal government agency to help them figure out how to respond to an annual audit of their IT environment - specifically, a Sarbanes-Oxley Section 404 audit. An auditor would come in, tell the agency where there were problems, and we would help agency staff fix those problems. I had never worked in a government agency before. I had never programmed a financial application before. What good was I? How did I earn the title of “ERS Consultant?”</p>
-
-<p>It’s easy to get lost in job titles in technology, because we technology professionals deal in a world of tools. <code>ls</code> does the same thing every time you run it - it gives you the list of files in a directory. <code>python manage.py migrate</code> does the same thing every time you run it - it makes changes to a database based on changes to a Django project. Software engineers have a tendency to fall into a logical trap of thinking we are like the programs we run: repeatable processes that do the same thing each time, perhaps a little faster over time, but ultimately executing our assigned task whenever we’re needed. “I am a Django web programmer,” we say. “I build Django apps.”</p>
-
-<p>If that is how you think of your work, your career is going to sputter. </p>
-
-<p>When I started in my first-ever technology job, I had tangential experience that was extremely useful in the particular project. I had a master’s degree in accountancy, which meant I had gone into <em>extreme</em> detail about Sarbanes-Oxley in my coursework. I could work the technology of that government agency into that mental framework of “controls” and “materiality” and build something better out of that union. I had also interned with the consulting firm before. Though the internship was with a totally different part of the company, I was familiar with the expectations and the systems that powered the organization. And if you’ve ever taken four hours of a work day trying to find the IT help desk phone line rather than doing something that makes money for the firm, you realize that coming into corporate-world with some pre-existing knowledge is useful.</p>
-
-<p>These things have value to employers. They make you a better technologist. I was not just an “ERS Consultant.” I was a technology professional with accounting experience, and that made me disproportionately useful for a Sarbanes-Oxley project.</p>
-
-<p>I was next picked up by a PR firm to code websites for their clients. Turns out, they didn’t care about my accounting degree. What they did care about was my experience navigating large organizations and my ability to comfortably interact with clients. </p>
-
-<p>PR firms do really, really simple technology work. It’s all shiny front-end pretty stuff. You’re never going to build a machine-learning system that can analyze your client’s Twitter presence in real time, but you will learn how to sweat the spacing of letters in a headline just like a print designer. PR firms want the prettiest thing they can get in the shortest amount of time possible, and often the timeline wins out over the features of the site. That’s how the industry <em>works</em>. You can hope to spend weeks and weeks perfecting an amazing website that showcases all of the wonderful things your client is doing, and it won’t matter at all once the PR “moment” is gone. </p>
-
-<p>You can have a computer science Ph.D. from Stanford and absolutely suck as a developer in a PR firm if you can’t be a little bit like a PR pro yourself. That world isn’t about technology. It’s about words and conversation and making people like you and showing others how they can make people like them, too. And sometimes it involves talking about Sarbanes-Oxley with your client because she has to go into a meeting with a Deloitte auditor who’s asking too many questions. Karma sucks.</p>
-
-<p>Not all software engineers are created equal. Some know accounting. Some know journalism. Some know advertising. Find whatever your “one more thing” is and <em>use it.</em> Solve problems. When necessary, use code. </p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/05/02/not-all-software-engineers-are-created-equal.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/04/21/i-dove-deep-into-migrations-so-you-dont-have-to.html"><h3>I dove deep into a Django migration so you don&#39;t have to</h3></a>
-		<div class="date">April 21, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>It is 2015. I expect to be able to forget my webapp database exists once I plug my credentials into a configuration file. From then on out it should be nothing more than feeding query terms into functions and getting lists back.</p>
-
-<p><em>AND YET.</em></p>
-
-<p>Back in the old days of Django, you had to cut all your database changes yourself. If you made schema changes to an app after you had run <code>syncdb</code>, you had to go figure out how to manage the changes with <code>ALTER TABLE</code> statements. Then Ruby on Rails came along with its cute little migrations that did all the hard work for you. <code>south</code> came along to help Django do the same, and then we finally just decided to roll <code>south</code> into Django core. If you make a change to a model, you run <code>manage.py makemigrations &amp;&amp; manage.py migrate</code> and everything’s happy. </p>
-
-<p>Well, until you’ve got crazy errors spitting out of your console because your relationships changed on three apps at once and two developers working on different portions of the project established a bunch of weird subclassing and EVERYTHING is going to pieces. </p>
-
-<p>And then we must deal with migrations. Let us begin.</p>
-
-<p>A sample migration file (for a model called <code>Post</code>) looks something like this:</p>
-
-<pre><code># -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-from django.db import models, migrations
-
-class Migration(migrations.Migration):
-
-	dependencies = []
-
-	operations = [
-		migrations.CreateModel(
-			name='Post',
-			fields=[
-				('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
-				('publication_date', models.DateTimeField(blank=True, null=True)),
-				('title', models.CharField(max_length=255)),
-				('content', models.TextField()),
-			],
-			options={},
-		),
-	]
-</code></pre>
-
-<p>When <code>manage.py migrate</code> is run, Django will read this migration file, see the operations and depencies in the <code>Migration</code> class, and execute appropriate transactions against the target database. </p>
-
-<p>Now, let’s say that we had an <code>Author</code> model (to track <code>Post</code> authors) and establish a <code>ForeignKey</code> here back to the <code>Author</code>. This migration would then look something like this:</p>
-
-<pre><code> # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-from django.db import models, migrations
-
-class Migration(migrations.Migration):
-
-	dependencies = [
-		('authors', '0001_initial'),
-	]
-
-	operations = [
-		migrations.CreateModel(
-			name='Post',
-			fields=[
-				('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
-				('publication_date', models.DateTimeField(blank=True, null=True)),
-				('title', models.CharField(max_length=255)),
-				('content', models.TextField()),
-				('author', models.ForeignKey(to='authors.Author'))
-			],
-			options={},
-		),
-	]
-</code></pre>
-
-<p>What’s changed? We’ve added our first dependency! We can’t have a <code>ForeignKey</code> in the database unless we have an <code>authors</code> table. <code>manage.py migrate</code> will sniff out this migration, then go check to make sure it’s run against the database <em>before</em> we run this <code>Post</code> migration. We can then make use of the <code>authors</code> foreign key in our model. </p>
-
-<p>When Django runs those migrations, it will execute the proper SQL commands against your database backend of choice (which you can see if you run <code>manage.py sqlmigrate</code>), then store a record of the migration in a special <code>django_migrations</code> table. This is how Django checks to see if a migration has been run already. If you’ve already got data and schema present in your database (but no migrations), <code>manage.py migrate --fake</code> will generate a migration file and add it to this table, but won’t do any further work to the database. </p>
-
-<p>I can think of at least one “gotcha” with all this, as it’s causing all sorts of trouble for my team at the moment. It’s possible to attach widgets to objects that include <code>ForeignKey</code> relationships. This can really, really trip migrations up. We’ve had to solve it by migrating everything <em>except</em> the field that includes the foreign key, then manually migrating things in order, but even that’s a grab bag. </p>
-
-<p>But aside from that, migrations aren’t that scary! Don’t go coding your own, though.</p>
-
-<p><em>but if you did you could do it just by running <code>manage.py makemigrations --empty yourappname</code> and go from scratch</em></p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/21/i-dove-deep-into-migrations-so-you-dont-have-to.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/04/20/kanye-west-on-the-american-dream.html"><h3>Kanye West on the American Dream</h3></a>
-		<div class="date">April 20, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>The modern Renaissance man is always <a href="http://www.papermag.com/2015/04/kanye_west.php">worth a read.</a></p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/20/kanye-west-on-the-american-dream.html" data-via="josephmosby">Tweet</a>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-3">
-		<a href="/2015/04/19/learning-closures.html"><h3>Learning closures and decorators</h3></a>
-		<div class="date">April 19, 2015</div>
-	</div>
-	<div class="col-8">
-		<p>I don’t know why it took me such a long time to pick up closures. They seem so nifty. I have no idea what I’ll use them for [yet] but I like that they’re there.</p>
-
-<p>And now it’s time to play with them.</p>
-
-<p><img src="/images/closure.png" alt="" /></p>
-
-<p>According to StackOverflow:</p>
-
-<pre><code>The most simple way to think of a closure is a function that can be stored as a variable (referred to as a "first-class function"), that has a special ability to access other variables local to the scope it was created in.
-</code></pre>
-
-<p>According to StackOverflow (again):</p>
-
-<pre><code>A closure is a persistent local variable scope
-</code></pre>
-
-<p>According to Wikipedia:</p>
-
-<pre><code>In programming languages, closures (also lexical closures or function closures) are a technique for implementing lexically scoped name binding in languages with first-class functions. Operationally, a closure is a data structure storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or storage location the name was bound to at the time the closure was created.
-</code></pre>
-
-<p>Wikipedia’s definition sounds super fancy. </p>
-
-<p>So a closure is a way to encapsulate variables within a function definition. Then we can access the variables within that function through function calls. Rock on. Let’s make some.</p>
-
-<p>In JavaScript: </p>
-
-<pre><code>var closure = function() { 
-	var count, counter;
-	count = 1;
-	counter = function() {
-		count = count + 1; 
-		return count;
-	}
-	return counter;
-}
-
-var testClosure = closure();
-
-testClosure(); // 2
-testClosure(); // 3
-testClosure(); // 4
-</code></pre>
-
-<p>I tested this out in a Node.js evaluator on my local machine, but you can do the same in your browser console. </p>
-
-<p>In Python:</p>
-
-<pre><code>def closure():
-	count = 1
-	def counter():
-		count += 1
-		return count
-	return counter
-
-test_closure = closure()
-test_closure() # UnboundLocalError: local variable 'count' referenced before assignment
-</code></pre>
-
-<p>Wat. That didn’t go as expected. Python is giving me an <code>UnboundLocalError</code>, which indicates that I called a variable before assigning it. The detailed stack trace points me to line 4, which is <code>count += 1</code>. </p>
-
-<p>It looks like Python uses something called the “decorator” pattern to deal with this sort of work, and the syntax looks different than we would do it with JavaScript. There’s a fantastic <a href="http://thecodeship.com/patterns/guide-to-python-function-decorators/">guide to decorators here</a>. Let’s make use of one to get this code up and running.</p>
-
-<pre><code>def counter(count):
-	return count += 1
-
-def count_decorate(func):
-	def func_wrapper(count):
-		return func(count)
-	return func_wrapper
-</code></pre>
-
-<p>There’s still something wrong with this - it’s not preserving state like I’d want it to. <code>count</code> isn’t preserved across function calls. Perhaps you can’t do that in Python? </p>
-
-<p>Here’s another example of our last bit: (from <a href="http://affiliate.manning.com/idevaffiliate.php?id=1221&amp;url=33">The Quick Python Book</a>):</p>
-
-<pre><code>def makeInc(y):
-	def inc(x):
-		return y + x
-	return inc
-
-test_closure = makeInc(5)
-</code></pre>
-
-<p>And one more thing: bonus material! Since talking about decorators led me to start researching decorators in Python (thinking they’re the same thing), I decided to write a little timer that would tell me how long it took to compute a function: </p>
-
-<pre><code>import time
-
-class timer(object):
 	
-	def __init__(self, f):
-		self.f = f
+	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-	def __call__(self, n):
-		self.time1 = time.time()
-		value = self.f(n) # run the function and establish a value
-		self.time2 = time.time()
-		print("it took ", self.time2-self.time1, " to execute")
-		return value # return the function's computed value after timing it
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
+			</div>
+		</nav>
+		
+		<main class="container home" role="main">
+			
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>29 Jan 2016</time>
+			<a href="/tags/">joe</a>
+		</div>
+		<h3>A January Recap and Some Personal Experiments</h3>
 
-@timer
-def fib(n):
-	a, b = 0, 1
-	for i in range(0, n):
-		a, b = b, a + b
-	return a
-</code></pre>
-
-<p>Our timer object, armed with its <code>__init__</code> and <code>__call__</code> methods, is ready to be a Python decorator! Just by sticking that little <code>@timer</code> in front of our function, we’ll now time its execution before allowing it to finish processing. It’s the same thing that happens with all of those <code>@login_required</code> decorators I have sprinkled throughout my Django code. </p>
-
-<p>What happens if I rewrite my Fibonacci code as a recursive algorithm?</p>
-
-<pre><code>@timer
-def fib(n):
-	if n &lt;= 2:
-		return n
-	else:
-		return fib(n-1) + fib(n-2)
-</code></pre>
-
-<p>It behaves almost exactly like we’d expect - every time our recursive algorithm calls the <code>fib(n)</code> in the recursive algorithm, we rerun the timer! Recursion doesn’t work quite as well in this scenario. Maybe if we tweaked the timer.. that’s for a later experiment.</p>
-
-<p>Have fun with these! Go write all your own decorators now!</p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/19/learning-closures.html" data-via="josephmosby">Tweet</a>
 	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>Over the month of January, I’ve achieved some major goals that I would have been happy with in three months. Instead, I’ve been able to get them done in one. I’m really excited about them, but before I share how I got there, I wanted to share what I knocked off the list:</p>
+
+<ul>
+  <li>Read 7 books
+    <ul>
+      <li><a href="http://amzn.to/1Qx8NmP">The Four-Hour Workweek</a> by Tim Ferriss</li>
+      <li><a href="http://amzn.to/1Pn0VVM">The Girl With All the Gifts</a> by M.R. Carey</li>
+      <li><a href="http://amzn.to/1Pn0ZVt">The Power of Habit</a> by Charles Duhigg</li>
+      <li><a href="http://amzn.to/1KfazcB">Do Androids Dream of Electric Sheep?</a> by Philip K. Dick</li>
+      <li><a href="http://amzn.to/1Qx8WXk">The Graveyard Book</a> by Neil Gaiman</li>
+      <li><a href="http://amzn.to/1P1KQkF">The Demon-Haunted World: Science as a Candle in the Dark</a> by Carl Sagan</li>
+      <li><a href="http://amzn.to/1P1KR8k">Love and Math</a> by Edward Frenkel</li>
+    </ul>
+  </li>
+  <li>Executed 50 pullups and 100 pushups in the same workout (starting from 30/50 at the beginning of the month)</li>
+  <li>Squatted 235 pounds for 5 repetitions</li>
+  <li>Leg pressed 460 pounds for 5 repetitions</li>
+  <li>Wrote five chapters of an e-book I plan to release on uWSGI</li>
+  <li>Knocked out an optometrist and a dentist appointment</li>
+  <li>Watched 20 TED talks</li>
+</ul>
+
+<p>I did all of this while working a standard workweek in a month where we launched a major project, while keeping my caffeine intake to a daily average of ~50mg (less than half of an average cup of black coffee).</p>
+
+<p>So, how’d I pull this off? I certainly didn’t run myself into the ground to do it. I also didn’t set goals (with the exception of going to the dentist). Instead, I made small changes to my daily activity and set up systems to keep myself on track. Here’s what that looks like.</p>
+
+<h3 id="morning-rituals">Morning Rituals</h3>
+
+<p>I followed the exact same pattern almost every morning of the month, including on weekends. I use <a href="http://www.sleepcycle.com/">Sleep Cycle</a> to track my sleep patterns and wake me up at the optimal time. This is a zero-effort tool that I love. All you do is tell it the latest possible time you’re willing to wake up, flip your phone face-down on your bed, and go to sleep. Sleep Cycle takes care of the rest. Here’s a snapshot of the stats it produces:</p>
+
+<p><img class="no-fill" src="/images/sleepcycle.PNG" /></p>
+
+<p>The part of those statistics where I wake up at 5:30 isn’t an accident. I’ve been waking up before 6am almost every day of this month (I bump things back to 7am on weekends). I thought this would be a much rougher proposition than it actually is. I’m generally in bed by 11pm, which clocks me 7 hours of sleep each night (more than the <a href="http://www.gallup.com/poll/166553/less-recommended-amount-sleep.aspx">American average</a>).</p>
+
+<p>At the beginning of the month, I started off with three days operating on the simplest food I could subsist on. In my case, that was brown rice and the cans of black beans I had accrued in my cupboard but never gotten around to opening. It was an eye-opening experience. It taught me gratitude for the things I have, and it also taught me that there was a lot in my life that was extremely wasteful but I kept around out of habit. After the three days, I started incorporating other foods into my diet, but have not deviated much from those staples. As a result, my breakfast each morning consists of sweet potato, black beans, egg whites, salsa, and tea.</p>
+
+<p>I track all of this in an app called <a href="https://lifesum.com/">Lifesum</a>, selected because it integrates with Apple’s HealthKit. I focus on tracking my carbohydrate, my protein, my water, and my caffeine intake in HealthKit. Here’s what Lifesum looks like:</p>
+
+<p><img class="no-fill" src="/images/lifesum.PNG" /></p>
+
+<p>That was an easy day to top off on protein - my cousin’s wedding had an oyster bar as part of the reception, and oysters are perhaps my favorite way of getting protein.</p>
+
+<p>Once breakfast is wrapped up, I meditate for ten minutes. This is accomplished by setting my phone’s timer and closing my eyes for ten minutes, pondering on the day ahead or nothing at all. In the past, I’ve also leaned on the <a href="http://www.calm.com/">Calm</a> and <a href="https://www.headspace.com/">Headspace</a> apps. I liked both of them, but I previously struggled to stick to their prescribed programs and then felt guilty when I slipped up. I also felt guilty if I got distracted in the middle of a meditation session. Going program-less means I think a lot more while meditating, but I also am far calmer and excited to take part in it each day.</p>
+
+<p>After meditation, it’s time for the gym. On an average day, I’m walking to the metro by 6:45am, which puts me at the gym around 7:10. I alternate between the following two workouts:</p>
+
+<ul>
+  <li>Pullups/pushups. Start with a 10 pullup set and a 20 pushup set, and try to maintain that momentum per set until hitting 50/100. In the earlier parts of this month I scaled down my per-set requirements in line with what my maximum pullups and pushups were. By the end of this month I started my pullup sets off with 25lb additional weight attached to my waist.</li>
+  <li>Squats, 5-rep sets starting from 135lb and incrementing upwards 10lb with each set. On days when the squat racks are full, I do an incline leg press starting from 90lb to warm up and incrementing up 50lb with each set, followed by 3 20-rep sets of 90lb calf raises.</li>
+</ul>
+
+<p>After the gym, it’s on to work. If I’ve got enough time and the temperature isn’t miserable, I’ll walk from Gallery Place to the Watergate. Otherwise it’s back on the subway.</p>
+
+<h3 id="work-habits">Work Habits</h3>
+
+<p>I feel that the most significant habits have come in my style of working this month. I read Tim Ferriss’ <em>The Four-Hour Workweek</em> in the first days of the month after listening to several of his podcasts on my vacation drives. There’s a lot of material in there, and I did not try to implement everything all at once. I did, however, heed his admonition about batch processing during the workday. There is a switching cost each time your brain has to change its focus from one task to another and you lose a lot of the momentum your brain picked up while knocking out the past task. In my line of work, my primary distractions are email, social media, and Slack. To that end, I experimented with checking email at certain times of the day and switching off Slack notifications. That turned out to be a bit too aggressive of a shift. I instead dialed it back to checking personal email once a day and flipping off Slack’s notification system unless my name is directly called out in a message. This has really helped my focus and I’ve plowed through a lot more work as a result.</p>
+
+<p>I also put myself on a media diet, another trick from <em>The Four-Hour Workweek</em>. That means zero news. I’ve been off Twitter completely over the course of this month, deleting the app from my phone and never signing on the desktop version. I haven’t signed into Hacker News once, my primary source of technology news. I’ve picked up some political coverage given the nature of my job, but I’ve had to ask a lot of questions to reporter friends because I just don’t know what’s going on. I only found out who won the NCAA national championship just yesterday. This has been an extremely significant change for me. My head is a lot clearer, and I’m able to focus on code, books or writing in times when I would have normally flipped through news articles or my Twitter feed. I don’t feel the compulsive need to distract myself.</p>
+
+<h3 id="whats-next">What’s Next?</h3>
+
+<p>This month, I organized everything around a focus on physical well-being. The waking up early and going to bed early was a huge step in that direction, as was the working out, the meditation, the lack of drinking, and even things as simple as flossing. (seriously, I have to track that or I’ll never remember to do it) I’m tracking all of these daily habits in an app called <a href="http://wayoflifeapp.com/">Way of Life</a> that looks like this:</p>
+
+<p><img class="no-fill" src="/images/wayoflife.PNG" /></p>
+
+<p>I’ll continue that focus on physical well-being in February. I may take on projects here and there, but my focus is on my health. Nothing else before that. I also plan to embark on another series of three days where I eat nothing but rice and beans and spend as little money as possible to focus on what I have in life. I found that experience to be incredibly rewarding (though tough) and definitely something I should do regularly. If you’re reading this, I’d love to hear about how your year started off, and what’s up next for you in February!</p>
+
+	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/04/12/type-experiments-with-mypy.html"><h3>Type experiments with mypy</h3></a>
-		<div class="date">April 12, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>26 Dec 2015</time>
+			<a href="/tags/">joe</a>
+		</div>
+		<h3>A year on the road in 2015</h3>
+
 	</div>
-	<div class="col-8">
-		<p>At PyCon 2015, much hullabaloo was made over <a href="https://www.python.org/dev/peps/pep-0484/">PEP 484</a> and the notion that “types” would be coming to Python. As I only vaguely understood the meat behind these protests, I decided to take a look at the PEP and the science behind it. </p>
+	<div class="col-md-8 col-sm-12">
+		<p>It’s 2015. I wake up on a couch in San Francisco after a ridiculous circus party to close out the year before.</p>
 
-<p>A “type” in computer programming is pretty much exactly what it sounds like: it’s a type of data. One commonly sees integers, strings, floating-point numbers (simplistically, just numbers with decimals), Booleans (true/false), and lists in any language that uses types. Programming languages that use types allow the computer to predict and organize data at the machine level in the optimal way for the type. </p>
+<p>I enjoy waking up on couches in San Francisco more than the best bed anywhere else. The sun is different in California, it seems brighter somehow. San Francisco is a foggy grey color half of the time, but when the sun comes out, it makes it so easy to forget the fog ever existed. Take a look for yourself:</p>
 
-<p>I had no trouble understanding types, but I had to think on “static” versus “dynamic” typing for a while. Static typing means that data types are declared when writing the program, and a type checker will protest if data is of the “wrong” type. This can be illustrated with an example from C:</p>
+<p><img src="/images/2015_retro/sf.png" alt="Picture of me standing in front of San Francisco Bay" /></p>
 
-<pre><code>static int numOne, numTwo, sum;
-numOne = 5;
-numTwo = 8;
-sum = numOne + numTwo;
-</code></pre>
+<p>Cities are the waypoints of 2015 in my mind. I remember my mental state by remembering where I was when going through one situation or another. I’m cooking breakfast at Sean and Alex’s pad on Potrero Hill when I receive an email from a recruiter with a proposition to join a media organization in Foggy Bottom to rebuild their content management system. Linda prompts me to dig deeper into this particular recruitment offer, overriding my typical approach of discarding recruiter emails. It takes only a few calls and one in-person interview before I’m convinced, and I move into the Watergate building a few weeks later.</p>
 
-<p>In this example, <code>numOne</code> and <code>numTwo</code> are declared as integers, and can only be integers. If later on in the program, you want to do something like this:</p>
+<p>Three days later, I’m on a plane to the Middle East.</p>
 
-<pre><code>numOne = "hello";
-</code></pre>
+<p><img src="/images/2015_retro/dubai.png" alt="Picture of the Burj Khalifa and Dubai skyline" /></p>
 
-<p>the compiler will throw a Type Error, and you won’t be able to compile your code. It’s not an execution problem – the program hasn’t even run yet – it’s the compiler checking up on you and letting you know that you said two conflicting things. You tried to say <code>numOne</code> was an integer, then later on tried to say it was a string, and that is <em>NOT OK.</em></p>
+<p>I’ve never been to Dubai or Muscat, nor have I ever taken an international trip with a large group of friends. It’s a dream come true to be with a good crew in the Middle East exploring a culture that is entirely foreign to me. Stealing a sip of Linda’s gold-flecked cappuccino in the Burj al Arab (for real, gold flakes in the coffee); swimming to a giant inflatable castle in the Arabian Sea; riding a camel; watching the Dubai Mall fountain show - none of it could be any better. Linda, Crowley, Medved, Sonal, Nikki, Ravi, Adam, Katy, you’re an extraordinary crew to travel with and I’m looking forward to the next run.</p>
 
-<p>Dynamic typing, by contrast, takes a more YOLO approach to typing. Variable types don’t need to be explicitly spelled out in the program, and variables can change types over the life cycle of the program. This is all totally okay in Python’s lack-of-type system:</p>
+<p><img src="/images/2015_retro/camel.JPG" alt="Picture of me on a camel" /></p>
 
-<pre><code>num_one = 5
-num_two = 8
-sum = num_one + num_two
+<p>The spring ramps up. I get to work and kick my engineering education into high gear. I had learned how to skin up a Drupal site on the quick at APCO, but that is nothing compared to what building out National Journal has to teach me about the web. I learn proper recursion while building out an ORM-to-MongoDB-document converter. I learn about all of the ins and outs of the Django administrative console. I learn how to build Python code for production.</p>
 
-&lt; moar code &gt;
+<p><img src="/images/2015_retro/pycon.png" alt="Picture of PyCon 2015 attendees" /></p>
 
-num_one = "hello"
-</code></pre>
+<p>I’m at PyCon in April. There is nothing quite like the feeling of recognizing that you’re in the middle of your tribe. In Montreal, I suddenly find myself in the middle of a huge group of engineers who wanted what I wanted - to produce great and technologically interesting things using Python. And they want it for everyone! And I am in Montreal, using my middling French to chat with the locals, exploring a city that is simultaneously European and North American all in one.</p>
 
-<p>Python’s totally cool with all of this in its dynamically typed world. </p>
+<p>Now I’m back in DC, and the weather is warm. I’m getting to know my journalist co-workers as we play softball together. Every Saturday I haul out to the middle of the Maryland suburbs to wildly miss pitches. Baseball was never my strong suit, but Matt, Alex, Zach, Paloma, Randy, Drew, and the rest of the Atlantic Media crew made it worthwhile every weekend.</p>
 
-<p>In 2012, Jukka Lehtosalo announced he was working on a statically typed Python derivative called <a href="http://mypy-lang.org/index.html">mypy</a>. <code>mypy</code> allows programmers to declare types in their Python programs and realize the performance benefits of static typing while maintaining the dynamic typing that’s part of the Python core. <code>mypy</code> puts this example on their homepage: </p>
+<p><img src="/images/2015_retro/softball.png" alt="Picture of our softball team" /></p>
 
-<pre><code># regular Python
+<p>It’s June now. The weather’s hot. I’m on the road to New York City for Governor’s Ball, the first festival I’ll do with Linda and our motley crew of friends. Linda and I make a best effort to catch Blake, Ouzy, Jeff, and Kendra in between acts, but eventually Linda and I lose them all to sprint as close as we can for Drake’s set to close the night. We fare better the next day, bringing Blake with us to the front of the stage to watch deadmau5’s stage fail before he hung out on a couch to drink a beer with Left Shark and a giant hot dog. As one does.</p>
 
-def fibonacci(n):
-	a, b = 0, 1
-	while a &lt; n:
-		yield a
-		a, b = b, a+b
+<p><img src="/images/2015_retro/deadmau5.png" alt="Picture of deadmau5 on a couch with Left Shark" /></p>
 
-# mypy
+<p>July comes and it’s time to hit the road again for an aggressively long roadtrip. DC to Nashville. Nashville to Asheville. Asheville back to DC. Over a thousand miles of open road covered in the Civic. In Nashville, my massive extended family gathers for our almost-triannual family reunion, bringing together some 60-odd Mosbys, Harwoods, and Grimes together for hot chicken contests and beer drinking in cheap honky tonks. I have the good fortune of knowing so many of my family members through a variety of different channels, being the only one to have lived in our three central hubs of Jackson, Nashville, and DC. I consider myself blessed to have had the opportunity to get to know so many of them.</p>
 
-def fibonacci(n: int) -&gt; Iterator[int]:
-	a, b = 0, 1
-	while a &lt; n:
-		yield a
-		a, b = b, a+b
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>No man ever steps in the same river twice, for it is not the same river and he is not the same man.
+</code></pre></div></div>
 
-<p>I’m skeptical. Let’s do some timing comparisons.</p>
+<p>My visit to Nashville kicks off a series of meditations that I consider while on the road. I visit my old college campus and realize that the entire center of gravity of the school has shifted, and there are at least five new buildings I don’t recognize. The run down area where I used to buy beer out of a warehouse has sprouted condo buildings. I am no longer an active musician. At some point Nashville moved on after I left, and I moved on too. We are not the same.</p>
 
-<p>I pulled these scripts off of the <a href="http://mypy-lang.org/examples.html">mypy examples page</a>, just to make sure I wasn’t messing with any data by writing a bad program. We have a test with <a href="https://gist.github.com/josephmosby/deed574acae4012c6f5e">dynamic types</a> and one with <a href="https://gist.github.com/josephmosby/7677272079fd9ccfb761">static types</a>. There are two tweaks in each program to adjust for differences between Python 2 and Python 3 (on line 13, <code>numbers.next()</code> was changed to <code>next(numbers)</code> and on line 18, <code>itertools.ifilter()</code> was changed to <code>filter()</code>). </p>
+<p><img src="/images/2015_retro/boltons.png" alt="Picture of Bolton's spicy chicken and fish" /></p>
 
-<pre><code>$ python dyn_test.py
-dyn_test.py
-100003
-Time one
-7.158545970916748
-100003
-Time two
-7.493566989898682
-100003
-Time three
-8.433957815170288
-100003
-Time four
-7.388293027877808
-100003
-Time five
-7.045740127563477
+<p>I return to Washington to learn that our owner has decided that National Journal will no longer print our flagship magazine. Policy and politics coverage is tough to do in a weekly publication, and our targeted readership is reading their news online like the rest of the country. The tenor of the newsroom shifts. It’s tough to see some of the good people I played softball with so distraught. Our digital team reassesses certain portions of our web product and we prepare for a September 1 relaunch. I go to Chicago that weekend.</p>
 
-$ python mypy_test.py
-mypy_test.py
-100003
-Time one
-7.473484992980957
-100003
-Time two
-7.3924078941345215
-100003
-Time three
-7.513011932373047
-100003
-Time four
-8.032839059829712
-100003
-Time five
-7.929549932479858
-</code></pre>
+<p><img src="/images/2015_retro/chicago.png" alt="Picture of Chicago skyline" /></p>
 
-<p>Well… I can’t detect any statistically significant differences here. I remain skeptical.</p>
+<p>Chicago holds a special place in my heart that is perhaps rivaled only by San Francisco. I have never lived in either place. I know Chicago’s winters are dreadful and that I am supposed to feel differently if I had to spend January there with the wind whipping off the lake. But there is something special about the city. There is a union there between the parts of my heart that will always be from a small town and the parts that crave the excitement of the city.</p>
 
-<p>Now, where I <em>can</em> call out some perks: the <code>mypy</code> type checker is super awesome. It does a lot of pre-compile lint work on the code and helped me detect the two errors I noted above. I could also see this being useful in a codebase that’s touched by a lot of enterprise developers. But does it offer significant performance benefits? *shrug* I’m not sure. Perhaps in a more complex world.</p>
+<p><img src="/images/2015_retro/oh_200ok.png" alt="Picture of the Ohio 200 OK license plate" /></p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/12/type-experiments-with-mypy.html" data-via="josephmosby">Tweet</a>
+<p>A few weeks later I take off again for the open road. Columbus, Ohio beckons, where I will give my <a href="http://www.pyvideo.org/video/3712/production-django-building-a-highly-scalable-se">first talk</a> at a programming conference. I expect to give a retrospective on some of the things we learned while building NationalJournal.com, but we’re still in the middle of building it. A few of the questions stump me, but it is overall a good first talk. I am proud.</p>
+
+<p><img src="/images/2015_retro/folly.png" alt="Picture of the Folly Beach crew" /></p>
+
+<p>I lived with the same group of guys for most of my college and grad school experience. We shared dorm suites together, then an apartment, then a house on Belmont Boulevard, then a two bedroom apartment in Brentwood, Tennessee. Two of these guys are now married, with children either in house or on the way. One of them is a Ph.D. We get together and it’s just like we’re undergraduates again, with the same conversations and nerd humor that propelled us through our time at Belmont. We spend a long weekend in Charleston, South Carolina, hanging on the beach, eating tacos, drinking good wine (thanks, Adam!).</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I've been in the crib with the phones off, I've been in the house taking no calls...
+Drapes closed, I don't know what time it is, I'm still awake, I gotta shine this year
+</code></pre></div></div>
+
+<p>August continues to roll on. When I’m not on the road speaking at conferences or at the beach, I’m in the office pulling 12-15 hour days to ship NationalJournal.com on time. I gain weight after eating nothing but trash for a month and rarely working out. I’m fueled by caffeine only, because I can’t sleep once I get home. We’re doing nightly builds, shipping emergency bug fixes day in and day out, none of the team leaving until the day’s tickets are done. Finally, on August 31, we turn the switch on. NationalJournal.com goes live. Brian, Robert, Paivi, Julia, Ivy, Kim, Lindsey, Jeremy and I finally get a good night’s sleep.</p>
+
+<p><img src="/images/2015_retro/nj.png" alt="Picture of NationalJournal.com" /></p>
+
+<p>After shoring up the codebase from the many shortcuts we took to launch on time, I head to Colorado for Jeff and Kendra’s wedding. It’s my first-ever visit to Colorado. I arrive in Denver late Thursday night and pick up a giant 15-passenger van dubbed “The Mystery Machine.” In the morning I pick up the Scooby Squad: MariaElena, Prather, Kyra, Hannah, Clarissa, Levi, Ryan, Juliana and Dalesio. We meet Jeff, Kendra, Sam, Pam, Ethan, and Ellen in what must be God’s country - Cuchara, Colorado. They serve Pueblo green chili with every meal and the entire landscape is flashes of bright yellow, desert green, and a piercing blue hanging in the sky. We hike to the top of the nearest mountain before descending to celebrate the happy couple.</p>
+
+<p><img src="/images/2015_retro/cuchara.png" alt="Picture of Dalesio, me, MariaElena and Sam on our hike" /></p>
+
+<p>October turns the tables at the office again. Only a few short weeks after we relaunched NationalJournal.com, our owner has decided that the news business at a whole needed a shakeup. No more public-facing news and no more ads. Everything will be for the service of our paid members. Many of my friends in the office leave to take jobs at competing news organizations, landing at <em>The New York Times</em>, <em>Vox</em>, <em>The Washington Post</em>, and others. We prepare for the shift to an ad-free world, and I begin to reimagine parts of our code.</p>
+
+<p>For the first time I get to have my entire family with me in Washington. Dad is coming up to run the Marine Corps Marathon and we’re all ready to cheer him on. He’s been working on this for months and has lost a ton of weight. I get to spend the days preceding the marathon showing the city (and its excellent restaurants) off to my family. On Sunday, it’s race day, and Dad knocks out the 26.2 miles like a champion!</p>
+
+<p><img src="/images/2015_retro/mcm.png" alt="Picture of Dad's marathon stats" /></p>
+
+<p>The downward mental slide that started in September continues in November. The site has a resiliency problem that resists debugging, and I struggle to fight off anger against the thing I’ve made. I turn into a packaged ball of stress, worrying at any moment that the site is going to crash and I’ll need to manually bring it back up. The constantly changing weather brings with it a sickness I can’t shake. The combination of the above brings on a spat of panic attacks that convince me I’m about to stop breathing. I hit a low, hard. I drag myself to work every day feeling like my creativity and my ambition have both fallen through the floor. All I want is out.</p>
+
+<p>And then something happens.</p>
+
+<p>I grow up.</p>
+
+<p><img src="/images/2015_retro/magic.png" alt="Picture of the magic cup of awesome" /></p>
+
+<p>On Thanksgiving Day, I drive out to Chestertown, Maryland to spend the day with my extended family. We’re frying turkeys this year - or rather, Uncle David is frying a turkey and I’m drinking Heineken while taking video. I’ve downloaded a few podcasts for the drive to Chestertown, deciding I’ll give this surge in podcasts a shot. I burn through a few really enjoyable tracks, but it’s <a href="https://twitter.com/tferriss">Tim Ferriss</a> who grabs me. He’s recorded an in-between podcast for the Thanksgiving holiday about <a href="http://fourhourworkweek.com/2015/11/29/magic-of-mindfulness/">mindfulness and gratitude</a>. I listen through it twice. In it, Tim details a few daily things he’s done to change the way he interacts with the world, and I start on them as soon as I get home. I set up a Magic Cup of Awesome and start ripping up scraps of paper to write down the things I’m grateful for in a given day. I strap on a bracelet (read: I steal one of Linda’s hair ties) as a reminder to stop complaining. These positive habits kick off a series of changes in my life. I grow up.</p>
+
+<p><img src="/images/2015_retro/monument.png" alt="Picture of the Washington monument in December" /></p>
+
+<p>The weather in DC still can’t make its mind up, even in December. We enjoy 70 degree days. We endure 30 degree days. These happen within the same week. The work continues. I pack the bags up to hit the road again, homeward bound. I stop over in Nashville for the night, spending the evening with Daniel, Helen, Monroe, Adam, Ian, Mary, and Roger.</p>
+
+<p>Monroe is Daniel and Helen’s first son. Roger will be Ian and Mary’s. Adam has a little daughter, but she wasn’t around for our hot chicken fiesta that night. When I left Nashville to move to DC, those couples were starting on a journey of married life. Now they are exploring life with children. They have wonderful lives together and homes in one of America’s great cities, a city which is itself growing by leaps and bounds. I imagine Nashville in 2015 is an exciting place to start a family.</p>
+
+<p>It’s morning. I must hit the road again.</p>
+
+<p><img src="/images/2015_retro/puzzle.png" alt="Picture of a puzzle" /></p>
+
+<p>It’s December 23rd. My brother arrives in Jackson, MS tonight, and we’ll have the entire family together again. For Christmas Eve, we’ll continue a tradition started last year: Lou Malnati’s pizza for dinner, shipped frozen from Chicago and baked here at home. Linda arrives on the 26th for her first visit to the Magnolia State. While planning for her few days here in town, I reimagined the city as a first-time traveler would. What does downtown Jackson look like? What is Fondren? What do the Christmas lights look like in Canton?</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nothing behind me, everything ahead of me, as is ever so on the road. 
+</code></pre></div></div>
+
+<p>I woke up in 2015 running from something. I thought there must be this entire world out there that I was missing out on, and I needed to run to Nashville or San Francisco or DC or New York or London or Paris or Amsterdam or Istanbul to find it. Whatever it was, it was always just beyond my reach. In 2015, somewhere out there on the road, I found it. An optimism, perhaps, or just a calm belief that I’ll find and achieve whatever it is that I’m meant to.</p>
+
+<p>I will wake up in 2016 on a couch in the Florida Keys, closer to Havana or Cancun than my apartment in Washington. Then I’ll start a 1,200 mile dash back to Washington, retracing the same steps I took to return from Charleston. I’ll wave at Jacksonville and Savannah as I go straight up I-95, which stretches on up to Philadelphia, New York, Boston, up, up, up until it crosses into Canada near Houlton, Maine. You split into Canada Highway 2 at that point, which will take you north before changing into Autoroute 20 O, whipping past Quebec City (where there are ice hotels) and into Montreal. From there you can catch a flight to Dublin for $500 or south to Punta Cana if there’s a deal going on. Or just keep driving, on into the west, crossing back over into the United States at Detroit, catching the California Zephyr in Chicago and on to San Francisco. And then a quick flight back to DC to do it all over again.</p>
+
+<iframe class="desktop_map_embed" src="https://mapsengine.google.com/map/u/0/embed?mid=zwj5ygdqFNoo.k0PeQHjzWkU0" width="780" height="480"></iframe>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/04/12/jacob-kaplan-moss-on-the-talent-myth.html"><h3>Jacob Kaplan-Moss PyCon Keynote on the Talent Myth</h3></a>
-		<div class="date">April 12, 2015</div>
-	</div>
-	<div class="col-8">
-		<pre><code>I am a mediocre programmer and I invite you to join me. And together, we can do our jobs perfectly adequately. 
-- Jacob Kaplan-Moss on the myth that you have to be a "rockstar" to be a programmer
-</code></pre>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>31 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>An introductory look at Erlang</h3>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/hIJdFxYlEKE" frameborder="0" allowfullscreen=""></iframe>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/12/jacob-kaplan-moss-on-the-talent-myth.html" data-via="josephmosby">Tweet</a>
 	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>I wanted to take a step back from operating systems to consider how another programming language views the world. Operating systems in the Unix world require knowledge of C: something that expands my programming mind but often feels like the Python knowledge I already know, just at a lower level. I wanted to pick something totally new, and so I’m going with <a href="http://learnyousomeerlang.com/">Erlang</a>.</p>
+
+<p>Erlang is an <em>imperative</em> language: which means once you set a variable, it doesn’t change. That means a statement like <code class="highlighter-rouge">i++</code> or <code class="highlighter-rouge">i += 1</code> won’t work. I assume that Erlang has an elegant way of dealing with this, but I’m very early on in this book. Erlang does this to ensure that functions with the same parameters will always return the same results, regardless of the state elsewhere in the application.</p>
+
+<p>The language makes use of something called an “actor model.” Each “actor” is a separate process in the Erlang virtual machine, calmly waiting for tasks but mostly sitting around doing nothing. Each process can do a very limited set of tasks. Each process is also totally segregated from other processes - without passing very transparent messages back and forth, processes don’t have the ability to communicate. Erlang also appears to come with a standard library that’s almost as fully featured as Python’s: debugging tools, a web server, a database, all the tools I generally rely on to get programming work done.</p>
+
+<p>The <em>Learn You Some Erlang</em> book also makes a point to call out overzealousness in the Erlang community. Erlang caught my eye because of its concurrency and scalability (or rather, people talking about Erlang’s concurrency and scalability), but this book makes a point to calm those expectations a little bit. Just because you can divide everything up into actors doesn’t mean you should. The authors point out that Erlang is fantastic for things like server-level software and is mostly terrible at things like image processing. Exceptions can be made, of course. As I’m interested in things like server-level software and not so interested in image processing, I’m excited to get under the hood.</p>
+
+<p>And with that, let’s get started.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew install erlang
+$ erl
+</code></pre></div></div>
+
+<p>I continue on to the next chapter and discover this line:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The Erlang shell has a built-in line editor based on a subset of Emacs, a popular text editor that's been in use since the 70s. If you know Emacs, you should be fine. For the others, you'll do fine anyway.
+</code></pre></div></div>
+
+<p>I am skeptical. I strongly dislike Emacs because every time I try to grok it, I trip over my feet and mostly destroy my entire program. Whatever, onward. Ctrl+A moves me to the beginning of a line, Ctrl+E to the end in Erlang-world. In the current version of Erlang compiled for OSX, it appears that Erlang opens you right into a shell. If I want to get out of it to enter some commands, I hit Ctrl+G. If I can’t remember what I’m supposed to do once I get out of the shell, I hit <code class="highlighter-rouge">h</code>. If I want to see a listing of all my current jobs, I hit <code class="highlighter-rouge">j</code>… oh, and I bet this is like doing <code class="highlighter-rouge">ps -ef</code>, but for the virtual machine. Okay, now I want to get back into my shell… hmm. Struggling to that with the instructions given. I’m going to have to trust that I’ll figure it out as time goes on.</p>
+
+<p>Calling it a day for there. I’ll come back to it in earnest after I’ve digested a few things about the language.</p>
+
+	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/04/11/testing-requests-wheel-packages-and-visual-diffing.html"><h3>Testing requests, wheel packages, and visual diffing</h3></a>
-		<div class="date">April 11, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>29 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Setting up a simple testing tool with Selenium and PhantomJS</h3>
+
 	</div>
-	<div class="col-8">
-		<pre><code>No matter how many unit tests you write, you'll never write a test for "is there a pony on the page?"
-- Dan Vanderkam, on an animated pony GIF appearing in Google production
-</code></pre>
+	<div class="col-md-8 col-sm-12">
+		<p>Okay, this will be a short one, but I’ve just set up a minimalistic testing tool using Python, Selenium and PhantomJS and wanted to put it out there. Let’s get cracking.</p>
 
-<p>I do not consider myself to be a very good tester. I am aware that I should write tests, but I am only vaguely certain of what I am supposed to be testing, and I am even less certain about which packages I’m supposed to use to test. Should I bust out <code>unittest</code>? Do I use Django’s testing harness? And so Saturday became a day of testing for me. </p>
+<p>Start off by installing PhantomJS using Homebrew:</p>
 
-<p><a href="https://github.com/sigmavirus24">Ian Cordasco</a> opened the door with an extremely scary question: how do you test web applications that expect access to the internet? We can’t fake a web service (because then we’d have to test two separate things) and we can’t just feed it expected data (because that’s not a test). How do we isolate the two? </p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew install phantomjs
+</code></pre></div></div>
 
-<p>Cordasco mentions a stack of libraries facilitate mock web services:
-- <a href="https://pypi.python.org/pypi/responses/0.3.0">responses</a>
-- <a href="https://pypi.python.org/pypi/httpretty">httpretty</a>
-- <a href="https://pypi.python.org/pypi/requests-mock">requests-mock</a>
-- <a href="https://docs.python.org/3/library/unittest.mock.html">mock</a></p>
+<p>And then move on to add Selenium into the mix (assuming still that you’re using Python):</p>
 
-<p>These do many of the same functions with varying degrees of complexity, but the core principle is the same: <em>you cannot assume access to the internet in a predictable fashion when doing unit tests.</em> I have some digging to do into these libraries.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install selenium
+</code></pre></div></div>
 
-<p>On a more niche use case, <a href="https://github.com/ogrisel">Olivier Grisel</a> introduced me to wheel packages this afternoon. A <a href="https://packaging.python.org/en/latest/distributing.html#wheels">wheel package</a> is a special package distribution format for Python packages that allows lightning fast installation and distribution. It’s easy enough to use <a href="https://travis-ci.org/">TravisCI</a> for deployment testing on *nix-based systems, but what about for Windows packages? Grisel and his team use <a href="http://www.appveyor.com/">AppVeyor</a> to package scikit-learn on Windows systems. The tests can be automated, and the speed can’t be beaten.</p>
+<p>And now let’s build our first test case. I’m working as part of a Django app so I’ll be using the Django <code class="highlighter-rouge">TestCase</code> object, but this will work very similarly with Python’s core <code class="highlighter-rouge">unittest.TestCase</code>.</p>
 
-<p>And finally, the pony.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os
+os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = '127.0.0.1:9001'
 
-<p><a href="https://github.com/danvk">Dan Vanderkam</a>’s co-worker once accidentally shipped a pony to production. He didn’t mean to - he was testing perfectly valid code and testing CSS animations at the time. The code passed peer review and all of the unit and integration tests. It just so happened to have a pony on it. And so his colleague was compelled to write <a href="https://github.com/bslatkin/dpxdt">dpxdt</a> (pronounced “depicted”) to do automated visual diff testing of new builds. <code>dpxdt</code> generates and stores screenshots of releases, then compares the two pixel-by-pixel to spot changes. If something breaks, <code>dpxdt</code> ships with a number of ways to showcase the changes.</p>
+from django.test import LiveServerTestCase
+from selenium import webdriver
 
-<p>There’s <em>so much</em> out there for testing. Special thanks to these presenters for bringing their slices of it to PyCon. </p>
+@classmethod
+def setUpClass(cls):
+	cls.driver = webdriver.PhantomJS()
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/11/testing-requests-wheel-packages-and-visual-diffing.html" data-via="josephmosby">Tweet</a>
+@classmethod
+def tearDownClass(cls):
+	cls.driver.quit()
+</code></pre></div></div>
+
+<p>That’s all it takes to get started. Honestly. Just install PhantomJS through Homebrew and Selenium through pip, and you’re ready to get testing. Django’s <code class="highlighter-rouge">LiveServerTestCase</code> needs a <code class="highlighter-rouge">DJANGO_LIVE_TEST_SERVER_ADDRESS</code>, so I’ve set one of those up as an environment variable. The <code class="highlighter-rouge">setUpClass()</code> and <code class="highlighter-rouge">tearDownClass()</code> methods are part of the <code class="highlighter-rouge">LiveServerTestCase</code> class, and are used to initialize behavior when the tests begin to run or to close things no longer needed after the test is completed. In this situation, we’re using <code class="highlighter-rouge">setUpClass()</code> to set up our PhantomJS instance that we’ll subsequently close in <code class="highlighter-rouge">tearDownClass()</code>.</p>
+
+<p>With my particular test situation, I needed to execute some JavaScript on each page I planned to test. That JavaScript would return a variable, set to either 1 or 0 based on the state of an object on the page. Here’s how we’ll extend our code to do that:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os
+os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = '127.0.0.1:9001'
+
+from django.test import LiveServerTestCase
+from selenium import webdriver
+
+@classmethod
+def setUpClass(cls):
+	cls.driver = webdriver.PhantomJS()
+
+@classmethod
+def tearDownClass(cls):
+	cls.driver.quit()
+
+def test_one_or_zero_on_link_one(self):
+	self.driver.get('http://127.0.0.1:9001/linkone')
+	should_be_zero = self.driver.execute_script('return case.a')
+	self.assertEqual(should_be_zero, 0)
+
+def test_one_or_zero_on_link_two(self):
+	self.driver.get('http://127.0.0.1:9001/linktwo')
+	should_be_one = self.driver.execute_script('return case.a')
+	self.assertEqual(should_be_one, 1)
+</code></pre></div></div>
+
+<p>I’ve now added two official tests to the mix. I’m asserting that on {DOMAIN}/linkone, there should be a JavaScript object called <code class="highlighter-rouge">case</code> with a property <code class="highlighter-rouge">a</code> that’s set to zero. On {DOMAIN}/linktwo, that property should be set to one. In these two tests, I open the links up in PhantomJS (something you’ll never see, by design). I then execute JavaScript on the pages and pick up the return values with <code class="highlighter-rouge">self.driver.execute_script()</code>. This allows me to tap some of the context of the page state through JavaScript.</p>
+
+<p>My tests did not need anything much more complex than that, but I’m looking forward to using this in several other contexts in future tests. PhantomJS is wicked fast compared to running the same code using Selenium’s Firefox or Chrome drivers. And being able to plug it into on-page JavaScript (maybe even tag-teaming with QUnit) makes it that much more appealing.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/04/11/pycon-2015-day-two-keynote-from-guido-van-rossum.html"><h3>PyCon 2015&#58; Day Two Keynote from Guido van Rossum</h3></a>
-		<div class="date">April 11, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>27 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>The xv6 filesystem</h3>
+
 	</div>
-	<div class="col-8">
-		<pre><code>You have to actually understand your code! And so we've given you five more years. 
--- Guido van Rossum, on the difficulty of porting Python 2 code to Python 3
-</code></pre>
+	<div class="col-md-8 col-sm-12">
+		<p>The file system of an operating system is one of those things I haven’t thought about in years, ever since I went through the painful process of reformatting USB sticks when different versions of Windows used different file systems. But I’ve never really thought about how those things have to be implemented.</p>
 
-<p>Python is exceptionally easy to use and easy to learn. If you’re using OS X or any Linux distribution, you can immediately pick Python up with minimal effort. If you’re on Windows, the installer takes one click to get up and running. Few languages offer this flexibility! Java – the old gold standard for education – doesn’t work easily on Macs any more, nor does it offer a comfortable environment to start punching commands in to experiment. Python lets the beginner learn but can handle a wide range of complexity, allowing new users to branch into data science, web applications, or desktop software without needing to immediately learn a new syntax.</p>
+<p>On xv6, files are either data files, which are “uninterpreted byte arrays,” and directories, which are references to data files or other directories. So a directory is nothing more than a special file that points to other files. Cool. Directories form a tree starting at the root, and a path is a set of directories going out from the root. If a path doesn’t start with a root, paths start from the current working directory of a given process.</p>
 
-<p>But it’s Python’s <em>opinions</em> that make it a perfect language for the beginner. </p>
+<p>That means <code class="highlighter-rouge">chdir()</code> is a system call that changes the current working directory of a process, and <code class="highlighter-rouge">mkdir()</code> is the system call that creates a new directory. <code class="highlighter-rouge">mknod()</code> is a similar call that creates a kernel device (such as a keyboard). When a process opens the kernel device file, the kernel will redirect the <code class="highlighter-rouge">read()</code> and <code class="highlighter-rouge">write()</code> to the kernel device instead of to a specific data file.</p>
 
-<p>The Python core team has always insisted that there is a proper way to write Python code. Sure, there may be another syntactically correct way to write code, but it won’t be the <em>right</em> way unless it follows certain guidelines. Those guidelines have been canonized in <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, a document that causes all manner of debate and consternation in Python developers. Still, the spirit of this approach matches with the realities of computer science. There may be a syntactically correct way to do something, but it’s often an approach that will cause an engineer or a team problems down the road. </p>
+<p>The <code class="highlighter-rouge">fstat()</code> call gives information about a specific object that a file descriptor points to. <code class="highlighter-rouge">fstat(fd)</code> takes in a file descriptor and returns a C <code class="highlighter-rouge">struct</code> called <code class="highlighter-rouge">stat</code>, which has an implementation that looks something like this:</p>
 
-<p>Guido van Rossum discussed some of these problems with software engineering today while speaking on the move from Python 2 to Python 3. Though Python has had version 3 accessible for years now, many developers have never upgraded - in many cases, because their codebases rely on dependencies that haven’t been upgraded. And that’s a huge problem! Many developers are now hamstrung because their code simply copied and pasted someone else’s code, meaning we’re using and maintaining systems that we don’t understand. That’s bad for the craft of software engineering, and bad for the systems engineers build.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define T_DIR 1 // directory
+#define T_FILE 2 // file
+#define T_DEV 3 // device
 
-<p>While Python has strong opinions and a hefty unwillingness to budge on the proper way to do things, it also makes efforts to include developers in ways that many communities do not. Guido spoke on the next iteration of Python (as expected), but he also made clear points to encourage diversity in the community. He stood on stage in a <a href="www.pyladies.com">PyLadies</a> shirt and praised the women who joined him at a Python meetup in Iraq. He lamented that women weren’t joining the Python language development process, but then took the next step: offering personal mentorship to women who wanted to become core contributors to the Python language. And finally, noting that women often don’t speak up and ask questions at tech conferences, he insisted that his first questioner be a woman, with women and men alternating on questions for the rest of the Q&amp;A session. </p>
+struct stat {
+	short type; // type of file
+	int dev; // file system's disk device
+	uint ino; // inode number
+	short nlink; // number of links to file
+	uint size; // size of file in bytes
+}
+</code></pre></div></div>
 
-<p>There’s a right way to do computer science. It’s wrong to allow flippancy and bad habits in code, even for beginners, because <a href="http://newsoffice.mit.edu/2005/habit">bad habits are aggressively difficult to break</a> and computers don’t make allowances. But it’s equally wrong to demand a certain system and not be willing to teach newcomers the details of that system. That’s where the Python community has excelled and continues to look to improve.  </p>
+<p>The name of the file is not included in this information table, because names are distinct from the actual file. An “inode” is the only unique identifier of a file that the kernel sees: names are just “links” back to an individual inode. Thus the following system calls will create two names for a file with the same inode:</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/11/pycon-2015-day-two-keynote-from-guido-van-rossum.html" data-via="josephmosby">Tweet</a>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>open("a", O_CREATE|O_WRONLY);
+link("a", "b");
+</code></pre></div></div>
+
+<p>Calling <code class="highlighter-rouge">fstat()</code> on either of the file descriptors attached to “a” or “b” will demonstrate that they’re tied back to the same file with the same inode number. <code class="highlighter-rouge">unlink()</code> will do the opposite of <code class="highlighter-rouge">link()</code>. It deletes the name, but will not delete the file itself.</p>
+
+<p>In xv6, these types of operations are implemented as user-level programs, rather than baking the system calls into the shell itself. <code class="highlighter-rouge">mkdir</code> is not a direct call to the system, but a user program that calls the <code class="highlighter-rouge">mkdir()</code> system call. Same with <code class="highlighter-rouge">rm</code>. <code class="highlighter-rouge">cd</code> is a notable exception, because it changes the working directory of the shell itself rather than a child process of the shell.</p>
+
+<p>And that’s it for the xv6 system calls! I can treat the xv6 kernel as something abstracted away now that I have all of the system calls for interacting with it.</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/04/10/python-at-disney-animation.html"><h3>Python at Disney Animation</h3></a>
-		<div class="date">April 10, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>26 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Pipes and such</h3>
+
 	</div>
-	<div class="col-8">
-		<p>I started off my technology career as a help desk support staffer at Belmont University in 2007 after being sick of working in the food industry. I learned how to code in Visual Basic for Applications by writing custom Excel functions to help me through my finance classes. I <em>finally</em> and painstakingly learned some proper computer science through <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-00-introduction-to-computer-science-and-programming-fall-2008/">MIT’s OpenCourseWare</a>, where I picked up Python as my language of choice. I’ve learned a bit more computer science as a matter of course since then, but code to me has always been more about gluing together solutions and data than anything else.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>In MIT’s <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-828-operating-system-engineering-fall-2012/lecture-notes-and-readings/MIT6_828F12_xv6-book-rev7.pdf">text on the xv6</a>, pipes are described as “a small kernel buffer exposed to process as a pair of file descriptors, one for reading and one for writing.” I think I understand file descriptors by now, but I don’t quite know what a buffer is. Let me dig into that first with some Googling.</p>
 
-<p>Turns out, that’s how Disney Animation sees it as well. </p>
+<p>Wikipedia describes a buffer as “a region of a physical memory storage used to temporarily store data while it is being moved from one place to another.” Cross-referencing this with other things I’ve previously learned about operating systems makes me think that buffers are probably also used for things like keyboard input - where we don’t want to necessarily take the time for expensive writes to disk, so we just store in memory and wait until another program clears things out. Okay. Moving on.</p>
 
-<pre><code>No one wants to use another limited DSL. [me: Domain-Specific Language] They just want Python.
-- Paul Hildebrandt, Software Engineer, Disney Animation
-</code></pre>
+<p>This example code was provided by the text:</p>
 
-<p>Disney movies require a lot of software programs used by several different teams. There’s software to move characters’ faces, software that simulates lights, and software that behaves as if it was a real camera. Like many graphics artists, Disney artists script a lot of their workflows to keep themselves from doing the same thing twice – or two thousand times – in repetition. Many of the commercial tools they use shipped with their own domain-specific languages, meaning that an artist could be compelled to learn four completely different scripting languages for four completely different software packages, even if all of the scripts were designed to do roughly the same thing. With Python embedded in their tools, that pain point has gone away. They can learn one language and trust that they’ll be comfortable with its nuances regardless of how the software changes. </p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int p[2];
+char *argv[2];
 
-<pre><code>We paid $50 for the [San Francisco] county assessor's street and elevation maps. * pause * It's okay, we made a lot of money off Frozen.
-</code></pre>
+argv[0] = "wc";
+argv[1] = 0;
 
-<p>So much of the work required for attacking details in building worlds is similar to GIS work that thousands of Pythonistas are already doing. <a href="http://movies.disney.com/big-hero-6/">Big Hero 6</a> is set in “San Fransokyo”, a mish-mash of San Francisco with Japanese culture, and the look and feel of San Francisco needed to be preserved. There’s a reason that the movie’s city looks like the Bay Area – it’s because it is! San Fransokyo is based on the actual street map and elevation of the real San Francisco, and much of that data analysis was done with Python.</p>
+pipe(p);
 
-<pre><code>"Oh, so you guys crowdsourced crowds."
-</code></pre>
+if(fork() == 0) {
+	close(0);
+	dup(p[0]);
+	close(p[0]);
+	close(p[1]);
+	exec("/bin/wc", argv);
+} else {
+	write(p[1], "hello world\n", 12);
+	close(p[0]);
+	close(p[1]);
+}
+</code></pre></div></div>
 
-<p>There’s an entire team of people strictly dedicated to crowds of things. You have a shot in the middle of a city and there are cars on the streets and people milling around on the sidewalks. That’s all crowd mechanics. Disney’s crowd team released a character creator called “Denizen” (built with Python) and started letting their animators create characters on it. Those dreamed-up characters are now automatically brought into a crowd whenever one is needed. (I hope this means that Elsa is hanging around Big Hero 6 somewhere)</p>
+<p>And this compiles nicely with some tweaks for the OSX environment - but, as it never prints, we don’t have a visual confirmation.</p>
 
-<pre><code>"We don't always work in a correct world. We work in an art-directed world."
-</code></pre>
+<p>Pipes and temporary files share some similarities in execution. This code would look the same way to the end user:</p>
 
-<p>Scientifically, there’s always a proper way that things are supposed to happen. Lights are supposed to behave in a certain way, as are wind and rain. That’s just fine for the real world or for scientific modeling, but that isn’t necessarily how an art director wants to capture a shot. The real world doesn’t necessarily jibe with the feel of a movie. Python allows Disney technology teams to respond accordingly, with lightning quick software builds and easy customizability. </p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo hello world | wc
+$ echo hello world &gt; /tmp/xyz; wc &lt;/tmp/xyz
+</code></pre></div></div>
 
-<p>It’s been enlightening to have Disney Animation here at PyCon to learn about their workflow. Really, really inspiring stuff and great work coming out of it.  </p>
+<p>But there are three key differences here. This would leave the <code class="highlighter-rouge">/tmp/xyz</code> file lying around, which we’d have to come back through and clean up later. It also expects there to be enough free disk space for the <code class="highlighter-rouge">/tmp/xyz</code> file, which could be extremely long. And finally, these processes could not easily send data back and forth with this approach, if <code class="highlighter-rouge">wc</code> needed to send data back to <code class="highlighter-rouge">echo</code>.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/10/python-at-disney-animation.html" data-via="josephmosby">Tweet</a>
+<p>And that’s it for pipes. Next, on to the filesystem!</p>
+
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-3">
-		<a href="/2015/04/10/pycon-2015-first-notes.html"><h3>PyCon 2015&#58; First Notes</h3></a>
-		<div class="date">April 10, 2015</div>
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>22 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>The fast inverse square root algorithm</h3>
+
 	</div>
-	<div class="col-8">
-		<pre><code>Snakes are deaf. And so are some Pythonistas.
-- Julia Evans introducing live captioning at PyCon 2015
-</code></pre>
+	<div class="col-md-8 col-sm-12">
+		<p>Taking a break from operating systems to do some algorithm training: something I revisit about once a year. I have the Khan Academy bit on the <a href="https://www.khanacademy.org/computing/computer-science/algorithms/towers-of-hanoi/a/towers-of-hanoi">Towers of Hanoi</a> up, but I want to first pause to go look at Quake’s “fast inverse square root” algorithm.</p>
 
-<p>I’ve been blown away by the attention to accessibility at PyCon 2015. Every talk has been captioned in real time, with screens beside every presenter streaming their words. PyCon has childcare, gratis, for anyone at the conference. 291 individuals received $200K in financial aid to help them pay for the conference, hotel rooms, flights, etc. </p>
+<p>An inverse square root is used to calculate vectors for lighting and reflecting, so it’s incredibly useful for video games and rendering. Rendering uses millions upon billions of these tiny calculations, so a speedup over floating-point division can make a game much, much faster. Quake sped it up with the following steps:</p>
 
-<p>I’ve chatted with a woman who works for the <a href="http://www.detroit.lib.mi.us/specialservice/computer-skills-instruction-classes-0">Detroit Public Library</a> system. She started teaching kids to code using Scratch (something she learned specifically to teach to others), and is now doing the same with Python. Her students thought Scratch was too elementary and quickly outgrew it - now they want more. It’s fantastic to hear about stuff like this popping up throughout the country and the community rallying around it.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Take a floating point number n.
+2. Shift the bits of n to treat n like an integer.
+3. Shift n right one bit to make longword w.
+4. Subtract w from the magic number 0x5f3759df (this step made a Quake developer comment "what the f***" in the code)
+5. This number is within a few percentage points of the final answer. 
+6. One iteration with the Newton-Raphson method to come to the final answer.
+</code></pre></div></div>
 
-<p><a href="http://www.pyladies.com">PyLadies</a> and <a href="http://djangogirls.org">DjangoGirls</a> are also bringing Python to a wider community, teaching women who have never coded before how to build a Python program and/or web application from the ground up. And the Python Software Foundation is right there to support projects like those through their <a href="https://www.python.org/psf/grants/">grant program</a>.</p>
+<p>I was amused by this approach and can only imagine the total confusion on the part of the developer when the algorithm worked.</p>
 
-<p>The Foundation and the PyCon organizers have bent over backwards to provide opportunities for developers of all experience levels to jump into open source software. The OSS sprints will be led by <em>several</em> talks about introductory open source contributions, inviting any Python developers to jump in even if they’ve never contributed to open source before. </p>
-
-<p>As a new PyCon attendee, I can’t speak highly enough about all of the ways they’ve made this conference accessible and welcoming. More to come as the talks continue!</p>
-
-<p><em>If you’re reading this and at PyCon, I’d love to see you at the journalism and media open space in room 510D at 2PM today (Friday)!</em></p>
-
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/10/pycon-2015-first-notes.html" data-via="josephmosby">Tweet</a>
 	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>21 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>nginx won't timeout, and other tails from the log files</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>We had yet another instance of nginx allowing requests to spin into infinity, and now I’m starting to get a little frustrated with it. I’m going to take a different tack and see if I can sniff out the point when these requests start to blow up. To do this, I’m going to use the <code class="highlighter-rouge">awk</code> tool to find any and all requests that take longer than 3000 milliseconds, which is well beyond the tolerance point for my application. Most of our requests average out in the 100-150ms range, with long running requests taking 500ms. Let’s dump some things out from the log files.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat django-www.log | awk '$33 &gt; 3000 {print NR-1 ": " $0;}' &gt; high.log
+</code></pre></div></div>
+
+<p>So what this little snippet will do is <code class="highlighter-rouge">cat</code> the entire log file out, then pipe the output through an <code class="highlighter-rouge">awk</code> command. The syntax of <code class="highlighter-rouge">awk</code> breaks the file up based on delimiters (I think space is the default), which you can then access by number. <code class="highlighter-rouge">$33</code>, in this case, is the 33rd character, which is our millisecond mark. If it’s greater than 3000, I print the line number, the line itself, then dump all that out to a file called <code class="highlighter-rouge">high.log</code>.</p>
+
+<p>Onward.</p>
+
+<p>I don’t know why this stuck out to me, but I gave the address space usage and the rss usage of my uwsgi threads a second look this time. Here’s what they look like under normal traffic for a small sample.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{address space usage: 3510480896 bytes/3347MB} {rss usage: 84557824 bytes/80MB} [pid: 5542|app: 0|req: 394/98579] 
+{address space usage: 3510046720 bytes/3347MB} {rss usage: 101765120 bytes/97MB} [pid: 5875|app: 0|req: 387/98580] 
+{address space usage: 3510497280 bytes/3347MB} {rss usage: 106389504 bytes/101MB} [pid: 6922|app: 0|req: 70/98581] 
+{address space usage: 3510497280 bytes/3347MB} {rss usage: 106500096 bytes/101MB} [pid: 6922|app: 0|req: 71/98582] 
+{address space usage: 3521171456 bytes/3358MB} {rss usage: 135237632 bytes/128MB} [pid: 4706|app: 0|req: 660/98583] 
+{address space usage: 3510046720 bytes/3347MB} {rss usage: 101765120 bytes/97MB} [pid: 5875|app: 0|req: 388/98584] 
+{address space usage: 3510480896 bytes/3347MB} {rss usage: 84557824 bytes/80MB} [pid: 5542|app: 0|req: 395/98585] 
+</code></pre></div></div>
+
+<p>The address space usage hovers at about 3.3GB, but the rss usage averages out around 100MB under normal traffic. Here’s what it looks like when we spike:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{address space usage: 3518722048 bytes/3355MB} {rss usage: 148234240 bytes/141MB} [pid: 28562|app: 0|req: 4128/36509]
+{address space usage: 3537321984 bytes/3373MB} {rss usage: 153063424 bytes/145MB} [pid: 28827|app: 0|req: 4137/36512]
+{address space usage: 3518103552 bytes/3355MB} {rss usage: 125833216 bytes/120MB}
+{address space usage: 3537321984 bytes/3373MB} {rss usage: 153255936 bytes/146MB} [pid: 28827|app: 0|req: 4138/36517]
+{address space usage: 3518722048 bytes/3355MB} {rss usage: 148992000 bytes/142MB} [pid: 28562|app: 0|req: 4137/36523]
+{address space usage: 3518722048 bytes/3355MB} {rss usage: 148992000 bytes/142MB} [pid: 28562|app: 0|req: 4137/36525]
+</code></pre></div></div>
+
+<p>Our address space usage is the same, but our rss usage is pushing over 142MB for almost every request. I want to dig more into this.</p>
+
+<p>I stumbled upon this discussion thread on the <code class="highlighter-rouge">uwsgi</code> issues page from someone experiencing the same sort of performance degradation with almost the same sort of configuration that we have: <code class="highlighter-rouge">uwsgi</code>, <code class="highlighter-rouge">supervisord</code>, Django. The solution suggested here is to add <code class="highlighter-rouge">die-on-term=True</code> to our <code class="highlighter-rouge">uwsgi</code> config, but I want to look into that a little more before I just start adding things to our <code class="highlighter-rouge">uwsgi</code> config. (the issue thread is <a href="https://github.com/unbit/uwsgi/issues/296">here</a>)</p>
+
+<p>The issue is distilled <a href="http://uwsgi-docs.readthedocs.org/en/latest/ThingsToKnow.html">here</a> (second bullet). Before uWSGI 2.1, sending the <code class="highlighter-rouge">SIGTERM</code> signal to <code class="highlighter-rouge">uwsgi</code> means “brutally reload the stack”, which is not convention. <code class="highlighter-rouge">SIGINT</code> or <code class="highlighter-rouge">SIGQUIT</code> has the same behavior in uWSGI that <code class="highlighter-rouge">SIGTERM</code> has in other applications. Searching for <code class="highlighter-rouge">supervisord SIGTERM</code> yielded this StackOverflow answer:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>supervisord will emit a SIGTERM signal when a stop is requested. Your child can very probably catch and process this signal (the stopsignal configuration can change the signal sent).
+
+http://stackoverflow.com/a/20299217/1020642
+</code></pre></div></div>
+
+<p>But my child CAN’T catch and process that signal. In fact, it <a href="https://github.com/unbit/uwsgi/issues/296#issuecomment-36086359">actually totally ignores it</a>. It trips over it and brutally reloads the stack if I’m running <code class="highlighter-rouge">uwsgi</code> prior to 2.1.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ uwsgi --version
+2.0.9
+</code></pre></div></div>
+
+<p>So to fix this bug, we either need to upgrade <code class="highlighter-rouge">uwsgi</code>, or send the <code class="highlighter-rouge">die-on-term</code> option, which will correct this behavior. Adding the <code class="highlighter-rouge">die-on-term</code> directive is the quicker and less potentially problematic version. This will go in our <code class="highlighter-rouge">uwsgi.ini</code> file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[uwsgi]
+... stuff ...
+processes=4
+threads=256
+harakiri=20
+max-requests=5000
+die-on-term=True # yay
+... stuff ...
+</code></pre></div></div>
+
+<p>And now we’ll reload and give it a shot.</p>
+
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>21 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Forks and file descriptors - an intro to Unix concepts</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>I’m exploring MIT’s course on Operating System Engineering in the hopes to get a better feel for how Linux works under the hood, and it’s already answered a few questions about the things I was seeing in <code class="highlighter-rouge">ps</code> earlier. Though the OS course deals with a Unix variant (not Linux), the low-level architecture is similar enough that I think I can assume Linux operates the same way.</p>
+
+<p>xv6, the Unix variant used in this course, has a kernel that interfaces with hardware and user-level programs. This creates the notion of “user space” and “kernel space,” with a single process jumping back and forth between the two to complete its work. When the process needs to use one of the services from the kernel, it invokes a system call - a specific function in the kernel.</p>
+
+<p>Unix provides these services (and many more, but this appears to be all xv6 offers):</p>
+
+<ol>
+  <li><code class="highlighter-rouge">fork()</code>, which creates a process</li>
+  <li><code class="highlighter-rouge">exit()</code>, which terminates the current process</li>
+  <li><code class="highlighter-rouge">wait()</code>, which waits until a child process exits</li>
+  <li><code class="highlighter-rouge">kill(pid)</code>, which kills a process with the given PID</li>
+  <li><code class="highlighter-rouge">getpid()</code>, return current process’s PID</li>
+  <li><code class="highlighter-rouge">sleep(n)</code>, sleep for n seconds</li>
+  <li><code class="highlighter-rouge">exec(filename, *argv)</code>, load a file and execute it with the given arguments</li>
+  <li><code class="highlighter-rouge">sbrk(n)</code>, increase process memory by n bytes</li>
+  <li><code class="highlighter-rouge">open(filename, flags)</code>, open a file with read or write flags</li>
+  <li><code class="highlighter-rouge">read(fd, buf, n)</code>, read n bytes from an open file into a buffer <code class="highlighter-rouge">buf</code></li>
+  <li><code class="highlighter-rouge">write(fd, buf, n)</code>, write n bytes from a buffer <code class="highlighter-rouge">buf</code> into an open file</li>
+  <li><code class="highlighter-rouge">close(fd)</code>, release open file fd</li>
+  <li><code class="highlighter-rouge">dup(fd)</code>, duplicate fd</li>
+  <li><code class="highlighter-rouge">pipe(p)</code>, create a pipe and return fd’s in p</li>
+  <li><code class="highlighter-rouge">chdir(dirname)</code>, change the current directory</li>
+  <li><code class="highlighter-rouge">mkdir(dirname)</code>, create a new directory</li>
+  <li><code class="highlighter-rouge">mknod(name, major, minor)</code>, create a device file</li>
+  <li><code class="highlighter-rouge">fstat(fd)</code>, return info about an open file</li>
+  <li><code class="highlighter-rouge">link(f1, f2)</code>, create another name (f2) for the file f1</li>
+  <li><code class="highlighter-rouge">unlink(filename)</code>, remove a file</li>
+</ol>
+
+<p>The shell uses each of the system calls to do its work. It’s just a run-of-the-mill program like anything else.</p>
+
+<p>The xv6 textbook provides the following mini-example of a program using fork to do its work. I want to give it a shot running on my own machine. Here’s how the proram is written in the textbook:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int pid;
+
+pid = fork();
+
+if(pid &gt; 0){
+
+printf("parent: child=%d\n", pid);
+
+pid = wait();
+
+printf("child %d is done\n", pid);
+
+} else if(pid == 0){
+
+printf("child: exiting\n");
+
+exit();
+
+} else {
+
+printf("fork error\n");
+
+}
+</code></pre></div></div>
+
+<p>And here’s how I had to tweak it to get it running on my Mac:</p>
+
+ 	#include <stdio.h>
+</stdio.h><div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;unistd.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char **argv) {
+	int pid;
+
+	pid = fork();
+	if(pid &gt; 0) {
+        printf("parent: child=%d\n", pid);
+        pid = wait(0);
+        printf("child %d is done\n", pid);
+	} else if(pid == 0) {
+        printf("child: exiting\n");
+        exit(0);
+	} else {
+	    printf("fork error\n");
+	}
+
+	return 0;
+}
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">stdio.h</code> library makes sense, because that’s what contains the <code class="highlighter-rouge">printf()</code> functions to dump things out to the console. I received an error when I tried to use <code class="highlighter-rouge">fork()</code> without <code class="highlighter-rouge">unistd.h</code>, so I’m assuming <code class="highlighter-rouge">fork()</code> sits there, and I received more errors when I tried to use <code class="highlighter-rouge">wait()</code> and <code class="highlighter-rouge">exit()</code> without <code class="highlighter-rouge">stdlib.h</code>. <code class="highlighter-rouge">fork()</code> contains the same memory contents of the parent process - in the parent process, <code class="highlighter-rouge">fork()</code> will return the child’s PID, but in the child, it will return 0 - so we see the <code class="highlighter-rouge">if</code> statements trigger for the child and for the parent.</p>
+
+<p><code class="highlighter-rouge">exec()</code>, by contrast, doesn’t return to the parent process. It replaces the calling process with a new process stored somewhere in the file system. Let’s take a look at the textbook’s pseudocode:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char *argv[3];
+
+argv[0] = "echo";
+argv[1] = "hello";
+argv[2] = 0;
+exec("/bin/echo", argv);
+printf("exec error\n");
+</code></pre></div></div>
+
+<p>Try as I might, I couldn’t get this program into a usable shape where it would run. After two nights banging my head against it, I decided to scrap it - mostly because I get the gist of what it’s going for. Here was where I finished up:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+int main() {
+    char args[3];
+    args[0] = "echo";
+    args[1] = "hello";
+    args[2] = "0";
+    exec("/bin/echo", args);
+    printf("exec error\n");
+}
+</code></pre></div></div>
+
+<p>I think that the probably may ultimately have something to do with the differing implementations of a Mac OS (where I’m testing this) versus a true Linux platform. At any rate, this helps me understand what my shell is doing! It’s doing a combo of these two programs to execute any program I type into the shell. It first takes my command from the command line, then <code class="highlighter-rouge">fork</code>s the command line process, calls my command using <code class="highlighter-rouge">exec</code>, waits for the command to finish, then returns control using <code class="highlighter-rouge">wait()</code>. And that’s why certain processes don’t immediately jump back over to shell control (things like <code class="highlighter-rouge">vi</code> for example), because the <code class="highlighter-rouge">fork</code>ed process hasn’t given control back until I close <code class="highlighter-rouge">vi</code>.</p>
+
+<p>Ooh, and this also helps <code class="highlighter-rouge">systemd</code> make more sense. I suspect that <code class="highlighter-rouge">systemd</code> takes control of PID 1 and then immediately loops through anything in the <code class="highlighter-rouge">/etc/systemd/system/</code> folder to start launching services based on the configuration files there, <code class="highlighter-rouge">fork</code>ing processes as it goes.</p>
+
+<p>Next up on our list of functionality is I/O, where we start with file descriptors. According to the text, a file descriptor is an integer tied to some kernel-managed file object. User-level programs deal with the file object through the <code class="highlighter-rouge">read()</code> and <code class="highlighter-rouge">write()</code> system calls. The <code class="highlighter-rouge">read(fd, buf, n)</code> call takes in a file descriptor integer and reads <code class="highlighter-rouge">n</code> bytes into buffer <code class="highlighter-rouge">buf</code>. Subsequent calls to <code class="highlighter-rouge">read()</code> will start where <code class="highlighter-rouge">n</code> stopped. If we called <code class="highlighter-rouge">read(12, buf, 512)</code>, we would read 512 bytes from <code class="highlighter-rouge">fd</code> 12 into buffer <code class="highlighter-rouge">buf</code> on the first read. If we called it again, we would start at byte #512 then read another 512 bytes (ending at 1024). <code class="highlighter-rouge">write(fd, buf, n)</code> follows a similar pattern, writing <code class="highlighter-rouge">n</code> bytes from buffer <code class="highlighter-rouge">buf</code> to file descriptor <code class="highlighter-rouge">fd</code>.</p>
+
+<p>Here is the pseudocode given for a simple <code class="highlighter-rouge">cat</code>-like program:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char buf[512];
+int n;
+
+for(;;) {
+	// with file descriptor 0, read 512 bytes from file
+	n = read(0, buf, sizeof buf);
+
+	if(n == 0) {
+		// if we've reached the end
+		break;
+	}
+
+	if(n &lt; 0) {
+		// if n less than 0, error
+		fprintf(2, "read error");
+		exit();
+	}
+
+	if(write(1, buf, n) != n) {
+		// write to output object 1, log if error
+		fprintf(2, "write error");
+		exit();
+	}
+}
+</code></pre></div></div>
+
+<p>So I read from <code class="highlighter-rouge">fd</code> 0 to a buffer, then write from that buffer to an output object. That could be a terminal output:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat myfile.txt
+</code></pre></div></div>
+
+<p>or piped to a command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat myfile.txt | awk --something something--
+</code></pre></div></div>
+
+<p>or written to another file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat myfile.txt &gt; myfile2.txt
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">cat</code> doesn’t have to care, it’s reading and writing to any descriptor that’s given to it.</p>
+
+<p>Rounding out the file descriptor system calls is <code class="highlighter-rouge">dup()</code>. <code class="highlighter-rouge">dup()</code> takes in a file descriptor integer and returns another file descriptor that points to the same file.</p>
+
+<p>The file descriptor mechanism is way more powerful than I originally gave it credit for. It’s a simple little trick, but it’s brilliant - because things can write to a “file”, even if it’s not a file at all. The user processes can treat them all the same way.</p>
+
+<p>Okay, I’m going to put a stop to things there before moving on to pipes!</p>
+
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>20 Oct 2015</time>
+			<a href="/tags/">code</a>
+		</div>
+		<h3>Where did my application go? and other tails from the log files</h3>
+
+	</div>
+	<div class="col-md-8 col-sm-12">
+		<p>I woke up this morning to yet another fun little situation from my application. As opposed to the prior set of errors, where response times were creeping up into the uncomfortably high range, this is exactly the opposite: the application stops responding to anything. Here’s what that graph looks like in New Relic:</p>
+
+<p><img src="/images/errors2.png" alt="" /></p>
+
+<p>At 7:11AM, my application simply dies, according to New Relic. Into the breach!</p>
+
+<p>I think that I likely only need about a hundred thousand lines of my logs to get back to the timeframe in question, so let’s cull those out and locate anything happening in the 7:10-7:19 timeframe:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tail -100000 django-www.log &gt; outage.log
+$ grep -m 1 -n "07:1" django-www.log
+
+2825:{address space usage: 3589083136 bytes/3422MB} {rss usage: 318144512 bytes/303MB} [pid: 8510|app: 0|req: 4874/239423] [IP ADDRESS] () {50 vars in 1552 bytes} [Mon Oct 19 13:07:10 2015] GET /petro/s/90050/hillary-clinton-won-wont-always-be-this-way =&gt; generated 42453 bytes in 302 msecs (HTTP/1.1 200) 3 headers in 250 bytes (2 switches on core 17)
+</code></pre></div></div>
+
+<p>Whoops, too far. Let me slice this up a little bit more and back it up a few minutes.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tail -30000 outage.log | grep -m 1 -n "Oct 20 07:10"
+
+13411:{address space usage: 3518570496 bytes/3355MB} {rss usage: 126271488 bytes/120MB} [pid: 11089|app: 0|req: 4972/319841] [IP ADDRESS] () {44 vars in 751 bytes} [Tue Oct 20 07:05:01 2015] GET /2012/04/the-land-of-hope-and-dreams.php =&gt; generated 58612 bytes in 41 msecs (HTTP/1.1 404) 2 headers in 95 bytes (2 switches on core 230)
+</code></pre></div></div>
+
+<p>Okay, so I’m going to slice out the last 16,589 lines, which will start me close to the beginning of the outage:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tail -16589 django-www.log &gt; outage.log
+$ sed -n 1,3500p outage.log &gt; temp.log &amp;&amp; mv temp.log outage.log
+</code></pre></div></div>
+
+<p>Let’s get started. I’m going to look for the point where my app started throwing 500 errors.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -m 20 -n "HTTP/1.1 500" outage.log
+</code></pre></div></div>
+
+<p>That prints out the first 20 lines of my application throwing 500 errors, and a lot of them are on things that I know shouldn’t 500. I’m going to dig into my Sentry error logging to see what the problem is, and…crap.</p>
+
+<p>At some point, I or one of my teammates accidentally removed the Sentry and Raven configuration from our Django app, so we haven’t actually captured any of these errors. Awesome. This might be a dead end for now. I’m going to add the configuration lines back into the app:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INSTALLED_APPS = (
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'raven.contrib.django.raven_compat'
+    ... other apps ...
+)
+
+import raven
+RAVEN_CONFIG = {
+    'dsn': 'RAVEN KEY HERE',
+}
+</code></pre></div></div>
+
+<p>That’s a frustrating dead end, but it’s something we should have caught. I’m adding a simple test case into our test suite to make sure it doesn’t happen again.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.test import TestCase
+from django.core.management import call_command
+
+class TestRavenUp(TestCase):
+
+	def test_raven_up(self):
+		stdout_backup = sys.stdout
+		sys.stdout = open('/tmp/raven_up', 'w')
+		call_command('raven', 'test')
+
+		f = open('/tmp/raven_up', 'r')
+		config = f.read()
+		f.close()
+
+		sys.stdout = stdout_backup
+		self.assertTrue('[MUH SERVER NAME]' in config)
+		self.assertTrue('[MUH APPLICATION KEY]' in config)
+
+		print('Inspect [MUH SENTRY SERVER] to note that event has been logged.')
+
+		os.remove('/tmp/raven_up')
+</code></pre></div></div>
+
+<p>That will spit out a test event to Sentry if we have everything configured appropriately. Hopefully I’ll have an update with error logs the next time it happens (but I hope it doesn’t happen again).</p>
+
+	</div>
+
 </div>
 
 
 <div class="row">
-	<div class="col-offset-3 col-8">
+	<div class="col-md-12">
 		<div class="pagination">
 			
 			<a href="/page3" class="previous">Previous</a>
 			
 
-			<span class="page_number">Page: 4 of 9</span>
+			<span class="page_number">Page: 4 of 11</span>
 
 			
 			<a href="/page5" class="next">Next</a>
@@ -570,37 +825,11 @@ Time five
 		</div>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

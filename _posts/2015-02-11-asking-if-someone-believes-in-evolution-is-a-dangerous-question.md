@@ -1,8 +1,7 @@
 ---
 layout: post 
 title: Asking if someone "believes" in evolution is a dangerous question
-tags: 
-- culture
+tags: culture
 ---
 
 Recently, likely presidential candidate Scott Walker was asked if he [believed in evolution and accepted it.](http://www.nationaljournal.com/twenty-sixteen/scott-walker-just-got-asked-if-he-believes-in-evolution-he-punted-20150211)" He punted on the question, drawing scorn from people who follow the things American politicians say at London think tanks.

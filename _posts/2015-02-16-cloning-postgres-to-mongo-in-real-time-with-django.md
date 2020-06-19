@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Cloning Postgres to Mongo in real time with Django
+tags: code
 ---
 
 Django comes baked with one major setback: it can't properly support non-relational databases. A few attempts to rectify this problem have been made, but none of them can handle Django's administration menu at the same time. So if your application simultaneously requires the speed of a non-relational database and the ease of the administration menu, you're going to need to figure out a way to run two databases - one relational, one not - and keep the two in sync. We're going to do that very thing with Postgres and MongoDB here.

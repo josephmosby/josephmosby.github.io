@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Setting up a simple testing tool with Selenium and PhantomJS
+tags: code
 ---
 
 Okay, this will be a short one, but I've just set up a minimalistic testing tool using Python, Selenium and PhantomJS and wanted to put it out there. Let's get cracking.

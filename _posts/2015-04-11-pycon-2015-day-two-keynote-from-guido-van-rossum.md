@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PyCon 2015&#58; Day Two Keynote from Guido van Rossum
+tags: culture
 ---
 
 	You have to actually understand your code! And so we've given you five more years. 

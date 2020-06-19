@@ -1,6 +1,7 @@
 ---
 layout: post 
 title: A January Recap and Some Personal Experiments
+tags: joe
 ---
 
 Over the month of January, I've achieved some major goals that I would have been happy with in three months. Instead, I've been able to get them done in one. I'm really excited about them, but before I share how I got there, I wanted to share what I knocked off the list:

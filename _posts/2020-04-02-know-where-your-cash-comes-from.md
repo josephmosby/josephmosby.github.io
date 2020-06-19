@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Know where your cash comes from
+tags: management
 ---
 
 Most of us are paid in cash. Some of us are paid in cash plus some sort of additional compensation (such as health insurance, or a gym membership, or a parking pass), but the cash is really what we care about. Cash pays for our rent and our groceries and our iPhones. 

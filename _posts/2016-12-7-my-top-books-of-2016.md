@@ -1,6 +1,7 @@
 ---
 layout: post
 title: My top books of 2016
+tags: joe
 ---
 
 I was blessed to grow up in an environment with parents who encouraged me to read. My parents made me save up my money for toys from a young age - I distinctly remember being told to save up my money from the "tooth fairy" so that I could have enough to purchase a $2.50 Lego toy. I never wanted for books, though. We'd go to the library to look for new things to read, and I always got new books for Christmas. Now, at age 28, my parents buy me Legos for Christmas and I buy my own books. Times have changed.

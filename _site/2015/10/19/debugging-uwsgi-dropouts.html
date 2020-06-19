@@ -4,97 +4,80 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>19 Oct 2015</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>Debugging uWSGI dropouts</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/10/19/debugging-uwsgi-dropouts.html"><h3>Debugging uWSGI dropouts</h3></a>
 	</div>
-	<div class="col-8">
-		<p>On Friday night, our National Journal app suddenly stopped responding to requests. Our response time went straight through the roof, but this didn’t correspond to any noticeable increase in load. In fact, our throughput (the requests per minute we respond to) had been declining up until the breakdown. We didn’t have any noticeable spike in traffic that corresponded to this outage, so I suspect our <code>uwsgi</code> configuration may be to blame. Here’s what the graph looked like:</p>
+	<div class="col-md-8 col-sm-12">
+		<p>On Friday night, our National Journal app suddenly stopped responding to requests. Our response time went straight through the roof, but this didn’t correspond to any noticeable increase in load. In fact, our throughput (the requests per minute we respond to) had been declining up until the breakdown. We didn’t have any noticeable spike in traffic that corresponded to this outage, so I suspect our <code class="highlighter-rouge">uwsgi</code> configuration may be to blame. Here’s what the graph looked like:</p>
 
 <p><img src="/images/errors.png" alt="" /></p>
 
-<p>I’m going to tear through the <code>uwsgi</code> logs today to see if I can nail down the culprit. If my <code>uwsgi</code> threads are dying and not coming back, I’d expect to see a message like this:</p>
+<p>I’m going to tear through the <code class="highlighter-rouge">uwsgi</code> logs today to see if I can nail down the culprit. If my <code class="highlighter-rouge">uwsgi</code> threads are dying and not coming back, I’d expect to see a message like this:</p>
 
-<pre><code>worker 1 killed successfully (pid: 17421)
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>worker 1 killed successfully (pid: 17421)
+</code></pre></div></div>
 
 <p>that wasn’t accompanied with a message like this:</p>
 
-<pre><code>Respawned uWSGI worker 1 (new pid: 9438)
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Respawned uWSGI worker 1 (new pid: 9438)
+</code></pre></div></div>
 
-<p>I’ve pulled the log files down from one of our application servers and will be going through it. I want to start by culling things down to only things that occurred in that 5:00-5:45 timeframe, so let’s whittle it down with some <code>grep</code>. I’ll use the <code>-m 1</code> flag to call only the first occurrence and the <code>-n</code> flag to show the line number.</p>
+<p>I’ve pulled the log files down from one of our application servers and will be going through it. I want to start by culling things down to only things that occurred in that 5:00-5:45 timeframe, so let’s whittle it down with some <code class="highlighter-rouge">grep</code>. I’ll use the <code class="highlighter-rouge">-m 1</code> flag to call only the first occurrence and the <code class="highlighter-rouge">-n</code> flag to show the line number.</p>
 
-<pre><code>$ grep -m 1 -n "Oct 16 17:00:00" django-www.log
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -m 1 -n "Oct 16 17:00:00" django-www.log
 
 763413:{address space usage: 3525341184 bytes/3362MB} {rss usage: 135106560 bytes/128MB} [pid: 2449|app: 0|req: 1197/17093] [IP ADDRESS] () {42 vars in 736 bytes} [Fri Oct 16 17:00:00 2015] GET /s/54699/1-easy-way-donald-trump-could-have-been-even-richer-doing-nothing =&gt; generated 304819 bytes in 178 msecs (HTTP/1.1 200) 5 headers in 263 bytes (6 switches on core 96)
 
 $ grep -m 1 -n "Oct 16 17:45:00" django-www.log
  
 768139:{address space usage: 3510857728 bytes/3348MB} {rss usage: 103940096 bytes/99MB} [pid: 11399|app: 0|req: 174/680] [IP ADDRESS] () {48 vars in 919 bytes} [Fri Oct 16 17:45:00 2015] GET /energy/scientists-go-beyond-science-to-explain-their-climate-terror-20140826?ref=facebook.com =&gt; generated 0 bytes in 31 msecs (HTTP/1.1 302) 3 headers in 226 bytes (1 switches on core 143)
-</code></pre>
+</code></pre></div></div>
 
-<p>Now I’m going to use <code>sed</code> to create a new file of only that range of lines from 763413 to 768139, to make parsing faster and easier. I’ll drop this output into a new file called <code>outage.log</code>.</p>
+<p>Now I’m going to use <code class="highlighter-rouge">sed</code> to create a new file of only that range of lines from 763413 to 768139, to make parsing faster and easier. I’ll drop this output into a new file called <code class="highlighter-rouge">outage.log</code>.</p>
 
-<pre><code>$ sed -n 763413,768139p django-www.log &gt; outage.log
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sed -n 763413,768139p django-www.log &gt; outage.log
+</code></pre></div></div>
 
 <p>Okay, now that I’ve whittled things down, I want to look for things indicating my workers died:</p>
 
-<pre><code>$ grep -n "killed successfully" outage.log
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -n "killed successfully" outage.log
 $ grep -n "Seeya" outage.log
-</code></pre>
+</code></pre></div></div>
 
 <p>Both of those didn’t yield anything. Let’s maybe instead look for signs of spawning:</p>
 
-<pre><code>$ grep -n "spawn" outage.log
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -n "spawn" outage.log
 
 999:DAMN ! worker 1 (pid: 2449) died, killed by signal 9 :( trying respawn ...
 1000:Respawned uWSGI worker 1 (new pid: 8359)
@@ -113,23 +96,23 @@ $ grep -n "Seeya" outage.log
 4027:spawned uWSGI worker 2 (pid: 11398, cores: 256)
 4029:spawned uWSGI worker 3 (pid: 11399, cores: 256)
 4030:spawned uWSGI worker 4 (pid: 11400, cores: 256)
-</code></pre>
+</code></pre></div></div>
 
 <p>NOW we’re cooking. I’m going to chop things up a little bit more, since I can tell from this that we rebooted the app at line 4025.</p>
 
-<pre><code>$ sed -n 1,4030p outage.log &gt; outage2.log &amp;&amp; mv outage2.log outage.log
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sed -n 1,4030p outage.log &gt; outage2.log &amp;&amp; mv outage2.log outage.log
+</code></pre></div></div>
 
 <p>And now let’s look for something weird. I’m going to just dump out some of the things I’ve looked for.</p>
 
-<pre><code>$ grep -n "17:23" outage.log
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -n "17:23" outage.log
 $ grep -n "HARAKIRI" outage.log
 $ grep -n "spawn" outage.log
-</code></pre>
+</code></pre></div></div>
 
 <p>Then I came back to this and scrolled back up through the files:</p>
 
-<pre><code>$ grep -n "17:23" outage.log
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -n "17:23" outage.log
 
 1393:Fri Oct 16 17:23:00 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
 1395:Fri Oct 16 17:23:00 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
@@ -143,70 +126,43 @@ $ grep -n "spawn" outage.log
 1424:Fri Oct 16 17:23:21 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
 1432:Fri Oct 16 17:23:32 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
 1436:Fri Oct 16 17:23:38 2015 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 331] during GET 
-</code></pre>
+</code></pre></div></div>
 
 <p>That maps <em>exactly</em> back to the time that our application started spiking. I think I may have a breadcrumb.</p>
 
 <p>… goes to Google …</p>
 
-<p>Maybe not. <code>uwsgi</code> throws out those broken pipe errors in the instance of a timeout, and it would make sense that things would be timing out around that time.</p>
+<p>Maybe not. <code class="highlighter-rouge">uwsgi</code> throws out those broken pipe errors in the instance of a timeout, and it would make sense that things would be timing out around that time.</p>
 
 <p>But what a second. I’m going to scroll up the log files until a few minutes <em>before</em> the crash starts acting up to see if I can pinpoint what went wrong. Here’s a sample line from that timeframe:</p>
 
-<pre><code>{address space usage: 3521130496 bytes/3358MB} {rss usage: 167030784 bytes/159MB} [pid: 2712|app: 0|req: 1548/18272] [IP ADDRESS] () {40 vars in 668 bytes} [Fri Oct 16 17:17:50 2015] GET /columns/political-connections =&gt; generated 58615 bytes in 18558 msecs (HTTP/1.1 404) 2 headers in 95 bytes (2 switches on core 16)
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{address space usage: 3521130496 bytes/3358MB} {rss usage: 167030784 bytes/159MB} [pid: 2712|app: 0|req: 1548/18272] [IP ADDRESS] () {40 vars in 668 bytes} [Fri Oct 16 17:17:50 2015] GET /columns/political-connections =&gt; generated 58615 bytes in 18558 msecs (HTTP/1.1 404) 2 headers in 95 bytes (2 switches on core 16)
+</code></pre></div></div>
 
-<p>That took us 18.5 seconds to generate a 404 page for a broken link. That’s absurd. Right around the time that I read this line, one of our system administrators (who I’ve been live-updating as I worked) comes running around the corner to say: </p>
+<p>That took us 18.5 seconds to generate a 404 page for a broken link. That’s absurd. Right around the time that I read this line, one of our system administrators (who I’ve been live-updating as I worked) comes running around the corner to say:</p>
 
-<pre><code>&gt; we didn't have uwsgi timeouts set on nginx!
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; we didn't have uwsgi timeouts set on nginx!
+</code></pre></div></div>
 
-<p>Ahh. So <code>nginx</code> was timing out on sending and receiving data to and from <code>uwsgi</code>, but weren’t <em>actually</em> timing out. We were just letting <code>uwsgi</code> spin into infinity. We fix that with these lines in our <code>nginx.conf</code>:</p>
+<p>Ahh. So <code class="highlighter-rouge">nginx</code> was timing out on sending and receiving data to and from <code class="highlighter-rouge">uwsgi</code>, but weren’t <em>actually</em> timing out. We were just letting <code class="highlighter-rouge">uwsgi</code> spin into infinity. We fix that with these lines in our <code class="highlighter-rouge">nginx.conf</code>:</p>
 
-<pre><code>location / {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>location / {
 	... stuff ...
 	uwsgi_read_timeout 300;
     uwsgi_send_timeout 300;
     ... stuff ...
 }
-</code></pre>
+</code></pre></div></div>
 
 <p>We think that might be our ticket, allowing these dropped connections to actually timeout. We’ll need a few days in production before I give the all-clear, but I think that might do it!</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/10/19/debugging-uwsgi-dropouts.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

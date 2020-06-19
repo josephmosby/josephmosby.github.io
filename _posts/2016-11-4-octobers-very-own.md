@@ -1,6 +1,7 @@
 ---
 layout: post
 title: October&apos;s Very Own
+tags: joe
 ---
 
 I had a post for this month that I was really struggling to write. I was pushing through it and pushing through it and thought I almost might have had a good idea... and then my computer restarted for a security update and all of the changes were lost. So this blog post is coming from scratch.

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: What does systemctl do?
+tags: code
 ---
 
 In my [earlier post](http://josephmosby.com/2015/10/16/up-and-running-with-flask-on-a-brand-new-linode.html) on nginx and uWSGI, I used `systemctl` to kick off my app. I admittedly don't know much about systemctl (or about CentOS, if we're being totally honest), so I wanted to dig more into that.

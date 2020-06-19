@@ -1,6 +1,6 @@
 ---
-layout: subpage
-title: TALKS
+layout: post
+title: presentations
 ---
 
 * Department of Energy Cyber Conference - 05.15.19 - Cybersecurity challenges in an IT/OT world (unrecorded)

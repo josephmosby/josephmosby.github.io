@@ -4,130 +4,86 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>21 Jan 2015</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>String presentation with textwrap</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/01/21/string-presentation-with-textwrap.html"><h3>String presentation with textwrap</h3></a>
 	</div>
-	<div class="col-8">
-		<p>I haven’t written that many programs that run solely from the command line with a lot of user instructions incorporated into the program flow, so I haven’t done much Python display text processing. But if I had, <code>textwrap</code> would very likely be one of my best friends.</p>
+	<div class="col-md-8 col-sm-12">
+		<p>I haven’t written that many programs that run solely from the command line with a lot of user instructions incorporated into the program flow, so I haven’t done much Python display text processing. But if I had, <code class="highlighter-rouge">textwrap</code> would very likely be one of my best friends.</p>
 
-<p>The <code>textwrap</code> module is designed to wrap text, produce some formatted paragraphs, or totally strip out indentation from strings. It’s there for your convenience. Let’s take a look at what it can do:</p>
+<p>The <code class="highlighter-rouge">textwrap</code> module is designed to wrap text, produce some formatted paragraphs, or totally strip out indentation from strings. It’s there for your convenience. Let’s take a look at what it can do:</p>
 
-<pre><code>import textwrap
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import textwrap
 
 my_string = "The textwrap module is designed to wrap text, produce some formatted paragraphs, or totally strip out indentation from strings. It's there for your convenience. Let's take a look at what it can do:"
 
 print my_string
 
 print textwrap.wrap(my_string, 60)
-</code></pre>
+</code></pre></div></div>
 
 <p>Whoa whoa whoa there, that’s some weirdness. I’ve clearly got a cut-up string there, but it’s in list format. Let’s clean that up a bit:</p>
 
-<pre><code>print "\n".join(textwrap.wrap(my_string, 60))
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print "\n".join(textwrap.wrap(my_string, 60))
+</code></pre></div></div>
 
-<p>But wait a second, that seems like writing a bunch of characters that I didn’t want to write. Let’s use <code>fill()</code>!</p>
+<p>But wait a second, that seems like writing a bunch of characters that I didn’t want to write. Let’s use <code class="highlighter-rouge">fill()</code>!</p>
 
-<pre><code>print textwrap.fill(my_string)
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print textwrap.fill(my_string)
+</code></pre></div></div>
 
-<p>Okay, so <code>fill()</code> pretty much does the exact same thing as <code>wrap()</code>, but it automatically joins everything and adds some newlines in. </p>
+<p>Okay, so <code class="highlighter-rouge">fill()</code> pretty much does the exact same thing as <code class="highlighter-rouge">wrap()</code>, but it automatically joins everything and adds some newlines in.</p>
 
-<p>Now let’s fiddle around with <code>dedent()</code>:</p>
+<p>Now let’s fiddle around with <code class="highlighter-rouge">dedent()</code>:</p>
 
-<pre><code>my_string = "\t\t" + my_string
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my_string = "\t\t" + my_string
 
 print my_string
 
 print textwrap.dedent(my_string)
-</code></pre>
+</code></pre></div></div>
 
-<p>I’ve added in some tabs here just to showcase what <code>dedent()</code> is designed to do. You can add whitespace to the beginning of your strings - such as if you wanted to include paragraphs in the source code - but then strip it out for presentation in your app.</p>
+<p>I’ve added in some tabs here just to showcase what <code class="highlighter-rouge">dedent()</code> is designed to do. You can add whitespace to the beginning of your strings - such as if you wanted to include paragraphs in the source code - but then strip it out for presentation in your app.</p>
 
-<p>And that’s a <code>textwrap</code>!</p>
+<p>And that’s a <code class="highlighter-rouge">textwrap</code>!</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/21/string-presentation-with-textwrap.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

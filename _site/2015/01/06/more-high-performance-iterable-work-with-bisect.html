@@ -4,67 +4,48 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>06 Jan 2015</time>
+			<a href="/tags/code">code</a>
 		</div>
+		<h3>More high-performance iterable work with bisect</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/01/06/more-high-performance-iterable-work-with-bisect.html"><h3>More high-performance iterable work with bisect</h3></a>
 	</div>
-	<div class="col-8">
-		<p><em>I've been writing a series of blog posts to eventually cover every single module in the Python Standard Library. Check them all out <a href="/blog/pymods">here</a>.</em></p>
+	<div class="col-md-8 col-sm-12">
+		<p>In my <a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html">last post</a>, I explored the Python array data structure. In keeping with the vibe of iterable data structures, I’m moving on to cover the <code class="highlighter-rouge">bisect</code> module.</p>
 
-<p>In my <a href="/2015/01/05/and-here-i-was-thinking-arrays-were-for-javascript-and-lists-were-for-python.html">last post</a>, I explored the Python array data structure. In keeping with the vibe of iterable data structures, I’m moving on to cover the <code>bisect</code> module.</p>
-
-<p><code>bisect</code> uses a simple bisection algorithm to insert items into a list without botching the sort. The gist of the algorithm is simple: we’re going to create a midpoint using the low and high marks of the list, check if our value is greater than or less than the midpoint, then use the midpoint to slice the list into smaller and smaller lists until our item falls right at the midpoint.</p>
+<p><code class="highlighter-rouge">bisect</code> uses a simple bisection algorithm to insert items into a list without botching the sort. The gist of the algorithm is simple: we’re going to create a midpoint using the low and high marks of the list, check if our value is greater than or less than the midpoint, then use the midpoint to slice the list into smaller and smaller lists until our item falls right at the midpoint.</p>
 
 <p>You can see this in action here:</p>
 
-<pre><code>def bisect_pseudo(a_list, my_value):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def bisect_pseudo(a_list, my_value):
 	low = 0
 	high = len(a_list)
 
@@ -87,11 +68,11 @@ bisect_pseudo(my_list, 10)
 
 print "Value less than midpoint: "
 bisect_pseudo(my_list, 2)
-</code></pre>
+</code></pre></div></div>
 
-<p>In this example, we see the algorithm sifting through our list, searching for the point in the list where our test value would naturally slide in. This is a left bisection algorithm - where we start from the left side of the list and work up - and the reverse would be a right bisection algorithm. The <code>bisect</code> module includes both.</p>
+<p>In this example, we see the algorithm sifting through our list, searching for the point in the list where our test value would naturally slide in. This is a left bisection algorithm - where we start from the left side of the list and work up - and the reverse would be a right bisection algorithm. The <code class="highlighter-rouge">bisect</code> module includes both.</p>
 
-<pre><code>import bisect
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import bisect
 
 names = ['Joe', 'Beth', 'Steve']
 
@@ -104,53 +85,26 @@ print bisect.bisect_left(names, 'David')
 bisect.insort_left(names, 'David')
 
 print names
-</code></pre>
+</code></pre></div></div>
 
-<p>In this example, we’re using the <code>bisect_left()</code> function, an implementation of the same algorithm described above, to find the midpoint in our sorted list. The <code>insort_left()</code> function will perform this algorithm and then insert our value exactly where it needs to be. The code using the right bisection algorithm looks similar:</p>
+<p>In this example, we’re using the <code class="highlighter-rouge">bisect_left()</code> function, an implementation of the same algorithm described above, to find the midpoint in our sorted list. The <code class="highlighter-rouge">insort_left()</code> function will perform this algorithm and then insert our value exactly where it needs to be. The code using the right bisection algorithm looks similar:</p>
 
-<pre><code>print bisect.bisect_right(names, 'Shamyl')
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print bisect.bisect_right(names, 'Shamyl')
 
 bisect.insort_right(names, 'Shamyl')
 
 print names
-</code></pre>
+</code></pre></div></div>
 
-<p>The Python <code>bisect</code> module is fairly quick, but it will use a faster C implementation if one’s available. That’s all there is to it! </p>
+<p>The Python <code class="highlighter-rouge">bisect</code> module is fairly quick, but it will use a faster C implementation if one’s available. That’s all there is to it!</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/01/06/more-high-performance-iterable-work-with-bisect.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PyGotham '15 - Building an ALU
+tags: presentations
 ---
 
 Really had an awesome time at PyGotham 2015! The organization is phenomenal and really made a fellow East Coaster feel welcome. 

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Forks and file descriptors - an intro to Unix concepts
+tags: code
 ---
 
 I'm exploring MIT's course on Operating System Engineering in the hopes to get a better feel for how Linux works under the hood, and it's already answered a few questions about the things I was seeing in `ps` earlier. Though the OS course deals with a Unix variant (not Linux), the low-level architecture is similar enough that I think I can assume Linux operates the same way.

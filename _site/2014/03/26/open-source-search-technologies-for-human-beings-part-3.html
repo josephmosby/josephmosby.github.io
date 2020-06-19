@@ -4,67 +4,50 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>26 Mar 2014</time>
+			<a href="/tags/product">product</a>
 		</div>
+		<h3>Open Source Search Technologies for Human Beings - Part 3</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2014/03/26/open-source-search-technologies-for-human-beings-part-3.html"><h3>Open Source Search Technologies for Human Beings - Part 3</h3></a>
 	</div>
-	<div class="col-8">
+	<div class="col-md-8 col-sm-12">
 		<p>In the <a href="http://josephmosby.com/2014/03/24/open-source-search-technologies-for-human-beings-part-1.html">first part</a> of this series, we talked about the nuts and bolts of search engines: how they create a nicely organized index of keywords and documents and use that index to find documents containing keywords. <a href="http://josephmosby.com/2014/03/25/open-source-search-technologies-for-human-beings-part-2.html">Part 2</a> walked us through Lucene, an open source search engine written in Java that turns our Part 1 idea of a search engine into a computer program. With Part 3, we’re going to build upon Lucene with Solr and Elasticsearch, two programs that use Lucene to create a fully-featured web search engine.</p>
 
 <p>We saw that Lucene can do some basic indexing and searching, but it’s fairly limited. It can only handle plain text documents well, it doesn’t have any ability to connect to the web, and even the tiny little command-line application we used to “talk” to Lucene had to be built as a demonstration. Needless to say, Lucene just doesn’t have what we need to serve as a web search engine. That’s where Solr and Elasticsearch come in. They use Lucene as their core, but they tack on additional features in different ways to meet the needs of their customers. We’ll take a first look at Solr, the federal government’s legacy search engine, then follow it by showing the future with Elasticsearch.</p>
 
 <h3 id="solr">Solr</h3>
 
-<p><a href="https://lucene.apache.org/solr/">Solr</a> began as an enterprise search engine in 2004, and was designed for websites from the beginning. It was initially part of the closed source code owned by CNET, but was released as open source software when CNET donated the code to the Apache Software Foundation a a few years later. Solr has since become an integral part of the Lucene ecosystem to the point that the two programs are now maintained by the same development team. </p>
+<p><a href="https://lucene.apache.org/solr/">Solr</a> began as an enterprise search engine in 2004, and was designed for websites from the beginning. It was initially part of the closed source code owned by CNET, but was released as open source software when CNET donated the code to the Apache Software Foundation a a few years later. Solr has since become an integral part of the Lucene ecosystem to the point that the two programs are now maintained by the same development team.</p>
 
-<p>Solr runs as an application server. Any program making use of a Solr server must make some sort of request to the server (such as adding documents to be indexed or querying for documents with “football” in the text). Solr will then respond to that request with search results, which the program can then display to the user, load into a web page or incorporate into a larger application. </p>
+<p>Solr runs as an application server. Any program making use of a Solr server must make some sort of request to the server (such as adding documents to be indexed or querying for documents with “football” in the text). Solr will then respond to that request with search results, which the program can then display to the user, load into a web page or incorporate into a larger application.</p>
 
 <p><img src="/images/solr_doc_1.png" alt="Diagram of a program adding a file to the Solr index" /></p>
 
@@ -80,7 +63,7 @@
 
 <p><img src="/images/es_doc_1.png" alt="Diagram of a program adding a file to the Elasticsearch index, which consists of many servers" /></p>
 
-<p>To be fair, Solr is now technically a distributed system as well through the addition of <a href="http://zookeeper.apache.org/">Zookeeper</a>. Zookeeper is a program designed to keep multiple servers in synchronization as a single Solr instance. It’s an afterthought, though, and Solr still is not capable of handling many of the advanced distribution features that ES boasts by default. </p>
+<p>To be fair, Solr is now technically a distributed system as well through the addition of <a href="http://zookeeper.apache.org/">Zookeeper</a>. Zookeeper is a program designed to keep multiple servers in synchronization as a single Solr instance. It’s an afterthought, though, and Solr still is not capable of handling many of the advanced distribution features that ES boasts by default.</p>
 
 <p>Elasticsearch also allows programmers to interact with a single RESTful API when they want to update and query the search engine. This is incredibly attractive to the average web developer who often did not study Java programming in school but interacts with RESTful APIs on a daily basis. With a single tailored request sent to ES’ API, developers have search results ready to go without the need for a full-featured Java application.</p>
 
@@ -92,40 +75,13 @@
 
 <p>– special thanks to Kelvin Tan’s great side-by-side breakdown of the technical differences between Solr and Elasticsearch here: <a href="http://solr-vs-elasticsearch.com/">http://solr-vs-elasticsearch.com/</a></p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2014/03/26/open-source-search-technologies-for-human-beings-part-3.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Future-planning
+tags: management
 ---
 
 When I was in my last course of my undergraduate degree, my professor made the entire class write down a five-year plan in order to get a final grade. We had to discuss what our plans for the future were, and what steps we would take to get what we wanted. I wanted to work in investments then, and I distinctly remember my plan to be an investment advisor by age 27.

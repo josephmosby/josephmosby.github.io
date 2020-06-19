@@ -1,6 +1,7 @@
 ---
 title: Asking better questions
 layout: post
+tags: management
 ---
 
 Here is a tough reality for most "data science" positions: nine times out of ten, the question that matters most doesn't need a cutting edge technology solution. It needs a dashboard, a nifty spreadsheet, or a simple report. 

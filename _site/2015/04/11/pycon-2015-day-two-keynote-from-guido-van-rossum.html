@@ -4,108 +4,64 @@
 
 		<title>josephmosby.com</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/stylesheets/fibonacci.css" />
-		<link rel="stylesheet" href="/stylesheets/custom.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/main.css" />
 
 	</head>
-
+	
 	<body>
+		
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">JM</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="wrapper" id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<a href="/"><h3>JOSEPH MOSBY</h3></a>
-
-						<ul class="menu inline">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-							<li><a href="/feed/atom.xml">subscribe</a></li>
-						</ul>
-
-						<a id="hamburger" href="#">MENU</a>
-					</div>
-				</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a href="/archives">Archives</a></li>
+					<li class="nav-item"><a href="/about">About</a></li>
+					<li class="nav-item"><a href="/presentations">Presentations</a></li>
+					<li class="nav-item"><a href="/feed/atom.xml">RSS</a></li>
+				</ul>
 			</div>
+		</nav>
+		
+		<main class="container " role="main">
+			<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<div class="post-fm"><time>11 Apr 2015</time>
+			<a href="/tags/culture">culture</a>
 		</div>
+		<h3>PyCon 2015&#58; Day Two Keynote from Guido van Rossum</h3>
 
-		<div class="wrapper" id="dropdown">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<ul class="menu dropdown">
-							<li><a href="/about">about</a></li>
-							<li><a href="/projects">projects</a></li>
-							<li><a href="/presentations">presentations</a></li>
-							<li><a href="/now">now</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper" id="main">
-			<div class="container">
-				<div class="row">
-	<div class="col-3">
-		<a href="/2015/04/11/pycon-2015-day-two-keynote-from-guido-van-rossum.html"><h3>PyCon 2015&#58; Day Two Keynote from Guido van Rossum</h3></a>
 	</div>
-	<div class="col-8">
-		<pre><code>You have to actually understand your code! And so we've given you five more years. 
+	<div class="col-md-8 col-sm-12">
+		<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You have to actually understand your code! And so we've given you five more years. 
 -- Guido van Rossum, on the difficulty of porting Python 2 code to Python 3
-</code></pre>
+</code></pre></div></div>
 
 <p>Python is exceptionally easy to use and easy to learn. If you’re using OS X or any Linux distribution, you can immediately pick Python up with minimal effort. If you’re on Windows, the installer takes one click to get up and running. Few languages offer this flexibility! Java – the old gold standard for education – doesn’t work easily on Macs any more, nor does it offer a comfortable environment to start punching commands in to experiment. Python lets the beginner learn but can handle a wide range of complexity, allowing new users to branch into data science, web applications, or desktop software without needing to immediately learn a new syntax.</p>
 
-<p>But it’s Python’s <em>opinions</em> that make it a perfect language for the beginner. </p>
+<p>But it’s Python’s <em>opinions</em> that make it a perfect language for the beginner.</p>
 
-<p>The Python core team has always insisted that there is a proper way to write Python code. Sure, there may be another syntactically correct way to write code, but it won’t be the <em>right</em> way unless it follows certain guidelines. Those guidelines have been canonized in <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, a document that causes all manner of debate and consternation in Python developers. Still, the spirit of this approach matches with the realities of computer science. There may be a syntactically correct way to do something, but it’s often an approach that will cause an engineer or a team problems down the road. </p>
+<p>The Python core team has always insisted that there is a proper way to write Python code. Sure, there may be another syntactically correct way to write code, but it won’t be the <em>right</em> way unless it follows certain guidelines. Those guidelines have been canonized in <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, a document that causes all manner of debate and consternation in Python developers. Still, the spirit of this approach matches with the realities of computer science. There may be a syntactically correct way to do something, but it’s often an approach that will cause an engineer or a team problems down the road.</p>
 
 <p>Guido van Rossum discussed some of these problems with software engineering today while speaking on the move from Python 2 to Python 3. Though Python has had version 3 accessible for years now, many developers have never upgraded - in many cases, because their codebases rely on dependencies that haven’t been upgraded. And that’s a huge problem! Many developers are now hamstrung because their code simply copied and pasted someone else’s code, meaning we’re using and maintaining systems that we don’t understand. That’s bad for the craft of software engineering, and bad for the systems engineers build.</p>
 
-<p>While Python has strong opinions and a hefty unwillingness to budge on the proper way to do things, it also makes efforts to include developers in ways that many communities do not. Guido spoke on the next iteration of Python (as expected), but he also made clear points to encourage diversity in the community. He stood on stage in a <a href="www.pyladies.com">PyLadies</a> shirt and praised the women who joined him at a Python meetup in Iraq. He lamented that women weren’t joining the Python language development process, but then took the next step: offering personal mentorship to women who wanted to become core contributors to the Python language. And finally, noting that women often don’t speak up and ask questions at tech conferences, he insisted that his first questioner be a woman, with women and men alternating on questions for the rest of the Q&amp;A session. </p>
+<p>While Python has strong opinions and a hefty unwillingness to budge on the proper way to do things, it also makes efforts to include developers in ways that many communities do not. Guido spoke on the next iteration of Python (as expected), but he also made clear points to encourage diversity in the community. He stood on stage in a <a href="www.pyladies.com">PyLadies</a> shirt and praised the women who joined him at a Python meetup in Iraq. He lamented that women weren’t joining the Python language development process, but then took the next step: offering personal mentorship to women who wanted to become core contributors to the Python language. And finally, noting that women often don’t speak up and ask questions at tech conferences, he insisted that his first questioner be a woman, with women and men alternating on questions for the rest of the Q&amp;A session.</p>
 
-<p>There’s a right way to do computer science. It’s wrong to allow flippancy and bad habits in code, even for beginners, because <a href="http://newsoffice.mit.edu/2005/habit">bad habits are aggressively difficult to break</a> and computers don’t make allowances. But it’s equally wrong to demand a certain system and not be willing to teach newcomers the details of that system. That’s where the Python community has excelled and continues to look to improve.  </p>
+<p>There’s a right way to do computer science. It’s wrong to allow flippancy and bad habits in code, even for beginners, because <a href="http://newsoffice.mit.edu/2005/habit">bad habits are aggressively difficult to break</a> and computers don’t make allowances. But it’s equally wrong to demand a certain system and not be willing to teach newcomers the details of that system. That’s where the Python community has excelled and continues to look to improve.</p>
 
-		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://josephmosby.com/2015/04/11/pycon-2015-day-two-keynote-from-guido-van-rossum.html" data-via="josephmosby">Tweet</a>
 	</div>
 </div>
-			</div>
-		</div>
+		</main>
 
-		<div class="wrapper" id="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-13">
-						<p>Brought to you live from Washington, D.C.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="app.js"></script>
-
-		<script>
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	    ga('create', 'UA-45638065-1', 'josephmosby.com');
-	    ga('send', 'pageview');
-	  
-	  	</script>
-
-  		<script>
-		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	</body>
 
 </html>
